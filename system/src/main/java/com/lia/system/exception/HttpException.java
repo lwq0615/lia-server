@@ -1,4 +1,4 @@
-package com.lia.system.aop;
+package com.lia.system.exception;
 
 
 import org.springframework.http.HttpStatus;

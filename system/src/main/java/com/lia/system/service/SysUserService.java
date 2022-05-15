@@ -4,11 +4,14 @@ package com.lia.system.service;
 import com.lia.system.entity.SysPower;
 import com.lia.system.entity.SysRole;
 import com.lia.system.entity.SysUser;
+import com.lia.system.mapper.SysPowerMapper;
+import com.lia.system.mapper.SysRoleMapper;
 import com.lia.system.mapper.SysUserMapper;
+import com.lia.system.security.LoginUser;
 import com.lia.system.tool.Jwt;
-import com.lia.system.tool.Codec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,25 +27,44 @@ public class SysUserService {
     @Autowired
     private Jwt jwt;
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private SysUserMapper sysUserMapper;
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
+    @Autowired
+    private SysPowerMapper sysPowerMapper;
 
 
 
     /**
      * 获取用户的Authorization字符串
-     * @param user 用户信息
+     * @param checkUser 用户信息
      * @return 生成的Authorization字符串
      */
-    public String getAuthorization(SysUser user, SysRole role, List<SysPower> powers){
-        Map<String,Object> userInfo = new HashMap<>();
+    public String getAuthorization(SysUser checkUser){
+        checkUser.setStatus('0');
+        checkUser.setDelFlag('0');
+        List<SysUser> users = sysUserMapper.findSysUser(checkUser);
+        if(users.size() == 0){
+            return null;
+        }
+        SysUser user = users.get(0);
+        SysRole role = null;
+        List<SysPower> powers = null;
+        if(user.getRoleId() != null){
+            SysRole checkRole = new SysRole();
+            checkRole.setRoleId(user.getRoleId());
+            List<SysRole> roles = sysRoleMapper.findSysRole(checkRole);
+            if(roles.size() > 0){
+                role = roles.get(0);
+                powers = sysPowerMapper.findSysPowerByRoleId(role.getRoleId());
+            }
+        }
+        Map userInfo = new HashMap();
         userInfo.put("loginTime",System.currentTimeMillis()/1000);
-        userInfo.put("sysUser",user);
-        if(role != null){
-            userInfo.put("sysRole",role);
-        }
-        if(powers != null && powers.size() > 0){
-            userInfo.put("sysPower",powers);
-        }
+        userInfo.put("loginUser",new LoginUser(user,role,powers));
         return jwt.getToken(userInfo);
     }
 
@@ -54,7 +76,6 @@ public class SysUserService {
      */
     public List<SysUser> findSysUser(SysUser user){
         user.setDelFlag('0');
-        user.setPassword(Codec.toSHA256(user.getPassword()));
         return sysUserMapper.findSysUser(user);
     }
 
@@ -66,7 +87,7 @@ public class SysUserService {
      * @return
      */
     public String saveUser(SysUser user){
-        user.setPassword(Codec.toSHA256(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         int success;
         try{
             if(user.getUserId() == null){

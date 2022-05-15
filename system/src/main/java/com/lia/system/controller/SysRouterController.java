@@ -1,11 +1,11 @@
 package com.lia.system.controller;
 
 
-import com.lia.system.annotation.PreAuthorize;
-import com.lia.system.aop.HttpException;
+import com.lia.system.exception.HttpException;
 import com.lia.system.entity.SysRouter;
 import com.lia.system.service.SysRouterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +25,7 @@ public class SysRouterController {
      * @param roleId 角色ID
      */
     @GetMapping("/getRouterOfRole")
-    @PreAuthorize(PreAuthorize.Status.login)
+    @PreAuthorize("hasAuthority('system:router:getRouterOfRole')")
     public List<SysRouter> getRouterofRole(Integer roleId)  {
         if(roleId == null){
             throw new HttpException(400, "缺少参数roleId");

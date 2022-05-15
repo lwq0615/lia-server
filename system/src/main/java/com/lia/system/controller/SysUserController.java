@@ -3,20 +3,14 @@ package com.lia.system.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lia.system.annotation.PreAuthorize;
-import com.lia.system.aop.HttpException;
-import com.lia.system.entity.SysPower;
-import com.lia.system.entity.SysRole;
 import com.lia.system.entity.SysUser;
-import com.lia.system.service.SysPowerService;
-import com.lia.system.service.SysRoleService;
+import com.lia.system.exception.HttpException;
+import com.lia.system.security.LoginUser;
 import com.lia.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,19 +19,14 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
-    @Autowired
-    private SysRoleService sysRoleService;
-    @Autowired
-    private SysPowerService sysPowerService;
 
 
     /**
      * 获取当前登录用户的信息
      */
     @GetMapping("/getInfo")
-    @PreAuthorize(PreAuthorize.Status.login)
-    public SysUser getInfo(HttpServletRequest request){
-        return (SysUser) request.getAttribute("sysUser");
+    public SysUser getInfo(){
+        return LoginUser.getLoginUser();
     }
 
 
@@ -48,36 +37,13 @@ public class SysUserController {
      * @return token字符串
      */
     @PostMapping("/login")
-    @PreAuthorize
     public String sysUserLogin(@RequestBody SysUser user){
         //判断是否合法用户
         if(user.getUsername() == null || user.getUsername().equals("")
                 || user.getPassword() == null || user.getPassword().equals("")){
             return "less param";
         }
-        user.setStatus('0');
-        user.setDelFlag('0');
-        List<SysUser> users = sysUserService.findSysUser(user);
-        if(users.size() == 0){
-            return "login failed";
-        }else{
-            SysRole role = null;
-            List<SysPower> powers = null;
-            //查询用户角色
-            if(users.get(0).getRoleId() != null){
-                SysRole sysRole = new SysRole();
-                sysRole.setRoleId(users.get(0).getRoleId());
-                List<SysRole> sysRoles = sysRoleService.findSysRole(sysRole);
-                if(sysRoles.size() > 0){
-                    role = sysRoles.get(0);
-                    List<SysPower> sysPowers = sysPowerService.findSysPowerByRoleId(role.getRoleId());
-                    if(sysPowers.size() > 0){
-                        powers = sysPowers;
-                    }
-                }
-            }
-            return sysUserService.getAuthorization(users.get(0),role,powers);
-        }
+        return sysUserService.getAuthorization(user);
     }
 
 
@@ -89,6 +55,7 @@ public class SysUserController {
      * @return PageInfo分页信息
      */
     @PostMapping("/getPage")
+    @PreAuthorize("hasAuthority('system:user:getPage')")
     public PageInfo<SysUser> getSysUserPage(@RequestBody SysUser user, Integer current, Integer size){
         if(current != null && size != null){
             PageHelper.startPage(current,size);
@@ -103,7 +70,8 @@ public class SysUserController {
      * @return 操作成功的数量
      */
     @PostMapping("/saveUser")
-    public String saveUser(@RequestBody SysUser user, HttpServletRequest request){
+    @PreAuthorize("hasAuthority('system:user:saveUser')")
+    public String saveUser(@RequestBody SysUser user){
         if(user.getUsername() == null || user.getUsername().equals("")){
             throw new HttpException(400,"缺少参数username");
         }
@@ -116,7 +84,7 @@ public class SysUserController {
         if(user.getRoleId() == null){
             throw new HttpException(400,"缺少参数roleId");
         }
-        SysUser loginSysUser = (SysUser) request.getAttribute("sysUser");
+        SysUser loginSysUser = LoginUser.getLoginUser();
         user.setCreateBy(loginSysUser.getUserId());
         return sysUserService.saveUser(user);
     }
@@ -128,6 +96,7 @@ public class SysUserController {
      * @return 删除成功的数量
      */
     @PostMapping("/deleteUsers")
+    @PreAuthorize("hasAuthority('system:user:deleteUsers')")
     public int deleteUsers(@RequestBody List<Integer> userIds){
         return sysUserService.deleteUsers(userIds);
     }

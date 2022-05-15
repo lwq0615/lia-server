@@ -1,10 +1,10 @@
 package com.lia.system.controller;
 
 
-import com.lia.system.annotation.PreAuthorize;
-import com.lia.system.aop.HttpException;
+import com.lia.system.exception.HttpException;
 import com.lia.system.service.SysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +25,7 @@ public class SysDictController {
      * @param type type值作为查询条件
      */
     @GetMapping("/getSysDict")
+    @PreAuthorize("hasAuthority('system:dict:getSysDict')")
     public List<HashMap> getSysDict(String type){
         if(type == null || type.equals("")){
             throw new HttpException(400, "缺少参数type");
@@ -39,6 +40,7 @@ public class SysDictController {
      * @return HashMap
      */
     @GetMapping("/sysRoleDict")
+    @PreAuthorize("hasAuthority('system:dict:sysRoleDict')")
     public List<HashMap> sysRoleDict(){
         return sysDictService.getSysRoleDict();
     }
