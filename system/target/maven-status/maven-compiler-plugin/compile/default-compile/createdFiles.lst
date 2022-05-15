@@ -1,0 +1,17 @@
+com\lwq\system\mapper\SysPowerMapper.class
+com\lwq\NestApplication.class
+com\lwq\system\config\SystemConfig.class
+com\lwq\system\controller\SysUserController.class
+com\lwq\system\service\SysRoleService.class
+com\lwq\system\service\SysUserService.class
+com\lwq\system\aop\GlobalException.class
+com\lwq\system\annotation\PreAuthorize.class
+com\lwq\system\entity\SysPower.class
+com\lwq\system\mapper\SysRoleMapper.class
+com\lwq\system\entity\SysRole.class
+com\lwq\system\tool\Jwt.class
+com\lwq\system\service\SysPowerService.class
+com\lwq\system\entity\SysUser.class
+com\lwq\system\aop\TokenParseFilter.class
+com\lwq\system\aop\PowerAspect.class
+com\lwq\system\mapper\SysUserMapper.class

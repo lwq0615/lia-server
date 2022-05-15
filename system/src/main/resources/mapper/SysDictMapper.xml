@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lia.system.mapper.SysDictMapper">
+
+    <select id="getSysRoleDict" resultType="HashMap">
+        SELECT role_id as value, name as label from sys_role
+    </select>
+
+    <select id="getSysDict" parameterType="String" resultType="HashMap">
+        select value,label from sys_dict where type = #{type}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lia.system.mapper.SysUserMapper">
+
+    <resultMap type="SysUser" id="SysUserResult">
+        <id     property="userId"      column="user_id"      />
+        <id     property="roleId"      column="role_id"      />
+        <result property="headImg"      column="head_img"      />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <select id="findSysUser" parameterType="SysUser" resultMap="SysUserResult">
+        select * from sys_user
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="username != null">
+                AND username = #{username}
+            </if>
+            <if test="password != null">
+                AND password = #{password}
+            </if>
+            <if test="nick != null">
+                AND nick = #{nick}
+            </if>
+            <if test="roleId != null">
+                AND role_id = #{roleId}
+            </if>
+            <if test="sex != null">
+                AND sex = #{sex}
+            </if>
+            <if test="phone != null">
+                AND phone = #{phone}
+            </if>
+            <if test="email != null">
+                AND email = #{email}
+            </if>
+            <if test="headImg != null">
+                AND head_img = #{headImg}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="delFlag != null">
+                AND del_flag = #{delFlag}
+            </if>
+            <if test="createBy != null">
+                AND create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                AND create_time = #{createTime}
+            </if>
+            <if test="remark != null">
+                AND remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addSysUser" parameterType="SysUser">
+        insert  into sys_user
+        (username,password,nick,role_id,sex,phone,email,head_img,status,del_flag,create_by,create_time,remark)
+        values
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            #{username},
+            #{password},
+            #{nick},
+            #{roleId},
+            #{sex},
+            #{phone},
+            #{email},
+            #{headImg},
+            <choose>
+                <when test="status != null">
+                    #{status},
+                </when>
+                <otherwise>
+                    '0',
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="delFlag != null">
+                    #{delFlag},
+                </when>
+                <otherwise>
+                    '0',
+                </otherwise>
+            </choose>
+            #{createBy},
+            #{createTime},
+            #{remark},
+        </trim>
+    </insert>
+
+
+    <update id="editSysUser" parameterType="SysUser">
+        update sys_user set
+        username = #{username},
+        password = #{password},
+        nick = #{nick},
+        role_id = #{roleId},
+        sex = #{sex},
+        phone = #{phone},
+        email = #{email},
+        head_img = #{headImg},
+        status = #{status},
+        del_flag = #{delFlag},
+        create_by = #{createBy},
+        create_time = #{createTime},
+        remark = #{remark}
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deleteUsers" parameterType="List">
+        update sys_user set del_flag = 1 where user_id in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="userIds" index="index" item="item">
+                #{item},
+            </foreach>
+        </trim>
+    </delete>
+
+</mapper>
