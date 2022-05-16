@@ -5,7 +5,6 @@ import com.lia.system.entity.SysRole;
 import com.lia.system.entity.SysUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -11,6 +11,9 @@ import com.lia.system.security.LoginUser;
 import com.lia.system.tool.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -28,13 +32,10 @@ public class SysUserService {
     private Jwt jwt;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @Autowired
     private SysUserMapper sysUserMapper;
-    @Autowired
-    private SysRoleMapper sysRoleMapper;
-    @Autowired
-    private SysPowerMapper sysPowerMapper;
 
 
 
@@ -44,31 +45,18 @@ public class SysUserService {
      * @return 生成的Authorization字符串
      */
     public String getAuthorization(SysUser checkUser){
-        checkUser.setStatus('0');
-        checkUser.setDelFlag('0');
-        List<SysUser> users = sysUserMapper.findSysUser(checkUser);
-        if(users.size() == 0){
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                new UsernamePasswordAuthenticationToken(checkUser.getUsername(),checkUser.getPassword());
+        try{
+            Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+            LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+            Map userInfo = new HashMap();
+            userInfo.put("loginTime",System.currentTimeMillis()/1000);
+            userInfo.put("loginUser",loginUser);
+            return jwt.getToken(userInfo);
+        }catch (Exception e){
             return "login failed";
         }
-        SysUser user = users.get(0);
-        if(!passwordEncoder.matches(checkUser.getPassword(),user.getPassword())){
-            return "login failed";
-        }
-        SysRole role = null;
-        List<SysPower> powers = null;
-        if(user.getRoleId() != null){
-            SysRole checkRole = new SysRole();
-            checkRole.setRoleId(user.getRoleId());
-            List<SysRole> roles = sysRoleMapper.findSysRole(checkRole);
-            if(roles.size() > 0){
-                role = roles.get(0);
-                powers = sysPowerMapper.findSysPowerByRoleId(role.getRoleId());
-            }
-        }
-        Map userInfo = new HashMap();
-        userInfo.put("loginTime",System.currentTimeMillis()/1000);
-        userInfo.put("loginUser",new LoginUser(user,role,powers));
-        return jwt.getToken(userInfo);
     }
 
 

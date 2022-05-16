@@ -65,13 +65,13 @@ public class GlobalException {
     /**
      * 程序异常时记录异常日志
      */
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public void error(Exception e){
-        //从获取RequestAttributes中获取HttpServletRequest的信息
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        e.printStackTrace();
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public void error(Exception e){
+//        //从获取RequestAttributes中获取HttpServletRequest的信息
+//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        HttpServletRequest request = attributes.getRequest();
+//        e.printStackTrace();
+//    }
 
 }

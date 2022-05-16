@@ -36,13 +36,21 @@ public class SysDictController {
 
     /**
      * 获取角色字典表
-     * {roleId: name}
-     * @return HashMap
      */
     @GetMapping("/sysRoleDict")
     @PreAuthorize("hasAuthority('system:dict:sysRoleDict')")
     public List<HashMap> sysRoleDict(){
         return sysDictService.getSysRoleDict();
+    }
+
+
+    /**
+     * 获取用户字典表
+     */
+    @GetMapping("/sysUserDict")
+    @PreAuthorize("hasAuthority('system:dict:sysUserDict')")
+    public List<HashMap> sysUserDict(){
+        return sysDictService.getSysUserDict();
     }
 
 }

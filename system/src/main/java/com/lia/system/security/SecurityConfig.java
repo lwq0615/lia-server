@@ -14,6 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 
+
+/**
+ * security核心配置
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -30,10 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
     @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 
@@ -49,11 +54,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对preflight预检测请求放行
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                // 登录接口不需要认证
                 .antMatchers("/system/user/login").permitAll()
+                // 剩余的所有接口都需要认证
                 .anyRequest().authenticated();
+        // 配置token解析过滤器
         http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
+        // 配置认证失败和权限不足的异常处理器
         http.exceptionHandling()
-                .accessDeniedHandler(exceptionHandler)
-                .authenticationEntryPoint(exceptionHandler);
+                .authenticationEntryPoint(exceptionHandler)
+                .accessDeniedHandler(exceptionHandler);
     }
 }

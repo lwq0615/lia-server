@@ -25,7 +25,6 @@ public class SysRouterController {
      * @param roleId 角色ID
      */
     @GetMapping("/getRouterOfRole")
-    @PreAuthorize("hasAuthority('system:router:getRouterOfRole')")
     public List<SysRouter> getRouterofRole(Integer roleId)  {
         if(roleId == null){
             throw new HttpException(400, "缺少参数roleId");

@@ -1,12 +1,12 @@
 package com.lia.system.security;
 
 import com.alibaba.fastjson.JSONObject;
-import com.lia.system.entity.SysPower;
 import com.lia.system.tool.Jwt;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -16,12 +16,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 
-
+/**
+ * 解析header中携带的token信息
+ */
 @Component
 public class TokenFilter extends OncePerRequestFilter {
 
@@ -55,7 +55,8 @@ public class TokenFilter extends OncePerRequestFilter {
         }catch (ExpiredJwtException je){
             // 登录状态过期
             response.setStatus(402);
-        }finally {
+        }catch (Exception e) {
+        }finally{
             filterChain.doFilter(request,response);
         }
     }
