@@ -48,9 +48,12 @@ public class SysUserService {
         checkUser.setDelFlag('0');
         List<SysUser> users = sysUserMapper.findSysUser(checkUser);
         if(users.size() == 0){
-            return null;
+            return "login failed";
         }
         SysUser user = users.get(0);
+        if(!passwordEncoder.matches(checkUser.getPassword(),user.getPassword())){
+            return "login failed";
+        }
         SysRole role = null;
         List<SysPower> powers = null;
         if(user.getRoleId() != null){

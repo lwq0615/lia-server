@@ -2,49 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ede15ca-82c3-4d5f-972c-6a814ba2d9ec" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/Authority.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/ExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/LoginUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/TokenFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/UserDetailsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/NestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/NestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/annotation/PreAuthorize.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/aop/GlobalException.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/GlobalException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/aop/HttpException.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/HttpException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/aop/PowerAspect.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysDictController.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysDictController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysRouterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysRouterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysPower.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysPower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysRouter.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysRouter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/GlobalException.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/GlobalException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/ExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/ExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/LoginUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/LoginUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/TokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/TokenFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/service/SysUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/java/com/lia/system/service/SysUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/java/com/lia/system/tool/Codec.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/system/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/resources/mapper/SysPowerMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/resources/mapper/SysPowerMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/src/main/resources/mapper/SysUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/system/src/main/resources/mapper/SysUserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/NestApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/NestApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/annotation/PreAuthorize$Status.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/annotation/PreAuthorize.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/aop/GlobalException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/aop/HttpException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/aop/PowerAspect.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/controller/SysDictController.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/controller/SysDictController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/controller/SysRouterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/controller/SysRouterController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/controller/SysUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/controller/SysUserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/entity/SysPower.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/entity/SysPower.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/entity/SysRole.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/entity/SysRole.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/entity/SysRouter.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/entity/SysRouter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/entity/SysUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/entity/SysUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/config/SystemConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/config/SystemConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/exception/GlobalException.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/exception/GlobalException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/security/ExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/security/ExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/security/LoginUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/security/LoginUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/security/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/security/TokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/security/TokenFilter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/service/SysUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/com/lia/system/service/SysUserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/com/lia/system/tool/Codec.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/mapper/SysPowerMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/mapper/SysPowerMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/target/classes/mapper/SysUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/system/target/classes/mapper/SysUserMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -77,11 +50,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/UserDetailsService.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/ExceptionHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="49" column="15" lean-forward="true" selection-start-line="49" selection-start-column="15" selection-end-line="49" selection-end-column="46" />
+            <state relative-caret-position="293">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,11 +62,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/service/SysUserService.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/TokenFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+            <state relative-caret-position="390">
+              <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/GlobalException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="445">
+              <caret line="72" column="18" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -146,8 +131,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lwq/system/service/SysUserService.java" />
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lwq/system/controller/SysUserController.java" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lwq/system/aop/PowerAspect.java" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lwq/system/aop/GlobalException.java" />
         <option value="$PROJECT_DIR$/server/pom.xml" />
@@ -178,8 +161,6 @@
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysRole.java" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysRouter.java" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysUser.java" />
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/UserDetailsService.java" />
-        <option value="$PROJECT_DIR$/system/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/GrantedAuthorityImpl.java" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/NestApplication.java" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/AuthenticationEntryPointImpl.java" />
@@ -187,16 +168,20 @@
         <option value="$PROJECT_DIR$/system/src/main/resources/mapper/SysUserMapper.xml" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/entity/SysPower.java" />
         <option value="$PROJECT_DIR$/system/src/main/resources/mapper/SysPowerMapper.xml" />
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysDictController.java" />
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysRouterController.java" />
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/SecurityConfig.java" />
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/TokenFilter.java" />
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/ExceptionHandler.java" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/aop/GlobalException.java" />
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/GlobalException.java" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/UserDetailsService.java" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/LoginUser.java" />
-        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysUserController.java" />
         <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/service/SysUserService.java" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysRouterController.java" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysDictController.java" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/HttpException.java" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/config/SystemConfig.java" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/SecurityConfig.java" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysUserController.java" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/TokenFilter.java" />
+        <option value="$PROJECT_DIR$/system/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/GlobalException.java" />
+        <option value="$PROJECT_DIR$/system/src/main/java/com/lia/system/security/ExceptionHandler.java" />
       </list>
     </option>
   </component>
@@ -438,7 +423,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1652638976460" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1652679581457" />
     <property name="last_opened_file_path" value="D:/桌面/习题课2实验/xtk2" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -562,7 +547,7 @@
       <workItem from="1652440126908" duration="4508000" />
       <workItem from="1652454733477" duration="600000" />
       <workItem from="1652528423806" duration="4371000" />
-      <workItem from="1652606355255" duration="20624000" />
+      <workItem from="1652606355255" duration="29153000" />
     </task>
     <servers />
   </component>
@@ -599,13 +584,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141239000" />
+    <option name="totallyTimeSpent" value="149768000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49247313" visible="true" weight="0.288874" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49247313" visible="true" weight="0.24932976" />
       <window_info id="Structure" order="1" sideWeight="0.5075269" side_tool="true" weight="0.288874" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -615,7 +600,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.34135976" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32577905" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -624,7 +609,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Spring" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.33002833" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.28470254" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" />
       <window_info anchor="bottom" id="Messages" order="14" weight="0.3286119" />
@@ -639,17 +624,17 @@
       <window_info anchor="right" id="Database" order="8" weight="0.3297587" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.496788" visible="true" weight="0.27345845" />
-      <window_info id="Structure" order="1" sideWeight="0.503212" side_tool="true" weight="0.26675603" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49247313" visible="true" weight="0.288874" />
+      <window_info id="Structure" order="1" sideWeight="0.5075269" side_tool="true" weight="0.288874" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Favorites" order="6" sideWeight="0.5046512" side_tool="true" weight="0.27345845" />
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.39179632" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32577905" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -658,10 +643,10 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Spring" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.28470254" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.32956153" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -681,34 +666,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://D:/JDK/jdk1.8.0_201/src.zip!/java/sql/SQLNonTransientException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="35" column="60" selection-start-line="35" selection-start-column="60" selection-end-line="35" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/JDK/jdk1.8.0_201/src.zip!/java/sql/SQLIntegrityConstraintViolationException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="37" column="70" selection-start-line="37" selection-start-column="70" selection-end-line="37" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.3.9/spring-tx-5.3.9.jar!/org/springframework/dao/NonTransientDataAccessException.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.3.9/spring-tx-5.3.9.jar!/org/springframework/dao/DataIntegrityViolationException.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="7" column="68" selection-start-line="7" selection-start-column="68" selection-end-line="7" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.3.9/spring-tx-5.3.9.jar!/org/springframework/dao/DuplicateKeyException.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -774,13 +731,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/tool/Jwt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="27" column="34" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-config/5.5.1/spring-security-config-5.5.1.jar!/org/springframework/security/config/annotation/web/configurers/AbstractHttpConfigurer.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
@@ -792,13 +742,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
           <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/config/SystemConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -887,13 +830,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/JDK/jdk1.8.0_201/src.zip!/java/io/Serializable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
@@ -940,13 +876,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/HttpException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1001,117 +930,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysDictController.java">
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/UserDetailsService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="41" column="31" lean-forward="true" selection-start-line="41" selection-start-column="31" selection-end-line="42" selection-end-column="60" />
+        <state relative-caret-position="171">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysRouterController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/TokenFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="34" column="44" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/SecurityConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="23" column="45" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1077#1078#0" expanded="true" />
-            <element signature="e#1127#1128#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/GlobalException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#790#791#0" expanded="true" />
-            <element signature="e#844#845#0" expanded="true" />
-            <element signature="e#1031#1032#0" expanded="true" />
-            <element signature="e#1085#1086#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/ExceptionHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="26" column="88" lean-forward="true" selection-start-line="26" selection-start-column="88" selection-end-line="26" selection-end-column="88" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.5.1/spring-security-web-5.5.1.jar!/org/springframework/security/web/access/ExceptionTranslationFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="137" selection-start-line="137" selection-end-line="137" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/LoginUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="40" column="44" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1362#1363#0" expanded="true" />
-            <element signature="e#1403#1404#0" expanded="true" />
-            <element signature="e#1452#1453#0" expanded="true" />
-            <element signature="e#1493#1494#0" expanded="true" />
-            <element signature="e#1551#1552#0" expanded="true" />
-            <element signature="e#1578#1579#0" expanded="true" />
-            <element signature="e#1635#1636#0" expanded="true" />
-            <element signature="e#1662#1663#0" expanded="true" />
-            <element signature="e#1724#1725#0" expanded="true" />
-            <element signature="e#1751#1752#0" expanded="true" />
-            <element signature="e#1799#1800#0" expanded="true" />
-            <element signature="e#1826#1827#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysUserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#854#855#0" expanded="true" />
-            <element signature="e#896#897#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/UserDetailsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="49" column="15" lean-forward="true" selection-start-line="49" selection-start-column="15" selection-end-line="49" selection-end-column="46" />
+        <state relative-caret-position="119">
+          <caret line="31" column="74" lean-forward="true" selection-start-line="31" selection-start-column="74" selection-end-line="31" selection-end-column="74" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1120,8 +952,141 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/service/SysUserService.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="48" column="29" selection-start-line="48" selection-start-column="28" selection-end-line="48" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.3.9/spring-web-5.3.9.jar!/org/springframework/http/HttpStatus.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="40" column="13" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.50/tomcat-embed-core-9.0.50.jar!/javax/servlet/ServletException.class">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
-          <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysDictController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysRouterController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="30" column="40" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/HttpException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="43" selection-start-line="3" selection-start-column="43" selection-end-line="3" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.5.1/spring-security-web-5.5.1.jar!/org/springframework/security/web/access/AccessDeniedHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.5.1/spring-security-web-5.5.1.jar!/org/springframework/security/web/access/ExceptionTranslationFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="131" column="42" selection-start-line="131" selection-start-column="42" selection-end-line="131" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/config/SystemConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/SecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/controller/SysUserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="52" column="26" lean-forward="true" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/jsonwebtoken/jjwt/0.9.1/jjwt-0.9.1.jar!/io/jsonwebtoken/JwtParser.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/tool/Jwt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="47" column="74" lean-forward="true" selection-start-line="47" selection-start-column="67" selection-end-line="47" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/TokenFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/exception/GlobalException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="72" column="18" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/src/main/java/com/lia/system/security/ExceptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

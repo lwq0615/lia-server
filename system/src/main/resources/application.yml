@@ -70,8 +70,8 @@ mybatis:
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   # 打印sql语句到控制台
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # PageHelper分页插件
 pagehelper:
@@ -85,5 +85,5 @@ token:
   header: Authorization
   # 令牌密钥
   signature: abcdefghijklmnopqrstuvwxyz
-  # 令牌有效期（默认30分钟）
-  expireTime: 3600
+  # 令牌有效期1天（默认30分钟）
+  expireTime: 1440

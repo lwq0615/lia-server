@@ -52,12 +52,10 @@ public class TokenFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            filterChain.doFilter(request,response);
         }catch (ExpiredJwtException je){
-            //token过期
-            filterChain.doFilter(request,response);
-        }catch (Exception e){
-            // token解析失败，当做未登录处理
+            // 登录状态过期
+            response.setStatus(402);
+        }finally {
             filterChain.doFilter(request,response);
         }
     }

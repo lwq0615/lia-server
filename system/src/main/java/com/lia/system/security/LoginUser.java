@@ -30,6 +30,9 @@ public class LoginUser implements UserDetails {
      */
     public static SysUser getLoginUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null){
+            return null;
+        }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         return loginUser.getUser();
     }
