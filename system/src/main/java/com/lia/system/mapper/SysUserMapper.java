@@ -10,12 +10,14 @@ import java.util.List;
 public interface SysUserMapper {
 
 
+    SysUser getOneSysUser(SysUser user);
+
     /**
      * 查询用户列表
      * @param user 查询的参数信息
      * @return 用户列表
      */
-    List<SysUser> findSysUser(SysUser user);
+    List<SysUser> getSysUserPage(SysUser user);
 
 
     /**

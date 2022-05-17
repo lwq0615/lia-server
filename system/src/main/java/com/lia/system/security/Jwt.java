@@ -1,4 +1,4 @@
-package com.lia.system.tool;
+package com.lia.system.security;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;

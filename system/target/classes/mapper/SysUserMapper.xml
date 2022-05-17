@@ -13,8 +13,8 @@
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
-    <select id="findSysUser" parameterType="SysUser" resultMap="SysUserResult">
-        select * from sys_user
+
+    <sql id="where">
         <where>
             <if test="userId != null">
                 AND user_id = #{userId}
@@ -56,6 +56,33 @@
                 AND remark = #{remark}
             </if>
         </where>
+    </sql>
+
+
+    <select id="getOneSysUser" parameterType="SysUser" resultMap="SysUserResult">
+        select * from sys_user
+        <include refid="where"></include>
+    </select>
+
+
+    <!--不查询密码-->
+    <select id="getSysUserPage" parameterType="SysUser" resultMap="SysUserResult">
+        select
+            user_id,
+            username,
+            nick,
+            role_id,
+            sex,
+            phone,
+            email,
+            head_img,
+            status,
+            del_flag,
+            create_by,
+            create_time,
+            remark
+        from sys_user
+        <include refid="where"></include>
     </select>
 
     <insert id="addSysUser" parameterType="SysUser">
@@ -97,7 +124,9 @@
     <update id="editSysUser" parameterType="SysUser">
         update sys_user set
         username = #{username},
-        password = #{password},
+        <if test="password != null">
+            password = #{password},
+        </if>
         nick = #{nick},
         role_id = #{roleId},
         sex = #{sex},

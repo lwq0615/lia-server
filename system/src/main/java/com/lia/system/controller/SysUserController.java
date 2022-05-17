@@ -75,14 +75,15 @@ public class SysUserController {
         if(user.getUsername() == null || user.getUsername().equals("")){
             throw new HttpException(400,"缺少参数username");
         }
-        if(user.getPassword() == null || user.getPassword().equals("")){
-            throw new HttpException(400,"缺少参数password");
-        }
         if(user.getNick() == null || user.getNick().equals("")){
             throw new HttpException(400,"缺少参数nick");
         }
         if(user.getRoleId() == null){
             throw new HttpException(400,"缺少参数roleId");
+        }
+        // 新增的用户必须要有password
+        if(user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))){
+            throw new HttpException(400,"缺少参数password");
         }
         SysUser loginSysUser = LoginUser.getLoginUser();
         user.setCreateBy(loginSysUser.getUserId());

@@ -36,11 +36,10 @@ public class UserDetailsService implements org.springframework.security.core.use
         checkUser.setStatus('0');
         checkUser.setDelFlag('0');
         checkUser.setUsername(username);
-        List<SysUser> users = sysUserMapper.findSysUser(checkUser);
-        if(users.size() == 0){
+        SysUser user = sysUserMapper.getOneSysUser(checkUser);
+        if(user == null){
             return null;
         }
-        SysUser user = users.get(0);
         SysRole role = null;
         List<SysPower> powers = null;
         if(user.getRoleId() != null){

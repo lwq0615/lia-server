@@ -1,14 +1,10 @@
 package com.lia.system.service;
 
 
-import com.lia.system.entity.SysPower;
-import com.lia.system.entity.SysRole;
 import com.lia.system.entity.SysUser;
-import com.lia.system.mapper.SysPowerMapper;
-import com.lia.system.mapper.SysRoleMapper;
 import com.lia.system.mapper.SysUserMapper;
 import com.lia.system.security.LoginUser;
-import com.lia.system.tool.Jwt;
+import com.lia.system.security.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -67,7 +62,7 @@ public class SysUserService {
      */
     public List<SysUser> findSysUser(SysUser user){
         user.setDelFlag('0');
-        return sysUserMapper.findSysUser(user);
+        return sysUserMapper.getSysUserPage(user);
     }
 
 
@@ -78,7 +73,9 @@ public class SysUserService {
      * @return
      */
     public String saveUser(SysUser user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if(user.getPassword() != null && !user.getPassword().equals("")){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         int success;
         try{
             if(user.getUserId() == null){

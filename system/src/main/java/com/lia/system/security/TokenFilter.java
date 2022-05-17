@@ -1,12 +1,10 @@
 package com.lia.system.security;
 
 import com.alibaba.fastjson.JSONObject;
-import com.lia.system.tool.Jwt;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -32,7 +30,7 @@ public class TokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json;charset=utf-8");
         String token = request.getHeader(header);
         // 没有token，不需要解析
         if(token == null || token.equals("")){
@@ -47,7 +45,6 @@ public class TokenFilter extends OncePerRequestFilter {
                 return;
             }
             LoginUser user = JSONObject.parseObject(JSONObject.toJSONString(map.get("loginUser")),LoginUser.class);
-            request.setAttribute("sysUser",user.getUser());
             //登录成功
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
