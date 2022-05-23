@@ -7,19 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="system" />
+        <module name="lia-server" />
+        <module name="lia-system" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8">
-      <module name="server" target="1.8" />
-      <module name="Test" target="1.8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Test" options="-parameters" />
-      <module name="server" options="-parameters" />
-      <module name="system" options="-parameters" />
+      <module name="lia-server" options="-parameters" />
+      <module name="lia-system" options="-parameters" />
     </option>
   </component>
 </project>

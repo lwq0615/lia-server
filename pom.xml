@@ -16,7 +16,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>system</module>
+        <module>lia-system</module>
+        <module>lia-server</module>
     </modules>
 
     <properties>
@@ -31,7 +32,6 @@
         <jwt.version>0.9.1</jwt.version>
         <alibaba.druid.version>1.2.8</alibaba.druid.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
-        <commons.codec.version>1.15</commons.codec.version>
         <spring.security.version>2.6.3</spring.security.version>
     </properties>
 
@@ -85,19 +85,20 @@
                 <version>${jwt.version}</version>
             </dependency>
 
-            <!-- SHA256 -->
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>${commons.codec.version}</version>
-            </dependency>
-
 
             <!--security-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-security</artifactId>
                 <version>${spring.security.version}</version>
+            </dependency>
+
+
+            <!--业务处理模块-->
+            <dependency>
+                <groupId>com.lia</groupId>
+                <artifactId>lia-server</artifactId>
+                <version>${lia.version}</version>
             </dependency>
 
 
