@@ -4,10 +4,12 @@ package com.lia.system.service;
 import com.lia.system.entity.SysRouter;
 import com.lia.system.mapper.SysRouterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,59 +21,69 @@ public class SysRouterService {
     private SysRouterMapper sysRouterMapper;
 
 
-    public List<SysRouter> findRouterByRoleId(Integer roleId){
-        List<SysRouter> res = new ArrayList<>();
-        //获取当前角色可访问的所有路由
-        List<SysRouter> routers = sysRouterMapper.findRouterByRoleId(roleId);
-        //将返回结果转换为树形结构
-        for (SysRouter child : routers) {
-            //如果路由没有父路由，则为最顶层路由，放入res中
-            if(child.getParent() == null){
-                if(child.getIndex() == null){
-                    res.add(child);
-                }else{
-                    //找到合适的位置插入
-                    for(int i = res.size();i>=0;i--){
-                        if(i == 0){
-                            res.add(child);
-                            break;
-                        }else if(res.get(i-1).getIndex() < child.getIndex()
-                                && res.get(i-1).getIndex() != null){
-                            res.add(i,child);
-                            break;
-                        }
-                    }
-                }
-            }
-            //寻找路由的父路由，将自己存入父路由的childred列表中
-            else{
-                for (SysRouter parent : routers) {
-                    if(child.getParent() == parent.getRouterId()){
-                        if(parent.getChildren() == null){
-                            parent.setChildren(new ArrayList<>());
-                        }
-                        //如果路由的index不为null，则对其进行排序
-                        if(child.getIndex() == null){
-                            parent.getChildren().add(child);
-                        }else{
-                            //找到合适的位置插入
-                            for(int i = parent.getChildren().size();i>=0;i--){
-                                if(i == 0){
-                                    parent.getChildren().add(child);
-                                    break;
-                                }else if(parent.getChildren().get(i-1).getIndex() < child.getIndex()
-                                        && parent.getChildren().get(i-1).getIndex() != null){
-                                    parent.getChildren().add(i,child);
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-        return res;
+    /**
+     * 查询路由列表
+     */
+    public List<SysRouter> getRouters(SysRouter router){
+        return sysRouterMapper.findSysRouter(router);
     }
+
+
+    /**
+     * 获取角色可访问的路由，并转化为树形结构
+     * @param roleId 角色ID
+     */
+    public List<SysRouter> findRouterByRoleId(Integer roleId){
+        List<SysRouter> routers = sysRouterMapper.findRouterByRoleId(roleId);
+        return SysRouter.asTree(routers);
+    }
+
+
+
+    /**
+     * 查询路由树
+     */
+    public List<SysRouter> getRouterTree(){
+        return SysRouter.asTree(sysRouterMapper.findSysRouter(new SysRouter())).get(0).getChildren();
+    }
+
+
+
+    /**
+     * 新增或编辑用户
+     * @param router
+     * @return
+     */
+    public String saveRouter(SysRouter router){
+        int success;
+        try{
+            if(router.getRouterId() == null){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String date = dateFormat.format(new Date());
+                router.setCreateTime(date);
+                success = sysRouterMapper.addSysRouter(router);
+            }else{
+                success = sysRouterMapper.editSysRouter(router);
+            }
+        }catch (DuplicateKeyException e){
+            return "重复的路径";
+        }
+        return success > 0 ? "success" : "error";
+    }
+
+
+
+    /**
+     * 批量删除路由
+     * @param routerIds 用户的id列表
+     * @return 删除成功的数量
+     */
+    public int deleteRouters(List<Integer> routerIds){
+        if(routerIds.size() == 0){
+            return 0;
+        }
+        return sysRouterMapper.deleteRouters(routerIds);
+    }
+
 
 }

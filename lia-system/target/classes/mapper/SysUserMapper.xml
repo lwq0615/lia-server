@@ -46,11 +46,14 @@
             <if test="delFlag != null">
                 AND del_flag = #{delFlag}
             </if>
+            <if test="delFlag == null">
+                AND del_flag = '0'
+            </if>
             <if test="createBy != null">
                 AND create_by = #{createBy}
             </if>
             <if test="createTime != null">
-                AND create_time = #{createTime}
+                AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
             </if>
             <if test="remark != null">
                 AND remark = #{remark}

@@ -17,5 +17,34 @@ public interface SysRouterMapper {
      */
     List<SysRouter> findSysRouter(SysRouter router);
 
+    /**
+     * 获取角色可访问的路由
+     * @param roleId
+     * @return
+     */
     List<SysRouter> findRouterByRoleId(Integer roleId);
+
+
+
+    /**
+     * 新增路由
+     * @param router
+     * @return
+     */
+    int addSysRouter(SysRouter router);
+
+    /**
+     * 编辑路由
+     * @param router
+     * @return
+     */
+    int editSysRouter(SysRouter router);
+
+
+    /**
+     * 批量删除路由
+     * @param routerIds 用户的id列表
+     * @return 删除成功的数量
+     */
+    int deleteRouters(List<Integer> routerIds);
 }

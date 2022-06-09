@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -85,8 +87,11 @@ public class SysUserController {
         if(user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))){
             throw new HttpException(400,"缺少参数password");
         }
-        SysUser loginSysUser = LoginUser.getLoginUser();
-        user.setCreateBy(loginSysUser.getUserId());
+        // 新增的用户createBy为当前用户
+        if(user.getUserId() == null){
+            SysUser loginSysUser = LoginUser.getLoginUser();
+            user.setCreateBy(loginSysUser.getUserId());
+        }
         return sysUserService.saveUser(user);
     }
 

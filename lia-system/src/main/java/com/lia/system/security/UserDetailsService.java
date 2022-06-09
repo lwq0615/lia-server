@@ -18,9 +18,6 @@ import java.util.List;
 @Component
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     @Autowired
     private SysUserMapper sysUserMapper;
     @Autowired
@@ -28,13 +25,10 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Autowired
     private SysPowerMapper sysPowerMapper;
 
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUser checkUser = new SysUser();
         checkUser.setStatus('0');
-        checkUser.setDelFlag('0');
         checkUser.setUsername(username);
         SysUser user = sysUserMapper.getOneSysUser(checkUser);
         if(user == null){

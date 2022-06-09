@@ -1,6 +1,8 @@
 package com.lia.system.controller;
 
 
+import com.lia.system.entity.SysDict;
+import com.lia.system.entity.SysRouter;
 import com.lia.system.exception.HttpException;
 import com.lia.system.service.SysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -26,7 +26,7 @@ public class SysDictController {
      */
     @GetMapping("/getSysDict")
     @PreAuthorize("hasAuthority('system:dict:getSysDict')")
-    public List<HashMap> getSysDict(String type){
+    public List<SysDict> getSysDict(String type){
         if(type == null || type.equals("")){
             throw new HttpException(400, "缺少参数type");
         }
@@ -39,7 +39,7 @@ public class SysDictController {
      */
     @GetMapping("/sysRoleDict")
     @PreAuthorize("hasAuthority('system:dict:sysRoleDict')")
-    public List<HashMap> sysRoleDict(){
+    public List<SysDict> sysRoleDict(){
         return sysDictService.getSysRoleDict();
     }
 
@@ -49,8 +49,18 @@ public class SysDictController {
      */
     @GetMapping("/sysUserDict")
     @PreAuthorize("hasAuthority('system:dict:sysUserDict')")
-    public List<HashMap> sysUserDict(){
+    public List<SysDict> sysUserDict(){
         return sysDictService.getSysUserDict();
+    }
+
+
+    /**
+     * 获取路由树形结构字典表
+     */
+    @GetMapping("/sysRouterDict")
+    @PreAuthorize("hasAuthority('system:dict:sysRouterDict')")
+    public List<SysRouter> sysRouterDict(){
+        return sysDictService.getSysRouterDict();
     }
 
 }

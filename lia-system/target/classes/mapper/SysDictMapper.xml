@@ -4,15 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lia.system.mapper.SysDictMapper">
 
-    <select id="getSysDict" parameterType="String" resultType="HashMap">
+
+    <resultMap type="SysDict" id="SysDictResult">
+        <id     property="dictId"      column="dict_id"      />
+    </resultMap>
+
+    <select id="getSysDict" parameterType="String" resultMap="SysDictResult">
         select value,label from sys_dict where type = #{type}
     </select>
 
-    <select id="getSysRoleDict" resultType="HashMap">
+    <select id="getSysRoleDict" resultMap="SysDictResult">
         SELECT role_id as value, name as label from sys_role
     </select>
 
-    <select id="getSysUserDict" resultType="HashMap">
+    <select id="getSysUserDict" resultMap="SysDictResult">
         select nick as label,user_id as value from sys_user where del_flag = '0'
     </select>
 

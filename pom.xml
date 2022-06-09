@@ -28,7 +28,7 @@
         <springboot.mybatis.version>2.2.2</springboot.mybatis.version>
         <lombok.version>1.18.24</lombok.version>
         <junit.version>4.11</junit.version>
-        <fastjson.version>1.2.62</fastjson.version>
+        <fastjson2.version>2.0.5</fastjson2.version>
         <jwt.version>0.9.1</jwt.version>
         <alibaba.druid.version>1.2.8</alibaba.druid.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
@@ -123,10 +123,11 @@
 
         <!--json转化工具-->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>${fastjson2.version}</version>
         </dependency>
+
 
     </dependencies>
 

@@ -33,7 +33,7 @@
                 AND icon = #{icon}
             </if>
             <if test="index != null">
-                AND index = #{index}
+                AND `index` = #{index}
             </if>
             <if test="createBy != null">
                 AND create_by = #{createBy}
@@ -54,6 +54,55 @@
             select router_id from sys_role_router where role_id = #{roleId}
             )
         </where>
+        ORDER BY `index` asc
     </select>
+
+
+
+    <insert id="addSysRouter" parameterType="SysRouter">
+        insert  into sys_router
+        (label,path,element,parent,`index`,icon,create_by,create_time,remark)
+        values
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            #{label},
+            #{path},
+            #{element},
+            <if test="parent != null">
+                #{parent},
+            </if>
+            <if test="parent == null">
+                0,
+            </if>
+            #{index},
+            #{icon},
+            #{createBy},
+            #{createTime},
+            #{remark},
+        </trim>
+    </insert>
+
+
+    <update id="editSysRouter" parameterType="SysRouter">
+        update sys_router set
+        label = #{label},
+        path = #{path},
+        element = #{element},
+        parent = #{parent},
+        `index` = #{index},
+        icon = #{icon},
+        create_by = #{createBy},
+        create_time = #{createTime},
+        remark = #{remark}
+        where router_id = #{routerId}
+    </update>
+
+    <delete id="deleteRouters" parameterType="List">
+        delete from sys_router where router_id in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="routerIds" index="index" item="item">
+                #{item},
+            </foreach>
+        </trim>
+    </delete>
 
 </mapper>

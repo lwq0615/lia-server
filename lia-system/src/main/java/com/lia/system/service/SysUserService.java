@@ -14,9 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Transactional
@@ -61,7 +60,6 @@ public class SysUserService {
      * @return 用户列表
      */
     public List<SysUser> findSysUser(SysUser user){
-        user.setDelFlag('0');
         return sysUserMapper.getSysUserPage(user);
     }
 
@@ -79,6 +77,9 @@ public class SysUserService {
         int success;
         try{
             if(user.getUserId() == null){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String date = dateFormat.format(new Date());
+                user.setCreateTime(date);
                 success = sysUserMapper.addSysUser(user);
             }else{
                 success = sysUserMapper.editSysUser(user);
