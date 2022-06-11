@@ -2,8 +2,10 @@ package com.lia.system.service;
 
 
 import com.lia.system.entity.SysDict;
+import com.lia.system.entity.SysPower;
 import com.lia.system.entity.SysRouter;
 import com.lia.system.mapper.SysDictMapper;
+import com.lia.system.mapper.SysPowerMapper;
 import com.lia.system.mapper.SysRouterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,15 +49,11 @@ public class SysDictService {
     public List<SysDict> getSysUserDict() {
         return sysDictMapper.getSysUserDict();
     }
-
     /**
-     * 获取路由字典表
+     * 获取权限字典表
      */
-    public List<SysRouter> getSysRouterDict() {
-        //获取所有路由
-        List<SysRouter> routers = sysRouterMapper.findSysRouter(new SysRouter());
-        //将返回结果转换为树形结构
-        return SysRouter.asTree(routers);
+    public List<SysDict> getSysPowerDict() {
+        return sysDictMapper.getSysPowerDict();
     }
 
 

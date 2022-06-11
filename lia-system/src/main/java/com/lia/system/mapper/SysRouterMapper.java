@@ -47,4 +47,12 @@ public interface SysRouterMapper {
      * @return 删除成功的数量
      */
     int deleteRouters(List<Integer> routerIds);
+
+
+    /**
+     * 根据角色ID获取路由id列表
+     * @param roleId
+     * @return
+     */
+    List<Integer> findIdsbyRoleId(Integer roleId);
 }

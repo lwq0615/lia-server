@@ -14,6 +14,7 @@ public class SysPower {
     private String name;
     private String url;
     private String key;
+    private Integer routerId;
     private Long createBy;
     private String createTime;
     private String remark;

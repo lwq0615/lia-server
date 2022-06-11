@@ -56,7 +56,7 @@
                 AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
             </if>
             <if test="remark != null">
-                AND remark = #{remark}
+                AND remark like concat('%',#{remark},'%')
             </if>
         </where>
     </sql>

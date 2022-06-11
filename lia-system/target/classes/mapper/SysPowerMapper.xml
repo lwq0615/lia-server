@@ -6,6 +6,7 @@
 
     <resultMap type="SysPower" id="SysPowerResult">
         <id     property="powerId"      column="power_id"      />
+        <id     property="routerId"      column="router_id"      />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
@@ -14,7 +15,6 @@
     <select id="findSysPower" parameterType="SysPower" resultMap="SysPowerResult">
         select * from sys_power
         <where>
-            status = 0
             <if test="powerId != null">
                 AND power_id = #{powerId}
             </if>
@@ -27,17 +27,63 @@
             <if test="key != null">
                 AND key = #{key}
             </if>
+            <if test="routerId != null">
+                AND router_id = #{routerId}
+            </if>
             <if test="createBy != null">
                 AND create_by = #{createBy}
             </if>
             <if test="createTime != null">
-                AND create_time = #{createTime}
+                AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
             </if>
             <if test="remark != null">
-                AND remark = #{remark}
+                AND remark like concat('%',#{remark},'%')
             </if>
         </where>
     </select>
+
+
+    <insert id="addSysPower" parameterType="SysPower">
+        insert  into sys_power
+        (`name`,url,`key`,router_id,create_by,create_time,remark)
+        values
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            #{name},
+            #{url},
+            #{key},
+            <if test="routerId != null">
+                #{routerId},
+            </if>
+            <if test="routerId == null">
+                0,
+            </if>
+            #{createBy},
+            #{createTime},
+            #{remark},
+        </trim>
+    </insert>
+
+
+    <update id="editSysPower" parameterType="SysPower">
+        update sys_power set
+        `name` = #{name},
+        url = #{url},
+        `key` = #{key},
+        router_id = #{routerId},
+        create_by = #{createBy},
+        create_time = #{createTime},
+        remark = #{remark}
+        where power_id = #{powerId}
+    </update>
+
+    <delete id="deleteSysPowers" parameterType="List">
+        delete from sys_power where power_id in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="powerIds" index="index" item="item">
+                #{item},
+            </foreach>
+        </trim>
+    </delete>
 
 
     <select id="findSysPowerByRoleId" parameterType="Integer" resultMap="SysPowerResult">
@@ -48,5 +94,12 @@
             )
         </where>
     </select>
+
+    <select id="findIdsbyRoleId" parameterType="Integer" resultType="Integer">
+        select power_id from sys_role_power
+        where role_id = #{roleId}
+    </select>
+
+
 
 </mapper>

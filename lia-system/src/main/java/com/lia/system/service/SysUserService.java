@@ -71,6 +71,7 @@ public class SysUserService {
      * @return
      */
     public String saveUser(SysUser user){
+        // 密码加密后在存入数据库
         if(user.getPassword() != null && !user.getPassword().equals("")){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }

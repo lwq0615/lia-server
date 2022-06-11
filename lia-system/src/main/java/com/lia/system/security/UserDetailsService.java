@@ -6,6 +6,7 @@ import com.lia.system.entity.SysUser;
 import com.lia.system.mapper.SysPowerMapper;
 import com.lia.system.mapper.SysRoleMapper;
 import com.lia.system.mapper.SysUserMapper;
+import com.lia.system.service.SysPowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +24,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Autowired
     private SysRoleMapper sysRoleMapper;
     @Autowired
-    private SysPowerMapper sysPowerMapper;
+    private SysPowerService sysPowerService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,7 +43,7 @@ public class UserDetailsService implements org.springframework.security.core.use
             List<SysRole> roles = sysRoleMapper.findSysRole(checkRole);
             if(roles.size() > 0){
                 role = roles.get(0);
-                powers = sysPowerMapper.findSysPowerByRoleId(role.getRoleId());
+                powers = sysPowerService.findSysPowerByRoleId(role.getRoleId());
             }
         }
         return new LoginUser(user,role,powers);

@@ -44,7 +44,7 @@ public class SysRouterService {
      * 查询路由树
      */
     public List<SysRouter> getRouterTree(){
-        return SysRouter.asTree(sysRouterMapper.findSysRouter(new SysRouter())).get(0).getChildren();
+        return SysRouter.asTree(sysRouterMapper.findSysRouter(new SysRouter()));
     }
 
 

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class SysDict {
 
     private Integer dictId;
-    private String value;
+    private Object value;
     private String label;
     private String type;
     private String remark;

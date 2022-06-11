@@ -22,4 +22,8 @@
     </select>
 
 
+    <select id="getSysPowerDict" resultType="SysDict">
+        select name as label,power_id as value,router_id as remark from sys_power
+    </select>
+
 </mapper>

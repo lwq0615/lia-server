@@ -28,4 +28,11 @@ public interface SysDictMapper {
      * 获取用户字典表
      */
     List<SysDict> getSysUserDict();
+
+
+    /**
+     * 获取权限字典表
+     */
+    List<SysDict> getSysPowerDict();
+
 }

@@ -2,6 +2,7 @@ package com.lia.system.controller;
 
 
 import com.lia.system.entity.SysDict;
+import com.lia.system.entity.SysPower;
 import com.lia.system.entity.SysRouter;
 import com.lia.system.exception.HttpException;
 import com.lia.system.service.SysDictService;
@@ -55,12 +56,12 @@ public class SysDictController {
 
 
     /**
-     * 获取路由树形结构字典表
+     * 获取权限字典表
      */
-    @GetMapping("/sysRouterDict")
-    @PreAuthorize("hasAuthority('system:dict:sysRouterDict')")
-    public List<SysRouter> sysRouterDict(){
-        return sysDictService.getSysRouterDict();
+    @GetMapping("/sysPowerDict")
+    @PreAuthorize("hasAuthority('system:dict:sysPowerDict')")
+    public List<SysDict> sysPowerDict(){
+        return sysDictService.getSysPowerDict();
     }
 
 }

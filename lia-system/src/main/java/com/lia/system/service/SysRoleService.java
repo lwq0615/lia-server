@@ -4,9 +4,13 @@ package com.lia.system.service;
 import com.lia.system.entity.SysRole;
 import com.lia.system.mapper.SysRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,6 +29,76 @@ public class SysRoleService {
      */
     public List<SysRole> findSysRole(SysRole role){
         return sysRoleMapper.findSysRole(role);
+    }
+
+
+    /**
+     * 新增或编辑
+     * @param role
+     * @return
+     */
+    public String saveRole(SysRole role){
+        int success;
+        try{
+            if(role.getRoleId() == null){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String date = dateFormat.format(new Date());
+                role.setCreateTime(date);
+                success = sysRoleMapper.addSysRole(role);
+            }else{
+                success = sysRoleMapper.editSysRole(role);
+            }
+            this.changeRolePowers(role.getPowers(), role.getRoleId());
+            this.changeRoleRouters(role.getRouters(), role.getRoleId());
+        }catch (DuplicateKeyException e){
+            return "标识符已存在";
+        }
+        return success > 0 ? "success" : "error";
+    }
+
+
+    /**
+     * 更新角色路由
+     * @param routerIds 路由ID列表
+     * @param roleId 角色ID
+     */
+    public boolean changeRoleRouters(List<Integer> routerIds, Integer roleId){
+        sysRoleMapper.deleteRoutersOfRole(roleId);
+        if(routerIds != null && routerIds.size() > 0){
+            sysRoleMapper.addRoutersToRole(routerIds, roleId);
+        }
+        return true;
+    }
+
+
+    /**
+     * 更新角色权限
+     * @param powerIds 权限ID列表
+     * @param roleId 角色ID
+     */
+    public boolean changeRolePowers(List<Integer> powerIds, Integer roleId){
+        sysRoleMapper.deletePowersOfRole(roleId);
+        if(powerIds != null && powerIds.size() > 0){
+            sysRoleMapper.addPowersToRole(powerIds, roleId);
+        }
+        return true;
+    }
+
+
+    /**
+     * 批量删除
+     * @param roleIds 角色的id列表
+     * @return 删除成功的数量
+     */
+    public int deleteRoles(List<Integer> roleIds){
+        // 不允许删除开发者角色
+        if(roleIds.contains(1)){
+            roleIds.remove(roleIds.indexOf(1));
+        }
+        if(roleIds.size() == 0){
+            return 0;
+        }
+        return sysRoleMapper.deleteRoles(roleIds);
     }
 
 }

@@ -57,6 +57,11 @@
         ORDER BY `index` asc
     </select>
 
+    <select id="findIdsbyRoleId" parameterType="Integer" resultType="Integer">
+        select router_id from sys_role_router
+        where role_id = #{roleId}
+    </select>
+
 
 
     <insert id="addSysRouter" parameterType="SysRouter">
