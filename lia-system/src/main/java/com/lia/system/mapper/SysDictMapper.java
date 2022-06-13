@@ -12,10 +12,48 @@ public interface SysDictMapper {
 
 
     /**
-     * 获取sys_dict字典表内的字典
-     * @param type 字典类型
+     * 获取字典名称与字典type的映射
      */
-    List<SysDict> getSysDict(String type);
+    List<SysDict> typeNameMap();
+
+
+    /**
+     * 获取字典列表
+     * @return
+     */
+    List<SysDict> getSysDict(SysDict dict);
+
+
+    /**
+     * 新增
+     * @return
+     */
+    int addSysDict(SysDict dict);
+
+    /**
+     * 编辑
+     * @return
+     */
+    int editSysDict(SysDict dict);
+
+
+    /**
+     * 修改字典的类别信息
+     */
+    int updateDictType(String type,String name, String oldType);
+
+
+    /**
+     * 批量删除
+     * @return 删除成功的数量
+     */
+    int deleteDicts(List<Integer> dictIds);
+
+
+    /**
+     * 根据类别删除字典
+     */
+    int deleteDictsByType(String type);
 
 
     /**

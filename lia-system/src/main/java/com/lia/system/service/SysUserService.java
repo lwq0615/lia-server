@@ -49,6 +49,7 @@ public class SysUserService {
             userInfo.put("loginUser",loginUser);
             return jwt.getToken(userInfo);
         }catch (Exception e){
+            e.printStackTrace();
             return "login failed";
         }
     }
@@ -78,6 +79,9 @@ public class SysUserService {
         int success;
         try{
             if(user.getUserId() == null){
+                // 新增的用户createBy为当前用户
+                SysUser loginSysUser = LoginUser.getLoginUser();
+                user.setCreateBy(loginSysUser.getUserId());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date = dateFormat.format(new Date());
                 user.setCreateTime(date);

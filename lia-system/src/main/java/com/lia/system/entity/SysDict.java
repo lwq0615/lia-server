@@ -14,6 +14,9 @@ public class SysDict {
     private Object value;
     private String label;
     private String type;
+    private String name;
+    private Long createBy;
+    private String createTime;
     private String remark;
 
 }

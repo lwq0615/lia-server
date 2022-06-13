@@ -1,17 +1,19 @@
 package com.lia.system.service;
 
 
-import com.lia.system.entity.SysDict;
-import com.lia.system.entity.SysPower;
-import com.lia.system.entity.SysRouter;
+import com.lia.system.entity.*;
 import com.lia.system.mapper.SysDictMapper;
 import com.lia.system.mapper.SysPowerMapper;
 import com.lia.system.mapper.SysRouterMapper;
+import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,16 +24,98 @@ public class SysDictService {
 
     @Autowired
     private SysDictMapper sysDictMapper;
-    @Autowired
-    private SysRouterMapper sysRouterMapper;
 
 
     /**
-     * 获取sys_dict字典表内的字典
-     * @param type 字典类型
+     * 获取字典名称与字典type的映射
      */
-    public List<SysDict> getSysDict(String type){
-        return sysDictMapper.getSysDict(type);
+    public List<SysDict> typeNameMap(){
+        return sysDictMapper.typeNameMap();
+    }
+
+
+    /**
+     * 获取字典列表
+     */
+    public List<SysDict> getSysDict(SysDict dict){
+        return sysDictMapper.getSysDict(dict);
+    }
+
+    /**
+     * 新增或编辑
+     * @return
+     */
+    public String saveDict(SysDict dict){
+        int success;
+        // 判断相同type下是否有重复的value
+        SysDict doDict = new SysDict();
+        doDict.setType(dict.getType());
+        doDict.setValue(dict.getValue());
+        List<SysDict> result = sysDictMapper.getSysDict(doDict);
+        if(result != null && result.size() > 0){
+            doDict = result.get(0);
+        }else{
+            doDict = null;
+        }
+        // 没有id，新增
+        if(dict.getDictId() == null){
+            if(doDict != null){
+                return "同类别下不能有重复的key";
+            }
+            SysUser loginSysUser = LoginUser.getLoginUser();
+            dict.setCreateBy(loginSysUser.getUserId());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String date = dateFormat.format(new Date());
+            dict.setCreateTime(date);
+            success = sysDictMapper.addSysDict(dict);
+        }
+        // 编辑
+        else{
+            if(doDict != null && doDict.getDictId() != dict.getDictId()){
+                return "同类别下不能有重复的值";
+            }
+            success = sysDictMapper.editSysDict(dict);
+        }
+        return success > 0 ? "success" : "error";
+    }
+
+
+    /**
+     * 修改字典的类别信息
+     */
+    public String updateDictType(SysDict dict, String oldType, String oldName){
+        SysDict doDict = new SysDict();
+        doDict.setType(dict.getType());
+        List<SysDict> result = sysDictMapper.getSysDict(doDict);
+        // 已经存在的type名
+        if(result != null && result.size() > 0 && !result.get(0).getName().equals(oldName)){
+            return "类别重复";
+        }
+        if(sysDictMapper.updateDictType(dict.getType(),dict.getName(),oldType) > 0){
+            return "success";
+        }else{
+            return "error";
+        }
+    }
+
+
+    /**
+     * 批量删除
+     * @return 删除成功的数量
+     */
+    public int deleteDicts(List<Integer> dictIds){
+        if(dictIds.size() == 0){
+            return 0;
+        }
+        return sysDictMapper.deleteDicts(dictIds);
+    }
+
+
+    /**
+     * 根据类别删除字典
+     */
+    public int deleteDictsByType(String type){
+        return sysDictMapper.deleteDictsByType(type);
     }
 
 

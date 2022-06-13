@@ -87,11 +87,6 @@ public class SysUserController {
         if(user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))){
             throw new HttpException(400,"缺少参数password");
         }
-        // 新增的用户createBy为当前用户
-        if(user.getUserId() == null){
-            SysUser loginSysUser = LoginUser.getLoginUser();
-            user.setCreateBy(loginSysUser.getUserId());
-        }
         return sysUserService.saveUser(user);
     }
 

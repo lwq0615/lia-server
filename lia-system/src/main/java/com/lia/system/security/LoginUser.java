@@ -21,7 +21,7 @@ public class LoginUser implements UserDetails {
 
     private SysUser user;
     private SysRole role;
-    private List<SysPower> powers;
+    private List<String> powers;
 
 
     /**
@@ -41,8 +41,8 @@ public class LoginUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Authority> authorities = new ArrayList<>();
         authorities.add(new Authority("ROLE_"+role.getKey()));
-        for (SysPower power : this.powers) {
-            authorities.add(new Authority(power.getKey()));
+        for (String power : this.powers) {
+            authorities.add(new Authority(power));
         }
         return authorities;
     }

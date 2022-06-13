@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,14 +37,16 @@ public class UserDetailsService implements org.springframework.security.core.use
             return null;
         }
         SysRole role = null;
-        List<SysPower> powers = null;
+        List<String> powers = new ArrayList<>();
         if(user.getRoleId() != null){
             SysRole checkRole = new SysRole();
             checkRole.setRoleId(user.getRoleId());
             List<SysRole> roles = sysRoleMapper.findSysRole(checkRole);
             if(roles.size() > 0){
                 role = roles.get(0);
-                powers = sysPowerService.findSysPowerByRoleId(role.getRoleId());
+                for (SysPower sysPower : sysPowerService.findSysPowerByRoleId(role.getRoleId())) {
+                    powers.add(sysPower.getKey());
+                }
             }
         }
         return new LoginUser(user,role,powers);
