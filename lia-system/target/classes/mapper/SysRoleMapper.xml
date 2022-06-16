@@ -31,6 +31,9 @@
             <if test="key != null">
                 AND `key` = #{key}
             </if>
+            <if test="rootRouterId != null">
+                AND root_router_id = #{rootRouterId}
+            </if>
             <if test="createBy != null">
                 AND create_by = #{createBy}
             </if>
