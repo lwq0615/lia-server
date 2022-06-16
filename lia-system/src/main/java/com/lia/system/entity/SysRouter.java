@@ -27,32 +27,35 @@ public class SysRouter {
 
 
     /**
-     * 将路由列表转化为树形结构
+     * 将路由列表转化为树形结构并指定根节点
+     *
      * @param routers 路由列表
+     * @param rootId  根节点路由ID
+     * @return
      */
-    public static List<SysRouter> asTree(List<SysRouter> routers){
-        List<SysRouter> res = new ArrayList<>();
-        List<SysRouter> root = new ArrayList<>();
+    public static ArrayList<SysRouter> asTreeWithRoot(List<SysRouter> routers, Integer rootId) {
+        // 用户根路由不存在
+        if(rootId == null){
+            return null;
+        }
+        ArrayList<SysRouter> root = new ArrayList<>();
         //将返回结果转换为树形结构
-        List<SysRouter> nullRouters = new ArrayList<>();
+        ArrayList<SysRouter> nullRouters = new ArrayList<>();
         for (SysRouter child : routers) {
             // TODO 最后在进行插入index为null的路由，使这些路由展示在最后面
-            if(child.getIndex() == null){
+            if (child.getIndex() == null) {
                 nullRouters.add(child);
                 continue;
             }
             //如果路由没有父路由，则为最顶层路由，放入res中
-            if(child.getParent() == null){
+            if (child.getRouterId() == rootId) {
                 root.add(child);
             }
-            else if(child.getParent() == 0){
-                res.add(child);
-            }
             //寻找路由的父路由，将自己存入父路由的childred列表中
-            else{
+            else {
                 for (SysRouter parent : routers) {
-                    if(child.getParent() == parent.getRouterId()){
-                        if(parent.getChildren() == null){
+                    if (child.getParent() == parent.getRouterId()) {
+                        if (parent.getChildren() == null) {
                             parent.setChildren(new ArrayList<>());
                         }
                         parent.getChildren().add(child);
@@ -64,17 +67,14 @@ public class SysRouter {
         // 将index为null的路由插入
         for (SysRouter child : nullRouters) {
             //如果路由没有父路由，则为最顶层路由，放入res中
-            if(child.getParent() == null){
+            if (child.getRouterId() == rootId) {
                 root.add(child);
             }
-            else if(child.getParent() == 0){
-                res.add(child);
-            }
             //寻找路由的父路由，将自己存入父路由的childred列表中
-            else{
+            else {
                 for (SysRouter parent : routers) {
-                    if(child.getParent() == parent.getRouterId()){
-                        if(parent.getChildren() == null){
+                    if (child.getParent() == parent.getRouterId()) {
+                        if (parent.getChildren() == null) {
                             parent.setChildren(new ArrayList<>());
                         }
                         parent.getChildren().add(child);
@@ -83,12 +83,7 @@ public class SysRouter {
                 }
             }
         }
-        if(root.size() > 0){
-            root.get(0).setChildren(res);
-            return root;
-        }else{
-            return res;
-        }
+        return root;
     }
 
 }

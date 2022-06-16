@@ -3,7 +3,9 @@ package com.lia.system.service;
 
 import com.lia.system.entity.SysPower;
 import com.lia.system.entity.SysRole;
+import com.lia.system.entity.SysUser;
 import com.lia.system.mapper.SysPowerMapper;
+import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,9 @@ public class SysPowerService {
         int success = 0;
         try {
             if (power.getPowerId() == null) {
+                // 新增的用户
+                SysUser loginSysUser = LoginUser.getLoginUser();
+                power.setCreateBy(loginSysUser.getUserId());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date = dateFormat.format(new Date());
                 power.setCreateTime(date);
@@ -67,9 +72,9 @@ public class SysPowerService {
             String name = replace.split("\\.")[1].split("-")[1];
             switch (name) {
                 case "key":
-                    return "重复的标识符";
+                    return "标识符重复";
                 case "url":
-                    return "重复的接口路径";
+                    return "接口路径重复";
             }
         }
         return success > 0 ? "success" : "error";

@@ -5,15 +5,15 @@ import org.springframework.http.HttpStatus;
 
 public class HttpException extends RuntimeException {
 
-    private Integer status;
+    private int status;
     private String msg;
 
-    public HttpException(Integer status){
+    public HttpException(int status){
         this.status = status;
         this.msg = HttpStatus.valueOf(status).getReasonPhrase();
     }
 
-    public HttpException(Integer status, String msg){
+    public HttpException(int status, String msg){
         this.status = status;
         this.msg = msg;
     }
@@ -22,7 +22,7 @@ public class HttpException extends RuntimeException {
         return this.msg;
     }
 
-    public Integer getStatus(){
+    public int getStatus(){
         return this.status;
     }
 

@@ -64,11 +64,6 @@ public class SysRouterController {
         if(router.getRouterId() != null && router.getRouterId() == router.getParent()){
             throw new HttpException(400,"父路由不可以是自己");
         }
-        // 新增的用户createBy为当前用户
-        if(router.getRouterId() == null){
-            SysUser loginSysUser = LoginUser.getLoginUser();
-            router.setCreateBy(loginSysUser.getUserId());
-        }
         return sysRouterService.saveRouter(router);
     }
 

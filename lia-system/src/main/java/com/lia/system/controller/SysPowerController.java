@@ -59,11 +59,6 @@ public class SysPowerController {
         if(power.getKey() == null || power.getKey().equals("")){
             throw new HttpException(400,"缺少参数key");
         }
-        // 新增的用户
-        if(power.getPowerId() == null){
-            SysUser loginSysUser = LoginUser.getLoginUser();
-            power.setCreateBy(loginSysUser.getUserId());
-        }
         return sysPowerService.savePower(power);
     }
 

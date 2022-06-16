@@ -27,14 +27,16 @@ public class Jwt {
      */
     public String getToken(Map map){
         JwtBuilder jwtBuilder = Jwts.builder();
-        return jwtBuilder
+        JwtBuilder jwt = jwtBuilder
                 .setHeaderParam("typ","JWT")
                 .setHeaderParam("alg","HS256")
                 .setClaims(map)
-                .setExpiration(new Date(System.currentTimeMillis() + expireTime*60*1000))
                 .setId(UUID.randomUUID().toString())
-                .signWith(SignatureAlgorithm.HS256,signature)
-                .compact();
+                .signWith(SignatureAlgorithm.HS256,signature);;
+        if(expireTime != 0){
+            jwt.setExpiration(new Date(System.currentTimeMillis() + expireTime*60*1000));
+        }
+        return jwt.compact();
     }
 
 

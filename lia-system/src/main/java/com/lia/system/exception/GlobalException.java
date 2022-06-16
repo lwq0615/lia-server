@@ -3,7 +3,6 @@ package com.lia.system.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -50,7 +49,7 @@ public class GlobalException {
      * 405错误会导致程序直接抛出异常，所以不能在aop中处理
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public void methodError(Exception e){
+    public void methodError(){
         this.httpError(new HttpException(405));
     }
 

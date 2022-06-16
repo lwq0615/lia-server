@@ -6,6 +6,7 @@
 
     <resultMap type="SysRole" id="SysRoleResult">
         <id     property="roleId"      column="role_id"      />
+        <result property="rootRouterId"    column="root_router_id"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <collection property="powers" javaType="ArrayList" ofType="Integer"
@@ -45,11 +46,12 @@
 
     <insert id="addSysRole" parameterType="SysRole" useGeneratedKeys="true" keyProperty ="roleId" keyColumn="role_id">
         insert  into sys_role
-        (`name`,`key`,create_by,create_time,remark)
+        (`name`,`key`,root_router_id,create_by,create_time,remark)
         values
         <trim prefix="(" suffix=")" suffixOverrides="," >
             #{name},
             #{key},
+            #{rootRouterId},
             #{createBy},
             #{createTime},
             #{remark},
@@ -61,6 +63,7 @@
         update sys_role set
         `name` = #{name},
         `key` = #{key},
+        root_router_id = #{rootRouterId},
         create_by = #{createBy},
         create_time = #{createTime},
         remark = #{remark}

@@ -2,7 +2,9 @@ package com.lia.system.service;
 
 
 import com.lia.system.entity.SysRole;
+import com.lia.system.entity.SysUser;
 import com.lia.system.mapper.SysRoleMapper;
+import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,9 @@ public class SysRoleService {
         int success;
         try{
             if(role.getRoleId() == null){
+                // 新增的用户
+                SysUser loginSysUser = LoginUser.getLoginUser();
+                role.setCreateBy(loginSysUser.getUserId());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date = dateFormat.format(new Date());
                 role.setCreateTime(date);

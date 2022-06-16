@@ -54,11 +54,6 @@ public class SysRoleController {
         if(role.getKey() == null || role.getKey().equals("")){
             throw new HttpException(400,"缺少参数key");
         }
-        // 新增的用户
-        if(role.getRoleId() == null){
-            SysUser loginSysUser = LoginUser.getLoginUser();
-            role.setCreateBy(loginSysUser.getUserId());
-        }
         return sysRoleService.saveRole(role);
     }
 

@@ -1,14 +1,19 @@
 package com.lia.system.service;
 
 
+import com.lia.system.entity.SysRole;
 import com.lia.system.entity.SysRouter;
+import com.lia.system.entity.SysUser;
+import com.lia.system.mapper.SysRoleMapper;
 import com.lia.system.mapper.SysRouterMapper;
+import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +24,8 @@ public class SysRouterService {
 
     @Autowired
     private SysRouterMapper sysRouterMapper;
+    @Autowired
+    private SysRoleService sysRoleService;
 
 
     /**
@@ -34,8 +41,21 @@ public class SysRouterService {
      * @param roleId 角色ID
      */
     public List<SysRouter> findRouterByRoleId(Integer roleId){
+        SysRole role = LoginUser.getLoginRole();
         List<SysRouter> routers = sysRouterMapper.findRouterByRoleId(roleId);
-        return SysRouter.asTree(routers);
+        // 用户可访问路由表中不包括根节点，如果是以根节点作为根，则需要另外查询根节点路由信息
+        if(role.getRootRouterId() == 0){
+            SysRouter root = new SysRouter();
+            root.setRouterId(0);
+            root = sysRouterMapper.findSysRouter(root).get(0);
+            routers.add(root);
+        }
+        ArrayList<SysRouter> tree = SysRouter.asTreeWithRoot(routers, role.getRootRouterId());
+        if(tree != null && tree.size() > 0){
+            return tree.get(0).getChildren();
+        }else{
+            return new ArrayList<>();
+        }
     }
 
 
@@ -44,7 +64,8 @@ public class SysRouterService {
      * 查询路由树
      */
     public List<SysRouter> getRouterTree(){
-        return SysRouter.asTree(sysRouterMapper.findSysRouter(new SysRouter()));
+        List<SysRouter> sysRouters = sysRouterMapper.findSysRouter(new SysRouter());
+        return SysRouter.asTreeWithRoot(sysRouters,0);
     }
 
 
@@ -55,9 +76,12 @@ public class SysRouterService {
      * @return
      */
     public String saveRouter(SysRouter router){
-        int success;
+        int success = 0;
         try{
             if(router.getRouterId() == null){
+                // 新增的用户createBy为当前用户
+                SysUser loginSysUser = LoginUser.getLoginUser();
+                router.setCreateBy(loginSysUser.getUserId());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date = dateFormat.format(new Date());
                 router.setCreateTime(date);
@@ -66,7 +90,15 @@ public class SysRouterService {
                 success = sysRouterMapper.editSysRouter(router);
             }
         }catch (DuplicateKeyException e){
-            return "重复的路径";
+            String[] split = e.getCause().getMessage().split(" ");
+            String replace = split[split.length - 1].replace("'", "");
+            String name = replace.split("\\.")[1].split("-")[1];
+            switch (name) {
+                case "element":
+                    return "组件地址重复";
+                case "parent,path":
+                    return "目录下路由地址重复";
+            }
         }
         return success > 0 ? "success" : "error";
     }

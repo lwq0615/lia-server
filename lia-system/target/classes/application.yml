@@ -1,7 +1,8 @@
 server:
   #端口号
   port: 8080
-  max-http-header-size: 102400
+  #http请求的header长度
+  max-http-header-size: 10240
   servlet:
     # 应用的访问路径
     context-path: /
@@ -86,5 +87,5 @@ token:
   header: Authorization
   # 令牌密钥
   signature: abcdefghijklmnopqrstuvwxyz
-  # 令牌有效期1天（默认30分钟）
-  expireTime: 1440
+  # 令牌有效期（单位分钟，默认30分钟，设置0则不会过期）
+  expireTime: 0

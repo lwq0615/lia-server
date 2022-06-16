@@ -9,6 +9,8 @@ import com.lia.system.security.LoginUser;
 import com.lia.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,7 +30,12 @@ public class SysUserController {
      */
     @GetMapping("/getInfo")
     public SysUser getInfo(){
-        return LoginUser.getLoginUser();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null){
+            return null;
+        }
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        return loginUser.getUser();
     }
 
 
