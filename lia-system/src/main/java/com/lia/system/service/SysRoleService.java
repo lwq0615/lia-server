@@ -44,8 +44,7 @@ public class SysRoleService {
         try{
             if(role.getRoleId() == null){
                 // 新增的用户
-                SysUser loginSysUser = LoginUser.getLoginUser();
-                role.setCreateBy(loginSysUser.getUserId());
+                role.setCreateBy(LoginUser.getLoginUserId());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date = dateFormat.format(new Date());
                 role.setCreateTime(date);

@@ -53,6 +53,7 @@ public class TokenFilter extends OncePerRequestFilter {
             // 登录状态过期
             response.setStatus(402);
         }catch (Exception e) {
+            e.printStackTrace();
         }finally{
             filterChain.doFilter(request,response);
         }

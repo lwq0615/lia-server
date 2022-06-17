@@ -20,25 +20,27 @@ import java.util.List;
 @AllArgsConstructor
 public class LoginUser implements UserDetails {
 
+    // 游客账户Id
+    public static Long visitorId = 3L;
+
     private SysUser user;
     private SysRole role;
     private List<String> powers;
 
-
     /**
      * 获取当前登录的用户信息
      */
-    public static SysUser getLoginUser() {
+    public static Long getLoginUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication == null){
             return null;
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         // 如果是游客登录，抛出异常提示用户登录
-        if(loginUser.getUser().getUserId() == 3){
+        if(loginUser.user.getUserId() == null){
             throw new HttpException(406, "该资源游客无法访问");
         }
-        return loginUser.getUser();
+        return loginUser.user.getUserId();
     }
 
 
@@ -46,13 +48,13 @@ public class LoginUser implements UserDetails {
      * 获取当前用户的角色信息
      * @return
      */
-    public static SysRole getLoginRole() {
+    public static Integer getLoginRoleId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication == null){
             return null;
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        return loginUser.getRole();
+        return loginUser.role.getRoleId();
     }
 
 

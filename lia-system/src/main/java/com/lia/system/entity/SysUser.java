@@ -18,7 +18,7 @@ public class SysUser {
     private Character sex;
     private String phone;
     private String email;
-    private String headImg;
+    private Long headImg;
     private Character status;
     private Character delFlag;
     private Long createBy;

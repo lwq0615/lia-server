@@ -89,3 +89,8 @@ token:
   signature: abcdefghijklmnopqrstuvwxyz
   # 令牌有效期（单位分钟，默认30分钟，设置0则不会过期）
   expireTime: 0
+
+# 上传设置
+upload:
+  # 上传文件的保存位置
+  basePath: public

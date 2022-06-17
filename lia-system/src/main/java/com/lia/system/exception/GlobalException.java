@@ -65,6 +65,7 @@ public class GlobalException {
         response.setStatus(e.getStatus());
         try {
             response.getWriter().write(e.getMsg());
+            response.getWriter().close();
         } catch (IOException e1) {
             e1.printStackTrace();
         }

@@ -3,15 +3,19 @@ package com.lia.system.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysUser;
 import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
+import com.lia.system.service.SysFileService;
 import com.lia.system.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +27,8 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
+    @Autowired
+    private SysFileService sysFileService;
 
 
     /**
@@ -30,12 +36,34 @@ public class SysUserController {
      */
     @GetMapping("/getInfo")
     public SysUser getInfo(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication == null){
+        SysUser user = new SysUser();
+        try{
+            user.setUserId(LoginUser.getLoginUserId());
+        }catch (HttpException e){
+            if(e.getStatus() == 406){
+                user.setUserId(LoginUser.visitorId);
+            }else{
+                return null;
+            }
+        }
+        return sysUserService.findSysUser(user).get(0);
+    }
+
+
+    @GetMapping("/getHeadImg")
+    public String getHeadImg(){
+        SysUser user = this.getInfo();
+        if(user.getHeadImg() == null){
             return null;
         }
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        return loginUser.getUser();
+        SysFile file = new SysFile();
+        file.setFileId(user.getHeadImg());
+        ArrayList<SysFile> sysFile = sysFileService.getSysFile(file);
+        if(sysFile != null && sysFile.size() > 0){
+            return sysFile.get(0).getPath();
+        }else{
+            return null;
+        }
     }
 
 
@@ -109,5 +137,20 @@ public class SysUserController {
         return sysUserService.deleteUsers(userIds);
     }
 
+
+    /**
+     * 更新用户头像
+     * @param file
+     * @return
+     */
+    @PostMapping("/updateHeadImg")
+    @PreAuthorize("hasAuthority('system:user:updateHeadImg')")
+    public SysFile updateHeadImg(MultipartFile file, String fileId){
+        Long id = null;
+        try {
+            id = Long.parseLong(fileId);
+        }catch (NumberFormatException e){}
+        return sysUserService.updateHeadImg(file, id);
+    }
 
 }

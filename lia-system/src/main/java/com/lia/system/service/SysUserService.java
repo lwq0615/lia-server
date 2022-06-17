@@ -1,6 +1,7 @@
 package com.lia.system.service;
 
 
+import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysUser;
 import com.lia.system.mapper.SysUserMapper;
 import com.lia.system.security.LoginUser;
@@ -13,7 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -30,6 +33,8 @@ public class SysUserService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private SysUserMapper sysUserMapper;
+    @Autowired
+    private SysFileService sysFileService;
 
 
 
@@ -80,8 +85,7 @@ public class SysUserService {
         try{
             if(user.getUserId() == null){
                 // 新增的用户createBy为当前用户
-                SysUser loginSysUser = LoginUser.getLoginUser();
-                user.setCreateBy(loginSysUser.getUserId());
+                user.setCreateBy(LoginUser.getLoginUserId());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date = dateFormat.format(new Date());
                 user.setCreateTime(date);
@@ -110,6 +114,40 @@ public class SysUserService {
             return 0;
         }
         return sysUserMapper.deleteUsers(userIds);
+    }
+
+
+    /**
+     * 更换用户头像
+     * @param file
+     * @return
+     */
+    public SysFile updateHeadImg(MultipartFile file, Long fileId){
+        SysUser user = new SysUser();
+        user.setUserId(LoginUser.getLoginUserId());
+        SysFile image = sysFileService.uploadFile(file, "image");
+        // 如果是更换头像，则修改原来的头像数据
+        if(fileId != null){
+            SysFile oldSysFile = new SysFile();
+            oldSysFile.setFileId(fileId);
+            oldSysFile = sysFileService.getSysFile(oldSysFile).get(0);
+            // 删除旧的头像文件
+            if(oldSysFile.getPath() != null && !oldSysFile.getPath().equals("")){
+                File oldFile = new File(oldSysFile.getPath());
+                if (oldFile.exists()) oldFile.delete();
+            }
+            //更换数据库内的头像数据
+            image.setFileId(oldSysFile.getFileId());
+            sysFileService.saveFile(image);
+        }
+        //如果是上传新的头像
+        else{
+            image = sysFileService.saveFile(image);
+            user = this.findSysUser(user).get(0);
+            user.setHeadImg(image.getFileId());
+            this.saveUser(user);
+        }
+        return image;
     }
 
 }

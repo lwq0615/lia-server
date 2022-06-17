@@ -33,6 +33,7 @@
         <alibaba.druid.version>1.2.8</alibaba.druid.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
         <spring.security.version>2.6.3</spring.security.version>
+        <thumbnailator.version>0.4.8</thumbnailator.version>
     </properties>
 
     <dependencyManagement>
@@ -99,6 +100,14 @@
                 <groupId>com.lia</groupId>
                 <artifactId>lia-server</artifactId>
                 <version>${lia.version}</version>
+            </dependency>
+
+
+            <!--图片压缩-->
+            <dependency>
+                <groupId>net.coobird</groupId>
+                <artifactId>thumbnailator</artifactId>
+                <version>${thumbnailator.version}</version>
             </dependency>
 
 

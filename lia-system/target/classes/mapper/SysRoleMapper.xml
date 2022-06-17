@@ -50,15 +50,14 @@
     <insert id="addSysRole" parameterType="SysRole" useGeneratedKeys="true" keyProperty ="roleId" keyColumn="role_id">
         insert  into sys_role
         (`name`,`key`,root_router_id,create_by,create_time,remark)
-        values
-        <trim prefix="(" suffix=")" suffixOverrides="," >
+        values (
             #{name},
             #{key},
             #{rootRouterId},
             #{createBy},
             #{createTime},
-            #{remark},
-        </trim>
+            #{remark}
+        )
     </insert>
 
 

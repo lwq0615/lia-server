@@ -41,7 +41,9 @@ public class SysRouterService {
      * @param roleId 角色ID
      */
     public List<SysRouter> findRouterByRoleId(Integer roleId){
-        SysRole role = LoginUser.getLoginRole();
+        SysRole role = new SysRole();
+        role.setRoleId(LoginUser.getLoginRoleId());
+        role = sysRoleService.findSysRole(role).get(0);
         List<SysRouter> routers = sysRouterMapper.findRouterByRoleId(roleId);
         // 用户可访问路由表中不包括根节点，如果是以根节点作为根，则需要另外查询根节点路由信息
         if(role.getRootRouterId() == 0){
@@ -80,8 +82,7 @@ public class SysRouterService {
         try{
             if(router.getRouterId() == null){
                 // 新增的用户createBy为当前用户
-                SysUser loginSysUser = LoginUser.getLoginUser();
-                router.setCreateBy(loginSysUser.getUserId());
+                router.setCreateBy(LoginUser.getLoginUserId());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date = dateFormat.format(new Date());
                 router.setCreateTime(date);
