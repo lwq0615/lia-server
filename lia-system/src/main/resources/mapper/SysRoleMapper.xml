@@ -55,7 +55,7 @@
             #{key},
             #{rootRouterId},
             #{createBy},
-            #{createTime},
+            current_timestamp(),
             #{remark}
         )
     </insert>

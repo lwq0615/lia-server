@@ -50,6 +50,10 @@ public class SysUserController {
     }
 
 
+    /**
+     * 获取用户头像
+     * @return
+     */
     @GetMapping("/getHeadImg")
     public String getHeadImg(){
         SysUser user = this.getInfo();
@@ -65,6 +69,23 @@ public class SysUserController {
             return null;
         }
     }
+
+
+    /**
+     * 更新用户头像
+     * @param file
+     * @return
+     */
+    @PostMapping("/updateHeadImg")
+    @PreAuthorize("hasAuthority('system:user:updateHeadImg')")
+    public SysFile updateHeadImg(MultipartFile file, String fileId){
+        Long id = null;
+        try {
+            id = Long.parseLong(fileId);
+        }catch (NumberFormatException e){}
+        return sysUserService.updateHeadImg(file, id);
+    }
+
 
 
     /**
@@ -135,22 +156,6 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('system:user:deleteUsers')")
     public int deleteUsers(@RequestBody List<Integer> userIds){
         return sysUserService.deleteUsers(userIds);
-    }
-
-
-    /**
-     * 更新用户头像
-     * @param file
-     * @return
-     */
-    @PostMapping("/updateHeadImg")
-    @PreAuthorize("hasAuthority('system:user:updateHeadImg')")
-    public SysFile updateHeadImg(MultipartFile file, String fileId){
-        Long id = null;
-        try {
-            id = Long.parseLong(fileId);
-        }catch (NumberFormatException e){}
-        return sysUserService.updateHeadImg(file, id);
     }
 
 }

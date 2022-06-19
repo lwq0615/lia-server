@@ -62,7 +62,7 @@
             #{type},
             #{name},
             #{createBy},
-            #{createTime},
+            current_timestamp(),
             #{remark}
         )
     </insert>

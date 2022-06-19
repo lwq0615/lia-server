@@ -63,9 +63,6 @@ public class SysDictService {
                 return "同类别下不能有重复的key";
             }
             dict.setCreateBy(LoginUser.getLoginUserId());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String date = dateFormat.format(new Date());
-            dict.setCreateTime(date);
             success = sysDictMapper.addSysDict(dict);
         }
         // 编辑

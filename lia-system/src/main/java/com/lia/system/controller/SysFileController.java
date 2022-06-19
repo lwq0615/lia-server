@@ -35,18 +35,4 @@ public class SysFileController {
     }
 
 
-
-    /**
-     * 分页查询文件信息
-     */
-    @PostMapping("/getPage")
-    @PreAuthorize("hasAuthority('system:file:getPage')")
-    public PageInfo<SysFile> getPage(@RequestBody SysFile file, Integer current, Integer size){
-        if(current != null && size != null){
-            PageHelper.startPage(current,size);
-        }
-        return new PageInfo<>(sysFileService.getSysFile(file));
-    }
-
-
 }

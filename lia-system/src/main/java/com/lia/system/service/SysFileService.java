@@ -29,7 +29,7 @@ import java.util.UUID;
 @Transactional
 public class SysFileService {
 
-    @Value("${upload.basePath:/public}")
+    @Value("${upload.basePath:public}")
     private String basePath;
 
     @Autowired
@@ -71,7 +71,6 @@ public class SysFileService {
         sysFile.setPath(newFilePath);
         sysFile.setSize(file.getSize());
         sysFile.setUploadUser(LoginUser.getLoginUserId());
-        sysFile.setUploadTime(new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date()));
         return sysFile;
     }
 

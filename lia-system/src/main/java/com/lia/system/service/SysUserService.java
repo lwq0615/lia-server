@@ -86,9 +86,6 @@ public class SysUserService {
             if(user.getUserId() == null){
                 // 新增的用户createBy为当前用户
                 user.setCreateBy(LoginUser.getLoginUserId());
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String date = dateFormat.format(new Date());
-                user.setCreateTime(date);
                 success = sysUserMapper.addSysUser(user);
             }else{
                 success = sysUserMapper.editSysUser(user);

@@ -83,9 +83,6 @@ public class SysRouterService {
             if(router.getRouterId() == null){
                 // 新增的用户createBy为当前用户
                 router.setCreateBy(LoginUser.getLoginUserId());
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String date = dateFormat.format(new Date());
-                router.setCreateTime(date);
                 success = sysRouterMapper.addSysRouter(router);
             }else{
                 success = sysRouterMapper.editSysRouter(router);

@@ -118,7 +118,7 @@
                 </otherwise>
             </choose>
             #{createBy},
-            #{createTime},
+            current_timestamp(),
             #{remark},
         </trim>
     </insert>

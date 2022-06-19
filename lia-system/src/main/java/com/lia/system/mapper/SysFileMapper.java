@@ -18,6 +18,12 @@ public interface SysFileMapper {
 
 
     /**
+     * 编辑文件信息
+     */
+    int editSysFile(SysFile file);
+
+
+    /**
      * 分页查询文件
      */
     ArrayList<SysFile> findSysFile(SysFile file);
@@ -29,10 +35,4 @@ public interface SysFileMapper {
      * @return
      */
     int deleteFiles(List<Long> fileIds);
-
-
-    /**
-     * 编辑文件信息
-     */
-    int editSysFile(SysFile file);
 }

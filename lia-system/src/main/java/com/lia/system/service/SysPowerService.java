@@ -58,9 +58,6 @@ public class SysPowerService {
             if (power.getPowerId() == null) {
                 // 新增的用户
                 power.setCreateBy(LoginUser.getLoginUserId());
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String date = dateFormat.format(new Date());
-                power.setCreateTime(date);
                 success = sysPowerMapper.addSysPower(power);
             } else {
                 success = sysPowerMapper.editSysPower(power);

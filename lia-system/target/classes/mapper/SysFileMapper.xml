@@ -16,7 +16,7 @@
             #{name},
             #{path},
             #{size},
-            #{uploadTime},
+            current_timestamp(),
             #{uploadUser}
         )
     </insert>

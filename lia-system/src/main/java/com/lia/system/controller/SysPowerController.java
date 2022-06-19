@@ -59,6 +59,9 @@ public class SysPowerController {
         if(power.getKey() == null || power.getKey().equals("")){
             throw new HttpException(400,"缺少参数key");
         }
+        if(power.getRouterId() == null){
+            throw new HttpException(400,"缺少参数routerId");
+        }
         return sysPowerService.savePower(power);
     }
 

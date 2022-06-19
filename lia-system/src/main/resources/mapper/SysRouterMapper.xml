@@ -81,7 +81,7 @@
             #{index},
             #{icon},
             #{createBy},
-            #{createTime},
+            current_timestamp(),
             #{remark},
         </trim>
     </insert>

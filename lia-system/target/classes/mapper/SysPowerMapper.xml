@@ -51,14 +51,9 @@
             #{name},
             #{url},
             #{key},
-            <if test="routerId != null">
-                #{routerId},
-            </if>
-            <if test="routerId == null">
-                0,
-            </if>
+            #{routerId},
             #{createBy},
-            #{createTime},
+            current_timestamp(),
             #{remark},
         </trim>
     </insert>
