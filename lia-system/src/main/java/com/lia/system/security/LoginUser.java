@@ -1,8 +1,7 @@
 package com.lia.system.security;
 
-import com.lia.system.entity.SysPower;
-import com.lia.system.entity.SysRole;
-import com.lia.system.entity.SysUser;
+import com.lia.system.modules.role.SysRole;
+import com.lia.system.modules.user.SysUser;
 import com.lia.system.exception.HttpException;
 import lombok.AllArgsConstructor;
 import lombok.Data;

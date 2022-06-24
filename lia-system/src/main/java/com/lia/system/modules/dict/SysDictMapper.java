@@ -1,10 +1,8 @@
-package com.lia.system.mapper;
+package com.lia.system.modules.dict;
 
 
-import com.lia.system.entity.SysDict;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Mapper

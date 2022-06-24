@@ -1,8 +1,6 @@
-package com.lia.system.mapper;
+package com.lia.system.modules.role;
 
 
-import com.lia.system.entity.SysRole;
-import com.lia.system.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

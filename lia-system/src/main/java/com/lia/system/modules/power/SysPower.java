@@ -1,25 +1,22 @@
-package com.lia.system.entity;
+package com.lia.system.modules.power;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SysRole {
+public class SysPower {
 
-    private Integer roleId;
+    private Integer powerId;
     private String name;
+    private String url;
     private String key;
-    private Integer rootRouterId;
+    private Integer routerId;
     private Long createBy;
     private String createTime;
     private String remark;
-    private List<Integer> powers;
-    private List<Integer> routers;
 
 }

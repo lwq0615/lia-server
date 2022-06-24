@@ -1,18 +1,12 @@
-package com.lia.system.service;
+package com.lia.system.modules.role;
 
 
-import com.lia.system.entity.SysRole;
-import com.lia.system.entity.SysUser;
-import com.lia.system.mapper.SysRoleMapper;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service

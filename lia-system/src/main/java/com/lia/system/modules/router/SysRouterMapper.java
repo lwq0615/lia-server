@@ -1,7 +1,6 @@
-package com.lia.system.mapper;
+package com.lia.system.modules.router;
 
 
-import com.lia.system.entity.SysRouter;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

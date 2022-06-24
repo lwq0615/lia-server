@@ -1,16 +1,14 @@
 package com.lia.system.security;
 
-import com.lia.system.entity.SysPower;
-import com.lia.system.entity.SysRole;
-import com.lia.system.entity.SysUser;
-import com.lia.system.mapper.SysPowerMapper;
-import com.lia.system.mapper.SysRoleMapper;
-import com.lia.system.mapper.SysUserMapper;
-import com.lia.system.service.SysPowerService;
+import com.lia.system.modules.power.SysPower;
+import com.lia.system.modules.role.SysRole;
+import com.lia.system.modules.user.SysUser;
+import com.lia.system.modules.role.SysRoleMapper;
+import com.lia.system.modules.user.SysUserMapper;
+import com.lia.system.modules.power.SysPowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

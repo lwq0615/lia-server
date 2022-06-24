@@ -1,6 +1,5 @@
-package com.lia.system.mapper;
+package com.lia.system.modules.user;
 
-import com.lia.system.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

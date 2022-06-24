@@ -1,11 +1,9 @@
-package com.lia.system.controller;
+package com.lia.system.modules.dict;
 
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lia.system.entity.SysDict;
 import com.lia.system.exception.HttpException;
-import com.lia.system.service.SysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

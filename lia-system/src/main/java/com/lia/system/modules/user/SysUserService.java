@@ -1,11 +1,10 @@
-package com.lia.system.service;
+package com.lia.system.modules.user;
 
 
-import com.lia.system.entity.SysFile;
-import com.lia.system.entity.SysUser;
-import com.lia.system.mapper.SysUserMapper;
+import com.lia.system.modules.file.SysFile;
 import com.lia.system.security.LoginUser;
 import com.lia.system.security.Jwt;
+import com.lia.system.modules.file.SysFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service

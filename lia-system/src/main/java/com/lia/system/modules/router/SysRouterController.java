@@ -1,11 +1,7 @@
-package com.lia.system.controller;
+package com.lia.system.modules.router;
 
 
-import com.lia.system.entity.SysRouter;
-import com.lia.system.entity.SysUser;
 import com.lia.system.exception.HttpException;
-import com.lia.system.security.LoginUser;
-import com.lia.system.service.SysRouterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

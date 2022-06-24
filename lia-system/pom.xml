@@ -65,7 +65,6 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>

@@ -1,15 +1,9 @@
-package com.lia.system.service;
+package com.lia.system.modules.file;
 
-import com.lia.system.entity.SysFile;
-import com.lia.system.entity.SysRole;
-import com.lia.system.entity.SysUser;
-import com.lia.system.mapper.SysFileMapper;
 import com.lia.system.security.LoginUser;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;

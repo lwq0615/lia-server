@@ -1,8 +1,6 @@
-package com.lia.system.mapper;
+package com.lia.system.modules.power;
 
 
-import com.lia.system.entity.SysDict;
-import com.lia.system.entity.SysPower;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

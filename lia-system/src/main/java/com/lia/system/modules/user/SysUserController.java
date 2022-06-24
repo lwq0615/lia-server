@@ -1,24 +1,18 @@
-package com.lia.system.controller;
+package com.lia.system.modules.user;
 
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lia.system.entity.SysFile;
-import com.lia.system.entity.SysUser;
+import com.lia.system.modules.file.SysFile;
 import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
-import com.lia.system.service.SysFileService;
-import com.lia.system.service.SysUserService;
+import com.lia.system.modules.file.SysFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -77,7 +71,6 @@ public class SysUserController {
      * @return
      */
     @PostMapping("/updateHeadImg")
-    @PreAuthorize("hasAuthority('system:user:updateHeadImg')")
     public SysFile updateHeadImg(MultipartFile file, String fileId){
         Long id = null;
         try {
