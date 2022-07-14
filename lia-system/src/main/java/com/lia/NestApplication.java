@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
  * @author liweiqiang
  */
 @SpringBootApplication
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class NestApplication
 {
     public static void main(String[] args)

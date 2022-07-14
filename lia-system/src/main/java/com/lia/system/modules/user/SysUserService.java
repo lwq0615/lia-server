@@ -35,23 +35,23 @@ public class SysUserService {
     private SysFileService sysFileService;
 
 
-
     /**
      * 获取用户的Authorization字符串
+     *
      * @param checkUser 用户信息
      * @return 生成的Authorization字符串
      */
-    public String getAuthorization(SysUser checkUser){
+    public String getAuthorization(SysUser checkUser) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(checkUser.getUsername(),checkUser.getPassword());
-        try{
+                new UsernamePasswordAuthenticationToken(checkUser.getUsername(), checkUser.getPassword());
+        try {
             Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
             Map userInfo = new HashMap();
-            userInfo.put("loginTime",System.currentTimeMillis()/1000);
-            userInfo.put("loginUser",loginUser);
+            userInfo.put("loginTime", System.currentTimeMillis() / 1000);
+            userInfo.put("loginUser", loginUser);
             return jwt.getToken(userInfo);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "login failed";
         }
@@ -60,36 +60,50 @@ public class SysUserService {
 
     /**
      * 查询用户列表
+     *
      * @param user 查询参数
      * @return 用户列表
      */
-    public List<SysUser> findSysUser(SysUser user){
+    public List<SysUser> findSysUser(SysUser user) {
         return sysUserMapper.getSysUserPage(user);
     }
 
 
-
     /**
      * 新增或编辑用户
+     *
      * @param user
      * @return
      */
-    public String saveUser(SysUser user){
+    public String saveUser(SysUser user) {
         // 密码加密后在存入数据库
-        if(user.getPassword() != null && !user.getPassword().equals("")){
+        if (user.getPassword() != null && !user.getPassword().equals("")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         int success;
-        try{
-            if(user.getUserId() == null){
+        //查询是否有相同的未删除的用户名
+        SysUser newUser = new SysUser();
+        newUser.setUsername(user.getUsername());
+        newUser.setDelFlag('0');
+        List<SysUser> sysUserPage = sysUserMapper.getSysUserPage(newUser);
+        // 新增
+        if (user.getUserId() == null) {
+            if (sysUserPage == null || sysUserPage.size() == 0) {
                 // 新增的用户createBy为当前用户
                 user.setCreateBy(LoginUser.getLoginUserId());
                 success = sysUserMapper.addSysUser(user);
-            }else{
-                success = sysUserMapper.editSysUser(user);
+            } else {
+                return "用户名已存在";
             }
-        }catch (DuplicateKeyException e){
-            return "用户名已存在";
+        }
+        // 编辑
+        else {
+            if (sysUserPage == null || sysUserPage.size() == 0
+                    || sysUserPage.get(0).getUserId().equals(user.getUserId())) {
+                success = sysUserMapper.editSysUser(user);
+            }else {
+                return "用户名已存在";
+            }
         }
         return success > 0 ? "success" : "error";
     }
@@ -97,15 +111,16 @@ public class SysUserService {
 
     /**
      * 批量删除用户
+     *
      * @param userIds 用户的id列表
      * @return 删除成功的数量
      */
-    public int deleteUsers(List<Integer> userIds){
+    public int deleteUsers(List<Integer> userIds) {
         // 不允许删除admin账户
-        if(userIds.contains(1)){
+        if (userIds.contains(1)) {
             userIds.remove(userIds.indexOf(1));
         }
-        if(userIds.size() == 0){
+        if (userIds.size() == 0) {
             return 0;
         }
         return sysUserMapper.deleteUsers(userIds);
@@ -114,20 +129,21 @@ public class SysUserService {
 
     /**
      * 更换用户头像
+     *
      * @param file
      * @return
      */
-    public SysFile updateHeadImg(MultipartFile file, Long fileId){
+    public SysFile updateHeadImg(MultipartFile file, Long fileId) {
         SysUser user = new SysUser();
         user.setUserId(LoginUser.getLoginUserId());
         SysFile image = sysFileService.uploadFile(file, "image");
         // 如果是更换头像，则修改原来的头像数据
-        if(fileId != null){
+        if (fileId != null) {
             SysFile oldSysFile = new SysFile();
             oldSysFile.setFileId(fileId);
             oldSysFile = sysFileService.getSysFile(oldSysFile).get(0);
             // 删除旧的头像文件
-            if(oldSysFile.getPath() != null && !oldSysFile.getPath().equals("")){
+            if (oldSysFile.getPath() != null && !oldSysFile.getPath().equals("")) {
                 File oldFile = new File(oldSysFile.getPath());
                 if (oldFile.exists()) oldFile.delete();
             }
@@ -136,7 +152,7 @@ public class SysUserService {
             sysFileService.saveFile(image);
         }
         //如果是上传新的头像
-        else{
+        else {
             image = sysFileService.saveFile(image);
             user = this.findSysUser(user).get(0);
             user.setHeadImg(image.getFileId());

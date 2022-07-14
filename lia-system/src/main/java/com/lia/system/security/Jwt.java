@@ -32,7 +32,7 @@ public class Jwt {
                 .setHeaderParam("alg","HS256")
                 .setClaims(map)
                 .setId(UUID.randomUUID().toString())
-                .signWith(SignatureAlgorithm.HS256,signature);;
+                .signWith(SignatureAlgorithm.HS256,signature);
         if(expireTime != 0){
             jwt.setExpiration(new Date(System.currentTimeMillis() + expireTime*60*1000));
         }

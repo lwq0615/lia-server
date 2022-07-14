@@ -68,7 +68,7 @@ spring:
 # MyBatis配置
 mybatis:
   # 搜索指定包别名
-  type-aliases-package: com.lia.**.entity
+  type-aliases-package: com.lia.**.modules
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   # 打印sql语句到控制台
@@ -86,7 +86,7 @@ token:
   # 令牌自定义标识
   header: Authorization
   # 令牌密钥
-  signature: abcdefghijklmnopqrstuvwxyz
+  signature: liweiqiang
   # 令牌有效期（单位分钟，默认30分钟，设置0则不会过期）
   expireTime: 0
 

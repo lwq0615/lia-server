@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lia.system.mapper.SysRoleMapper">
+<mapper namespace="com.lia.system.modules.role.SysRoleMapper">
 
     <resultMap type="SysRole" id="SysRoleResult">
         <id     property="roleId"      column="role_id"      />
@@ -10,11 +10,11 @@
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <collection property="powers" javaType="ArrayList" ofType="Integer"
-                    select="com.lia.system.mapper.SysPowerMapper.findIdsbyRoleId"
+                    select="com.lia.system.modules.power.SysPowerMapper.findIdsbyRoleId"
                     column="role_id">
         </collection>
         <collection property="routers" javaType="ArrayList" ofType="Integer"
-                    select="com.lia.system.mapper.SysRouterMapper.findIdsbyRoleId"
+                    select="com.lia.system.modules.router.SysRouterMapper.findIdsbyRoleId"
                     column="role_id">
         </collection>
     </resultMap>
