@@ -37,10 +37,11 @@ public class SysRouterService {
      */
     public List<SysRouter> findRouterByRoleId(Integer roleId){
         SysRole role = new SysRole();
-        role.setRoleId(LoginUser.getLoginRoleId());
+        role.setRoleId(roleId);
         role = sysRoleService.findSysRole(role).get(0);
         List<SysRouter> routers = sysRouterMapper.findRouterByRoleId(roleId);
-        // 用户可访问路由表中不包括根节点，如果是以根节点作为根，则需要另外查询根节点路由信息
+        // findRouterByRoleId查询的用户可访问路由表中不包括根节点
+        // 如果该角色是以根节点作为根，则需要另外查询根节点路由信息
         if(role.getRootRouterId() == 0){
             SysRouter root = new SysRouter();
             root.setRouterId(0);

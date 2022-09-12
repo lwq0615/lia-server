@@ -8,9 +8,7 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 /**
- * @Author Chenxinlele
- * @Date 2021/8/11 15:58
- * @Version 1.0
+ * 生成雪花ID
  */
 public class SnowflakeId {
 

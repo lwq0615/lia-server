@@ -43,20 +43,6 @@ public class LoginUser implements UserDetails {
     }
 
 
-    /**
-     * 获取当前用户的角色信息
-     * @return
-     */
-    public static Integer getLoginRoleId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication == null){
-            return null;
-        }
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        return loginUser.role.getRoleId();
-    }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
