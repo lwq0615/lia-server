@@ -43,7 +43,7 @@ public class SysRoleService {
             }else{
                 success = sysRoleMapper.editSysRole(role);
             }
-            this.changeRolePowers(role.getPowers(), role.getRoleId());
+            this.changeRoleAuths(role.getAuths(), role.getRoleId());
             this.changeRoleRouters(role.getRouters(), role.getRoleId());
         }catch (DuplicateKeyException e){
             return "标识符已存在";
@@ -68,13 +68,13 @@ public class SysRoleService {
 
     /**
      * 更新角色权限
-     * @param powerIds 权限ID列表
+     * @param authIds 权限ID列表
      * @param roleId 角色ID
      */
-    public boolean changeRolePowers(List<Integer> powerIds, Integer roleId){
-        sysRoleMapper.deletePowersOfRole(roleId);
-        if(powerIds != null && powerIds.size() > 0){
-            sysRoleMapper.addPowersToRole(powerIds, roleId);
+    public boolean changeRoleAuths(List<Integer> authIds, Integer roleId){
+        sysRoleMapper.deleteAuthsOfRole(roleId);
+        if(authIds != null && authIds.size() > 0){
+            sysRoleMapper.addAuthsToRole(authIds, roleId);
         }
         return true;
     }

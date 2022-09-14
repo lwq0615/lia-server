@@ -69,6 +69,6 @@ public interface SysDictMapper {
     /**
      * 获取权限字典表
      */
-    List<SysDict> getSysPowerDict();
+    List<SysDict> getSysAuthDict();
 
 }

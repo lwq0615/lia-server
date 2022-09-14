@@ -1,4 +1,4 @@
-package com.lia.system.modules.power;
+package com.lia.system.modules.auth;
 
 
 import com.lia.system.security.LoginUser;
@@ -11,11 +11,11 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SysPowerService {
+public class SysAuthService {
 
 
     @Autowired
-    private SysPowerMapper sysPowerMapper;
+    private SysAuthMapper sysAuthMapper;
 
 
     /**
@@ -24,37 +24,37 @@ public class SysPowerService {
      * @param roleId 角色ID
      * @return 权限集合
      */
-    public List<SysPower> findSysPowerByRoleId(Integer roleId) {
-        return sysPowerMapper.findSysPowerByRoleId(roleId);
+    public List<SysAuth> findSysAuthByRoleId(Integer roleId) {
+        return sysAuthMapper.findSysAuthByRoleId(roleId);
     }
 
 
     /**
      * 查询权限列表
      *
-     * @param power
+     * @param auth
      * @return
      */
-    public List<SysPower> findSysPower(SysPower power) {
-        return sysPowerMapper.findSysPower(power);
+    public List<SysAuth> findSysAuth(SysAuth auth) {
+        return sysAuthMapper.findSysAuth(auth);
     }
 
 
     /**
      * 新增或编辑
      *
-     * @param power
+     * @param auth
      * @return
      */
-    public String savePower(SysPower power) {
+    public String saveAuth(SysAuth auth) {
         int success = 0;
         try {
-            if (power.getPowerId() == null) {
+            if (auth.getAuthId() == null) {
                 // 新增的用户
-                power.setCreateBy(LoginUser.getLoginUserId());
-                success = sysPowerMapper.addSysPower(power);
+                auth.setCreateBy(LoginUser.getLoginUserId());
+                success = sysAuthMapper.addSysAuth(auth);
             } else {
-                success = sysPowerMapper.editSysPower(power);
+                success = sysAuthMapper.editSysAuth(auth);
             }
         } catch (DuplicateKeyException e) {
             String[] split = e.getCause().getMessage().split(" ");
@@ -74,14 +74,14 @@ public class SysPowerService {
     /**
      * 批量删除
      *
-     * @param powerIds id列表
+     * @param authIds id列表
      * @return 删除成功的数量
      */
-    public int deletePowers(List<Integer> powerIds) {
-        if (powerIds.size() == 0) {
+    public int deleteAuths(List<Integer> authIds) {
+        if (authIds.size() == 0) {
             return 0;
         }
-        return sysPowerMapper.deleteSysPowers(powerIds);
+        return sysAuthMapper.deleteSysAuths(authIds);
     }
 
 }

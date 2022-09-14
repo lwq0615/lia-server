@@ -123,8 +123,8 @@ public class SysDictService {
     /**
      * 获取权限字典表
      */
-    public List<SysDict> getSysPowerDict() {
-        return sysDictMapper.getSysPowerDict();
+    public List<SysDict> getSysAuthDict() {
+        return sysDictMapper.getSysAuthDict();
     }
 
 

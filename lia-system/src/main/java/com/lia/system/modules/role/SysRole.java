@@ -19,7 +19,7 @@ public class SysRole {
     private Long createBy;
     private String createTime;
     private String remark;
-    private List<Integer> powers;
+    private List<Integer> auths;
     private List<Integer> routers;
 
 }

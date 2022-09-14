@@ -42,13 +42,13 @@ public interface SysRoleMapper {
     /**
      * 删除角色的全部权限
      */
-    int deletePowersOfRole(Integer roleId);
+    int deleteAuthsOfRole(Integer roleId);
 
 
     /**
      * 给角色添加权限
      */
-    int addPowersToRole(List<Integer> powerIds, Integer roleId);
+    int addAuthsToRole(List<Integer> authIds, Integer roleId);
 
 
     /**

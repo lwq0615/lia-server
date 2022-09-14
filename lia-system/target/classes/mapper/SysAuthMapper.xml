@@ -2,21 +2,21 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lia.system.modules.power.SysPowerMapper">
+<mapper namespace="com.lia.system.modules.auth.SysAuthMapper">
 
-    <resultMap type="SysPower" id="SysPowerResult">
-        <id     property="powerId"      column="power_id"      />
+    <resultMap type="SysAuth" id="SysAuthResult">
+        <id     property="authId"      column="auth_id"      />
         <id     property="routerId"      column="router_id"      />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
 
-    <select id="findSysPower" parameterType="SysPower" resultMap="SysPowerResult">
-        select * from sys_power
+    <select id="findSysAuth" parameterType="SysAuth" resultMap="SysAuthResult">
+        select * from sys_auth
         <where>
-            <if test="powerId != null">
-                AND power_id = #{powerId}
+            <if test="authId != null">
+                AND auth_id = #{authId}
             </if>
             <if test="name != null">
                 AND name = #{name}
@@ -43,8 +43,8 @@
     </select>
 
 
-    <insert id="addSysPower" parameterType="SysPower">
-        insert  into sys_power
+    <insert id="addSysAuth" parameterType="SysAuth">
+        insert  into sys_auth
         (`name`,url,`key`,router_id,create_by,create_time,remark)
         values
         <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -59,8 +59,8 @@
     </insert>
 
 
-    <update id="editSysPower" parameterType="SysPower">
-        update sys_power set
+    <update id="editSysAuth" parameterType="SysAuth">
+        update sys_auth set
         `name` = #{name},
         url = #{url},
         `key` = #{key},
@@ -68,30 +68,30 @@
         create_by = #{createBy},
         create_time = #{createTime},
         remark = #{remark}
-        where power_id = #{powerId}
+        where auth_id = #{authId}
     </update>
 
-    <delete id="deleteSysPowers" parameterType="List">
-        delete from sys_power where power_id in
+    <delete id="deleteSysAuths" parameterType="List">
+        delete from sys_auth where auth_id in
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <foreach collection="powerIds" index="index" item="item">
+            <foreach collection="authIds" index="index" item="item">
                 #{item},
             </foreach>
         </trim>
     </delete>
 
 
-    <select id="findSysPowerByRoleId" parameterType="Integer" resultMap="SysPowerResult">
-        select * from sys_power
+    <select id="findSysAuthByRoleId" parameterType="Integer" resultMap="SysAuthResult">
+        select * from sys_auth
         <where>
-            power_id in (
-                select power_id from sys_role_power where role_id = #{roleId}
+            auth_id in (
+                select auth_id from sys_role_auth where role_id = #{roleId}
             )
         </where>
     </select>
 
     <select id="findIdsbyRoleId" parameterType="Integer" resultType="Integer">
-        select power_id from sys_role_power
+        select auth_id from sys_role_auth
         where role_id = #{roleId}
     </select>
 

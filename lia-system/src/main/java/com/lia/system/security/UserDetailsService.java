@@ -1,11 +1,11 @@
 package com.lia.system.security;
 
-import com.lia.system.modules.power.SysPower;
+import com.lia.system.modules.auth.SysAuth;
 import com.lia.system.modules.role.SysRole;
 import com.lia.system.modules.user.SysUser;
 import com.lia.system.modules.role.SysRoleMapper;
 import com.lia.system.modules.user.SysUserMapper;
-import com.lia.system.modules.power.SysPowerService;
+import com.lia.system.modules.auth.SysAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +23,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Autowired
     private SysRoleMapper sysRoleMapper;
     @Autowired
-    private SysPowerService sysPowerService;
+    private SysAuthService sysAuthService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,19 +38,19 @@ public class UserDetailsService implements org.springframework.security.core.use
             user.setUserId(null);
         }
         SysRole role = null;
-        List<String> powers = new ArrayList<>();
+        List<String> auths = new ArrayList<>();
         if(user.getRoleId() != null){
             SysRole checkRole = new SysRole();
             checkRole.setRoleId(user.getRoleId());
             List<SysRole> roles = sysRoleMapper.findSysRole(checkRole);
             if(roles.size() > 0){
                 role = roles.get(0);
-                for (SysPower sysPower : sysPowerService.findSysPowerByRoleId(role.getRoleId())) {
-                    powers.add(sysPower.getKey());
+                for (SysAuth sysAuth : sysAuthService.findSysAuthByRoleId(role.getRoleId())) {
+                    auths.add(sysAuth.getKey());
                 }
             }
         }
-        return new LoginUser(user,role,powers);
+        return new LoginUser(user,role,auths);
     }
 
 }

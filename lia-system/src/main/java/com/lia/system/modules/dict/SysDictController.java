@@ -146,10 +146,10 @@ public class SysDictController {
     /**
      * 获取权限字典表
      */
-    @GetMapping("/sysPowerDict")
-    @PreAuthorize("hasAuthority('system:dict:sysPowerDict')")
-    public List<SysDict> sysPowerDict(){
-        return sysDictService.getSysPowerDict();
+    @GetMapping("/sysAuthDict")
+    @PreAuthorize("hasAuthority('system:dict:sysAuthDict')")
+    public List<SysDict> sysAuthDict(){
+        return sysDictService.getSysAuthDict();
     }
 
 }

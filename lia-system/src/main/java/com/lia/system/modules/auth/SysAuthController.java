@@ -1,4 +1,4 @@
-package com.lia.system.modules.power;
+package com.lia.system.modules.auth;
 
 
 import com.github.pagehelper.PageHelper;
@@ -14,64 +14,64 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/system/power")
-public class SysPowerController {
+@RequestMapping("/system/auth")
+public class SysAuthController {
 
 
     @Autowired
-    private SysPowerService sysPowerService;
+    private SysAuthService sysAuthService;
 
 
     /**
      * 分页查询权限列表
-     * @param power 查询参数
+     * @param auth 查询参数
      * @param current 当前页码
      * @param size 每页条数
      * @return PageInfo分页信息
      */
     @PostMapping("/getPage")
-    @PreAuthorize("hasAuthority('system:power:getPage')")
-    public PageInfo<SysPower> getSysPowerPage(@RequestBody SysPower power, Integer current, Integer size){
+    @PreAuthorize("hasAuthority('system:auth:getPage')")
+    public PageInfo<SysAuth> getSysAuthPage(@RequestBody SysAuth auth, Integer current, Integer size){
         if(current != null && size != null){
             PageHelper.startPage(current,size);
         }
-        return new PageInfo<>(sysPowerService.findSysPower(power));
+        return new PageInfo<>(sysAuthService.findSysAuth(auth));
     }
 
     /**
      * 新增和编辑
-     * @param power 权限数据
+     * @param auth 权限数据
      * @return 操作成功的数量
      */
     @PostMapping("/save")
-    @PreAuthorize("hasAuthority('system:power:save')")
-    public String save(@RequestBody SysPower power){
-        if(power.getName() == null || power.getName().equals("")){
+    @PreAuthorize("hasAuthority('system:auth:save')")
+    public String save(@RequestBody SysAuth auth){
+        if(auth.getName() == null || auth.getName().equals("")){
             throw new HttpException(400,"缺少参数name");
         }
-        if(power.getUrl() == null || power.getUrl().equals("")){
+        if(auth.getUrl() == null || auth.getUrl().equals("")){
             throw new HttpException(400,"缺少参数url");
         }
-        if(power.getKey() == null || power.getKey().equals("")){
+        if(auth.getKey() == null || auth.getKey().equals("")){
             throw new HttpException(400,"缺少参数key");
         }
-        if(power.getRouterId() == null){
+        if(auth.getRouterId() == null){
             throw new HttpException(400,"缺少参数routerId");
         }
-        return sysPowerService.savePower(power);
+        return sysAuthService.saveAuth(auth);
     }
 
 
 
     /**
      * 批量删除
-     * @param powerIds 权限的id列表
+     * @param authIds 权限的id列表
      * @return 删除成功的数量
      */
     @PostMapping("/delete")
-    @PreAuthorize("hasAuthority('system:power:delete')")
-    public int delete(@RequestBody List<Integer> powerIds){
-        return sysPowerService.deletePowers(powerIds);
+    @PreAuthorize("hasAuthority('system:auth:delete')")
+    public int delete(@RequestBody List<Integer> authIds){
+        return sysAuthService.deleteAuths(authIds);
     }
 
 

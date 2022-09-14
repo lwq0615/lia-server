@@ -1,4 +1,4 @@
-package com.lia.system.modules.power;
+package com.lia.system.modules.auth;
 
 
 import lombok.AllArgsConstructor;
@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SysPower {
+public class SysAuth {
 
-    private Integer powerId;
+    private Integer authId;
     private String name;
     private String url;
     private String key;

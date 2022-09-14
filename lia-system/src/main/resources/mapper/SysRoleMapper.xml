@@ -9,8 +9,8 @@
         <result property="rootRouterId"    column="root_router_id"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
-        <collection property="powers" javaType="ArrayList" ofType="Integer"
-                    select="com.lia.system.modules.power.SysPowerMapper.findIdsbyRoleId"
+        <collection property="auths" javaType="ArrayList" ofType="Integer"
+                    select="com.lia.system.modules.auth.SysAuthMapper.findIdsbyRoleId"
                     column="role_id">
         </collection>
         <collection property="routers" javaType="ArrayList" ofType="Integer"
@@ -82,15 +82,15 @@
     </delete>
 
 
-    <delete id="deletePowersOfRole" parameterType="Integer">
-        delete from sys_role_power
+    <delete id="deleteAuthsOfRole" parameterType="Integer">
+        delete from sys_role_auth
         where role_id = #{roleId}
     </delete>
 
-    <insert id="addPowersToRole">
-        insert into sys_role_power (role_id,power_id) values
+    <insert id="addAuthsToRole">
+        insert into sys_role_auth (role_id,auth_id) values
         <trim suffixOverrides=",">
-        <foreach collection="powerIds" index="index" item="item">
+        <foreach collection="authIds" index="index" item="item">
             (#{roleId},#{item}),
         </foreach>
     </trim>

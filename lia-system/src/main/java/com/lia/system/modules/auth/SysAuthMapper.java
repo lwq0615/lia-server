@@ -1,4 +1,4 @@
-package com.lia.system.modules.power;
+package com.lia.system.modules.auth;
 
 
 import org.apache.ibatis.annotations.Mapper;
@@ -6,39 +6,39 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface SysPowerMapper {
+public interface SysAuthMapper {
 
 
     /**
      * 查询权限列表
-     * @param power 查询参数
+     * @param auth 查询参数
      * @return 权限列表
      */
-    List<SysPower> findSysPower(SysPower power);
+    List<SysAuth> findSysAuth(SysAuth auth);
 
 
     /**
      * 新增
-     * @param power
+     * @param auth
      * @return
      */
-    int addSysPower(SysPower power);
+    int addSysAuth(SysAuth auth);
 
 
     /**
      * 编辑
-     * @param power
+     * @param auth
      * @return
      */
-    int editSysPower(SysPower power);
+    int editSysAuth(SysAuth auth);
 
 
     /**
      * 批量删除
-     * @param powerIds
+     * @param authIds
      * @return
      */
-    int deleteSysPowers(List<Integer> powerIds);
+    int deleteSysAuths(List<Integer> authIds);
 
 
     /**
@@ -46,7 +46,7 @@ public interface SysPowerMapper {
      * @param roleId 角色ID
      * @return 权限列表
      */
-    List<SysPower> findSysPowerByRoleId(Integer roleId);
+    List<SysAuth> findSysAuthByRoleId(Integer roleId);
 
 
     /**

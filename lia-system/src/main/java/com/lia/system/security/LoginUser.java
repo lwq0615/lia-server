@@ -24,7 +24,7 @@ public class LoginUser implements UserDetails {
 
     private SysUser user;
     private SysRole role;
-    private List<String> powers;
+    private List<String> auths;
 
     /**
      * 获取当前登录的用户信息
@@ -48,8 +48,8 @@ public class LoginUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Authority> authorities = new ArrayList<>();
         authorities.add(new Authority("ROLE_"+role.getKey()));
-        for (String power : this.powers) {
-            authorities.add(new Authority(power));
+        for (String auth : this.auths) {
+            authorities.add(new Authority(auth));
         }
         return authorities;
     }

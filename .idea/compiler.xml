@@ -11,10 +11,13 @@
         <module name="lia-system" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8" />
+    <bytecodeTargetLevel target="8">
+      <module name="lia-security" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="lia-security" options="-parameters" />
       <module name="lia-server" options="-parameters" />
       <module name="lia-system" options="-parameters" />
     </option>

@@ -39,7 +39,7 @@ public class GlobalException {
      * 而被全局异常处理捕获导致无法正常处理，所以security没有权限的处理应该通过ExceptionHandler处理
      */
     @ExceptionHandler(AccessDeniedException.class)
-    public void noPower(){
+    public void noAuth(){
         this.httpError(new HttpException(403, "没有权限"));
     }
 
