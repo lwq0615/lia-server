@@ -13,6 +13,12 @@
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
+    <resultMap type="SysDict" id="SysDictResult">
+        <id     property="dictId"      column="dict_id"      />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
 
     <sql id="where">
         <where>
@@ -138,8 +144,6 @@
         head_img = #{headImg},
         status = #{status},
         del_flag = #{delFlag},
-        create_by = #{createBy},
-        create_time = #{createTime},
         remark = #{remark}
         where user_id = #{userId}
     </update>
@@ -152,5 +156,11 @@
             </foreach>
         </trim>
     </delete>
+
+    <select id="getCreateByDict" resultMap="SysDictResult">
+        select nick as label,user_id as value
+        from sys_user u,sys_role r
+        where u.del_flag = '0' and r.company_id = 1 and u.role_id = r.role_id
+    </select>
 
 </mapper>

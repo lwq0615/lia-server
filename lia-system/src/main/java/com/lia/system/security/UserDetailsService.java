@@ -34,9 +34,6 @@ public class UserDetailsService implements org.springframework.security.core.use
         if(user == null){
             return null;
         }
-        if(user.getUserId() == LoginUser.visitorId){
-            user.setUserId(null);
-        }
         SysRole role = null;
         List<String> auths = new ArrayList<>();
         if(user.getRoleId() != null){

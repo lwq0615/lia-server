@@ -32,15 +32,7 @@ public class SysUserController {
     @GetMapping("/getInfo")
     public SysUser getInfo(){
         SysUser user = new SysUser();
-        try{
-            user.setUserId(LoginUser.getLoginUserId());
-        }catch (HttpException e){
-            if(e.getStatus() == 406){
-                user.setUserId(LoginUser.visitorId);
-            }else{
-                return null;
-            }
-        }
+        user.setUserId(LoginUser.getLoginUserId());
         return sysUserService.findSysUser(user).get(0);
     }
 

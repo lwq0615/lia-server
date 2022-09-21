@@ -19,9 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 public class LoginUser implements UserDetails {
 
-    // 游客账户Id
-    public static Long visitorId = 3L;
-
     private SysUser user;
     private SysRole role;
     private List<String> auths;
@@ -35,10 +32,6 @@ public class LoginUser implements UserDetails {
             return null;
         }
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        // 如果是游客登录，抛出异常提示用户登录
-        if(loginUser.user.getUserId() == null){
-            throw new HttpException(406, "该资源游客无法访问");
-        }
         return loginUser.user.getUserId();
     }
 

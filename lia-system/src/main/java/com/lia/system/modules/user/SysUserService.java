@@ -126,10 +126,6 @@ public class SysUserService {
         if (userIds.contains(2)) {
             userIds.remove(userIds.indexOf(2));
         }
-        // 不允许删除游客账户
-        if (userIds.contains(3)) {
-            userIds.remove(userIds.indexOf(3));
-        }
         if (userIds.size() == 0) {
             return 0;
         }
