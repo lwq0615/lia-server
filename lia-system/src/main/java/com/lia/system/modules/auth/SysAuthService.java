@@ -1,6 +1,7 @@
 package com.lia.system.modules.auth;
 
 
+import com.lia.system.modules.dict.SysDict;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -82,6 +83,13 @@ public class SysAuthService {
             return 0;
         }
         return sysAuthMapper.deleteSysAuths(authIds);
+    }
+
+    /**
+     * 获取权限字典表
+     */
+    public List<SysDict> getSysAuthDict() {
+        return sysAuthMapper.getSysAuthDict();
     }
 
 }

@@ -3,6 +3,7 @@ package com.lia.system.modules.user;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lia.system.modules.dict.SysDict;
 import com.lia.system.modules.file.SysFile;
 import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
@@ -149,6 +150,16 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('system:user:deleteUsers')")
     public int deleteUsers(@RequestBody List<Integer> userIds){
         return sysUserService.deleteUsers(userIds);
+    }
+
+
+    /**
+     * 获取创建人字典表
+     */
+    @GetMapping("/getCreateByDict")
+    @PreAuthorize("hasAuthority('system:user:getCreateByDict')")
+    public List<SysDict> createByDict(){
+        return sysUserService.getCreateByDict();
     }
 
 }

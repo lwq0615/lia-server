@@ -6,6 +6,7 @@
 
     <resultMap type="SysRole" id="SysRoleResult">
         <id     property="roleId"      column="role_id"      />
+        <id     property="companyId"      column="company_id"      />
         <result property="rootRouterId"    column="root_router_id"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
@@ -19,6 +20,12 @@
         </collection>
     </resultMap>
 
+    <resultMap type="SysDict" id="SysDictResult">
+        <id     property="dictId"      column="dict_id"      />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
     <select id="findSysRole" parameterType="SysRole" resultMap="SysRoleResult">
         select * from sys_role
         <where>
@@ -30,6 +37,12 @@
             </if>
             <if test="key != null">
                 AND `key` = #{key}
+            </if>
+            <if test="companyId != null">
+                AND `company_id` = #{companyId}
+            </if>
+            <if test="superior != null">
+                AND `superior` = #{superior}
             </if>
             <if test="rootRouterId != null">
                 AND root_router_id = #{rootRouterId}
@@ -49,10 +62,12 @@
 
     <insert id="addSysRole" parameterType="SysRole" useGeneratedKeys="true" keyProperty ="roleId" keyColumn="role_id">
         insert  into sys_role
-        (`name`,`key`,root_router_id,create_by,create_time,remark)
+        (`name`,`key`,company_id,superior,root_router_id,create_by,create_time,remark)
         values (
             #{name},
             #{key},
+            #{companyId},
+            #{superior},
             #{rootRouterId},
             #{createBy},
             current_timestamp(),
@@ -65,9 +80,9 @@
         update sys_role set
         `name` = #{name},
         `key` = #{key},
+        `company_id` = #{companyId},
+        `superior` = #{superior},
         root_router_id = #{rootRouterId},
-        create_by = #{createBy},
-        create_time = #{createTime},
         remark = #{remark}
         where role_id = #{roleId}
     </update>
@@ -110,5 +125,13 @@
             </foreach>
         </trim>
     </insert>
+
+    <select id="getRoleOfCompanyDict" resultType="SysDict">
+        SELECT role_id as value, name as label from sys_role where company_id = #{companyId}
+    </select>
+
+    <select id="getSysRoleDict" resultMap="SysDictResult">
+        SELECT role_id as value, name as label from sys_role
+    </select>
 
 </mapper>

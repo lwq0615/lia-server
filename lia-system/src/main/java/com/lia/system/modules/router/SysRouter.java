@@ -28,7 +28,6 @@ public class SysRouter {
 
     /**
      * 将路由列表转化为树形结构并指定根节点
-     *
      * @param routers 路由列表
      * @param rootId  根节点路由ID
      * @return

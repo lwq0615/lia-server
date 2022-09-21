@@ -4,12 +4,10 @@ package com.lia.system.modules.role;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.exception.HttpException;
+import com.lia.system.modules.dict.SysDict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,6 +48,12 @@ public class SysRoleController {
         if(role.getKey() == null || role.getKey().equals("")){
             throw new HttpException(400,"缺少参数key");
         }
+        if(role.getRootRouterId() == null){
+            throw new HttpException(400,"缺少参数rootRouterId");
+        }
+        if(role.getCompanyId() == null){
+            throw new HttpException(400,"缺少参数companyId");
+        }
         return sysRoleService.saveRole(role);
     }
 
@@ -65,5 +69,26 @@ public class SysRoleController {
     public int deleteRoles(@RequestBody List<Integer> roleIds){
         return sysRoleService.deleteRoles(roleIds);
     }
+
+
+    /**
+     * 根据企业ID获取某企业下的角色字典表
+     */
+    @GetMapping("/getRoleOfCompanyDict")
+    @PreAuthorize("hasAuthority('system:role:getRoleOfCompanyDict')")
+    public List<SysDict> sysCompanyDict(Integer companyId){
+        return sysRoleService.getRoleOfCompanyDict(companyId);
+    }
+
+
+    /**
+     * 获取角色字典表
+     */
+    @GetMapping("/sysRoleDict")
+    @PreAuthorize("hasAuthority('system:role:sysRoleDict')")
+    public List<SysDict> sysRoleDict(){
+        return sysRoleService.getSysRoleDict();
+    }
+
 
 }

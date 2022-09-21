@@ -1,15 +1,18 @@
 package com.lia.system.modules.user;
 
 
+import com.lia.system.modules.dict.SysDict;
 import com.lia.system.modules.file.SysFile;
 import com.lia.system.security.LoginUser;
 import com.lia.system.security.Jwt;
 import com.lia.system.modules.file.SysFileService;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +40,6 @@ public class SysUserService {
 
     /**
      * 获取用户的Authorization字符串
-     *
      * @param checkUser 用户信息
      * @return 生成的Authorization字符串
      */
@@ -167,6 +169,14 @@ public class SysUserService {
             this.saveUser(user);
         }
         return image;
+    }
+
+
+    /**
+     * 获取创建人字典表
+     */
+    public List<SysDict> getCreateByDict() {
+        return sysUserMapper.getCreateByDict();
     }
 
 }

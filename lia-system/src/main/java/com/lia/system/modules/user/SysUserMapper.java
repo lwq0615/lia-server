@@ -1,5 +1,6 @@
 package com.lia.system.modules.user;
 
+import com.lia.system.modules.dict.SysDict;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -40,5 +41,11 @@ public interface SysUserMapper {
      * @return 删除成功的数量
      */
     int deleteUsers(List<Integer> userIds);
+
+
+    /**
+     * 获取创建人字典表
+     */
+    List<SysDict> getCreateByDict();
 
 }

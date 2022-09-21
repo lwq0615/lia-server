@@ -1,6 +1,7 @@
 package com.lia.system.modules.auth;
 
 
+import com.lia.system.modules.dict.SysDict;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -55,5 +56,11 @@ public interface SysAuthMapper {
      * @return
      */
     List<Integer> findIdsbyRoleId(Integer roleId);
+
+
+    /**
+     * 获取权限字典表
+     */
+    List<SysDict> getSysAuthDict();
 
 }

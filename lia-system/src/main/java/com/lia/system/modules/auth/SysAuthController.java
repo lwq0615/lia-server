@@ -4,12 +4,10 @@ package com.lia.system.modules.auth;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.exception.HttpException;
+import com.lia.system.modules.dict.SysDict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -72,6 +70,16 @@ public class SysAuthController {
     @PreAuthorize("hasAuthority('system:auth:delete')")
     public int delete(@RequestBody List<Integer> authIds){
         return sysAuthService.deleteAuths(authIds);
+    }
+
+
+    /**
+     * 获取权限字典表
+     */
+    @GetMapping("/sysAuthDict")
+    @PreAuthorize("hasAuthority('system:auth:sysAuthDict')")
+    public List<SysDict> sysAuthDict(){
+        return sysAuthService.getSysAuthDict();
     }
 
 

@@ -15,6 +15,8 @@ public class SysRole {
     private Integer roleId;
     private String name;
     private String key;
+    private Integer companyId;
+    private Integer superior;
     private Integer rootRouterId;
     private Long createBy;
     private String createTime;

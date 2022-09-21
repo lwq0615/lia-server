@@ -1,6 +1,7 @@
 package com.lia.system.modules.role;
 
 
+import com.lia.system.modules.dict.SysDict;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -94,6 +95,21 @@ public class SysRoleService {
             return 0;
         }
         return sysRoleMapper.deleteRoles(roleIds);
+    }
+
+    /**
+     * 根据企业ID获取某企业下的角色字典表
+     */
+    public List<SysDict> getRoleOfCompanyDict(Integer companyId){
+        return sysRoleMapper.getRoleOfCompanyDict(companyId);
+    }
+
+
+    /**
+     * 获取角色字典表
+     */
+    public List<SysDict> getSysRoleDict(){
+        return sysRoleMapper.getSysRoleDict();
     }
 
 }

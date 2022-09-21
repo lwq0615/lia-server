@@ -95,8 +95,6 @@
         parent = #{parent},
         `index` = #{index},
         icon = #{icon},
-        create_by = #{createBy},
-        create_time = #{createTime},
         remark = #{remark}
         where router_id = #{routerId}
     </update>

@@ -106,26 +106,4 @@ public class SysDictService {
     }
 
 
-    /**
-     * 获取角色字典表
-     */
-    public List<SysDict> getSysRoleDict(){
-        return sysDictMapper.getSysRoleDict();
-    }
-
-
-    /**
-     * 获取用户字典表
-     */
-    public List<SysDict> getSysUserDict() {
-        return sysDictMapper.getSysUserDict();
-    }
-    /**
-     * 获取权限字典表
-     */
-    public List<SysDict> getSysAuthDict() {
-        return sysDictMapper.getSysAuthDict();
-    }
-
-
 }

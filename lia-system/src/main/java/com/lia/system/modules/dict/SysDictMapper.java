@@ -53,22 +53,4 @@ public interface SysDictMapper {
      */
     int deleteDictsByType(String type);
 
-
-    /**
-     * 获取角色字典表
-     */
-    List<SysDict> getSysRoleDict();
-
-
-    /**
-     * 获取用户字典表
-     */
-    List<SysDict> getSysUserDict();
-
-
-    /**
-     * 获取权限字典表
-     */
-    List<SysDict> getSysAuthDict();
-
 }

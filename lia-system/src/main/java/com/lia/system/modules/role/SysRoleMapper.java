@@ -1,6 +1,7 @@
 package com.lia.system.modules.role;
 
 
+import com.lia.system.modules.dict.SysDict;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -61,6 +62,17 @@ public interface SysRoleMapper {
      * 给角色添加路由
      */
     int addRoutersToRole(List<Integer> routerIds, Integer roleId);
+
+    /**
+     * 根据企业ID获取某企业下的角色字典表
+     */
+    List<SysDict> getRoleOfCompanyDict(Integer companyId);
+
+
+    /**
+     * 获取角色字典表
+     */
+    List<SysDict> getSysRoleDict();
 
 
 }
