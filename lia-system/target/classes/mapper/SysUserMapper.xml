@@ -6,6 +6,7 @@
 
     <resultMap type="SysUser" id="SysUserResult">
         <id     property="userId"      column="user_id"      />
+        <id     property="companyId"      column="company_id"      />
         <id     property="roleId"      column="role_id"      />
         <result property="headImg"      column="head_img"      />
         <result property="delFlag"    column="del_flag"    />
@@ -33,6 +34,9 @@
             </if>
             <if test="roleId != null">
                 AND role_id = #{roleId}
+            </if>
+            <if test="companyId != null">
+                AND role_id in (select role_id from sys_role where company_id = #{companyId})
             </if>
             <if test="sex != null">
                 AND sex = #{sex}
@@ -68,6 +72,7 @@
     </sql>
 
 
+    <!--用户登录用-->
     <select id="getOneSysUser" parameterType="SysUser" resultMap="SysUserResult">
         select * from sys_user
         <include refid="where"></include>
@@ -77,6 +82,9 @@
     <!--不查询密码-->
     <select id="getSysUserPage" parameterType="SysUser" resultMap="SysUserResult">
         select
+          u.*, r.company_id
+        from
+            (select
             user_id,
             username,
             nick,
@@ -90,8 +98,12 @@
             create_by,
             create_time,
             remark
-        from sys_user
-        <include refid="where"></include>
+            from sys_user
+            <include refid="where"></include>) u,
+            sys_role r,
+            sys_company c
+        where
+            u.role_id = r.role_id
     </select>
 
     <insert id="addSysUser" parameterType="SysUser">

@@ -131,7 +131,7 @@
     </select>
 
     <select id="getSysRoleDict" resultMap="SysDictResult">
-        SELECT role_id as value, name as label from sys_role
+        SELECT role_id as value, r.name as label, c.name as remark from sys_role r, sys_company c where r.company_id = c.company_id
     </select>
 
 </mapper>
