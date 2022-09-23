@@ -20,8 +20,9 @@
         </collection>
     </resultMap>
 
-    <resultMap type="SysDict" id="SysDictResult">
-        <id     property="dictId"      column="dict_id"      />
+    <resultMap type="SysDictData" id="SysDictDataResult">
+        <id     property="dataId"      column="data_id"      />
+        <id     property="typeId"      column="type_id"      />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
@@ -126,11 +127,11 @@
         </trim>
     </insert>
 
-    <select id="getRoleOfCompanyDict" resultType="SysDict">
+    <select id="getRoleOfCompanyDict" resultType="SysDictData">
         SELECT role_id as value, name as label from sys_role where company_id = #{companyId}
     </select>
 
-    <select id="getSysRoleDict" resultMap="SysDictResult">
+    <select id="getSysRoleDict" resultMap="SysDictDataResult">
         SELECT role_id as value, r.name as label, c.name as remark from sys_role r, sys_company c where r.company_id = c.company_id
     </select>
 

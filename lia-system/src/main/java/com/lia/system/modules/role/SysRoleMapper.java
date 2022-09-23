@@ -1,7 +1,7 @@
 package com.lia.system.modules.role;
 
 
-import com.lia.system.modules.dict.SysDict;
+import com.lia.system.modules.dictData.SysDictData;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -66,13 +66,13 @@ public interface SysRoleMapper {
     /**
      * 根据企业ID获取某企业下的角色字典表
      */
-    List<SysDict> getRoleOfCompanyDict(Integer companyId);
+    List<SysDictData> getRoleOfCompanyDict(Integer companyId);
 
 
     /**
      * 获取角色字典表
      */
-    List<SysDict> getSysRoleDict();
+    List<SysDictData> getSysRoleDict();
 
 
 }

@@ -16,11 +16,13 @@
         <id     property="remark"      column="remark"      />
     </resultMap>
 
-    <resultMap type="SysDict" id="SysDictResult">
-        <id     property="dictId"      column="dict_id"      />
+    <resultMap type="SysDictData" id="SysDictDataResult">
+        <id     property="dataId"      column="data_id"      />
+        <id     property="typeId"      column="type_id"      />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
+
 
 
     <select id="findSysCompany" parameterType="SysCompany" resultMap="SysCompanyResult">
@@ -91,7 +93,7 @@
         </trim>
     </delete>
 
-    <select id="getSysCompanyDict" resultType="SysDict">
+    <select id="getSysCompanyDict" resultType="SysDictData">
         select name as label,company_id as value from sys_company
     </select>
 

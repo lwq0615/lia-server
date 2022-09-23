@@ -1,6 +1,5 @@
-package com.lia.system.modules.company;
+package com.lia.system.modules.dictData;
 
-import com.lia.system.modules.dictData.SysDictData;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -11,39 +10,39 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SysCompanyService {
+public class SysDictDataService {
 
 
     @Autowired
-    private SysCompanyMapper sysCompanyMapper;
+    private SysDictDataMapper sysDictDataMapper;
 
 
     /**
      * 分页查询
-     * @param sysCompany
+     * @param sysDictData
      * @return
      */
-    public List<SysCompany> findSysCompany(SysCompany sysCompany) {
-        return sysCompanyMapper.findSysCompany(sysCompany);
+    public List<SysDictData> findSysDictData(SysDictData sysDictData) {
+        return sysDictDataMapper.findSysDictData(sysDictData);
     }
 
 
     /**
      * 新增或编辑
      *
-     * @param sysCompany
+     * @param sysDictData
      * @return
      */
-    public String saveSysCompany(SysCompany sysCompany) {
-        int success;
+    public String saveSysDictData(SysDictData sysDictData) {
+        int success = 0;
         try {
-            if (sysCompany.getCompanyId() == null) {
+            if (sysDictData.getDataId() == null) {
                 // 新增
-                sysCompany.setCreateBy(LoginUser.getLoginUserId());
-                success = sysCompanyMapper.addSysCompany(sysCompany);
+                sysDictData.setCreateBy(LoginUser.getLoginUserId());
+                success = sysDictDataMapper.addSysDictData(sysDictData);
             } else {
                 // 编辑
-                success = sysCompanyMapper.editSysCompany(sysCompany);
+                success = sysDictDataMapper.editSysDictData(sysDictData);
             }
         } catch (DuplicateKeyException e) {
             String[] split = e.getCause().getMessage().split(" ");
@@ -58,21 +57,23 @@ public class SysCompanyService {
     /**
      * 批量删除
      *
-     * @param sysCompanyIds id列表
+     * @param sysDictDataIds id列表
      * @return 删除成功的数量
      */
-    public int deleteSysCompanys(List<Integer> sysCompanyIds) {
-        if (sysCompanyIds.size() == 0) {
+    public int deleteSysDictDatas(List<Integer> sysDictDataIds) {
+        if (sysDictDataIds.size() == 0) {
             return 0;
         }
-        return sysCompanyMapper.deleteSysCompanys(sysCompanyIds);
+        return sysDictDataMapper.deleteSysDictDatas(sysDictDataIds);
     }
 
+
     /**
-     * 获取企业字典表
+     * 获取性别字典表
      */
-    public List<SysDictData> getSysCompanyDict(){
-        return sysCompanyMapper.getSysCompanyDict();
+    public List<SysDictData> getSexDict(){
+        return sysDictDataMapper.getSexDict();
     }
 
 }
+

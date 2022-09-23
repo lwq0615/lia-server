@@ -1,7 +1,7 @@
 package com.lia.system.modules.auth;
 
 
-import com.lia.system.modules.dict.SysDict;
+import com.lia.system.modules.dictData.SysDictData;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -61,6 +61,6 @@ public interface SysAuthMapper {
     /**
      * 获取权限字典表
      */
-    List<SysDict> getSysAuthDict();
+    List<SysDictData> getSysAuthDict();
 
 }

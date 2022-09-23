@@ -42,9 +42,10 @@
                 AND create_time = #{createTime}
             </if>
             <if test="remark != null">
-                AND remark = #{remark}
+                AND remark like concat('%',#{remark},'%')
             </if>
         </where>
+        ORDER BY `index` asc
     </select>
 
     <select id="findRouterByRoleId" parameterType="Integer" resultMap="SysRouterResult">

@@ -3,7 +3,7 @@ package com.lia.system.modules.company;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.exception.HttpException;
-import com.lia.system.modules.dict.SysDict;
+import com.lia.system.modules.dictData.SysDictData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -75,7 +75,7 @@ public class SysCompanyController {
      */
     @GetMapping("/sysCompanyDict")
     @PreAuthorize("hasAuthority('system:company:sysCompanyDict')")
-    public List<SysDict> sysCompanyDict(){
+    public List<SysDictData> sysCompanyDict(){
         return sysCompanyService.getSysCompanyDict();
     }
 

@@ -4,7 +4,7 @@ package com.lia.system.modules.role;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.exception.HttpException;
-import com.lia.system.modules.dict.SysDict;
+import com.lia.system.modules.dictData.SysDictData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -76,7 +76,7 @@ public class SysRoleController {
      */
     @GetMapping("/getRoleOfCompanyDict")
     @PreAuthorize("hasAuthority('system:role:getRoleOfCompanyDict')")
-    public List<SysDict> sysCompanyDict(Integer companyId){
+    public List<SysDictData> sysCompanyDict(Integer companyId){
         return sysRoleService.getRoleOfCompanyDict(companyId);
     }
 
@@ -86,7 +86,7 @@ public class SysRoleController {
      */
     @GetMapping("/sysRoleDict")
     @PreAuthorize("hasAuthority('system:role:sysRoleDict')")
-    public List<SysDict> sysRoleDict(){
+    public List<SysDictData> sysRoleDict(){
         return sysRoleService.getSysRoleDict();
     }
 

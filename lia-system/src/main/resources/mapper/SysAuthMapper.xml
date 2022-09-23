@@ -11,12 +11,12 @@
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
-    <resultMap type="SysDict" id="SysDictResult">
-        <id     property="dictId"      column="dict_id"      />
+    <resultMap type="SysDictData" id="SysDictDataResult">
+        <id     property="dataId"      column="data_id"      />
+        <id     property="typeId"      column="type_id"      />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
-
 
     <select id="findSysAuth" parameterType="SysAuth" resultMap="SysAuthResult">
         select * from sys_auth
@@ -100,7 +100,7 @@
     </select>
 
 
-    <select id="getSysAuthDict" resultType="SysDict">
+    <select id="getSysAuthDict" resultType="SysDictData">
         select name as label,auth_id as value,router_id as remark from sys_auth
     </select>
 

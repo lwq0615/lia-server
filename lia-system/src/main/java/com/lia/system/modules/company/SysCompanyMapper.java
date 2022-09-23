@@ -1,6 +1,6 @@
 package com.lia.system.modules.company;
 
-import com.lia.system.modules.dict.SysDict;
+import com.lia.system.modules.dictData.SysDictData;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
@@ -44,6 +44,6 @@ public interface SysCompanyMapper {
     /**
      * 获取企业字典表
      */
-    List<SysDict> getSysCompanyDict();
+    List<SysDictData> getSysCompanyDict();
 
 }

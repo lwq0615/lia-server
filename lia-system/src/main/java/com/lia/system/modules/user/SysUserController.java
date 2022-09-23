@@ -3,7 +3,7 @@ package com.lia.system.modules.user;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lia.system.modules.dict.SysDict;
+import com.lia.system.modules.dictData.SysDictData;
 import com.lia.system.modules.file.SysFile;
 import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
@@ -150,7 +150,7 @@ public class SysUserController {
      */
     @GetMapping("/getCreateByDict")
     @PreAuthorize("hasAuthority('system:user:getCreateByDict')")
-    public List<SysDict> createByDict(){
+    public List<SysDictData> createByDict(){
         return sysUserService.getCreateByDict();
     }
 

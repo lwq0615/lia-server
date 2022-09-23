@@ -1,6 +1,6 @@
 package com.lia.system.modules.user;
 
-import com.lia.system.modules.dict.SysDict;
+import com.lia.system.modules.dictData.SysDictData;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -46,6 +46,6 @@ public interface SysUserMapper {
     /**
      * 获取创建人字典表
      */
-    List<SysDict> getCreateByDict();
+    List<SysDictData> getCreateByDict();
 
 }
