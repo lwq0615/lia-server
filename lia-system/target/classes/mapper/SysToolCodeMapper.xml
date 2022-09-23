@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lia.system.modules.code.SysToolCodeMapper">
+
+    <resultMap type="SysToolCode" id="SysToolCodeResult">
+        <id     property="codeId"      column="code_id"      />
+        <id     property="columns"      column="columns"      />
+        <id     property="tableName"      column="table_name"      />
+        <id     property="primaryKey"      column="primary_key"      />
+        <id     property="httpUrl"      column="http_url"      />
+        <id     property="createBy"      column="create_by"      />
+        <id     property="createTime"      column="create_time"      />
+    </resultMap>
+
+
+    <select id="findSysToolCode" parameterType="SysToolCode" resultMap="SysToolCodeResult">
+        select * from sys_tool_code
+        <where>
+            <if test="codeId != null">
+                AND `code_id` = #{codeId}
+            </if>
+            <if test="columns != null">
+                AND `columns` = #{columns}
+            </if>
+            <if test="tableName != null">
+                AND `table_name` = #{tableName}
+            </if>
+            <if test="primaryKey != null">
+                AND `primary_key` = #{primaryKey}
+            </if>
+            <if test="httpUrl != null">
+                AND `http_url` = #{httpUrl}
+            </if>
+            <if test="createBy != null">
+                AND `create_by` = #{createBy}
+            </if>
+            <if test="createTime != null">
+                AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
+            </if>
+        </where>
+        order by code_id desc
+    </select>
+
+
+    <insert id="addSysToolCode" parameterType="SysToolCode">
+        insert  into sys_tool_code
+        (`columns`,`table_name`,`primary_key`,`http_url`,`create_by`,`create_time`) values (
+            #{columns},
+            #{tableName},
+            #{primaryKey},
+            #{httpUrl},
+            #{createBy},
+            current_timestamp()
+        )
+    </insert>
+
+
+    <update id="editSysToolCode" parameterType="SysToolCode">
+        update sys_tool_code set
+        `columns` = #{columns},
+        `table_name` = #{tableName},
+        `primary_key` = #{primaryKey},
+        `http_url` = #{httpUrl},
+        `create_by` = #{createBy},
+        `create_time` = #{createTime}
+        where `code_id` = #{codeId}
+    </update>
+
+    <delete id="deleteSysToolCodes" parameterType="List">
+        delete from sys_tool_code where code_id in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="sysToolCodeIds" index="index" item="item">
+                #{item},
+            </foreach>
+        </trim>
+    </delete>
+
+</mapper>
