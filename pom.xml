@@ -27,13 +27,15 @@
         <mysql.connector.version>8.0.26</mysql.connector.version>
         <springboot.mybatis.version>2.2.2</springboot.mybatis.version>
         <lombok.version>1.18.24</lombok.version>
-        <junit.version>4.11</junit.version>
+        <spring.test.version>2.7.3</spring.test.version>
         <fastjson2.version>2.0.5</fastjson2.version>
         <jwt.version>0.9.1</jwt.version>
         <alibaba.druid.version>1.2.8</alibaba.druid.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
         <spring.security.version>2.6.3</spring.security.version>
         <thumbnailator.version>0.4.8</thumbnailator.version>
+        <websocket.version>2.7.3</websocket.version>
+        <redis.version>2.7.3</redis.version>
     </properties>
 
 
@@ -119,18 +121,34 @@
                 <version>${lombok.version}</version>
             </dependency>
 
-            <!--单元测试junit-->
+            <!-- 单元测试 -->
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+                <version>${spring.test.version}</version>
             </dependency>
+
 
             <!--json转化工具-->
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson2.version}</version>
+            </dependency>
+
+            <!-- websocket -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-websocket</artifactId>
+                <version>${websocket.version}</version>
+            </dependency>
+
+            <!-- redis -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${redis.version}</version>
             </dependency>
 
 

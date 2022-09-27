@@ -7,6 +7,7 @@ import com.lia.system.security.LoginUser;
 import com.lia.system.security.Jwt;
 import com.lia.system.modules.file.SysFileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,8 @@ public class SysUserService {
     private SysUserMapper sysUserMapper;
     @Autowired
     private SysFileService sysFileService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
 
     /**
@@ -49,7 +52,9 @@ public class SysUserService {
             Map userInfo = new HashMap();
             userInfo.put("loginTime", System.currentTimeMillis() / 1000);
             userInfo.put("loginUser", loginUser);
-            return jwt.getToken(userInfo);
+            String uid = UUID.randomUUID().toString();
+            redisTemplate.opsForValue().set(uid, jwt.getToken(userInfo));
+            return uid;
         } catch (Exception e) {
             e.printStackTrace();
             return "login failed";

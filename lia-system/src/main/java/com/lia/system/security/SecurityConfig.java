@@ -59,6 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 登录接口不需要认证
                 .antMatchers("/system/user/login").permitAll()
                 .antMatchers("/system/file/getPic").permitAll()
+                // websocket接口另外进行鉴权
+                .antMatchers("/ws").permitAll()
                 // 剩余的所有接口都需要认证
                 .anyRequest().authenticated();
         // 配置token解析过滤器

@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -27,19 +28,21 @@ public class TokenFilter extends OncePerRequestFilter {
     private String header;
     @Autowired
     private Jwt jwt;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         response.setContentType("application/json;charset=utf-8");
-        String token = request.getHeader(header);
+        String uid = request.getHeader(header);
         // 没有token，不需要解析
-        if(token == null || token.equals("")){
+        if(uid == null || uid.equals("")){
             filterChain.doFilter(request,response);
             return;
         }
         //解析token
         try{
-            Map map = jwt.parse(token);
+            Map map = jwt.parse((String) redisTemplate.opsForValue().get(uid));
             if(map == null || map.get("loginUser") == null){
                 filterChain.doFilter(request,response);
                 return;
