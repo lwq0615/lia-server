@@ -30,20 +30,7 @@
     <favorites_list name="lia" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="53" selection-start-line="53" selection-end-line="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -180,7 +167,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="465" />
     <option name="y" value="80" />
     <option name="width" value="1400" />
@@ -193,18 +180,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="lia" type="b2602c69:ProjectViewProjectNode" />
               <item name="nest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lia" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nest" type="462c0819:PsiDirectoryNode" />
-              <item name="lia-server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="lia" type="b2602c69:ProjectViewProjectNode" />
@@ -332,7 +314,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -588,6 +570,7 @@
       <workItem from="1664093424240" duration="603000" />
       <workItem from="1664262840665" duration="2787000" />
       <workItem from="1664265714164" duration="13914000" />
+      <workItem from="1664354411219" duration="620000" />
     </task>
     <task id="LOCAL-00001" summary="company">
       <created>1663726262881</created>
@@ -632,12 +615,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="213944000" />
+    <option name="totallyTimeSpent" value="214564000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49798387" visible="true" weight="0.30093834" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49798387" visible="true" weight="0.30495977" />
       <window_info id="Structure" order="1" sideWeight="0.5020161" side_tool="true" weight="0.30093834" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -647,13 +630,13 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2776204" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.7875354" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.25212464" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.25212464" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.26203966" />
@@ -735,13 +718,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/dictData/SysDictData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="14" column="24" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="71">
@@ -973,13 +949,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/test/java/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/test/java/Test.java" />
     <entry file="file://$PROJECT_DIR$/lia-system/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -994,23 +964,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="129" column="25" selection-start-line="129" selection-start-column="25" selection-end-line="129" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/redis/Redis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/redis/Redis.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.5.3/spring-data-redis-2.5.3.jar!/org/springframework/data/redis/core/ValueOperations.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -1155,9 +1109,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="129" column="25" selection-start-line="129" selection-start-column="25" selection-end-line="129" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
+        <state relative-caret-position="441">
           <caret line="53" selection-start-line="53" selection-end-line="53" />
           <folding>
             <element signature="imports" expanded="true" />
