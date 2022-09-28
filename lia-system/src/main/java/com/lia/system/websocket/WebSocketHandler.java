@@ -1,5 +1,6 @@
 package com.lia.system.websocket;
 
+import com.lia.system.security.LoginUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -7,7 +8,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Component
@@ -26,8 +26,8 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        Long userId = (Long) session.getAttributes().get("userId");
-        sessionPools.put(userId, session);
+        LoginUser loginUser = (LoginUser) session.getAttributes().get("loginUser");
+        sessionPools.put(loginUser.getUser().getUserId(), session);
     }
 
 
@@ -50,9 +50,9 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
      * @throws Exception
      */
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        Long userId = (Long) session.getAttributes().get("userId");
-        sessionPools.remove(userId);
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+        LoginUser loginUser = (LoginUser) session.getAttributes().get("loginUser");
+        sessionPools.remove(loginUser.getUser().getUserId());
     }
 
 }

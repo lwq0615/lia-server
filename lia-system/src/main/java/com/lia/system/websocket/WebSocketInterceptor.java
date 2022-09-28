@@ -41,16 +41,20 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
      */
     @Override
     public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> attributes) throws Exception {
-        ServletServerHttpRequest request = (ServletServerHttpRequest) serverHttpRequest;
-        String uid = request.getServletRequest().getParameter(header);
-        Map map = jwt.parse((String) redisTemplate.opsForValue().get(uid));
-        LoginUser user = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
-        Long userId = user.getUser().getUserId();
-        if(Objects.isNull(userId)){
+        try{
+            ServletServerHttpRequest request = (ServletServerHttpRequest) serverHttpRequest;
+            String uid = request.getServletRequest().getParameter(header);
+            Map map = jwt.parse((String) redisTemplate.opsForValue().get(uid));
+            LoginUser user = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
+            Long userId = user.getUser().getUserId();
+            if(Objects.isNull(userId)){
+                return false;
+            }
+            attributes.put("loginUser", user);
+            return true;
+        }catch (Exception e){
             return false;
         }
-        attributes.put("userId", userId);
-        return true;
     }
 
 

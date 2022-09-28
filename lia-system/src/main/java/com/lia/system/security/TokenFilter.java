@@ -55,8 +55,8 @@ public class TokenFilter extends OncePerRequestFilter {
         }catch (ExpiredJwtException je){
             // 登录状态过期
             response.setStatus(402);
+            redisTemplate.delete(uid);
         }catch (Exception e) {
-            e.printStackTrace();
         }finally{
             filterChain.doFilter(request,response);
         }

@@ -28,7 +28,6 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUser checkUser = new SysUser();
-        checkUser.setStatus('0');
         checkUser.setUsername(username);
         SysUser user = sysUserMapper.getOneSysUser(checkUser);
         if(user == null){

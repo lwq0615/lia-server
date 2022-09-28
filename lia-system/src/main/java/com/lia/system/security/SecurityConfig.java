@@ -56,8 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对preflight预检测请求放行
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                // 登录接口不需要认证
+                // 不需要认证的接口
                 .antMatchers("/system/user/login").permitAll()
+                .antMatchers("/system/user/logout").permitAll()
                 .antMatchers("/system/file/getPic").permitAll()
                 // websocket接口另外进行鉴权
                 .antMatchers("/ws").permitAll()

@@ -41,8 +41,8 @@ public interface SysDictDataMapper {
 
 
     /**
-     * 获取性别字典表
+     * 根据key获取字典数据
      */
-    List<SysDictData> getSexDict();
+    List<SysDictData> getDictByKey(String key);
 
 }

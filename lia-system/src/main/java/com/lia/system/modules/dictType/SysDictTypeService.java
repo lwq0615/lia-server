@@ -39,6 +39,7 @@ public class SysDictTypeService {
         try {
             if (sysDictType.getTypeId() == null) {
                 // 新增
+                sysDictType.setCreateBy(LoginUser.getLoginUserId());
                 success = sysDictTypeMapper.addSysDictType(sysDictType);
             } else {
                 // 编辑

@@ -37,8 +37,9 @@
 
     <insert id="addSysDictType" parameterType="SysDictType">
         insert  into sys_dict_type
-        (`name`,`create_by`,`create_time`,`remark`) values (
+        (`name`,`key`, `create_by`,`create_time`,`remark`) values (
             #{name},
+            #{key},
             #{createBy},
             current_timestamp(),
             #{remark})

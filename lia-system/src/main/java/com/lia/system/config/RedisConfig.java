@@ -1,4 +1,4 @@
-package com.lia.system.redis;
+package com.lia.system.config;
 
 
 import org.springframework.context.annotation.Bean;

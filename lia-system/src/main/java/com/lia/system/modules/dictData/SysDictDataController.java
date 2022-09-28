@@ -77,7 +77,17 @@ public class SysDictDataController {
     @GetMapping("/getSexDict")
     @PreAuthorize("hasAuthority('system:dictData:getSexDict')")
     public List<SysDictData> getSexDict(){
-        return sysDictDataService.getSexDict();
+        return sysDictDataService.getDictByKey("sys:sex");
+    }
+
+
+    /**
+     * 获取性别字典表
+     */
+    @GetMapping("/getUserStatusDict")
+    @PreAuthorize("hasAuthority('system:dictData:getUserStatusDict')")
+    public List<SysDictData> getUserStatusDict(){
+        return sysDictDataService.getDictByKey("sys:user:status");
     }
 
 

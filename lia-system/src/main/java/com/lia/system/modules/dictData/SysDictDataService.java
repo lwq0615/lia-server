@@ -69,10 +69,10 @@ public class SysDictDataService {
 
 
     /**
-     * 获取性别字典表
+     * 根据key获取字典数据
      */
-    public List<SysDictData> getSexDict(){
-        return sysDictDataMapper.getSexDict();
+    public List<SysDictData> getDictByKey(String key){
+        return sysDictDataMapper.getDictByKey(key);
     }
 
 }

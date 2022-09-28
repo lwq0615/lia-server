@@ -7,6 +7,7 @@ import com.lia.system.security.LoginUser;
 import com.lia.system.security.Jwt;
 import com.lia.system.modules.file.SysFileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.*;
 
@@ -49,6 +51,10 @@ public class SysUserService {
         try {
             Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+            // 账号停用
+            if(loginUser.getUser().getStatus() == '1'){
+                return "user deactivate";
+            }
             Map userInfo = new HashMap();
             userInfo.put("loginTime", System.currentTimeMillis() / 1000);
             userInfo.put("loginUser", loginUser);
@@ -59,6 +65,13 @@ public class SysUserService {
             e.printStackTrace();
             return "login failed";
         }
+    }
+
+    /**
+     * 退出登录
+     */
+    public void logout(String uid){
+        redisTemplate.delete(uid);
     }
 
 
