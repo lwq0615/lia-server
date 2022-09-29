@@ -46,17 +46,6 @@ public class SysMessageController {
 
 
     /**
-     * 发送消息
-     * @param message 消息详情
-     * @return 是否发送成功
-     */
-    @PostMapping("/send")
-    public boolean sendMessage(@RequestBody SysMessage message){
-        return sysMessageService.sendMessage(message);
-    }
-
-
-    /**
      * 获取可以聊天的用户（只有相同企业的用户可以相互聊天）
      */
     @GetMapping("/personList")
