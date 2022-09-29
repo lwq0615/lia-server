@@ -56,6 +56,7 @@
                 AND remark like concat('%',#{remark},'%')
             </if>
         </where>
+        order by company_id desc
     </select>
 
 

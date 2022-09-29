@@ -14,7 +14,10 @@ spring:
     host: localhost
     port: 6379
     password:
-    database: 1
+    # 可选数据库,默认数据库为第一个
+    dbs: 1,0,2,3
+    # RedisTemplate使用的数据库，不推荐使用RedisTemplate来操作redis
+    database: 0
   servlet:
     #不限制上传文件大小
     multipart:

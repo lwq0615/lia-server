@@ -3,12 +3,12 @@ package com.lia.system.modules.user;
 
 import com.lia.system.modules.dictData.SysDictData;
 import com.lia.system.modules.file.SysFile;
-import com.lia.system.security.LoginUser;
-import com.lia.system.security.Jwt;
 import com.lia.system.modules.file.SysFileService;
+import com.lia.system.redis.Redis;
+import com.lia.system.redis.RedisDb;
+import com.lia.system.security.Jwt;
+import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,9 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -37,7 +39,7 @@ public class SysUserService {
     @Autowired
     private SysFileService sysFileService;
     @Autowired
-    private RedisTemplate redisTemplate;
+    private Redis redis;
 
 
     /**
@@ -59,7 +61,7 @@ public class SysUserService {
             userInfo.put("loginTime", System.currentTimeMillis() / 1000);
             userInfo.put("loginUser", loginUser);
             String uid = UUID.randomUUID().toString();
-            redisTemplate.opsForValue().set(uid, jwt.getToken(userInfo));
+            redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().set(uid, jwt.getToken(userInfo));
             return uid;
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,13 +73,12 @@ public class SysUserService {
      * 退出登录
      */
     public void logout(String uid){
-        redisTemplate.delete(uid);
+        redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(uid);
     }
 
 
     /**
      * 查询用户列表
-     *
      * @param user 查询参数
      * @return 用户列表
      */
@@ -85,10 +86,19 @@ public class SysUserService {
         return sysUserMapper.getSysUserPage(user);
     }
 
+    /**
+     * 根据企业ID获取可以聊天的用户（只有相同企业的用户可以相互聊天）
+     */
+    public List<SysUser> personList() {
+        SysUser user = new SysUser();
+        user.setUserId(LoginUser.getLoginUserId());
+        Integer companyId = sysUserMapper.getSysUserPage(user).get(0).getCompanyId();
+        return sysUserMapper.personList(companyId, user.getUserId());
+    }
+
 
     /**
      * 新增或编辑用户
-     *
      * @param user
      * @return
      */

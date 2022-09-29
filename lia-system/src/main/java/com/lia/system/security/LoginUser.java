@@ -24,7 +24,7 @@ public class LoginUser implements UserDetails {
     private List<String> auths;
 
     /**
-     * 获取当前登录的用户信息
+     * 获取当前登录的用户ID
      */
     public static Long getLoginUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

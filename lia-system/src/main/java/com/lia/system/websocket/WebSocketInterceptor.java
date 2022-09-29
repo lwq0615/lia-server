@@ -1,6 +1,8 @@
 package com.lia.system.websocket;
 
 import com.alibaba.fastjson2.JSON;
+import com.lia.system.redis.Redis;
+import com.lia.system.redis.RedisDb;
 import com.lia.system.security.Jwt;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,6 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
     @Value("${token.header}")
     private String header;
     @Autowired
-    private RedisTemplate redisTemplate;
-    @Autowired
     private Jwt jwt;
 
 
@@ -44,7 +44,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
         try{
             ServletServerHttpRequest request = (ServletServerHttpRequest) serverHttpRequest;
             String uid = request.getServletRequest().getParameter(header);
-            Map map = jwt.parse((String) redisTemplate.opsForValue().get(uid));
+            Map map = jwt.parse((String) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().get(uid));
             LoginUser user = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
             Long userId = user.getUser().getUserId();
             if(Objects.isNull(userId)){
@@ -53,6 +53,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
             attributes.put("loginUser", user);
             return true;
         }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }

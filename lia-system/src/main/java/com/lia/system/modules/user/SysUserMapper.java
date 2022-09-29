@@ -1,6 +1,7 @@
 package com.lia.system.modules.user;
 
 import com.lia.system.modules.dictData.SysDictData;
+import com.lia.system.security.LoginUser;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -47,5 +48,11 @@ public interface SysUserMapper {
      * 获取创建人字典表
      */
     List<SysDictData> getCreateByDict();
+
+
+    /**
+     * 根据企业ID获取可以聊天的用户（只有相同企业的用户可以相互聊天）
+     */
+    List<SysUser> personList(Integer companyId, Long userId);
 
 }

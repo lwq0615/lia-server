@@ -1,10 +1,11 @@
 package com.lia.system.security;
 
 import com.alibaba.fastjson2.JSON;
+import com.lia.system.redis.Redis;
+import com.lia.system.redis.RedisDb;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -28,8 +29,6 @@ public class TokenFilter extends OncePerRequestFilter {
     private String header;
     @Autowired
     private Jwt jwt;
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -42,7 +41,7 @@ public class TokenFilter extends OncePerRequestFilter {
         }
         //解析token
         try{
-            Map map = jwt.parse((String) redisTemplate.opsForValue().get(uid));
+            Map map = jwt.parse((String) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().get(uid));
             if(map == null || map.get("loginUser") == null){
                 filterChain.doFilter(request,response);
                 return;
@@ -55,7 +54,7 @@ public class TokenFilter extends OncePerRequestFilter {
         }catch (ExpiredJwtException je){
             // 登录状态过期
             response.setStatus(402);
-            redisTemplate.delete(uid);
+            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(uid);
         }catch (Exception e) {
         }finally{
             filterChain.doFilter(request,response);
