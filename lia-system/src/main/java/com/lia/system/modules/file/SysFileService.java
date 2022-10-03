@@ -66,24 +66,9 @@ public class SysFileService {
         sysFile.setPath(newFilePath);
         sysFile.setSize(file.getSize());
         sysFile.setUploadUser(LoginUser.getLoginUserId());
+        sysFileMapper.addSysFile(sysFile);
         return sysFile;
     }
-
-
-    /**
-     * 新增或编辑
-     * @param file
-     * @return
-     */
-    public SysFile saveFile(SysFile file){
-        if(file.getFileId() == null){
-            sysFileMapper.addSysFile(file);
-        }else{
-            sysFileMapper.editSysFile(file);
-        }
-        return file;
-    }
-
 
     /**
      * 加载图片
@@ -135,6 +120,14 @@ public class SysFileService {
      * 根据Id删除文件
      */
     public int deleteFiles(List<Long> fileIds){
+        ArrayList<SysFile> sysFiles= sysFileMapper.findSysFileByIds(fileIds);
+        for (SysFile sysFile : sysFiles) {
+            // 删除本地磁盘的文件
+            if (sysFile.getPath() != null && !sysFile.getPath().equals("")) {
+                File oldFile = new File(sysFile.getPath());
+                if (oldFile.exists()) oldFile.delete();
+            }
+        }
         return sysFileMapper.deleteFiles(fileIds);
     }
 }

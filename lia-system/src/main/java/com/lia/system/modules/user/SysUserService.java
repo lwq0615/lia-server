@@ -9,6 +9,8 @@ import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
 import com.lia.system.security.Jwt;
 import com.lia.system.security.LoginUser;
+import com.lia.system.utils.ArrayUtils;
+import com.sun.deploy.util.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,10 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -186,28 +185,17 @@ public class SysUserService {
     public SysFile updateHeadImg(MultipartFile file, Long fileId) {
         SysUser user = new SysUser();
         user.setUserId(LoginUser.getLoginUserId());
+        // 保存新的头像
         SysFile image = sysFileService.uploadFile(file, "image");
-        // 如果是更换头像，则修改原来的头像数据
+        // 如果是更换头像，则删除原来的头像数据
         if (fileId != null) {
-            SysFile oldSysFile = new SysFile();
-            oldSysFile.setFileId(fileId);
-            oldSysFile = sysFileService.getSysFile(oldSysFile).get(0);
-            // 删除旧的头像文件
-            if (oldSysFile.getPath() != null && !oldSysFile.getPath().equals("")) {
-                File oldFile = new File(oldSysFile.getPath());
-                if (oldFile.exists()) oldFile.delete();
-            }
-            //更换数据库内的头像数据
-            image.setFileId(oldSysFile.getFileId());
-            sysFileService.saveFile(image);
+            //删除数据库内的头像数据
+            sysFileService.deleteFiles(ArrayUtils.asList(fileId));
         }
-        //如果是上传新的头像
-        else {
-            image = sysFileService.saveFile(image);
-            user = this.findSysUser(user).get(0);
-            user.setHeadImg(image.getFileId());
-            this.saveUser(user);
-        }
+        //保存新的头像到数据库
+        user = this.findSysUser(user).get(0);
+        user.setHeadImg(image.getFileId());
+        this.saveUser(user);
         return image;
     }
 

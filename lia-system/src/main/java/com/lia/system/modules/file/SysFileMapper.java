@@ -17,15 +17,15 @@ public interface SysFileMapper {
 
 
     /**
-     * 编辑文件信息
-     */
-    int editSysFile(SysFile file);
-
-
-    /**
      * 分页查询文件
      */
     ArrayList<SysFile> findSysFile(SysFile file);
+
+
+    /**
+     * 根据ids查询文件
+     */
+    ArrayList<SysFile> findSysFileByIds(List<Long> fileIds);
 
 
     /**

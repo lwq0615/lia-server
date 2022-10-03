@@ -21,16 +21,6 @@
         )
     </insert>
 
-    <update id="editSysFile" parameterType="SysFile">
-        update sys_file set
-        `name` = #{name},
-        path = #{path},
-        size = #{size},
-        upload_time = #{uploadTime},
-        upload_user = #{uploadUser}
-        where file_id = #{fileId}
-    </update>
-
     <select id="findSysFile" parameterType="SysFile" resultMap="SysFileResult">
         select * from sys_file
         <where>
@@ -53,6 +43,16 @@
                 AND upload_user = #{uploadUser}
             </if>
         </where>
+    </select>
+
+    <select id="findSysFileByIds" parameterType="ArrayList" resultMap="SysFileResult">
+        select * from sys_file
+        where file_id in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="fileIds" item="item">
+                #{item},
+            </foreach>
+        </trim>
     </select>
 
 
