@@ -80,8 +80,8 @@ public class SysMessageService {
     /**
      * 将用户1发送给用户2的聊天记录都标记为已读
      */
-    public boolean readMessage(Long sendBy, Long sendTo){
-        return sysMessageMapper.readMessage(sendBy, sendTo) > 0;
+    public int readMessage(Long sendBy, Long sendTo){
+        return sysMessageMapper.readMessage(sendBy, sendTo);
     }
 
 }

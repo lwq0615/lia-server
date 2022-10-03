@@ -40,6 +40,7 @@
     <update id="readMessage">
         update sys_msg set `read` = '1'
         where send_by = #{sendBy} and send_to = #{sendTo}
+        and `read` = '0'
     </update>
 
 </mapper>

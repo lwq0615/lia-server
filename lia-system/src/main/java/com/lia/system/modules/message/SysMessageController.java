@@ -67,7 +67,7 @@ public class SysMessageController {
      * 将用户1发送给用户2的聊天记录都标记为已读
      */
     @PostMapping("/readMessage")
-    public boolean readMessage(@RequestBody SysMessage message){
+    public int readMessage(@RequestBody SysMessage message){
         return sysMessageService.readMessage(message.getSendBy(), message.getSendTo());
     }
 
