@@ -21,7 +21,6 @@ public class SysMessageService {
 
     /**
      * 查询用户1与用户2的聊天记录
-     *
      * @param u1Id 用户1ID
      * @param u2Id 用户2ID
      * @return 聊天记录列表
@@ -39,7 +38,6 @@ public class SysMessageService {
 
     /**
      * 发送消息
-     *
      * @return 是否发送成功
      */
     public boolean sendMessage(SysMessage message) {
