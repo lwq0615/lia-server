@@ -47,12 +47,6 @@ public class SysDictTypeController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:dictType:save')")
     public String saveSysDictType(@RequestBody SysDictType sysDictType){
-        if(sysDictType.getName() == null || sysDictType.getName().equals("")){
-            throw new HttpException(400,"缺少参数name");
-        }
-        if(sysDictType.getKey() == null || sysDictType.getKey().equals("")){
-            throw new HttpException(400,"缺少参数key");
-        }
         return sysDictTypeService.saveSysDictType(sysDictType);
     }
 

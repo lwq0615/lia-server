@@ -1,5 +1,6 @@
 package com.lia.system.modules.dictData;
 
+import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -34,6 +35,15 @@ public class SysDictDataService {
      * @return
      */
     public String saveSysDictData(SysDictData sysDictData) {
+        if(sysDictData.getValue() == null || sysDictData.getValue().equals("")){
+            throw new HttpException(400,"缺少参数value");
+        }
+        if(sysDictData.getLabel() == null || sysDictData.getLabel().equals("")){
+            throw new HttpException(400,"缺少参数label");
+        }
+        if(sysDictData.getTypeId() == null){
+            throw new HttpException(400,"缺少参数typeId");
+        }
         int success = 0;
         try {
             if (sysDictData.getDataId() == null) {

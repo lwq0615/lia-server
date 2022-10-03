@@ -1,6 +1,7 @@
 package com.lia.system.redis;
 
 
+import com.lia.system.modules.message.SysMessage;
 import com.lia.system.modules.user.SysUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class RedisTest {
 
     @Test
     public void test(){
+        System.out.println(new SysMessage());
     }
 
 }

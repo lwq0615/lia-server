@@ -1,6 +1,7 @@
 package com.lia.system.modules.user;
 
 
+import com.lia.system.exception.HttpException;
 import com.lia.system.modules.dictData.SysDictData;
 import com.lia.system.modules.file.SysFile;
 import com.lia.system.modules.file.SysFileService;
@@ -48,6 +49,11 @@ public class SysUserService {
      * @return 生成的Authorization字符串
      */
     public String getAuthorization(SysUser checkUser) {
+        //判断是否合法用户
+        if (checkUser.getUsername() == null || checkUser.getUsername().equals("")
+                || checkUser.getPassword() == null || checkUser.getPassword().equals("")) {
+            return "less param";
+        }
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(checkUser.getUsername(), checkUser.getPassword());
         try {
@@ -103,6 +109,19 @@ public class SysUserService {
      * @return
      */
     public String saveUser(SysUser user) {
+        if (user.getUsername() == null || user.getUsername().equals("")) {
+            throw new HttpException(400, "缺少参数username");
+        }
+        if (user.getNick() == null || user.getNick().equals("")) {
+            throw new HttpException(400, "缺少参数nick");
+        }
+        if (user.getRoleId() == null) {
+            throw new HttpException(400, "缺少参数roleId");
+        }
+        // 新增的用户必须要有password
+        if (user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))) {
+            throw new HttpException(400, "缺少参数password");
+        }
         // 密码加密后在存入数据库
         if (user.getPassword() != null && !user.getPassword().equals("")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));

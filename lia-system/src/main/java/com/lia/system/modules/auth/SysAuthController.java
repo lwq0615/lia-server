@@ -44,18 +44,6 @@ public class SysAuthController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:auth:save')")
     public String save(@RequestBody SysAuth auth){
-        if(auth.getName() == null || auth.getName().equals("")){
-            throw new HttpException(400,"缺少参数name");
-        }
-        if(auth.getUrl() == null || auth.getUrl().equals("")){
-            throw new HttpException(400,"缺少参数url");
-        }
-        if(auth.getKey() == null || auth.getKey().equals("")){
-            throw new HttpException(400,"缺少参数key");
-        }
-        if(auth.getRouterId() == null){
-            throw new HttpException(400,"缺少参数routerId");
-        }
         return sysAuthService.saveAuth(auth);
     }
 

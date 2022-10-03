@@ -32,12 +32,6 @@ public class SysMessageController {
      */
     @PostMapping("/getPage")
     public PageInfo<SysMessage> getMsgRecord(@RequestBody SysMessage sysMessage, Integer current, Integer size){
-        if(sysMessage.getSendBy() == null){
-            throw new HttpException(400, "缺少参数sendBy");
-        }
-        if(sysMessage.getSendTo() == null){
-            throw new HttpException(400, "缺少参数sendTo");
-        }
         if(current != null && size != null){
             PageHelper.startPage(current,size);
         }
@@ -65,12 +59,16 @@ public class SysMessageController {
      * 最后一条聊天记录
      */
     @PostMapping("/getLastMsg")
-    public HashMap<Long, HashMap> getLastMsg(@RequestBody List<Long> userIds){
-        if(userIds == null || userIds.size() < 1){
-            return new HashMap<>();
-        }
+    public HashMap<Long, String> getLastMsg(@RequestBody List<Long> userIds){
         return sysMessageService.getLastMsg(userIds);
+    }
 
+    /**
+     * 将用户1发送给用户2的聊天记录都标记为已读
+     */
+    @PostMapping("/readMessage")
+    public boolean readMessage(@RequestBody SysMessage message){
+        return sysMessageService.readMessage(message.getSendBy(), message.getSendTo());
     }
 
 

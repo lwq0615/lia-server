@@ -22,9 +22,6 @@ public class SysRouterController {
      */
     @GetMapping("/getRouterOfRole")
     public List<SysRouter> getRouterofRole(Integer roleId)  {
-        if(roleId == null){
-            throw new HttpException(400, "缺少参数roleId");
-        }
         return sysRouterService.findRouterByRoleId(roleId);
     }
 
@@ -48,18 +45,6 @@ public class SysRouterController {
     @PostMapping("/saveRouter")
     @PreAuthorize("hasAuthority('system:router:saveRouter')")
     public String saveUser(@RequestBody SysRouter router){
-        if(router.getPath() == null || router.getPath().equals("")){
-            throw new HttpException(400,"缺少参数path");
-        }
-        if(router.getLabel() == null || router.getLabel().equals("")){
-            throw new HttpException(400,"缺少参数label");
-        }
-        if(router.getPath().contains("/")){
-            throw new HttpException(400,"参数path不可包含字符'/'");
-        }
-        if(router.getRouterId() != null && router.getRouterId() == router.getParent()){
-            throw new HttpException(400,"父路由不可以是自己");
-        }
         return sysRouterService.saveRouter(router);
     }
 

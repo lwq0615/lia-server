@@ -1,6 +1,7 @@
 package com.lia.system.modules.message;
 
 
+import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,12 @@ public class SysMessageService {
      * @return 聊天记录列表
      */
     public List<SysMessage> getMsgRecord(Long u1Id, Long u2Id) {
+        if(u1Id == null){
+            throw new HttpException(400, "缺少参数sendBy");
+        }
+        if(u2Id == null){
+            throw new HttpException(400, "缺少参数sendTo");
+        }
         return sysMessageMapper.getMsgRecord(u1Id, u2Id);
     }
 
@@ -36,12 +43,16 @@ public class SysMessageService {
      * @return 是否发送成功
      */
     public boolean sendMessage(SysMessage message) {
+        if(message.getType() == null) return false;
+        if(message.getSendBy() == null) return false;
+        if(message.getSendTo() == null) return false;
+        if(message.getContent() == null || message.getContent().equals("")) return false;
         return sysMessageMapper.sendMessage(message) > 0;
     }
 
 
     /**
-     * 未读聊天记录数量
+     * 各个联系人未读聊天记录数量
      */
     public HashMap<Long, Integer> getNoReadCount(){
         HashMap<Long, Integer> res = new HashMap();
@@ -54,17 +65,23 @@ public class SysMessageService {
     /**
      * 最后一条聊天记录
      */
-    public HashMap<Long, HashMap> getLastMsg(List<Long> userIds){
-        HashMap<Long, HashMap> res = new HashMap();
+    public HashMap<Long, String> getLastMsg(List<Long> userIds){
+        if(userIds == null || userIds.size() < 1){
+            return new HashMap<>();
+        }
+        HashMap<Long, String> res = new HashMap();
         for (SysMessage msg : sysMessageMapper.getLastMsg(LoginUser.getLoginUserId(), userIds)) {
             Long personId = msg.getSendBy().equals(LoginUser.getLoginUserId()) ? msg.getSendTo() : msg.getSendBy();
-            HashMap msgInfo = new HashMap();
-            msgInfo.put("sendBy", msg.getSendBy().equals(LoginUser.getLoginUserId()) ? null : msg.getSendBy());
-            msgInfo.put("content", msg.getContent());
-            res.put(personId, msgInfo);
+            res.put(personId, msg.getContent());
         }
         return res;
+    }
 
+    /**
+     * 将用户1发送给用户2的聊天记录都标记为已读
+     */
+    public boolean readMessage(Long sendBy, Long sendTo){
+        return sysMessageMapper.readMessage(sendBy, sendTo) > 0;
     }
 
 }

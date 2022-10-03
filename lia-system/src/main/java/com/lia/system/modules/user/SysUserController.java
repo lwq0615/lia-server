@@ -43,7 +43,6 @@ public class SysUserController {
 
     /**
      * 获取用户头像
-     *
      * @return
      */
     @GetMapping("/getHeadImg")
@@ -65,7 +64,6 @@ public class SysUserController {
 
     /**
      * 更新用户头像
-     *
      * @param file
      * @return
      */
@@ -89,11 +87,6 @@ public class SysUserController {
      */
     @PostMapping("/login")
     public String sysUserLogin(@RequestBody SysUser user) {
-        //判断是否合法用户
-        if (user.getUsername() == null || user.getUsername().equals("")
-                || user.getPassword() == null || user.getPassword().equals("")) {
-            return "less param";
-        }
         return sysUserService.getAuthorization(user);
     }
 
@@ -134,19 +127,6 @@ public class SysUserController {
     @PostMapping("/saveUser")
     @PreAuthorize("hasAuthority('system:user:saveUser')")
     public String saveUser(@RequestBody SysUser user) {
-        if (user.getUsername() == null || user.getUsername().equals("")) {
-            throw new HttpException(400, "缺少参数username");
-        }
-        if (user.getNick() == null || user.getNick().equals("")) {
-            throw new HttpException(400, "缺少参数nick");
-        }
-        if (user.getRoleId() == null) {
-            throw new HttpException(400, "缺少参数roleId");
-        }
-        // 新增的用户必须要有password
-        if (user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))) {
-            throw new HttpException(400, "缺少参数password");
-        }
         return sysUserService.saveUser(user);
     }
 

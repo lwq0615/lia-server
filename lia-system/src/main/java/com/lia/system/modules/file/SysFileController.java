@@ -22,10 +22,7 @@ public class SysFileController {
      */
     @GetMapping("/getPic")
     public void getPic(HttpServletResponse response, String path, Boolean comp){
-        if(path == null || path.equals("")){
-            throw new HttpException(400, "缺少参数path");
-        }
-        sysFileService.loadPicByPath(response,path,comp);
+        sysFileService.loadPicByPath(response, path, comp);
     }
 
 

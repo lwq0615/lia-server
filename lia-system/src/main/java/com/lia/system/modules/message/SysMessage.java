@@ -12,7 +12,8 @@ public class SysMessage {
 
     private Long msgId;
     private String content;
-    private Character read = '0';
+    private Character read;
+    private Character type;
     private Long sendBy;
     private Long sendTo;
     private String sendTime;

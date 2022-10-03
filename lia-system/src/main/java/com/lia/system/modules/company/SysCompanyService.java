@@ -1,5 +1,6 @@
 package com.lia.system.modules.company;
 
+import com.lia.system.exception.HttpException;
 import com.lia.system.modules.dictData.SysDictData;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,15 @@ public class SysCompanyService {
      * @return
      */
     public String saveSysCompany(SysCompany sysCompany) {
+        if(sysCompany.getName() == null || sysCompany.getName().equals("")){
+            throw new HttpException(400,"缺少参数name");
+        }
+        if(sysCompany.getPhone() == null || sysCompany.getPhone().equals("")){
+            throw new HttpException(400,"缺少参数phone");
+        }
+        if(sysCompany.getPrincipal() == null || sysCompany.getPrincipal().equals("")){
+            throw new HttpException(400,"缺少参数principal");
+        }
         int success;
         try {
             if (sysCompany.getCompanyId() == null) {

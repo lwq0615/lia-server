@@ -1,6 +1,7 @@
 package com.lia.system.modules.auth;
 
 
+import com.lia.system.exception.HttpException;
 import com.lia.system.modules.dictData.SysDictData;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,18 @@ public class SysAuthService {
      * @return
      */
     public String saveAuth(SysAuth auth) {
+        if(auth.getName() == null || auth.getName().equals("")){
+            throw new HttpException(400,"缺少参数name");
+        }
+        if(auth.getUrl() == null || auth.getUrl().equals("")){
+            throw new HttpException(400,"缺少参数url");
+        }
+        if(auth.getKey() == null || auth.getKey().equals("")){
+            throw new HttpException(400,"缺少参数key");
+        }
+        if(auth.getRouterId() == null){
+            throw new HttpException(400,"缺少参数routerId");
+        }
         int success = 0;
         try {
             if (auth.getAuthId() == null) {

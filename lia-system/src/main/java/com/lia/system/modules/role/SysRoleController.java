@@ -42,18 +42,6 @@ public class SysRoleController {
     @PostMapping("/saveRole")
     @PreAuthorize("hasAuthority('system:role:saveRole')")
     public String saveRole(@RequestBody SysRole role){
-        if(role.getName() == null || role.getName().equals("")){
-            throw new HttpException(400,"缺少参数name");
-        }
-        if(role.getKey() == null || role.getKey().equals("")){
-            throw new HttpException(400,"缺少参数key");
-        }
-        if(role.getRootRouterId() == null){
-            throw new HttpException(400,"缺少参数rootRouterId");
-        }
-        if(role.getCompanyId() == null){
-            throw new HttpException(400,"缺少参数companyId");
-        }
         return sysRoleService.saveRole(role);
     }
 

@@ -53,7 +53,6 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
             attributes.put("loginUser", user);
             return true;
         }catch (Exception e){
-            e.printStackTrace();
             return false;
         }
     }

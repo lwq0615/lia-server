@@ -32,4 +32,9 @@ public interface SysMessageMapper {
      */
     List<SysMessage> getLastMsg(Long u1Id, List<Long> userIds);
 
+    /**
+     * 将用户1与用户2的聊天记录都标记为已读
+     */
+    int readMessage(Long sendBy, Long sendTo);
+
 }

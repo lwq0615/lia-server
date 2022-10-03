@@ -47,15 +47,6 @@ public class SysToolCodeController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:tool:code:save')")
     public String saveSysToolCode(@RequestBody SysToolCode sysToolCode){
-        if(sysToolCode.getColumns() == null || sysToolCode.getColumns().equals("")){
-            throw new HttpException(400,"缺少参数columns");
-        }
-        if(sysToolCode.getTableName() == null || sysToolCode.getTableName().equals("")){
-            throw new HttpException(400,"缺少参数tableName");
-        }
-        if(sysToolCode.getPrimaryKey() == null || sysToolCode.getPrimaryKey().equals("")){
-            throw new HttpException(400,"缺少参数primaryKey");
-        }
         return sysToolCodeService.saveSysToolCode(sysToolCode);
     }
 

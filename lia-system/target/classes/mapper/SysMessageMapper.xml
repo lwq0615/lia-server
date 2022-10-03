@@ -15,8 +15,13 @@
         select * from sys_msg
         where send_by = #{u1Id} and send_to = #{u2Id}
         or send_by = #{u2Id} and send_to = #{u1Id}
-        order by msg_id desc
+        order by send_time desc, msg_id desc
     </select>
+
+    <insert id="sendMessage" parameterType="SysMessage">
+        insert into sys_msg (content, `type`, send_by, send_to, send_time)
+        values (#{content}, #{type}, #{sendBy}, #{sendTo}, current_timestamp())
+    </insert>
 
     <select id="getNoReadCount" resultMap="SysMessageResult">
         select send_by,count(*) as content from sys_msg where send_to = #{userId} and `read` = '0' GROUP BY send_by
@@ -31,5 +36,10 @@
             </foreach>
         </trim>
     </select>
+
+    <update id="readMessage">
+        update sys_msg set `read` = '1'
+        where send_by = #{sendBy} and send_to = #{sendTo}
+    </update>
 
 </mapper>

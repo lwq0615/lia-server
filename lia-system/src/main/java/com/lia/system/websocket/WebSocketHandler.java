@@ -1,17 +1,28 @@
 package com.lia.system.websocket;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.lia.system.modules.message.SysMessage;
+import com.lia.system.modules.message.SysMessageService;
 import com.lia.system.security.LoginUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.adapter.standard.StandardWebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 @Component
 public class WebSocketHandler extends AbstractWebSocketHandler {
+
+    @Autowired
+    private SysMessageService sysMessageService;
 
     /**
      * 存放每个客户端连接对象
@@ -39,7 +50,18 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
      */
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        System.out.println(message);
+        SysMessage sysMessage = JSONObject.parseObject(message.getPayload(), SysMessage.class);
+        WebSocketSession toSession = sessionPools.get(sysMessage.getSendTo());
+        // 消息发送成功
+        if(sysMessageService.sendMessage(sysMessage)){
+            // 通知消息发送者消息发送成功
+            session.sendMessage(new TextMessage(JSON.toJSONString(sysMessage)));
+            // 接受者在线
+            if(!Objects.isNull(toSession)){
+                // 将消息推送给接受者
+                toSession.sendMessage(new TextMessage(JSON.toJSONString(sysMessage)));
+            }
+        }
     }
 
 

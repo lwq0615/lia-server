@@ -1,6 +1,7 @@
 package com.lia.system.modules.router;
 
 
+import com.lia.system.exception.HttpException;
 import com.lia.system.modules.role.SysRole;
 import com.lia.system.modules.role.SysRoleService;
 import com.lia.system.security.LoginUser;
@@ -36,6 +37,9 @@ public class SysRouterService {
      * @param roleId 角色ID
      */
     public List<SysRouter> findRouterByRoleId(Integer roleId){
+        if(roleId == null){
+            throw new HttpException(400, "缺少参数roleId");
+        }
         SysRole role = new SysRole();
         role.setRoleId(roleId);
         role = sysRoleService.findSysRole(role).get(0);
@@ -74,6 +78,18 @@ public class SysRouterService {
      * @return
      */
     public String saveRouter(SysRouter router){
+        if(router.getPath() == null || router.getPath().equals("")){
+            throw new HttpException(400,"缺少参数path");
+        }
+        if(router.getLabel() == null || router.getLabel().equals("")){
+            throw new HttpException(400,"缺少参数label");
+        }
+        if(router.getPath().contains("/")){
+            throw new HttpException(400,"参数path不可包含字符'/'");
+        }
+        if(router.getRouterId() != null && router.getRouterId() == router.getParent()){
+            throw new HttpException(400,"父路由不可以是自己");
+        }
         int success = 0;
         try{
             if(router.getRouterId() == null){

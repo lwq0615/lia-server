@@ -1,6 +1,7 @@
 package com.lia.system.modules.role;
 
 
+import com.lia.system.exception.HttpException;
 import com.lia.system.modules.dictData.SysDictData;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,18 @@ public class SysRoleService {
      * @return
      */
     public String saveRole(SysRole role){
+        if(role.getName() == null || role.getName().equals("")){
+            throw new HttpException(400,"缺少参数name");
+        }
+        if(role.getKey() == null || role.getKey().equals("")){
+            throw new HttpException(400,"缺少参数key");
+        }
+        if(role.getRootRouterId() == null){
+            throw new HttpException(400,"缺少参数rootRouterId");
+        }
+        if(role.getCompanyId() == null){
+            throw new HttpException(400,"缺少参数companyId");
+        }
         int success;
         try{
             if(role.getRoleId() == null){

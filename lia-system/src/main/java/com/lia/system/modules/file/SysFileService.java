@@ -1,5 +1,6 @@
 package com.lia.system.modules.file;
 
+import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,9 @@ public class SysFileService {
      * 加载图片
      */
     public void loadPicByPath(HttpServletResponse response, String path, Boolean comp) {
+        if(path == null || path.equals("")){
+            throw new HttpException(400, "缺少参数path");
+        }
         response.setContentType("image/"+path.split("\\.")[path.split("\\.").length - 1]);
         File file = new File(path);
         //开启下载

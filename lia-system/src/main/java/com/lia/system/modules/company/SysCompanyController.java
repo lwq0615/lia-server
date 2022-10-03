@@ -44,15 +44,6 @@ public class SysCompanyController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:company:save')")
     public String saveSysCompany(@RequestBody SysCompany sysCompany){
-        if(sysCompany.getName() == null || sysCompany.getName().equals("")){
-            throw new HttpException(400,"缺少参数name");
-        }
-        if(sysCompany.getPhone() == null || sysCompany.getPhone().equals("")){
-            throw new HttpException(400,"缺少参数phone");
-        }
-        if(sysCompany.getPrincipal() == null || sysCompany.getPrincipal().equals("")){
-            throw new HttpException(400,"缺少参数principal");
-        }
         return sysCompanyService.saveSysCompany(sysCompany);
     }
 
