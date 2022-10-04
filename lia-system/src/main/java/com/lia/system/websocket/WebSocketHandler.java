@@ -38,7 +38,10 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         LoginUser loginUser = (LoginUser) session.getAttributes().get("loginUser");
-        sessionPools.put(loginUser.getUser().getUserId(), session);
+        WebSocketSession put = sessionPools.put(loginUser.getUser().getUserId(), session);
+        if(put != null){
+            put.sendMessage(new TextMessage("账号在其他设备登录"));
+        }
     }
 
 
@@ -74,7 +77,9 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         LoginUser loginUser = (LoginUser) session.getAttributes().get("loginUser");
-        sessionPools.remove(loginUser.getUser().getUserId());
+        if(sessionPools.get(loginUser.getUser().getUserId()) == session){
+            sessionPools.remove(loginUser.getUser().getUserId());
+        }
     }
 
 }
