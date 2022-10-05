@@ -64,7 +64,7 @@
 
     <insert id="addSysRole" parameterType="SysRole" useGeneratedKeys="true" keyProperty ="roleId" keyColumn="role_id">
         insert  into sys_role
-        (`name`,`key`,company_id,superior,root_router_id,create_by,create_time,remark)
+        (`name`,`key`,company_id,superior,root_router_id,create_by,remark)
         values (
             #{name},
             #{key},
@@ -72,7 +72,6 @@
             #{superior},
             #{rootRouterId},
             #{createBy},
-            current_timestamp(),
             #{remark}
         )
     </insert>

@@ -11,12 +11,11 @@
     </resultMap>
 
     <insert id="addSysFile" parameterType="SysFile" useGeneratedKeys="true" keyProperty="fileId" keyColumn="file_id">
-        insert into sys_file (name,path,size,upload_time,upload_user)
+        insert into sys_file (name,path,size,upload_user)
         values (
             #{name},
             #{path},
             #{size},
-            current_timestamp(),
             #{uploadUser}
         )
     </insert>

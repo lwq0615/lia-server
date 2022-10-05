@@ -19,8 +19,8 @@
     </select>
 
     <insert id="sendMessage" parameterType="SysMessage">
-        insert into sys_msg (content, `type`, send_by, send_to, send_time)
-        values (#{content}, #{type}, #{sendBy}, #{sendTo}, current_timestamp())
+        insert into sys_msg (content, `type`, send_by, send_to)
+        values (#{content}, #{type}, #{sendBy}, #{sendTo})
     </insert>
 
     <select id="getNoReadCount" resultMap="SysMessageResult">

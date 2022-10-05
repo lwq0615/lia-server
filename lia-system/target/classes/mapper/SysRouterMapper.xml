@@ -67,7 +67,7 @@
 
     <insert id="addSysRouter" parameterType="SysRouter">
         insert  into sys_router
-        (label,path,element,parent,`index`,icon,create_by,create_time,remark)
+        (label,path,element,parent,`index`,icon,create_by,remark)
         values
         <trim prefix="(" suffix=")" suffixOverrides="," >
             #{label},
@@ -82,7 +82,6 @@
             #{index},
             #{icon},
             #{createBy},
-            current_timestamp(),
             #{remark},
         </trim>
     </insert>

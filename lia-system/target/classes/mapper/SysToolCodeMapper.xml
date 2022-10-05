@@ -46,13 +46,12 @@
 
     <insert id="addSysToolCode" parameterType="SysToolCode">
         insert  into sys_tool_code
-        (`columns`,`table_name`,`primary_key`,`http_url`,`create_by`,`create_time`) values (
+        (`columns`,`table_name`,`primary_key`,`http_url`,`create_by`) values (
             #{columns},
             #{tableName},
             #{primaryKey},
             #{httpUrl},
-            #{createBy},
-            current_timestamp()
+            #{createBy}
         )
     </insert>
 

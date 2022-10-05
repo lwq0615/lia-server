@@ -109,7 +109,7 @@
 
     <insert id="addSysUser" parameterType="SysUser">
         insert  into sys_user
-        (username,password,nick,role_id,sex,phone,email,head_img,status,del_flag,create_by,create_time,remark)
+        (username,password,nick,role_id,sex,phone,email,head_img,status,del_flag,create_by,remark)
         values
         <trim prefix="(" suffix=")" suffixOverrides="," >
             #{username},
@@ -137,7 +137,6 @@
                 </otherwise>
             </choose>
             #{createBy},
-            current_timestamp(),
             #{remark},
         </trim>
     </insert>

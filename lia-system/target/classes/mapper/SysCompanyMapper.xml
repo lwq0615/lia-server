@@ -62,14 +62,13 @@
 
     <insert id="addSysCompany" parameterType="SysCompany">
         insert  into sys_company
-        (`name`,`phone`,`principal`,`address`,`email`,`create_by`,`create_time`,`remark`) values (
+        (`name`,`phone`,`principal`,`address`,`email`,`create_by`,`remark`) values (
             #{name},
             #{phone},
             #{principal},
             #{address},
             #{email},
             #{createBy},
-            current_timestamp(),
             #{remark})
     </insert>
 

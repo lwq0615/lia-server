@@ -46,12 +46,11 @@
 
     <insert id="addSysDictData" parameterType="SysDictData">
         insert  into sys_dict_data
-        (`value`,`label`,`type_id`,`create_by`,`create_time`,`remark`) values (
+        (`value`,`label`,`type_id`,`create_by`,`remark`) values (
             #{value},
             #{label},
             #{typeId},
             #{createBy},
-            current_timestamp(),
             #{remark})
     </insert>
 

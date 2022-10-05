@@ -52,7 +52,7 @@
 
     <insert id="addSysAuth" parameterType="SysAuth">
         insert  into sys_auth
-        (`name`,url,`key`,router_id,create_by,create_time,remark)
+        (`name`,url,`key`,router_id,create_by,remark)
         values
         <trim prefix="(" suffix=")" suffixOverrides="," >
             #{name},
@@ -60,7 +60,6 @@
             #{key},
             #{routerId},
             #{createBy},
-            current_timestamp(),
             #{remark},
         </trim>
     </insert>
