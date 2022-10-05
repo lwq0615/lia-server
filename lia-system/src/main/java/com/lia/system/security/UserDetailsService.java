@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -46,7 +47,7 @@ public class UserDetailsService implements org.springframework.security.core.use
                 }
             }
         }
-        return new LoginUser(user,role,auths);
+        return new LoginUser(user, role, auths, new Date());
     }
 
 }

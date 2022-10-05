@@ -63,7 +63,6 @@ public class SysUserService {
                 return "user deactivate";
             }
             Map userInfo = new HashMap();
-            userInfo.put("loginTime", System.currentTimeMillis() / 1000);
             userInfo.put("loginUser", loginUser);
             String uid = UUID.randomUUID().toString();
             redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().set(uid, jwt.getToken(userInfo));
