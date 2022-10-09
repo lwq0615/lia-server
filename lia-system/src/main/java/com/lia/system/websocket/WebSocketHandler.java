@@ -41,6 +41,7 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
         WebSocketSession put = sessionPools.put(loginUser.getUser().getUserId(), session);
         if(put != null){
             put.sendMessage(new TextMessage("账号在其他设备登录"));
+            put.close();
         }
     }
 

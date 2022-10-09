@@ -12,6 +12,7 @@ import com.lia.system.security.LoginUser;
 import com.lia.system.utils.ArrayUtils;
 import com.sun.deploy.util.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,8 +39,6 @@ public class SysUserService {
     private SysUserMapper sysUserMapper;
     @Autowired
     private SysFileService sysFileService;
-    @Autowired
-    private Redis redis;
 
 
     /**
@@ -62,10 +61,18 @@ public class SysUserService {
             if(loginUser.getUser().getStatus() == '1'){
                 return "user deactivate";
             }
+            ValueOperations<String, Object> ops = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue();
+            // 挤下线
+            String oldUUID = (String) ops.get("userId:"+loginUser.getUser().getUserId());
+            if(oldUUID != null){
+                Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(oldUUID);
+            }
             Map userInfo = new HashMap();
             userInfo.put("loginUser", loginUser);
             String uid = UUID.randomUUID().toString();
-            redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().set(uid, jwt.getToken(userInfo));
+            // 登录状态存入redis
+            ops.set("userId:"+loginUser.getUser().getUserId(), uid);
+            ops.set(uid, jwt.getToken(userInfo));
             return uid;
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +84,12 @@ public class SysUserService {
      * 退出登录
      */
     public void logout(String uid){
-        redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(uid);
+        Long userId = LoginUser.getLoginUserId();
+        String oldUUID = (String) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().get("userId:"+userId);
+        if(uid.equals(oldUUID)){
+            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete("userId:"+userId);
+            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(uid);
+        }
     }
 
 
