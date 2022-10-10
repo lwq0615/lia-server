@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 /**
  * 启动程序
- *
  * @author liweiqiang
  */
 @SpringBootApplication

@@ -25,7 +25,7 @@
         <springboot.web.version>2.5.3</springboot.web.version>
         <springboot.aop.version>2.5.3</springboot.aop.version>
         <mysql.connector.version>8.0.26</mysql.connector.version>
-        <springboot.mybatis.version>2.2.2</springboot.mybatis.version>
+        <springboot.mybatis.version>3.5.2</springboot.mybatis.version>
         <lombok.version>1.18.24</lombok.version>
         <spring.test.version>2.7.3</spring.test.version>
         <fastjson2.version>2.0.5</fastjson2.version>
@@ -62,12 +62,13 @@
                 <version>${mysql.connector.version}</version>
             </dependency>
 
-            <!--Mybatis-->
+            <!--Mybatis plus-->
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${springboot.mybatis.version}</version>
             </dependency>
+
 
             <!--阿里数据库连接池-->
             <dependency>

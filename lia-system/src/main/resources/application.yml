@@ -74,8 +74,8 @@ spring:
             multi-statement-allow: true
 
 
-# MyBatis配置
-mybatis:
+# MyBatis plus配置
+mybatis-plus:
   # 搜索指定包别名
   type-aliases-package: com.lia.**.modules
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
