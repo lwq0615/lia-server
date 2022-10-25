@@ -68,13 +68,8 @@ public class SysUserController {
      * @return
      */
     @PostMapping("/updateHeadImg")
-    public SysFile updateHeadImg(MultipartFile file, String fileId) {
-        Long id = null;
-        try {
-            id = Long.parseLong(fileId);
-        } catch (NumberFormatException e) {
-        }
-        return sysUserService.updateHeadImg(file, id);
+    public SysFile updateHeadImg(MultipartFile file) {
+        return sysUserService.updateHeadImg(file);
     }
 
 

@@ -1,8 +1,6 @@
 server:
   #端口号
   port: 8080
-  #http请求的header长度
-  max-http-header-size: 10240
   servlet:
     # 应用的访问路径
     context-path: /

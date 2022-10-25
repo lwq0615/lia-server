@@ -193,18 +193,18 @@ public class SysUserService {
      * @param file
      * @return
      */
-    public SysFile updateHeadImg(MultipartFile file, Long fileId) {
+    public SysFile updateHeadImg(MultipartFile file) {
         SysUser user = new SysUser();
         user.setUserId(LoginUser.getLoginUserId());
+        user = this.findSysUser(user).get(0);
         // 保存新的头像
         SysFile image = sysFileService.uploadFile(file, "image");
         // 如果是更换头像，则删除原来的头像数据
-        if (fileId != null) {
+        if (user.getHeadImg() != null) {
             //删除数据库内的头像数据
-            sysFileService.deleteFiles(ArrayUtils.asList(fileId));
+            sysFileService.deleteFiles(ArrayUtils.asList(user.getHeadImg()));
         }
         //保存新的头像到数据库
-        user = this.findSysUser(user).get(0);
         user.setHeadImg(image.getFileId());
         this.saveUser(user);
         return image;
