@@ -46,7 +46,7 @@ public class SysUserController {
      * @return
      */
     @GetMapping("/getHeadImg")
-    public String getHeadImg() {
+    public Long getHeadImg() {
         SysUser user = this.getInfo();
         if (user.getHeadImg() == null) {
             return null;
@@ -55,7 +55,7 @@ public class SysUserController {
         file.setFileId(user.getHeadImg());
         ArrayList<SysFile> sysFile = sysFileService.getSysFile(file);
         if (sysFile != null && sysFile.size() > 0) {
-            return sysFile.get(0).getPath();
+            return sysFile.get(0).getFileId();
         } else {
             return null;
         }
@@ -97,7 +97,6 @@ public class SysUserController {
 
     /**
      * 分页查询用户列表
-     *
      * @param user    查询参数
      * @param current 当前页码
      * @param size    每页条数
@@ -115,7 +114,6 @@ public class SysUserController {
 
     /**
      * 新增和编辑用户
-     *
      * @param user 用户数据，每条数据如果有userId则为修改，userId为null则为新增
      * @return 操作成功的数量
      */
@@ -128,7 +126,6 @@ public class SysUserController {
 
     /**
      * 批量删除用户
-     *
      * @param userIds 用户的id列表
      * @return 删除成功的数量
      */

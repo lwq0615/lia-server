@@ -17,12 +17,24 @@ public class SysFileController {
 
     /**
      * 加载图片
-     * @param path 图片资源路径
+     * @param fileId 图片资源fileId
      * @param comp 是否压缩
      */
     @GetMapping("/getPic")
-    public void getPic(HttpServletResponse response, String path, Boolean comp){
-        sysFileService.loadPicByPath(response, path, comp);
+    public void getPic(HttpServletResponse response, Long fileId, Boolean comp){
+        sysFileService.loadPicByPath(response, fileId, comp);
+    }
+
+
+
+
+    /**
+     * 加载文件
+     * @param fileId 资源fileId
+     */
+    @GetMapping("/getFile")
+    public void getFile(HttpServletResponse response, Long fileId){
+        sysFileService.getFileByPath(response, fileId);
     }
 
 

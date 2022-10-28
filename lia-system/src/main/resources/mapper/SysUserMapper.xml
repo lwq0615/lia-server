@@ -176,7 +176,7 @@
     </select>
 
     <select id="personList" resultMap="SysUserResult">
-        select f.path as remark, u.* from (
+        select f.file_id as remark, u.* from (
             select * from sys_user
             where
                 del_flag = '0'
