@@ -23,11 +23,12 @@ import java.util.UUID;
 @SpringBootTest
 public class RedisTest {
 
-    @Autowired
-    private SysFileMapper sysFileMapper;
-
     @Test
     public void test(){
+
+        SysUser user = (SysUser) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().get("test");
+        System.out.println(user);
+
     }
 
 }
