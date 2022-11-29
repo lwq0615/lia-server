@@ -169,8 +169,6 @@ public class SysUserService {
             if (sysUserPage == null || sysUserPage.size() == 0
                     || sysUserPage.get(0).getUserId().equals(user.getUserId())) {
                 success = sysUserMapper.editSysUser(user);
-                // 该用户强制下线重新登陆，以获取最新的用户状态
-                this.forceLogout(user.getUserId());
             }else {
                 return "用户名已存在";
             }
