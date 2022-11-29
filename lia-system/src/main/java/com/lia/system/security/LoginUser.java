@@ -30,12 +30,13 @@ public class LoginUser implements UserDetails {
      * 获取当前登录的用户ID
      */
     public static Long getLoginUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication == null){
+        try{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+            return loginUser.user.getUserId();
+        }catch (Exception e){
             return null;
         }
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        return loginUser.user.getUserId();
     }
 
 

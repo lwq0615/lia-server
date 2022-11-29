@@ -10,8 +10,10 @@ import com.lia.system.redis.RedisDb;
 import com.lia.system.security.Jwt;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.ArrayUtils;
+import com.lia.system.websocket.WebSocketHandler;
 import com.sun.deploy.util.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.socket.TextMessage;
 
 import java.io.File;
 import java.util.*;
@@ -65,14 +68,14 @@ public class SysUserService {
             // 挤下线
             String oldUUID = (String) ops.get("userId:"+loginUser.getUser().getUserId());
             if(oldUUID != null){
-                Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(oldUUID);
+                Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete("uuid:"+oldUUID);
             }
             Map userInfo = new HashMap();
             userInfo.put("loginUser", loginUser);
             String uid = UUID.randomUUID().toString();
             // 登录状态存入redis
             ops.set("userId:"+loginUser.getUser().getUserId(), uid);
-            ops.set(uid, jwt.getToken(userInfo));
+            ops.set("uuid:"+uid, jwt.getToken(userInfo));
             return uid;
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,13 +86,22 @@ public class SysUserService {
     /**
      * 退出登录
      */
-    public void logout(String uid){
-        Long userId = LoginUser.getLoginUserId();
-        String oldUUID = (String) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().get("userId:"+userId);
-        if(uid.equals(oldUUID)){
-            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete("userId:"+userId);
-            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(uid);
-        }
+    public void logout(Long userId){
+        // 删除redis内的用户登录数据
+        RedisTemplate<String, Object> redisTemplate = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN);
+        ValueOperations<String, Object> ops = redisTemplate.opsForValue();
+        String uuid = (String) ops.get("userId:" + userId);
+        redisTemplate.delete("uuid:"+uuid);
+        redisTemplate.delete("userId:" + userId);
+    }
+
+    /**
+     * 强制下线
+     */
+    public void forceLogout(Long userId){
+        this.logout(userId);
+        // 通知客户端登录状态已经无效
+        WebSocketHandler.sendMessage(new TextMessage("账号状态发生改变"), userId);
     }
 
 
@@ -157,6 +169,8 @@ public class SysUserService {
             if (sysUserPage == null || sysUserPage.size() == 0
                     || sysUserPage.get(0).getUserId().equals(user.getUserId())) {
                 success = sysUserMapper.editSysUser(user);
+                // 该用户强制下线重新登陆，以获取最新的用户状态
+                this.forceLogout(user.getUserId());
             }else {
                 return "用户名已存在";
             }
@@ -171,7 +185,7 @@ public class SysUserService {
      * @param userIds 用户的id列表
      * @return 删除成功的数量
      */
-    public int deleteUsers(List<Integer> userIds) {
+    public int deleteUsers(List<Long> userIds) {
         // 不允许删除admin账户
         if (userIds.contains(1)) {
             userIds.remove(userIds.indexOf(1));
@@ -182,6 +196,9 @@ public class SysUserService {
         }
         if (userIds.size() == 0) {
             return 0;
+        }
+        for (Long userId : userIds) {
+            this.forceLogout(userId);
         }
         return sysUserMapper.deleteUsers(userIds);
     }

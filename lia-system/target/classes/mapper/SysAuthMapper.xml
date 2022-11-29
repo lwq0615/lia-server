@@ -28,10 +28,10 @@
                 AND name = #{name}
             </if>
             <if test="url != null">
-                AND url = #{url}
+                AND url like concat('%',#{url},'%')
             </if>
             <if test="key != null">
-                AND `key` = #{key}
+                AND `key` like concat('%',#{key},'%')
             </if>
             <if test="routerId != null">
                 AND router_id = #{routerId}

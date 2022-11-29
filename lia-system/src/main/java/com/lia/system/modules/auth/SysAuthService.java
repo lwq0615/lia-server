@@ -22,7 +22,6 @@ public class SysAuthService {
 
     /**
      * 根据角色ID查询该角色拥有的权限
-     *
      * @param roleId 角色ID
      * @return 权限集合
      */
@@ -33,7 +32,6 @@ public class SysAuthService {
 
     /**
      * 查询权限列表
-     *
      * @param auth
      * @return
      */
@@ -44,7 +42,6 @@ public class SysAuthService {
 
     /**
      * 新增或编辑
-     *
      * @param auth
      * @return
      */
@@ -87,7 +84,6 @@ public class SysAuthService {
 
     /**
      * 批量删除
-     *
      * @param authIds id列表
      * @return 删除成功的数量
      */

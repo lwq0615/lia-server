@@ -57,6 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 对preflight预检测请求放行
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 // 不需要认证的接口
+                .antMatchers("/druid/**").permitAll()
+                .antMatchers("/system/user/logout").permitAll()
                 .antMatchers("/system/user/login").permitAll()
                 .antMatchers("/system/file/getPic").permitAll()
                 .antMatchers("/system/file/getFile").permitAll()

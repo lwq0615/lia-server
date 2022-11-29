@@ -90,8 +90,8 @@ public class SysUserController {
      * 退出登录
      */
     @GetMapping("/logout")
-    public void logout(HttpServletRequest request) {
-        sysUserService.logout(request.getHeader(header));
+    public void logout() {
+        sysUserService.logout(LoginUser.getLoginUserId());
     }
 
 
@@ -131,7 +131,7 @@ public class SysUserController {
      */
     @PostMapping("/deleteUsers")
     @PreAuthorize("hasAuthority('system:user:deleteUsers')")
-    public int deleteUsers(@RequestBody List<Integer> userIds) {
+    public int deleteUsers(@RequestBody List<Long> userIds) {
         return sysUserService.deleteUsers(userIds);
     }
 

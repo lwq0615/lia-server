@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -78,6 +80,22 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
         LoginUser loginUser = (LoginUser) session.getAttributes().get("loginUser");
         if(sessionPools.get(loginUser.getUser().getUserId()) == session){
             sessionPools.remove(loginUser.getUser().getUserId());
+        }
+    }
+
+
+    /**
+     * 向用户发送websocket消息
+     * @param message
+     * @param userId
+     */
+    public static void sendMessage(WebSocketMessage message, Long userId) {
+        if(sessionPools.get(userId) != null){
+            try {
+                sessionPools.get(userId).sendMessage(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

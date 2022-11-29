@@ -41,7 +41,7 @@ public class TokenFilter extends OncePerRequestFilter {
         }
         //解析token
         try{
-            Map map = jwt.parse((String) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().get(uid));
+            Map map = jwt.parse((String) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue().get("uuid:"+uid));
             if(map == null || map.get("loginUser") == null){
                 filterChain.doFilter(request,response);
                 return;

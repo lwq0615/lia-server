@@ -41,7 +41,7 @@ public interface SysUserMapper {
      * @param userIds 用户的id列表
      * @return 删除成功的数量
      */
-    int deleteUsers(List<Integer> userIds);
+    int deleteUsers(List<Long> userIds);
 
 
     /**
