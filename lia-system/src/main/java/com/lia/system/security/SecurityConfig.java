@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 
+import java.util.ArrayList;
+
 
 /**
  * security核心配置
@@ -58,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 // 不需要认证的接口
                 .antMatchers("/druid/**").permitAll()
+                .antMatchers("/system/param/getParamValue").permitAll()
                 .antMatchers("/system/user/logout").permitAll()
                 .antMatchers("/system/user/login").permitAll()
                 .antMatchers("/system/file/getPic").permitAll()

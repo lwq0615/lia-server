@@ -195,10 +195,11 @@ public class SysUserService {
         if (userIds.size() == 0) {
             return 0;
         }
+        int result = sysUserMapper.deleteUsers(userIds);
         for (Long userId : userIds) {
             this.forceLogout(userId);
         }
-        return sysUserMapper.deleteUsers(userIds);
+        return result;
     }
 
 

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lia.system.modules.param.SysParamMapper">
+
+    <resultMap type="SysParam" id="SysParamResult">
+        <id     property="paramId"      column="param_id"      />
+        <id     property="name"      column="name"      />
+        <id     property="value"      column="value"      />
+        <id     property="createBy"      column="create_by"      />
+        <id     property="createTime"      column="create_time"      />
+        <id     property="remark"      column="remark"      />
+    </resultMap>
+
+
+    <select id="findSysParam" parameterType="SysParam" resultMap="SysParamResult">
+        select * from sys_param
+        <where>
+            <if test="paramId != null">
+                AND `param_id` = #{paramId}
+            </if>
+            <if test="name != null">
+                AND `name` = #{name}
+            </if>
+            <if test="value != null">
+                AND `value` = #{value}
+            </if>
+            <if test="createBy != null">
+                AND `create_by` = #{createBy}
+            </if>
+            <if test="createTime != null">
+                AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
+            </if>
+            <if test="remark != null">
+            AND remark like concat('%',#{remark},'%')
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="addSysParam" parameterType="SysParam">
+        insert  into sys_param
+        (`name`,`value`,`create_by`,`remark`) values (
+            #{name},
+            #{value},
+            #{createBy},
+            #{remark})
+    </insert>
+
+
+    <update id="editSysParam" parameterType="SysParam">
+        update sys_param set 
+        `name` = #{name},
+        `value` = #{value},
+        `remark` = #{remark}
+        where `param_id` = #{paramId}
+    </update>
+
+    <delete id="deleteSysParams" parameterType="List">
+        delete from sys_param where param_id in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="sysParamIds" index="index" item="item">
+                #{item},
+            </foreach>
+        </trim>
+    </delete>
+
+    <select id="getParamValueByName" resultType="Object">
+        select value from sys_param where name = #{name}
+    </select>
+
+</mapper>
