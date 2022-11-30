@@ -31,7 +31,6 @@ public class SysDictTypeService {
 
     /**
      * 新增或编辑
-     *
      * @param sysDictType
      * @return
      */

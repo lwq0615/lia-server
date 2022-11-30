@@ -2,6 +2,7 @@ package com.lia.system.modules.param;
 
 
 import com.lia.system.exception.HttpException;
+import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,6 @@ public class SysParamService {
 
     /**
      * 新增或编辑
-     *
      * @param sysParam
      * @return
      */
@@ -43,6 +43,7 @@ public class SysParamService {
         try {
             if (sysParam.getParamId() == null) {
                 // 新增
+                sysParam.setCreateBy(LoginUser.getLoginUserId());
                 success = sysParamMapper.addSysParam(sysParam);
             } else {
                 // 编辑
@@ -60,7 +61,6 @@ public class SysParamService {
 
     /**
      * 批量删除
-     *
      * @param sysParamIds id列表
      * @return 删除成功的数量
      */
