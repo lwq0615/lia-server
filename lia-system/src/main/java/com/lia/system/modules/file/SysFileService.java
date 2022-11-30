@@ -75,7 +75,7 @@ public class SysFileService {
     /**
      * 获取文件
      */
-    public void getFile(HttpServletResponse response, Long fileId) {
+    public void getFileByFileId(HttpServletResponse response, Long fileId) {
         if (fileId == null) {
             throw new HttpException(400, "缺少参数fileId");
         }
@@ -111,7 +111,7 @@ public class SysFileService {
     /**
      * 加载图片
      */
-    public void loadPic(HttpServletResponse response, Long fileId, Boolean comp) {
+    public void loadPicByFileId(HttpServletResponse response, Long fileId, Boolean comp) {
         if (fileId == null) {
             throw new HttpException(400, "缺少参数fileId");
         }

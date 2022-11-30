@@ -22,7 +22,7 @@ public class SysFileController {
      */
     @GetMapping("/getPic")
     public void getPic(HttpServletResponse response, Long fileId, Boolean comp){
-        sysFileService.loadPic(response, fileId, comp);
+        sysFileService.loadPicByFileId(response, fileId, comp);
     }
 
 
@@ -34,7 +34,7 @@ public class SysFileController {
      */
     @GetMapping("/getFile")
     public void getFile(HttpServletResponse response, Long fileId){
-        sysFileService.getFile(response, fileId);
+        sysFileService.getFileByFileId(response, fileId);
     }
 
 
