@@ -34,15 +34,13 @@ public class SysFileService {
 
     /**
      * 上传文件
-     * dirName 文件目录
-     *
+     * dirName 文件上传的目标目录
      * @return 文件信息
      */
     public SysFile uploadFile(MultipartFile file, String dirName) {
         if (file == null) {
             return null;
         }
-        // 图片路径格式:public/年月日/uuid.type
         String oldName = file.getOriginalFilename();
         String fileType = oldName.split("\\.")[oldName.split("\\.").length - 1];
         String newName = UUID.randomUUID().toString() + "." + fileType;

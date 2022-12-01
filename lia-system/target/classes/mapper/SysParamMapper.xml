@@ -26,6 +26,9 @@
             <if test="value != null">
                 AND `value` = #{value}
             </if>
+            <if test="mean != null">
+                AND `mean` = #{mean}
+            </if>
             <if test="createBy != null">
                 AND `create_by` = #{createBy}
             </if>
@@ -41,9 +44,10 @@
 
     <insert id="addSysParam" parameterType="SysParam">
         insert  into sys_param
-        (`name`,`value`,`create_by`,`remark`) values (
+        (`name`,`value`,`mean`,`create_by`,`remark`) values (
             #{name},
             #{value},
+            #{mean},
             #{createBy},
             #{remark})
     </insert>
@@ -53,6 +57,7 @@
         update sys_param set 
         `name` = #{name},
         `value` = #{value},
+        `mean` = #{mean},
         `remark` = #{remark}
         where `param_id` = #{paramId}
     </update>
