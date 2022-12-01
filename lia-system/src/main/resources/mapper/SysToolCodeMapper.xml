@@ -10,6 +10,10 @@
         <id     property="tableName"      column="table_name"      />
         <id     property="primaryKey"      column="primary_key"      />
         <id     property="httpUrl"      column="http_url"      />
+        <id     property="createByFlag"      column="create_by_flag"      />
+        <id     property="createTimeFlag"      column="create_time_flag"      />
+        <id     property="updateTimeFlag"      column="update_time_flag"      />
+        <id     property="remarkFlag"      column="remark_flag"      />
         <id     property="createBy"      column="create_by"      />
         <id     property="createTime"      column="create_time"      />
     </resultMap>
@@ -33,6 +37,18 @@
             <if test="httpUrl != null">
                 AND `http_url` = #{httpUrl}
             </if>
+            <if test="createTimeFlag != null">
+                AND `create_time_flag` = #{createTimeFlag}
+            </if>
+            <if test="createByFlag != null">
+                AND `create_by_flag` = #{createByFlag}
+            </if>
+            <if test="updateTimeFlag != null">
+                AND `update_time_flag` = #{updateTimeFlag}
+            </if>
+            <if test="remarkFlag != null">
+                AND `remark_flag` = #{remarkFlag}
+            </if>
             <if test="createBy != null">
                 AND `create_by` = #{createBy}
             </if>
@@ -45,12 +61,26 @@
 
 
     <insert id="addSysToolCode" parameterType="SysToolCode">
-        insert  into sys_tool_code
-        (`columns`,`table_name`,`primary_key`,`http_url`,`create_by`) values (
+        insert  into sys_tool_code (
+            `columns`,
+            `table_name`,
+            `primary_key`,
+            `http_url`,
+            `create_time_flag`,
+            `update_time_flag`,
+            `create_by_flag`,
+            `remark_flag`,
+            `create_by`
+        )
+        values (
             #{columns},
             #{tableName},
             #{primaryKey},
             #{httpUrl},
+            #{createTimeFlag},
+            #{updateTimeFlag},
+            #{createByFlag},
+            #{remarkFlag},
             #{createBy}
         )
     </insert>
@@ -62,8 +92,10 @@
         `table_name` = #{tableName},
         `primary_key` = #{primaryKey},
         `http_url` = #{httpUrl},
-        `create_by` = #{createBy},
-        `create_time` = #{createTime}
+        `create_time_flag` = #{createTimeFlag},
+        `update_time_flag` = #{updateTimeFlag},
+        `create_by_flag` = #{createByFlag},
+        `remark_flag` = #{remarkFlag}
         where `code_id` = #{codeId}
     </update>
 

@@ -31,7 +31,7 @@ public class SysParam {
     private Long createBy;
 
     @TableField("create_time")
-    @CreateTime
+    @UpdateTime
     private String createTime;
 
     @TableField("remark")

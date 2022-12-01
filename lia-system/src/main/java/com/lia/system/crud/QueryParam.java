@@ -3,14 +3,11 @@ package com.lia.system.crud;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.lia.system.security.LoginUser;
-import lombok.Data;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class QueryParam{
@@ -64,7 +61,7 @@ public class QueryParam{
         for (Field field : eClass.getDeclaredFields()) {
             field.setAccessible(true);
             // 创建人与创建时间和主键字段不参与更新
-            if(field.getAnnotation(CreateBy.class) != null || field.getAnnotation(CreateTime.class) != null
+            if(field.getAnnotation(CreateBy.class) != null || field.getAnnotation(UpdateTime.class) != null
             || field.getAnnotation(TableId.class) != null){
                 continue;
             }

@@ -1,7 +1,5 @@
 package com.lia.system.crud;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -91,7 +89,7 @@ public class BaseService<E> {
                         field.setAccessible(true);
                         field.set(entity, LoginUser.getLoginUserId());
                     }
-                    if(field.getAnnotation(CreateTime.class) != null){
+                    if(field.getAnnotation(UpdateTime.class) != null){
                         field.setAccessible(true);
                         field.set(entity, null);
                     }

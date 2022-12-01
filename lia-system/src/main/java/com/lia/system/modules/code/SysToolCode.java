@@ -14,6 +14,10 @@ public class SysToolCode {
     private String tableName;
     private String primaryKey;
     private String httpUrl;
+    private Character createByFlag;
+    private Character createTimeFlag;
+    private Character updateTimeFlag;
+    private Character remarkFlag;
     private Long createBy;
     private String createTime;
 
