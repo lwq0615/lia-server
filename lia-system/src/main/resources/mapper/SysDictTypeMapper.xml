@@ -22,6 +22,9 @@
             <if test="name != null">
                 AND `name` = #{name}
             </if>
+            <if test="key != null">
+                AND `key` = #{key}
+            </if>
             <if test="createBy != null">
                 AND `create_by` = #{createBy}
             </if>

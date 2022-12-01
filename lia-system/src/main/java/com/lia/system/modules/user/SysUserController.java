@@ -53,7 +53,7 @@ public class SysUserController {
         }
         SysFile file = new SysFile();
         file.setFileId(user.getHeadImg());
-        ArrayList<SysFile> sysFile = sysFileService.getSysFile(file);
+        List<SysFile> sysFile = sysFileService.getSysFile(file);
         if (sysFile != null && sysFile.size() > 0) {
             return sysFile.get(0).getFileId();
         } else {
