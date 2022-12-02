@@ -1,4 +1,4 @@
-package com.lia.system.crud;
+package com.lia.system.crud.anno;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

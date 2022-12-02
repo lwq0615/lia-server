@@ -3,7 +3,10 @@ package com.lia.system.modules.param;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.lia.system.crud.*;
+import com.lia.system.crud.anno.CreateBy;
+import com.lia.system.crud.anno.Like;
+import com.lia.system.crud.anno.Required;
+import com.lia.system.crud.anno.UpdateTime;
 import lombok.Data;
 
 

@@ -6,24 +6,15 @@ import com.lia.system.exception.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import javax.annotation.PostConstruct;
+
 import java.util.List;
 
 @Service
 @Transactional
-public class SysParamService {
-
-    private BaseService<SysParam> baseService;
+public class SysParamService extends BaseService<SysParam> {
 
     @Autowired
     private SysParamMapper sysParamMapper;
-
-
-
-    @PostConstruct
-    public void init(){
-        this.baseService = new BaseService<>(sysParamMapper);
-    }
 
 
     /**
@@ -32,7 +23,7 @@ public class SysParamService {
      * @return
      */
     public List<SysParam> findSysParam(SysParam sysParam) {
-        return baseService.selectList(sysParam);
+        return this.selectList(sysParam);
     }
 
 
@@ -42,7 +33,7 @@ public class SysParamService {
      * @return
      */
     public String saveSysParam(SysParam sysParam) {
-        return baseService.save(sysParam);
+        return this.save(sysParam);
     }
 
 
@@ -52,7 +43,7 @@ public class SysParamService {
      * @return 删除成功的数量
      */
     public int deleteSysParams(List<Integer> sysParamIds) {
-        return baseService.deleteByIds(sysParamIds);
+        return this.deleteByIds(sysParamIds);
     }
 
     /**
