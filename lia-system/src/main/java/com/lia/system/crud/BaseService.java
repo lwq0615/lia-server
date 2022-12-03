@@ -35,7 +35,7 @@ public abstract class BaseService<E> {
 
 
     @PostConstruct
-    public void init() {
+    private void init() {
         Type type = this.getClass().getGenericSuperclass();
         // 配置了泛型参数
         if (type instanceof ParameterizedType) {
