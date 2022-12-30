@@ -12,7 +12,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="lia" target="1.8" />
       <module name="lia-server" target="1.8" />
       <module name="lia-system" target="1.8" />
       <module name="nest" target="1.8" />

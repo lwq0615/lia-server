@@ -4,25 +4,74 @@ package com.lia.system.modules.router;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * 系统路由
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Accessors(chain = true)
 public class SysRouter {
 
+    /**
+     * 路由ID
+     */
     private Integer routerId;
+
+    /**
+     * 路由标签
+     */
     private String label;
+
+    /**
+     * 路由地址
+     */
     private String path;
+
+    /**
+     * 组件地址
+     */
     private String element;
+
+    /**
+     * 上级路由（外键）
+     */
     private Integer parent;
+
+    /**
+     * 排序
+     */
     private Integer index;
+
+    /**
+     * 按钮样式
+     */
     private String icon;
+
+    /**
+     * 创建人
+     */
     private Long createBy;
+
+    /**
+     * 创建时间
+     */
     private String createTime;
+
+    /**
+     * 备注
+     */
     private String remark;
+
+    /**
+     * 子路由
+     */
     private List<SysRouter> children;
 
 
