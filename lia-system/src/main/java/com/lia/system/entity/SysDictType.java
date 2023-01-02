@@ -1,4 +1,4 @@
-package com.lia.system.modules.auth;
+package com.lia.system.entity;
 
 
 import lombok.AllArgsConstructor;
@@ -8,38 +8,33 @@ import lombok.experimental.Accessors;
 
 
 /**
- * 系统权限
+ * 字典分类
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class SysAuth {
+public class SysDictType {
 
     /**
-     * 权限ID
+     * 分类ID
      */
-    private Integer authId;
+    private Integer typeId;
 
     /**
-     * 权限名称
+     * 类名称
      */
     private String name;
 
     /**
-     * 接口地址
-     */
-    private String url;
-
-    /**
-     * 标识符
+     * 类标识符
      */
     private String key;
 
     /**
-     * 所属路由
+     * 备注
      */
-    private Integer routerId;
+    private String remark;
 
     /**
      * 创建人
@@ -50,10 +45,4 @@ public class SysAuth {
      * 创建时间
      */
     private String createTime;
-
-    /**
-     * 备注
-     */
-    private String remark;
-
 }

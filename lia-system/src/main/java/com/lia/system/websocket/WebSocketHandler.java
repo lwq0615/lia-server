@@ -2,7 +2,7 @@ package com.lia.system.websocket;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.lia.system.modules.message.SysMessage;
+import com.lia.system.entity.SysMessage;
 import com.lia.system.modules.message.SysMessageService;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,7 @@
 package com.lia.system.modules.message;
 
 
+import com.lia.system.entity.SysMessage;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

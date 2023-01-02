@@ -1,5 +1,6 @@
 package com.lia.system.modules.dictData;
 
+import com.lia.system.entity.SysDictData;
 import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;

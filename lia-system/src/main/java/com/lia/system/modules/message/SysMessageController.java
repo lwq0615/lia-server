@@ -3,11 +3,10 @@ package com.lia.system.modules.message;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lia.system.exception.HttpException;
-import com.lia.system.modules.user.SysUser;
+import com.lia.system.entity.SysMessage;
+import com.lia.system.entity.SysUser;
 import com.lia.system.modules.user.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

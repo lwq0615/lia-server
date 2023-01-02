@@ -1,10 +1,8 @@
 package com.lia.system.modules.code;
 
 import com.lia.system.exception.HttpException;
-import com.lia.system.modules.code.SysToolCode;
-import com.lia.system.modules.code.SysToolCodeMapper;
+import com.lia.system.entity.SysToolCode;
 import com.lia.system.security.LoginUser;
-import com.lia.system.utils.SnowflakeId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;

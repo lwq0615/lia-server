@@ -2,6 +2,7 @@ package com.lia.system.modules.param;
 
 
 import com.lia.system.crud.BaseService;
+import com.lia.system.entity.SysParam;
 import com.lia.system.exception.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

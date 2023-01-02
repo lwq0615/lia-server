@@ -1,4 +1,4 @@
-package com.lia.system.modules.dictType;
+package com.lia.system.entity;
 
 
 import lombok.AllArgsConstructor;
@@ -8,33 +8,38 @@ import lombok.experimental.Accessors;
 
 
 /**
- * 字典分类
+ * 系统权限
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class SysDictType {
+public class SysAuth {
 
     /**
-     * 分类ID
+     * 权限ID
      */
-    private Integer typeId;
+    private Integer authId;
 
     /**
-     * 类名称
+     * 权限名称
      */
     private String name;
 
     /**
-     * 类标识符
+     * 接口地址
+     */
+    private String url;
+
+    /**
+     * 标识符
      */
     private String key;
 
     /**
-     * 备注
+     * 所属路由
      */
-    private String remark;
+    private Integer routerId;
 
     /**
      * 创建人
@@ -45,4 +50,10 @@ public class SysDictType {
      * 创建时间
      */
     private String createTime;
+
+    /**
+     * 备注
+     */
+    private String remark;
+
 }

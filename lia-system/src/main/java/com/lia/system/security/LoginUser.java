@@ -1,10 +1,8 @@
 package com.lia.system.security;
 
-import com.lia.system.modules.role.SysRole;
-import com.lia.system.modules.user.SysUser;
-import com.lia.system.exception.HttpException;
+import com.lia.system.entity.SysRole;
+import com.lia.system.entity.SysUser;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

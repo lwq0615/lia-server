@@ -1,9 +1,10 @@
 package com.lia.system.modules.user;
 
 
+import com.lia.system.entity.SysUser;
 import com.lia.system.exception.HttpException;
-import com.lia.system.modules.dictData.SysDictData;
-import com.lia.system.modules.file.SysFile;
+import com.lia.system.entity.SysDictData;
+import com.lia.system.entity.SysFile;
 import com.lia.system.modules.file.SysFileService;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
@@ -11,7 +12,6 @@ import com.lia.system.security.Jwt;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.ArrayUtils;
 import com.lia.system.websocket.WebSocketHandler;
-import com.sun.deploy.util.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.socket.TextMessage;
 
-import java.io.File;
 import java.util.*;
 
 @Service

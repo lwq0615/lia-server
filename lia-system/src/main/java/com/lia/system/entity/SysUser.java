@@ -1,4 +1,4 @@
-package com.lia.system.modules.user;
+package com.lia.system.entity;
 
 
 import com.lia.system.utils.ArrayUtils;

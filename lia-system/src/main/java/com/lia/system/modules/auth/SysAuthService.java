@@ -1,8 +1,9 @@
 package com.lia.system.modules.auth;
 
 
+import com.lia.system.entity.SysAuth;
 import com.lia.system.exception.HttpException;
-import com.lia.system.modules.dictData.SysDictData;
+import com.lia.system.entity.SysDictData;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

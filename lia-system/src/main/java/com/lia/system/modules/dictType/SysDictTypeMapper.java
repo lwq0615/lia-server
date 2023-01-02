@@ -1,6 +1,6 @@
 package com.lia.system.modules.dictType;
 
-import com.lia.system.modules.dictType.SysDictType;
+import com.lia.system.entity.SysDictType;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 

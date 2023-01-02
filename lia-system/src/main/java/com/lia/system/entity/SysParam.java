@@ -1,4 +1,4 @@
-package com.lia.system.modules.param;
+package com.lia.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

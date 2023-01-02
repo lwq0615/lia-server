@@ -1,5 +1,4 @@
-package com.lia.system.modules.company;
-
+package com.lia.system.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,43 +7,33 @@ import lombok.experimental.Accessors;
 
 
 /**
- * 系统企业
+ * 系统数据字典项
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class SysCompany {
+public class SysDictData {
 
     /**
-     * 企业ID
+     * 字典项ID
      */
-    private Integer companyId;
+    private Integer dataId;
 
     /**
-     * 企业名称
+     * 数据值，有时候需要使用某些表的ID作为value,数据类型可能不是String,所以需要使用Object
      */
-    private String name;
+    private Object value;
 
     /**
-     * 负责人联系电话
+     * 标签
      */
-    private String phone;
+    private String label;
 
     /**
-     * 负责人
+     * 字典分类（外键）
      */
-    private String principal;
-
-    /**
-     * 企业地址
-     */
-    private String address;
-
-    /**
-     * 邮箱
-     */
-    private String email;
+    private Integer typeId;
 
     /**
      * 创建人

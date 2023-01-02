@@ -1,7 +1,8 @@
 package com.lia.system.modules.auth;
 
 
-import com.lia.system.modules.dictData.SysDictData;
+import com.lia.system.entity.SysAuth;
+import com.lia.system.entity.SysDictData;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

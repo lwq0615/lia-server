@@ -1,7 +1,7 @@
 package com.lia.system.modules.user;
 
-import com.lia.system.modules.dictData.SysDictData;
-import com.lia.system.security.LoginUser;
+import com.lia.system.entity.SysDictData;
+import com.lia.system.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

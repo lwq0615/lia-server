@@ -1,8 +1,8 @@
 package com.lia.system.security;
 
-import com.lia.system.modules.auth.SysAuth;
-import com.lia.system.modules.role.SysRole;
-import com.lia.system.modules.user.SysUser;
+import com.lia.system.entity.SysAuth;
+import com.lia.system.entity.SysRole;
+import com.lia.system.entity.SysUser;
 import com.lia.system.modules.role.SysRoleMapper;
 import com.lia.system.modules.user.SysUserMapper;
 import com.lia.system.modules.auth.SysAuthService;

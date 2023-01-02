@@ -1,6 +1,7 @@
 package com.lia.system.modules.file;
 
 
+import com.lia.system.entity.SysFile;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.ArrayList;

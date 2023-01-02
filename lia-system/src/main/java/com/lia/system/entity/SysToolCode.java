@@ -1,4 +1,4 @@
-package com.lia.system.modules.code;
+package com.lia.system.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -2,9 +2,7 @@ package com.lia.system.modules.dictType;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lia.system.exception.HttpException;
-import com.lia.system.modules.dictType.SysDictType;
-import com.lia.system.modules.dictType.SysDictTypeService;
+import com.lia.system.entity.SysDictType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;

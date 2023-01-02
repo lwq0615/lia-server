@@ -1,6 +1,6 @@
 package com.lia.system.modules.code;
 
-import com.lia.system.modules.code.SysToolCode;
+import com.lia.system.entity.SysToolCode;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 

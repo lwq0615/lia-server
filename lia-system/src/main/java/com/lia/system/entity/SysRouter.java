@@ -1,4 +1,4 @@
-package com.lia.system.modules.router;
+package com.lia.system.entity;
 
 
 import lombok.AllArgsConstructor;

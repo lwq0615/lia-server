@@ -1,6 +1,7 @@
 package com.lia.system.modules.company;
 
-import com.lia.system.modules.dictData.SysDictData;
+import com.lia.system.entity.SysCompany;
+import com.lia.system.entity.SysDictData;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 

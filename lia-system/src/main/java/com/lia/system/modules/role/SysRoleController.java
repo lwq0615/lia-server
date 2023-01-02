@@ -3,8 +3,8 @@ package com.lia.system.modules.role;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lia.system.exception.HttpException;
-import com.lia.system.modules.dictData.SysDictData;
+import com.lia.system.entity.SysDictData;
+import com.lia.system.entity.SysRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

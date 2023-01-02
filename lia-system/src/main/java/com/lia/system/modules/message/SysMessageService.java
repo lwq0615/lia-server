@@ -1,6 +1,7 @@
 package com.lia.system.modules.message;
 
 
+import com.lia.system.entity.SysMessage;
 import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;

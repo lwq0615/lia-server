@@ -1,7 +1,8 @@
 package com.lia.system.modules.role;
 
 
-import com.lia.system.modules.dictData.SysDictData;
+import com.lia.system.entity.SysDictData;
+import com.lia.system.entity.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

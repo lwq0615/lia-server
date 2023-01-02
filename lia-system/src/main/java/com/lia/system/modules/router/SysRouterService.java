@@ -1,8 +1,9 @@
 package com.lia.system.modules.router;
 
 
+import com.lia.system.entity.SysRouter;
 import com.lia.system.exception.HttpException;
-import com.lia.system.modules.role.SysRole;
+import com.lia.system.entity.SysRole;
 import com.lia.system.modules.role.SysRoleService;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;

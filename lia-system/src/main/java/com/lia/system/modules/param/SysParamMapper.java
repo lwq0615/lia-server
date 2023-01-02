@@ -2,6 +2,7 @@ package com.lia.system.modules.param;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lia.system.entity.SysParam;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
