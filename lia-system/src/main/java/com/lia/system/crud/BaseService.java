@@ -75,6 +75,13 @@ public abstract class BaseService<E> {
         return mappers.get(clazz);
     }
 
+
+    /**
+     * 列表查询
+     * @param entity 查询参数
+     * @param desc 是否降序
+     * @return
+     */
     public List<E> selectList(E entity, boolean desc) {
         QueryWrapper<E> queryWrapper = new QueryWrapper<>();
         QueryParam queryParam = new QueryParam(entity);
@@ -99,10 +106,19 @@ public abstract class BaseService<E> {
         return baseMapper.selectList(queryWrapper);
     }
 
+
+    /**
+     * 列表查询，默认升序
+     */
     public List<E> selectList(E entity) {
         return this.selectList(entity, false);
     }
 
+
+    /**
+     * 查询一条记录
+     * @param entity
+     */
     public E selectOne(E entity) {
         QueryWrapper<E> queryWrapper = new QueryWrapper<>();
         QueryParam queryParam = new QueryParam(entity);
@@ -116,7 +132,6 @@ public abstract class BaseService<E> {
 
     /**
      * 新增和编辑
-     *
      * @param entity
      * @return 结果信息
      */
@@ -165,6 +180,11 @@ public abstract class BaseService<E> {
         }
     }
 
+    /**
+     * 根据id列表删除数据
+     * @param ids
+     * @return
+     */
     public int deleteByIds(List ids) {
         if (ids != null && ids.size() > 0) {
             return baseMapper.deleteBatchIds(ids);

@@ -31,7 +31,7 @@ public class SysParamController {
         if(current != null && size != null){
             PageHelper.startPage(current,size);
         }
-        return new PageInfo<>(sysParamService.findSysParam(sysParam));
+        return new PageInfo<>(sysParamService.selectList(sysParam));
     }
 
     /**
@@ -43,7 +43,7 @@ public class SysParamController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:param:save')")
     public String saveSysParam(@RequestBody SysParam sysParam){
-        return sysParamService.saveSysParam(sysParam);
+        return sysParamService.save(sysParam);
     }
 
 
@@ -56,7 +56,7 @@ public class SysParamController {
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('system:param:delete')")
     public int delete(@RequestBody List<Integer> sysParamIds){
-        return sysParamService.deleteSysParams(sysParamIds);
+        return sysParamService.deleteByIds(sysParamIds);
     }
 
 
