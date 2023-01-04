@@ -7,6 +7,9 @@ server:
   error:
     path: /error
 spring:
+  profiles:
+    # 程序运行的环境（dev：开发，pro：生产）
+    active: pro
   # redis配置
   redis:
     host: localhost
@@ -26,7 +29,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/lia
     username: root
-    password: Lwqa7417
+    password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
     # 连接池配置
     druid:

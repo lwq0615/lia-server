@@ -7,6 +7,9 @@ server:
   error:
     path: /error
 spring:
+  profiles:
+    # 程序运行的环境（dev：开发，pro：生产）
+    active: env
   # redis配置
   redis:
     host: localhost
