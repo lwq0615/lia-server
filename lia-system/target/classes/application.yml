@@ -26,7 +26,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/lia
     username: root
-    password: 123456
+    password: Lwqa7417
     type: com.alibaba.druid.pool.DruidDataSource
     # 连接池配置
     druid:

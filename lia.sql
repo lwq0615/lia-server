@@ -1,7 +1,7 @@
 /*
  Navicat MySQL Data Transfer
 
- Source Server         : mysql
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 80021
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 07/12/2022 15:58:07
+ Date: 04/01/2023 19:45:05
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `sys_auth`  (
   INDEX `sys_auth-router_id`(`router_id`) USING BTREE,
   CONSTRAINT `sys_auth-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 80 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 79 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_auth
@@ -96,7 +96,7 @@ CREATE TABLE `sys_company`  (
   UNIQUE INDEX `sys_company-name`(`name`) USING BTREE COMMENT '企业名称唯一',
   INDEX `sys_company-create_by`(`create_by`) USING BTREE,
   CONSTRAINT `sys_company-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_company
@@ -120,7 +120,7 @@ CREATE TABLE `sys_dict_data`  (
   INDEX `sys_dict_data-type_id`(`type_id`) USING BTREE,
   CONSTRAINT `sys_dict_data-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_dict_data-type_id` FOREIGN KEY (`type_id`) REFERENCES `sys_dict_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -168,14 +168,14 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user`) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_file
 -- ----------------------------
 INSERT INTO `sys_file` VALUES (41, '微信图片_20220312191446.jpg', 'public/image/20221003/19afa398-9430-46c5-ac3a-997259d48f16.jpg', 1781778, '2022-10-03 21:27:02', 85);
 INSERT INTO `sys_file` VALUES (45, '微信图片_202203121913362.jpg', 'public/image/20221003/f1881fa8-79a2-4a8f-89f4-6b22219d3f9f.jpg', 241151, '2022-10-03 21:52:39', 2);
-INSERT INTO `sys_file` VALUES (55, '微信图片_20220312191321.jpg', 'public/image/20221201/94383b42-cad3-4689-bd06-db8b45a3fe87.jpg', 152270, '2022-12-01 17:23:25', 1);
+INSERT INTO `sys_file` VALUES (56, '屏幕截图_20230101_190847.png', 'public/image/20230103/4790e857-e5cd-4ed1-9eba-b330158d5370.png', 2094083, '2023-01-03 20:26:39', 1);
 
 -- ----------------------------
 -- Table structure for sys_msg
@@ -221,13 +221,13 @@ CREATE TABLE `sys_param`  (
   UNIQUE INDEX `sys_param-name`(`name`) USING BTREE,
   INDEX `sys_param-create_by`(`create_by`) USING BTREE,
   CONSTRAINT `sys_param-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_param
 -- ----------------------------
 INSERT INTO `sys_param` VALUES (1, 'enable_register', 'true', '是否开启注册', 1, '2022-11-30 16:38:12', '是否开启注册');
-INSERT INTO `sys_param` VALUES (3, 'login_check_code', 'true', '登录时是否需要验证码', 1, '2022-12-10 22:50:59', '登录时是否需要验证码');
+INSERT INTO `sys_param` VALUES (3, 'login_check_code', 'false', '登录时是否需要验证码', 1, '2022-12-10 22:50:59', '登录时是否需要验证码');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -253,13 +253,14 @@ CREATE TABLE `sys_role`  (
   CONSTRAINT `sys_role-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_role-root_router_id` FOREIGN KEY (`root_router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_role-superior` FOREIGN KEY (`superior`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 127 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 132 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '开发者', 'sys:admin', 1, NULL, 0, 1, '2022-05-06 15:52:00', '开发者');
+INSERT INTO `sys_role` VALUES (1, '开发者', 'sys:admin', 1, 1, 0, 1, '2022-05-06 15:52:00', '开发者');
 INSERT INTO `sys_role` VALUES (2, '测试', 'sys:test', 1, 1, 0, 1, '2022-05-11 14:46:00', NULL);
+INSERT INTO `sys_role` VALUES (132, '普通员工', 'common', 1, 1, 0, 1, '2023-01-03 13:18:12', NULL);
 
 -- ----------------------------
 -- Table structure for sys_role_auth
@@ -430,7 +431,7 @@ CREATE TABLE `sys_tool_code`  (
   PRIMARY KEY (`code_id`) USING BTREE,
   INDEX `sys_tool_code-create_by`(`create_by`) USING BTREE,
   CONSTRAINT `sys_tool_code-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 86 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_tool_code
@@ -441,6 +442,7 @@ INSERT INTO `sys_tool_code` VALUES (82, '[{\"name\":\"asd\",\"type\":\"String\",
 INSERT INTO `sys_tool_code` VALUES (83, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-01 23:04:06');
 INSERT INTO `sys_tool_code` VALUES (84, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":true,\"unique\":true,\"like\":true,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-02 13:18:29');
 INSERT INTO `sys_tool_code` VALUES (85, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":true,\"unique\":true,\"like\":true,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-02 13:18:48');
+INSERT INTO `sys_tool_code` VALUES (86, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2023-01-03 15:01:44');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -473,7 +475,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 55, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 56, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
 INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '测试', 2, '0', '18150027197', '1072864729@qq.com', 45, '0', '0', 1, '2022-05-17 02:12:00', '测试账号，不可删除');
 INSERT INTO `sys_user` VALUES (3, 'youke', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '游客', 2, '2', NULL, NULL, NULL, '0', '1', 1, '2022-06-14 13:56:00', NULL);
 INSERT INTO `sys_user` VALUES (82, 'liweiqiang', '$2a$10$rddXSWtc.eox1Ey0yOqBp.bYEQD3ymcJeZSG5ad4j5O6TJjsm2Jui', '林肯', 2, '0', NULL, NULL, NULL, '0', '1', 1, '2022-09-29 19:04:15', NULL);
