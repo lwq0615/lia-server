@@ -47,9 +47,9 @@ public class SysRouterService {
         List<SysRouter> routers = sysRouterMapper.findRouterByRoleId(roleId);
         // findRouterByRoleId查询的用户可访问路由表中不包括根节点
         // 如果该角色是以根节点作为根，则需要另外查询根节点路由信息
-        if(role.getRootRouterId() == 0){
+        if(role.getRootRouterId().equals(SysRouter.ROOT_ROUTER_ID)){
             SysRouter root = new SysRouter();
-            root.setRouterId(0);
+            root.setRouterId(SysRouter.ROOT_ROUTER_ID);
             root = sysRouterMapper.findSysRouter(root).get(0);
             routers.add(root);
         }
@@ -68,7 +68,7 @@ public class SysRouterService {
      */
     public List<SysRouter> getRouterTree(){
         List<SysRouter> sysRouters = sysRouterMapper.findSysRouter(new SysRouter());
-        return SysRouter.asTreeWithRoot(sysRouters,0);
+        return SysRouter.asTreeWithRoot(sysRouters,SysRouter.ROOT_ROUTER_ID);
     }
 
 

@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 04/01/2023 19:45:05
+ Date: 04/01/2023 21:41:35
 */
 
 SET NAMES utf8mb4;
@@ -37,16 +37,16 @@ CREATE TABLE `sys_auth`  (
   INDEX `sys_auth-router_id`(`router_id`) USING BTREE,
   CONSTRAINT `sys_auth-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 79 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 80 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_auth
 -- ----------------------------
-INSERT INTO `sys_auth` VALUES (1, '查询用户', '/system/user/getPage', 'system:user:getPage', 2, 1, '2022-05-06 17:25:00', NULL);
+INSERT INTO `sys_auth` VALUES (1, '查询用户', '/system/user/getPage', 'system:user:getPage', 3, 1, '2022-05-06 17:25:00', NULL);
 INSERT INTO `sys_auth` VALUES (3, '查询角色字典表', '/system/role/sysRoleDict', 'system:role:sysRoleDict', 41, 1, '2022-05-11 15:10:18', NULL);
-INSERT INTO `sys_auth` VALUES (5, '添加或编辑用户', '/system/user/saveUser', 'system:user:saveUser', 2, 1, '2022-05-12 17:16:06', NULL);
-INSERT INTO `sys_auth` VALUES (6, '批量删除用户', '/system/user/deleteUsers', 'system:user:deleteUsers', 2, 1, '2022-05-15 20:28:25', NULL);
-INSERT INTO `sys_auth` VALUES (7, '获取创建人字典表', '/system/user/getCreateByDict', 'system:user:getCreateByDict', 2, 1, '2022-05-16 14:38:54', NULL);
+INSERT INTO `sys_auth` VALUES (5, '添加或编辑用户', '/system/user/saveUser', 'system:user:saveUser', 3, 1, '2022-05-12 17:16:06', NULL);
+INSERT INTO `sys_auth` VALUES (6, '批量删除用户', '/system/user/deleteUsers', 'system:user:deleteUsers', 3, 1, '2022-05-15 20:28:25', NULL);
+INSERT INTO `sys_auth` VALUES (7, '获取创建人字典表', '/system/user/getCreateByDict', 'system:user:getCreateByDict', 3, 1, '2022-05-16 14:38:54', NULL);
 INSERT INTO `sys_auth` VALUES (8, '查询路由树', '/system/router/getRouterTree', 'system:router:getRouterTree', 5, 1, '2022-05-30 14:55:21', NULL);
 INSERT INTO `sys_auth` VALUES (9, '保存路由', '/system/router/saveRouter', 'system:router:saveRouter', 5, 1, '2022-05-30 15:19:25', NULL);
 INSERT INTO `sys_auth` VALUES (10, '批量删除路由', '/system/router/deleteRouters', 'system:router:deleteRouters', 5, 1, '2022-05-30 15:19:50', NULL);
@@ -96,7 +96,7 @@ CREATE TABLE `sys_company`  (
   UNIQUE INDEX `sys_company-name`(`name`) USING BTREE COMMENT '企业名称唯一',
   INDEX `sys_company-create_by`(`create_by`) USING BTREE,
   CONSTRAINT `sys_company-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_company
@@ -120,7 +120,7 @@ CREATE TABLE `sys_dict_data`  (
   INDEX `sys_dict_data-type_id`(`type_id`) USING BTREE,
   CONSTRAINT `sys_dict_data-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_dict_data-type_id` FOREIGN KEY (`type_id`) REFERENCES `sys_dict_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -146,7 +146,7 @@ CREATE TABLE `sys_dict_type`  (
   UNIQUE INDEX `sys_dict_type-key`(`key`) USING BTREE,
   INDEX `sys_dict_type-create_by`(`create_by`) USING BTREE,
   CONSTRAINT `sys_dict_type-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -168,7 +168,7 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user`) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_file
@@ -194,7 +194,7 @@ CREATE TABLE `sys_msg`  (
   INDEX `sys_msg-send_to`(`send_to`) USING BTREE,
   CONSTRAINT `sys_msg-send_by` FOREIGN KEY (`send_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_msg-send_to` FOREIGN KEY (`send_to`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 150 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 151 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_msg
@@ -221,7 +221,7 @@ CREATE TABLE `sys_param`  (
   UNIQUE INDEX `sys_param-name`(`name`) USING BTREE,
   INDEX `sys_param-create_by`(`create_by`) USING BTREE,
   CONSTRAINT `sys_param-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_param
@@ -253,14 +253,14 @@ CREATE TABLE `sys_role`  (
   CONSTRAINT `sys_role-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_role-root_router_id` FOREIGN KEY (`root_router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_role-superior` FOREIGN KEY (`superior`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 132 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 133 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '开发者', 'sys:admin', 1, 1, 0, 1, '2022-05-06 15:52:00', '开发者');
-INSERT INTO `sys_role` VALUES (2, '测试', 'sys:test', 1, 1, 0, 1, '2022-05-11 14:46:00', NULL);
-INSERT INTO `sys_role` VALUES (132, '普通员工', 'common', 1, 1, 0, 1, '2023-01-03 13:18:12', NULL);
+INSERT INTO `sys_role` VALUES (1, '开发者', 'sys:admin', 1, 1, 1, 1, '2022-05-06 15:52:00', '开发者');
+INSERT INTO `sys_role` VALUES (2, '测试', 'sys:test', 1, 1, 2, 1, '2022-05-11 14:46:00', NULL);
+INSERT INTO `sys_role` VALUES (132, '普通员工', 'common', 1, 1, 2, 1, '2023-01-03 13:18:12', NULL);
 
 -- ----------------------------
 -- Table structure for sys_role_auth
@@ -357,10 +357,10 @@ CREATE TABLE `sys_role_router`  (
 -- ----------------------------
 -- Records of sys_role_router
 -- ----------------------------
-INSERT INTO `sys_role_router` VALUES (1, 1);
-INSERT INTO `sys_role_router` VALUES (2, 1);
 INSERT INTO `sys_role_router` VALUES (1, 2);
 INSERT INTO `sys_role_router` VALUES (2, 2);
+INSERT INTO `sys_role_router` VALUES (1, 3);
+INSERT INTO `sys_role_router` VALUES (2, 3);
 INSERT INTO `sys_role_router` VALUES (1, 4);
 INSERT INTO `sys_role_router` VALUES (2, 4);
 INSERT INTO `sys_role_router` VALUES (1, 5);
@@ -396,21 +396,21 @@ CREATE TABLE `sys_router`  (
   INDEX `sys_router-parent`(`parent`) USING BTREE,
   CONSTRAINT `sys_router-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_router-parent` FOREIGN KEY (`parent`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_router
 -- ----------------------------
-INSERT INTO `sys_router` VALUES (0, '根目录', '', NULL, NULL, 1, NULL, 1, '2022-06-05 02:55:58', NULL);
-INSERT INTO `sys_router` VALUES (1, '系统管理', 'system', NULL, 0, 1, 'SettingOutlined', 1, '2022-05-09 10:51:00', NULL);
-INSERT INTO `sys_router` VALUES (2, '用户管理', 'user', '/system/user/User', 1, 1, 'TeamOutlined', 1, '2022-05-09 10:55:00', NULL);
-INSERT INTO `sys_router` VALUES (4, '权限管理', 'auth', '/system/auth/Auth', 1, 4, 'KeyOutlined', 1, '2022-05-09 11:01:00', NULL);
-INSERT INTO `sys_router` VALUES (5, '路由管理', 'router', '/system/router/Router', 1, 5, 'GoldOutlined', 1, '2022-05-30 21:14:00', NULL);
-INSERT INTO `sys_router` VALUES (6, '字典配置', 'dict', '/system/dict/Dict', 1, 6, 'PicRightOutlined', 1, '2022-06-11 11:25:44', NULL);
-INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 1, 8, 'CodeSandboxOutlined', 1, '2022-06-19 16:57:58', NULL);
+INSERT INTO `sys_router` VALUES (1, '根目录', '', NULL, NULL, 1, NULL, 1, '2022-06-05 02:55:58', NULL);
+INSERT INTO `sys_router` VALUES (2, '系统管理', 'system', NULL, 1, 1, 'SettingOutlined', 1, '2022-05-09 10:51:00', NULL);
+INSERT INTO `sys_router` VALUES (3, '用户管理', 'user', '/system/user/User', 2, 1, 'TeamOutlined', 1, '2022-05-09 10:55:00', NULL);
+INSERT INTO `sys_router` VALUES (4, '权限管理', 'auth', '/system/auth/Auth', 2, 4, 'KeyOutlined', 1, '2022-05-09 11:01:00', NULL);
+INSERT INTO `sys_router` VALUES (5, '路由管理', 'router', '/system/router/Router', 2, 5, 'GoldOutlined', 1, '2022-05-30 21:14:00', NULL);
+INSERT INTO `sys_router` VALUES (6, '字典配置', 'dict', '/system/dict/Dict', 2, 6, 'PicRightOutlined', 1, '2022-06-11 11:25:44', NULL);
+INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 2, 8, 'CodeSandboxOutlined', 1, '2022-06-19 16:57:58', NULL);
 INSERT INTO `sys_router` VALUES (40, '代码生成', 'codeGenerator', '/system/tool/codeGenerator/CodeGenerator', 38, 1, 'CopyrightOutlined', 1, '2022-06-19 17:00:51', NULL);
-INSERT INTO `sys_router` VALUES (41, '企业管理', 'company', '/system/company/Company', 1, 2, 'VerifiedOutlined', 1, '2022-09-20 15:27:00', NULL);
-INSERT INTO `sys_router` VALUES (44, '系统参数', 'param', 'system/param/Param', 1, 7, 'ProfileOutlined', 1, '2022-11-30 16:54:04', NULL);
+INSERT INTO `sys_router` VALUES (41, '企业管理', 'company', '/system/company/Company', 2, 2, 'VerifiedOutlined', 1, '2022-09-20 15:27:00', NULL);
+INSERT INTO `sys_router` VALUES (44, '系统参数', 'param', 'system/param/Param', 2, 7, 'ProfileOutlined', 1, '2022-11-30 16:54:04', NULL);
 
 -- ----------------------------
 -- Table structure for sys_tool_code
@@ -431,7 +431,7 @@ CREATE TABLE `sys_tool_code`  (
   PRIMARY KEY (`code_id`) USING BTREE,
   INDEX `sys_tool_code-create_by`(`create_by`) USING BTREE,
   CONSTRAINT `sys_tool_code-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 86 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_tool_code
@@ -470,7 +470,7 @@ CREATE TABLE `sys_user`  (
   CONSTRAINT `sys_user-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-head_img` FOREIGN KEY (`head_img`) REFERENCES `sys_file` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 88 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 89 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user

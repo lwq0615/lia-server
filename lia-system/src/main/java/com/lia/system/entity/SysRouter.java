@@ -19,6 +19,12 @@ import java.util.List;
 @Accessors(chain = true)
 public class SysRouter {
 
+
+    /**
+     * 跟路由的ID
+     */
+    public static final Integer ROOT_ROUTER_ID = 1;
+
     /**
      * 路由ID
      */
