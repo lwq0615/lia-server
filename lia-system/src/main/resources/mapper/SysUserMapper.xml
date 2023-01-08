@@ -27,6 +27,9 @@
             <if test="userId != null">
                 AND user_id = #{userId}
             </if>
+            <if test="type != null">
+                AND `type` = #{type}
+            </if>
             <if test="username != null">
                 AND username = #{username}
             </if>
@@ -104,14 +107,16 @@
             sys_company c
         where
             u.role_id = r.role_id
+            and r.company_id = c.company_id
         order by user_id desc
     </select>
 
     <insert id="addSysUser" parameterType="SysUser">
         insert  into sys_user
-        (username,password,nick,role_id,sex,phone,email,head_img,status,del_flag,create_by,remark)
+        (`type`,username,password,nick,role_id,sex,phone,email,head_img,status,del_flag,create_by,remark)
         values
         <trim prefix="(" suffix=")" suffixOverrides="," >
+            #{type},
             #{username},
             #{password},
             #{nick},
@@ -120,22 +125,8 @@
             #{phone},
             #{email},
             #{headImg},
-            <choose>
-                <when test="status != null">
-                    #{status},
-                </when>
-                <otherwise>
-                    '0',
-                </otherwise>
-            </choose>
-            <choose>
-                <when test="delFlag != null">
-                    #{delFlag},
-                </when>
-                <otherwise>
-                    '0',
-                </otherwise>
-            </choose>
+            #{status},
+            #{delFlag},
             #{createBy},
             #{remark},
         </trim>
@@ -172,7 +163,7 @@
     <select id="getCreateByDict" resultMap="SysDictDataResult">
         select nick as label,user_id as value
         from sys_user u,sys_role r
-        where u.del_flag = '0' and r.company_id = 1 and u.role_id = r.role_id
+        where u.del_flag = '0' and r.company_id = 1 and u.role_id = r.role_id and `type` = '0'
     </select>
 
     <select id="personList" resultMap="SysUserResult">
@@ -180,6 +171,7 @@
             select * from sys_user
             where
                 del_flag = '0'
+                and `type` = '0'
                 and user_id != #{userId}
                 and role_id in (select role_id from sys_role where company_id = #{companyId})
         ) u LEFT JOIN sys_file f on u.head_img = f.file_id

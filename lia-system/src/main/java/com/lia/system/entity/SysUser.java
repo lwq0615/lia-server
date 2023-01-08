@@ -23,6 +23,11 @@ public class SysUser {
     private Long userId;
 
     /**
+     * 用户类型（0：pc端用户，1：小程序用户）
+     */
+    private Character type;
+
+    /**
      * 用户名
      */
     private String username;
@@ -94,6 +99,17 @@ public class SysUser {
 
 
     /**
+     * 用户类型set方法
+     */
+    public void setType(Character type) {
+        if(!ArrayUtils.asList('0', '1').contains(type)){
+            status = '0';
+        }
+        this.type = type;
+    }
+
+
+    /**
      * 性别set方法
      */
     public void setSex(Character sex) {
@@ -102,6 +118,7 @@ public class SysUser {
         }
         this.sex = sex;
     }
+
 
     /**
      * 帐号状态set方法

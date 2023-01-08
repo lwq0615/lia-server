@@ -114,7 +114,8 @@ public class SysUserService {
     }
 
     /**
-     * 根据企业ID获取可以聊天的用户（只有相同企业的用户可以相互聊天）
+     * 根据企业ID获取可以聊天的用户
+     * 只有相同企业的PC端用户可以相互聊天
      */
     public List<SysUser> personList() {
         SysUser user = new SysUser();
@@ -130,6 +131,9 @@ public class SysUserService {
      * @return
      */
     public String saveUser(SysUser user) {
+        if (user.getType() == null) {
+            throw new HttpException(400, "缺少参数type");
+        }
         if (user.getUsername() == null || user.getUsername().equals("")) {
             throw new HttpException(400, "缺少参数username");
         }
@@ -148,10 +152,11 @@ public class SysUserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         int success;
-        //查询是否有相同的未删除的用户名
+        //查询是否有相同用户名，相同用户类型，未删除的用户
         SysUser newUser = new SysUser();
         newUser.setUsername(user.getUsername());
         newUser.setDelFlag('0');
+        newUser.setType(user.getType());
         List<SysUser> sysUserPage = sysUserMapper.getSysUserPage(newUser);
         // 新增
         if (user.getUserId() == null) {
@@ -178,7 +183,6 @@ public class SysUserService {
 
     /**
      * 批量删除用户
-     *
      * @param userIds 用户的id列表
      * @return 删除成功的数量
      */
@@ -204,7 +208,6 @@ public class SysUserService {
 
     /**
      * 更换用户头像
-     *
      * @param file
      * @return
      */
