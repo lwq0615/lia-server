@@ -81,30 +81,25 @@
 
     <!--不查询密码-->
     <select id="getSysUserPage" parameterType="SysUser" resultMap="SysUserResult">
-        select
-          u.*, r.company_id
-        from
+        select u.*, r.company_id from
             (select
-            user_id,
-            username,
-            nick,
-            role_id,
-            sex,
-            phone,
-            email,
-            head_img,
-            status,
-            del_flag,
-            create_by,
-            create_time,
-            remark
+                user_id,
+                username,
+                nick,
+                role_id,
+                sex,
+                phone,
+                email,
+                head_img,
+                status,
+                del_flag,
+                create_by,
+                create_time,
+                remark
             from sys_user
-            <include refid="where"></include>) u,
-            sys_role r,
-            sys_company c
-        where
-            u.role_id = r.role_id
-            and r.company_id = c.company_id
+            <include refid="where"></include>) u
+            LEFT JOIN sys_role r on u.role_id = r.role_id
+            left join sys_company c on r.company_id = c.company_id
         order by user_id desc
     </select>
 

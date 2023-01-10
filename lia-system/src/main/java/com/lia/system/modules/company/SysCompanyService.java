@@ -68,11 +68,14 @@ public class SysCompanyService {
 
     /**
      * 批量删除
-     *
      * @param sysCompanyIds id列表
      * @return 删除成功的数量
      */
     public int deleteSysCompanys(List<Integer> sysCompanyIds) {
+        // 不允许删除开发者所在企业
+        if(sysCompanyIds.contains(1)){
+            sysCompanyIds.remove(sysCompanyIds.indexOf(1));
+        }
         if (sysCompanyIds.size() == 0) {
             return 0;
         }

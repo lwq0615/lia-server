@@ -21,10 +21,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.socket.TextMessage;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional
@@ -144,6 +146,13 @@ public class SysUserService {
         if (user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))) {
             throw new HttpException(400, "缺少参数password");
         }
+        // 校验手机号
+        if(!StringUtils.isEmpty(user.getPhone())){
+            String regex = "^[1]([3-9])[0-9]{9}$";
+            if(user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())){
+                throw new HttpException(400, "请输入正确的手机号");
+            }
+        }
         // 密码加密后在存入数据库
         if (user.getPassword() != null && !user.getPassword().equals("")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -184,12 +193,12 @@ public class SysUserService {
      */
     public int deleteUsers(List<Long> userIds) {
         // 不允许删除admin账户
-        if (userIds.contains(1)) {
-            userIds.remove(userIds.indexOf(1));
+        if (userIds.contains(1L)) {
+            userIds.remove(userIds.indexOf(1L));
         }
         // 不允许删除测试账户
-        if (userIds.contains(2)) {
-            userIds.remove(userIds.indexOf(2));
+        if (userIds.contains(2L)) {
+            userIds.remove(userIds.indexOf(2L));
         }
         if (userIds.size() == 0) {
             return 0;
