@@ -62,21 +62,21 @@ public class SysUserService {
             Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
             // 账号停用
-            if(loginUser.getUser().getStatus() == '1'){
+            if (loginUser.getUser().getStatus() == '1') {
                 return "user deactivate";
             }
             ValueOperations<String, Object> ops = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue();
             // 挤下线
-            String oldUUID = (String) ops.get("userId:"+loginUser.getUser().getUserId());
-            if(oldUUID != null){
-                Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete("uuid:"+oldUUID);
+            String oldUUID = (String) ops.get("userId:" + loginUser.getUser().getUserId());
+            if (oldUUID != null) {
+                Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete("uuid:" + oldUUID);
             }
             Map userInfo = new HashMap();
             userInfo.put("loginUser", loginUser);
             String uid = UUID.randomUUID().toString();
             // 登录状态存入redis
-            ops.set("userId:"+loginUser.getUser().getUserId(), uid);
-            ops.set("uuid:"+uid, jwt.getToken(userInfo));
+            ops.set("userId:" + loginUser.getUser().getUserId(), uid);
+            ops.set("uuid:" + uid, jwt.getToken(userInfo));
             return uid;
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,19 +87,19 @@ public class SysUserService {
     /**
      * 退出登录
      */
-    public void logout(Long userId){
+    public void logout(Long userId) {
         // 删除redis内的用户登录数据
         RedisTemplate<String, Object> redisTemplate = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN);
         ValueOperations<String, Object> ops = redisTemplate.opsForValue();
         String uuid = (String) ops.get("userId:" + userId);
-        redisTemplate.delete("uuid:"+uuid);
+        redisTemplate.delete("uuid:" + uuid);
         redisTemplate.delete("userId:" + userId);
     }
 
     /**
      * 强制下线
      */
-    public void forceLogout(Long userId){
+    public void forceLogout(Long userId) {
         this.logout(userId);
         // 通知客户端登录状态已经无效
         WebSocketHandler.sendMessage(new TextMessage("账号状态发生改变"), userId);
@@ -128,61 +128,43 @@ public class SysUserService {
 
 
     /**
-     * 新增或编辑用户
-     * @param user
-     * @return
+     * 编辑用户信息
      */
-    public String saveUser(SysUser user) {
-        if (user.getUsername() == null || user.getUsername().equals("")) {
-            throw new HttpException(400, "缺少参数username");
-        }
-        if (user.getNick() == null || user.getNick().equals("")) {
-            throw new HttpException(400, "缺少参数nick");
-        }
-        if (user.getRoleId() == null) {
-            throw new HttpException(400, "缺少参数roleId");
-        }
-        // 新增的用户必须要有password
-        if (user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))) {
-            throw new HttpException(400, "缺少参数password");
-        }
-        // 校验手机号
-        if(!StringUtils.isEmpty(user.getPhone())){
-            String regex = "^[1]([3-9])[0-9]{9}$";
-            if(user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())){
-                throw new HttpException(400, "请输入正确的手机号");
-            }
-        }
-        // 密码加密后在存入数据库
-        if (user.getPassword() != null && !user.getPassword().equals("")) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        int success;
+    public String editUser(SysUser user) {
+        SysUser.check(user);
         //查询是否有相同用户名未删除的用户
         SysUser newUser = new SysUser();
         newUser.setUsername(user.getUsername());
         newUser.setDelFlag('0');
         List<SysUser> sysUserPage = sysUserMapper.getSysUserPage(newUser);
-        // 新增
-        if (user.getUserId() == null) {
-            if (sysUserPage == null || sysUserPage.size() == 0) {
-                // 新增的用户createBy为当前用户
-                user.setCreateBy(LoginUser.getLoginUserId());
-                success = sysUserMapper.addSysUser(user);
-            } else {
-                return "用户名已存在";
-            }
+        if (sysUserPage == null || sysUserPage.size() == 0
+                || sysUserPage.get(0).getUserId().equals(user.getUserId())) {
+            return sysUserMapper.editSysUser(user) > 0 ? "success" : "error";
+        } else {
+            return "用户名已存在";
         }
-        // 编辑
-        else {
-            if (sysUserPage == null || sysUserPage.size() == 0
-                    || sysUserPage.get(0).getUserId().equals(user.getUserId())) {
-                success = sysUserMapper.editSysUser(user);
-            }else {
-                return "用户名已存在";
-            }
+    }
+
+
+    /**
+     * 用户注册
+     */
+    public String register(SysUser user) {
+        SysUser.check(user);
+        // 密码加密后在存入数据库
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //查询是否有相同用户名未删除的用户
+        SysUser newUser = new SysUser();
+        newUser.setUsername(user.getUsername());
+        newUser.setDelFlag('0');
+        List<SysUser> sysUserPage = sysUserMapper.getSysUserPage(newUser);
+        if (sysUserPage == null || sysUserPage.size() == 0) {
+            // 新增的用户createBy为当前用户
+            user.setCreateBy(LoginUser.getLoginUserId());
+            return sysUserMapper.addSysUser(user) > 0 ? "success" : "error";
+        } else {
+            return "用户名已存在";
         }
-        return success > 0 ? "success" : "error";
     }
 
 
@@ -213,8 +195,6 @@ public class SysUserService {
 
     /**
      * 更换用户头像
-     * @param file
-     * @return
      */
     public SysFile updateHeadImg(MultipartFile file) {
         SysUser user = new SysUser();
@@ -229,7 +209,7 @@ public class SysUserService {
         }
         //保存新的头像到数据库
         user.setHeadImg(image.getFileId());
-        this.saveUser(user);
+        this.editUser(user);
         return image;
     }
 

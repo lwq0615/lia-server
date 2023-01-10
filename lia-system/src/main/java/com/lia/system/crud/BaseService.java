@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lia.system.crud.anno.CreateBy;
+import com.lia.system.crud.anno.CreateTime;
 import com.lia.system.crud.anno.Required;
 import com.lia.system.crud.anno.UpdateTime;
 import com.lia.system.crud.exception.NoEntityException;
@@ -163,6 +164,10 @@ public abstract class BaseService<E> {
                         field.set(entity, LoginUser.getLoginUserId());
                     }
                     if (field.getAnnotation(UpdateTime.class) != null) {
+                        field.setAccessible(true);
+                        field.set(entity, null);
+                    }
+                    if (field.getAnnotation(CreateTime.class) != null) {
                         field.setAccessible(true);
                         field.set(entity, null);
                     }

@@ -118,7 +118,11 @@ public class SysUserController {
     @PostMapping("/saveUser")
     @PreAuthorize("hasAuthority('system:user:saveUser')")
     public String saveUser(@RequestBody SysUser user) {
-        return sysUserService.saveUser(user);
+        if(user.getUserId() == null){
+            return sysUserService.register(user);
+        }else{
+            return sysUserService.editUser(user);
+        }
     }
 
 

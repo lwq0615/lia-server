@@ -3,10 +3,7 @@ package com.lia.system.crud;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.lia.system.crud.anno.CreateBy;
-import com.lia.system.crud.anno.DateType;
-import com.lia.system.crud.anno.Like;
-import com.lia.system.crud.anno.UpdateTime;
+import com.lia.system.crud.anno.*;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
@@ -64,9 +61,9 @@ public class QueryParam{
         Class eClass = entity.getClass();
         for (Field field : eClass.getDeclaredFields()) {
             field.setAccessible(true);
-            // 创建人与创建时间和主键字段不参与更新
+            // 创建人与创建时间和更新时间和主键字段不参与更新
             if(field.getAnnotation(CreateBy.class) != null || field.getAnnotation(UpdateTime.class) != null
-            || field.getAnnotation(TableId.class) != null){
+            || field.getAnnotation(TableId.class) != null || field.getAnnotation(CreateTime.class) != null){
                 continue;
             }
             // 获取与数据库映射的字段名

@@ -116,8 +116,22 @@
             #{phone},
             #{email},
             #{headImg},
-            #{status},
-            #{delFlag},
+            <choose>
+                <when test="status != null">
+                    #{status},
+                </when>
+                <otherwise>
+                    '0',
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="delFlag != null">
+                    #{delFlag},
+                </when>
+                <otherwise>
+                    '0',
+                </otherwise>
+            </choose>
             #{createBy},
             #{remark},
         </trim>
