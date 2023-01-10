@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a15456e-f01c-4541-806b-bda62d72b376" name="Default Changelist" comment="company">
-      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/entity/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/entity/SysUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysUserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysAuthMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysAuthMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/lia-system/target/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -34,34 +36,46 @@
     <favorites_list name="lia" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="108">
+              <caret line="78" column="33" lean-forward="true" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="109" column="47" selection-start-line="109" selection-start-column="47" selection-end-line="109" selection-end-column="47" />
               <folding>
-                <element signature="e#4028#4029#0" expanded="true" />
-                <element signature="e#4085#4086#0" expanded="true" />
+                <element signature="e#723#724#0" expanded="true" />
+                <element signature="e#787#788#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserMapper.java">
+        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+            <state relative-caret-position="105">
+              <caret line="56" column="14" lean-forward="true" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysUserMapper.xml">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysAuthMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="28" column="17" lean-forward="true" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+            <state relative-caret-position="311">
+              <caret line="111" column="24" selection-start-line="111" selection-start-column="24" selection-end-line="111" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -107,13 +121,13 @@
       <find>private BaseService&lt;SysParam&gt; baseService</find>
       <find>System.out.println</find>
       <find>BaseService</find>
-      <find>findIdsbyRoleId</find>
       <find>sysRoleDict</find>
       <find>mappers</find>
       <find>server</find>
       <find>findRouterByRoleId</find>
       <find>asTreeWithRoot</find>
       <find>setType</find>
+      <find>findIdsbyRoleId</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -125,7 +139,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysFileMapper.xml" />
         <option value="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysDictTypeMapper.xml" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/code/SysToolCodeService.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/crud/UpdateTime.java" />
@@ -153,15 +166,12 @@
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/router/SysRouter.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUser.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/entity/SysAuth.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysAuthMapper.xml" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/role/SysRoleController.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysRoleMapper.xml" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/crud/exception/NoEntityException.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/crud/exception/NotFoundBaseMapperException.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/param/SysParamController.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/param/SysParamService.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthService.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthMapper.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/utils/ArrayUtils.java" />
         <option value="$PROJECT_DIR$/lia-system/pom.xml" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/entity/SysRouter.java" />
@@ -176,6 +186,10 @@
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/entity/SysUser.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysUserMapper.xml" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthMapper.java" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysAuthMapper.xml" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthController.java" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthService.java" />
       </list>
     </option>
   </component>
@@ -217,7 +231,7 @@
   <component name="MavenRunner">
     <option name="skipTests" value="true" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="width" value="1400" />
     <option name="height" value="915" />
@@ -229,6 +243,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -303,12 +318,34 @@
               <item name="system" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="nest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nest" type="462c0819:PsiDirectoryNode" />
+              <item name="lia-system" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lia" type="462c0819:PsiDirectoryNode" />
+              <item name="system" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nest" type="462c0819:PsiDirectoryNode" />
+              <item name="lia-system" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lia" type="462c0819:PsiDirectoryNode" />
+              <item name="system" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -318,7 +355,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1673201222832" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1673201328396" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -642,6 +679,8 @@
       <workItem from="1672924756080" duration="3888000" />
       <workItem from="1673164456021" duration="1899000" />
       <workItem from="1673196873451" duration="4163000" />
+      <workItem from="1673230765974" duration="2122000" />
+      <workItem from="1673327737178" duration="2155000" />
     </task>
     <task id="LOCAL-00001" summary="company">
       <created>1663726262881</created>
@@ -686,7 +725,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="400221000" />
+    <option name="totallyTimeSpent" value="404498000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -701,7 +740,7 @@
     <frame x="-7" y="-7" width="1550" height="830" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.495702" visible="true" weight="0.25402144" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.495702" visible="true" weight="0.26072386" />
       <window_info id="Structure" order="1" sideWeight="0.504298" side_tool="true" weight="0.26072386" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -711,13 +750,13 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932975" weight="0.26217765" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49932975" visible="true" weight="0.37249285" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3982808" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49865952" weight="0.3281471" />
       <window_info anchor="bottom" id="Spring" order="7" sideWeight="0.49932975" weight="0.3286119" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49932975" visible="true" weight="0.24498567" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49932975" weight="0.2446352" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067025" side_tool="true" weight="0.25637394" />
       <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49798927" weight="0.260745" />
@@ -799,27 +838,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-220">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/role/SysRoleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="77" column="37" lean-forward="true" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysRoleMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2600">
-          <caret line="130" column="83" selection-start-line="130" selection-start-column="83" selection-end-line="130" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/entity/SysRole.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
@@ -983,23 +1001,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="28" column="62" lean-forward="true" selection-start-line="28" selection-start-column="62" selection-end-line="28" selection-end-column="62" />
-          <folding>
-            <element signature="e#787#788#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/utils/ArrayUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lia-server/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-956" />
@@ -1058,16 +1059,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1140,13 +1131,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
@@ -1175,10 +1159,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysUserMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
           <folding>
             <element signature="e#4028#4029#0" expanded="true" />
             <element signature="e#4085#4086#0" expanded="true" />
@@ -1186,10 +1184,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysUserMapper.xml">
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="28" column="17" lean-forward="true" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+        <state relative-caret-position="105">
+          <caret line="56" column="14" lean-forward="true" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/TokenFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/utils/ArrayUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysAuthMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="111" column="24" selection-start-line="111" selection-start-column="24" selection-end-line="111" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="109" column="47" selection-start-line="109" selection-start-column="47" selection-end-line="109" selection-end-column="47" />
+          <folding>
+            <element signature="e#723#724#0" expanded="true" />
+            <element signature="e#787#788#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="78" column="33" lean-forward="true" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
         </state>
       </provider>
     </entry>

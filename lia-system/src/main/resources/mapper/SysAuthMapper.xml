@@ -105,5 +105,14 @@
     </select>
 
 
+    <update id="moveToRouter">
+        update sys_auth set router_id = #{routerId} where auth_id in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="authIds" index="index" item="item">
+                #{item},
+            </foreach>
+        </trim>
+    </update>
+
 
 </mapper>

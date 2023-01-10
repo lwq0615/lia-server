@@ -102,4 +102,14 @@ public class SysAuthService {
         return sysAuthMapper.getSysAuthDict();
     }
 
+
+    /**
+     * 批量移动权限到某路由
+     */
+    public int moveToRouter(List<Integer> authIds, Integer routerId) {
+        if(authIds == null || authIds.size() == 0){
+            return 0;
+        }
+        return sysAuthMapper.moveToRouter(authIds, routerId);
+    }
 }

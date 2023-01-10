@@ -64,4 +64,9 @@ public interface SysAuthMapper {
      */
     List<SysDictData> getSysAuthDict();
 
+
+    /**
+     * 批量移动权限到某路由
+     */
+    int moveToRouter(List<Integer> authIds, Integer routerId);
 }
