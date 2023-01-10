@@ -5,12 +5,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysRegisterCode;
 import com.lia.system.exception.HttpException;
+import com.lia.system.security.LoginUser;
+import com.lia.system.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -39,14 +41,26 @@ public class SysRegisterCodeController {
     }
 
     /**
-     * 新增和编辑
-     * 自增主键为空时为新增，否则为编辑
+     * 批量生成注册码
+     */
+    @GetMapping("/create")
+    @PreAuthorize("hasAuthority('system:register:code:create')")
+    public List<SysRegisterCode> create(Integer roleId, Integer count){
+        return sysRegisterCodeService.create(roleId, count);
+    }
+
+
+    /**
+     * 编辑
      * @param sysRegisterCode 参数数据
      * @return 操作成功的数量
      */
-    @PostMapping("/save")
-    @PreAuthorize("hasAuthority('system:register:code:save')")
-    public String saveSysRegisterCode(@RequestBody SysRegisterCode sysRegisterCode){
+    @PostMapping("/edit")
+    @PreAuthorize("hasAuthority('system:register:code:edit')")
+    public String editSysRegisterCode(@RequestBody SysRegisterCode sysRegisterCode){
+        if(sysRegisterCode.getId() == null){
+            throw new HttpException(400, "缺少参数id");
+        }
         return sysRegisterCodeService.save(sysRegisterCode);
     }
 

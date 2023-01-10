@@ -5,8 +5,16 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lia.system.entity.SysRegisterCode;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface SysRegisterCodeMapper extends BaseMapper<SysRegisterCode> {
+
+
+    /**
+     * 批量生成注册码
+     */
+    public int createRegisterCode(List<SysRegisterCode> codes);
 
 }                                   
     

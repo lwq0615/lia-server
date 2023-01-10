@@ -14,4 +14,16 @@
         <id     property="createTime"      column="create_time"      />
     </resultMap>
 
+
+    <insert id="createRegisterCode" parameterType="List" useGeneratedKeys="true"  keyProperty="id" keyColumn="id">
+        insert  into sys_register_code
+        (code, role_id, create_by, create_time)
+        values
+        <trim suffixOverrides="," >
+            <foreach collection="codes" item="item">
+                (#{item.code},#{item.roleId},#{item.createBy},#{item.createTime}),
+            </foreach>
+        </trim>
+    </insert>
+
 </mapper>
