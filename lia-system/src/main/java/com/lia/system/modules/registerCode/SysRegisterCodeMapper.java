@@ -14,7 +14,7 @@ public interface SysRegisterCodeMapper extends BaseMapper<SysRegisterCode> {
     /**
      * 批量生成注册码
      */
-    public int createRegisterCode(List<SysRegisterCode> codes);
+    int createRegisterCode(List<SysRegisterCode> codes);
 
 }                                   
     

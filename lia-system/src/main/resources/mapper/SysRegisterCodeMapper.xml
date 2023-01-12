@@ -17,11 +17,11 @@
 
     <insert id="createRegisterCode" parameterType="List" useGeneratedKeys="true"  keyProperty="id" keyColumn="id">
         insert  into sys_register_code
-        (code, role_id, create_by, create_time)
+        (code, role_id, create_by)
         values
         <trim suffixOverrides="," >
             <foreach collection="codes" item="item">
-                (#{item.code},#{item.roleId},#{item.createBy},#{item.createTime}),
+                (#{item.code},#{item.roleId},#{item.createBy}),
             </foreach>
         </trim>
     </insert>
