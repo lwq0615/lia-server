@@ -26,6 +26,18 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
 
 
     /**
+     * 编辑注册码信息
+     */
+    @Override
+    public String save(SysRegisterCode registerCode){
+        if(registerCode.getUseBy() != null){
+            return "注册码已被使用";
+        }
+        return super.save(registerCode);
+    }
+
+
+    /**
      * 批量生成注册码
      */
     public List<SysRegisterCode> create(Integer roleId, Integer count) {
