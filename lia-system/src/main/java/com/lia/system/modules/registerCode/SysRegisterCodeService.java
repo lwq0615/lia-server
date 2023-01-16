@@ -40,6 +40,7 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
         }
         List<SysRegisterCode> registerCodes = new ArrayList<>();
         int errorCount = 0;
+        String datetime = DateUtils.format(new Date(), DateUtils.MYSQL_DATETIME_PATTERN);
         while (count > 0) {
             if(errorCount > 3){
                 throw new HttpException(500, "服务端生成注册码失败");
@@ -49,7 +50,8 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
                 SysRegisterCode registerCode = new SysRegisterCode();
                 registerCode.setCreateBy(LoginUser.getLoginUserId())
                         .setRoleId(roleId)
-                        .setCode(StringUtils.ramdomCode(20));
+                        .setCode(StringUtils.ramdomCode(20))
+                        .setCreateTime(datetime);
                 registerCodes.add(registerCode);
             }
             try{

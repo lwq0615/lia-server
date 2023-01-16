@@ -40,6 +40,7 @@ public class SysRegisterCodeController {
         return new PageInfo<>(sysRegisterCodeService.selectList(sysRegisterCode));
     }
 
+
     /**
      * 批量生成注册码
      */
