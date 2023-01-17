@@ -3,6 +3,7 @@ package com.lia.system.modules.user;
 
 import com.lia.system.entity.*;
 import com.lia.system.exception.HttpException;
+import com.lia.system.result.ResultCode;
 import com.lia.system.modules.file.SysFileService;
 import com.lia.system.modules.registerCode.SysRegisterCodeService;
 import com.lia.system.redis.Redis;
@@ -11,7 +12,7 @@ import com.lia.system.security.Jwt;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.ArrayUtils;
 import com.lia.system.utils.DateUtils;
-import com.lia.system.utils.HttpResult;
+import com.lia.system.result.HttpResult;
 import com.lia.system.utils.StringUtils;
 import com.lia.system.websocket.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.socket.TextMessage;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -105,7 +105,7 @@ public class SysUserService {
     public void forceLogout(Long userId) {
         this.logout(userId);
         // 通知客户端登录状态已经无效
-        WebSocketHandler.sendMessage(new TextMessage("账号状态发生改变"), userId);
+        WebSocketHandler.sendMessage(HttpResult.error(ResultCode.USER_STATE_CHANGE), userId);
     }
 
 
@@ -163,7 +163,7 @@ public class SysUserService {
                 throw new HttpException(500, "编辑失败");
             }
         } else {
-            return HttpResult.error(202, "用户名已存在");
+            return HttpResult.error(ResultCode.USERNAME_EXISTED);
         }
     }
 
@@ -193,10 +193,10 @@ public class SysUserService {
         if(!StringUtils.isEmpty(registerCode)){
             sysRegisterCode = sysRegisterCodeService.selectOne(new SysRegisterCode().setCode(registerCode));
             if(sysRegisterCode == null){
-                return HttpResult.error(203, "注册码不存在");
+                return HttpResult.error(ResultCode.REGISTER_NOT_EXIST);
             }
             if(sysRegisterCode.getUseBy() != null){
-                return HttpResult.error(201, "注册码已被使用");
+                return HttpResult.error(ResultCode.REGISTER_USED);
             }
             user.setRoleId(sysRegisterCode.getRoleId());
         }else{
@@ -223,7 +223,7 @@ public class SysUserService {
                 throw new HttpException(500, "注册失败");
             }
         } else {
-            return HttpResult.error(202, "用户名已存在");
+            return HttpResult.error(ResultCode.USERNAME_EXISTED);
         }
     }
 

@@ -3,13 +3,14 @@ package com.lia.system.websocket;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.lia.system.entity.SysMessage;
+import com.lia.system.result.ResultCode;
 import com.lia.system.modules.message.SysMessageService;
 import com.lia.system.security.LoginUser;
+import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
@@ -32,38 +33,45 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     /**
      * 建立连接
-     * @param session
-     * @throws Exception
+     * @param session 客户端对应的通话session
      */
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session) {
         LoginUser loginUser = (LoginUser) session.getAttributes().get("loginUser");
         WebSocketSession put = sessionPools.put(loginUser.getUser().getUserId(), session);
         if(put != null){
-            put.sendMessage(new TextMessage("账号在其他设备登录"));
-            put.close();
+            String res = JSON.toJSONString(HttpResult.error(ResultCode.USER_LOGIN_OTHER));
+            try {
+                put.sendMessage(new TextMessage(res));
+                put.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
 
     /**
      * 接收客户端消息
-     * @param session
-     * @param message
-     * @throws Exception
+     * @param session 客户端对应的通话session
+     * @param message 客户端发送的消息
      */
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         SysMessage sysMessage = JSONObject.parseObject(message.getPayload(), SysMessage.class);
         WebSocketSession toSession = sessionPools.get(sysMessage.getSendTo());
         // 消息发送成功
         if(sysMessageService.sendMessage(sysMessage)){
-            // 通知消息发送者消息发送成功
-            session.sendMessage(new TextMessage(JSON.toJSONString(sysMessage)));
-            // 接受者在线
-            if(!Objects.isNull(toSession)){
-                // 将消息推送给接受者
-                toSession.sendMessage(new TextMessage(JSON.toJSONString(sysMessage)));
+            try{
+                // 通知消息发送者消息发送成功
+                session.sendMessage(new TextMessage(JSON.toJSONString(HttpResult.success(sysMessage))));
+                // 接受者在线
+                if(!Objects.isNull(toSession)){
+                    // 将消息推送给接受者
+                    toSession.sendMessage(new TextMessage(JSON.toJSONString(HttpResult.success(sysMessage))));
+                }
+            }catch (IOException e){
+                e.printStackTrace();
             }
         }
     }
@@ -71,9 +79,8 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
     /**
      * 关闭连接
-     * @param session
+     * @param session 客户端对应的通话session
      * @param status
-     * @throws Exception
      */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
@@ -89,13 +96,14 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
      * @param message
      * @param userId
      */
-    public static void sendMessage(WebSocketMessage message, Long userId) {
-        if(sessionPools.get(userId) != null){
-            try {
-                sessionPools.get(userId).sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public static void sendMessage(HttpResult message, Long userId) {
+        if(sessionPools.get(userId) == null){
+            return;
+        }
+        try {
+            sessionPools.get(userId).sendMessage(new TextMessage(JSON.toJSONString(message)));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

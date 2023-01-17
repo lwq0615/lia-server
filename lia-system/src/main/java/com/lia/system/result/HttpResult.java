@@ -1,12 +1,10 @@
-package com.lia.system.utils;
+package com.lia.system.result;
 
 
 /**
  * 定义请求的响应信息
  */
 public class HttpResult {
-
-    private static final int SUCCESS_CODE = 200;
 
     /**
      * 响应码
@@ -24,9 +22,9 @@ public class HttpResult {
     private Object data;
 
 
-    public HttpResult(int code, String msg, Object data){
-        this.code = code;
-        this.message = msg;
+    public HttpResult(ResultCode resultCode, Object data){
+        this.code = resultCode.getCode();
+        this.message = resultCode.getMessage();
         this.data = data;
     }
 
@@ -35,22 +33,18 @@ public class HttpResult {
      * 成功响应
      */
     public static HttpResult success(Object data){
-        return new HttpResult(SUCCESS_CODE, "success", data);
+        return new HttpResult(ResultCode.SUCCESS, data);
     }
 
     /**
      * 失败响应
      */
-    public static HttpResult error(int code, String msg, Object data){
-        return new HttpResult(code, msg, data);
+    public static HttpResult error(ResultCode resultCode, Object data){
+        return new HttpResult(resultCode, data);
     }
 
-    public static HttpResult error(int code, String msg){
-        return new HttpResult(code, msg, null);
-    }
-
-    public static HttpResult error(int code){
-        return new HttpResult(code, null, null);
+    public static HttpResult error(ResultCode resultCode){
+        return new HttpResult(resultCode, null);
     }
 
 

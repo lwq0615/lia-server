@@ -1,7 +1,6 @@
 
 package com.lia.system.modules.registerCode;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lia.system.crud.BaseService;
 import com.lia.system.entity.SysRegisterCode;
 import com.lia.system.exception.HttpException;

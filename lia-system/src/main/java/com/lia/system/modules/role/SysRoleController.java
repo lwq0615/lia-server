@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.entity.SysRole;
+import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class SysRoleController {
      */
     @PostMapping("/saveRole")
     @PreAuthorize("hasAuthority('system:role:saveRole')")
-    public String saveRole(@RequestBody SysRole role){
+    public HttpResult saveRole(@RequestBody SysRole role){
         return sysRoleService.saveRole(role);
     }
 

@@ -3,7 +3,7 @@ package com.lia.system.modules.param;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysParam;
-import com.lia.system.utils.HttpResult;
+import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

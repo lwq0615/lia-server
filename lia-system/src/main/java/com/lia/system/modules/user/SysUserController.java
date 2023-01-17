@@ -8,7 +8,7 @@ import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysUser;
 import com.lia.system.security.LoginUser;
 import com.lia.system.modules.file.SysFileService;
-import com.lia.system.utils.HttpResult;
+import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;

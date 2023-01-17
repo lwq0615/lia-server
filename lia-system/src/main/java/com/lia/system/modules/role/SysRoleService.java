@@ -4,6 +4,8 @@ package com.lia.system.modules.role;
 import com.lia.system.entity.SysRole;
 import com.lia.system.exception.HttpException;
 import com.lia.system.entity.SysDictData;
+import com.lia.system.result.HttpResult;
+import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -36,7 +38,7 @@ public class SysRoleService {
      * @param role
      * @return
      */
-    public String saveRole(SysRole role){
+    public HttpResult saveRole(SysRole role){
         if(role.getName() == null || role.getName().equals("")){
             throw new HttpException(400,"缺少参数name");
         }
@@ -61,9 +63,13 @@ public class SysRoleService {
             this.changeRoleAuths(role.getAuths(), role.getRoleId());
             this.changeRoleRouters(role.getRouters(), role.getRoleId());
         }catch (DuplicateKeyException e){
-            return "标识符已存在";
+            return HttpResult.error(ResultCode.ROLE_KEY_EXISTED);
         }
-        return success > 0 ? "success" : "error";
+        if(success > 0){
+            return HttpResult.success("success");
+        }else{
+            throw new HttpException(500, "新增或编辑失败");
+        }
     }
 
 
