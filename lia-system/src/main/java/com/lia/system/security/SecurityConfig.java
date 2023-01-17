@@ -63,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/system/param/getParamValue").permitAll()
                 .antMatchers("/system/user/logout").permitAll()
                 .antMatchers("/system/user/login").permitAll()
+                .antMatchers("/system/user/register").permitAll()
                 .antMatchers("/system/file/getPic").permitAll()
                 .antMatchers("/system/file/getFile").permitAll()
                 // websocket接口另外进行鉴权

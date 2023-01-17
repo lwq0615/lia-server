@@ -1,15 +1,11 @@
 package com.lia.system.entity;
 
 
-import com.lia.system.exception.HttpException;
 import com.lia.system.utils.ArrayUtils;
-import com.lia.system.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-
-import java.util.regex.Pattern;
 
 
 /**
@@ -20,6 +16,17 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class SysUser {
+
+    /**
+     * 管理员用户ID
+     */
+    public final static Long ADMIN_USER_ID = 1L;
+
+    /**
+     * 测试用户ID
+     */
+    public final static Long TEST_USER_ID = 2L;
+
 
     /**
      * 用户ID
@@ -128,31 +135,5 @@ public class SysUser {
         this.delFlag = delFlag;
     }
 
-
-    /**
-     * 验证数据合法性
-     */
-    public static void check(SysUser user){
-        if (user.getUsername() == null || user.getUsername().equals("")) {
-            throw new HttpException(400, "缺少参数username");
-        }
-        if (user.getNick() == null || user.getNick().equals("")) {
-            throw new HttpException(400, "缺少参数nick");
-        }
-        if (user.getRoleId() == null) {
-            throw new HttpException(400, "缺少参数roleId");
-        }
-        // 新增的用户必须要有password
-        if (user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))) {
-            throw new HttpException(400, "缺少参数password");
-        }
-        // 校验手机号
-        if(!StringUtils.isEmpty(user.getPhone())){
-            String regex = "^[1]([3-9])[0-9]{9}$";
-            if(user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())){
-                throw new HttpException(400, "请输入正确的手机号");
-            }
-        }
-    }
 
 }

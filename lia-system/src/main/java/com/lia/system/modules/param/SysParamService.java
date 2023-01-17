@@ -4,6 +4,7 @@ package com.lia.system.modules.param;
 import com.lia.system.crud.BaseService;
 import com.lia.system.entity.SysParam;
 import com.lia.system.exception.HttpException;
+import com.lia.system.utils.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +22,15 @@ public class SysParamService extends BaseService<SysParam> {
      * @param name 参数名
      * @return 参数值
      */
-    public Object getParamValueByName(String name) {
+    public HttpResult getParamValueByName(String name) {
         if(name == null || name.equals("")){
             throw new HttpException(400,"缺少参数name");
         }
-        return sysParamMapper.getParamValueByName(name);
+        SysParam sysParam = sysParamMapper.getParamValueByName(name);
+        if(sysParam == null){
+            return HttpResult.error(201, "未查询到参数");
+        }
+        return HttpResult.success(sysParam.getValue());
     }
 }
 

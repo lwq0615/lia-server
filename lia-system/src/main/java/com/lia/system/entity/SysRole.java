@@ -18,6 +18,24 @@ import java.util.List;
 @Accessors(chain = true)
 public class SysRole {
 
+
+    /**
+     * 开发者角色ID
+     */
+    public static final Integer ADMIN_ROLE_ID = 1;
+
+    /**
+     * 测试角色ID
+     */
+    public static final Integer TEST_ROLE_ID = 2;
+
+    /**
+     * 普通用户角色ID
+     */
+    public static final Integer COMMON_ROLE_ID = 3;
+
+
+
     /**
      * 角色ID
      */

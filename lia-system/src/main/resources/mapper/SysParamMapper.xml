@@ -13,8 +13,8 @@
         <id     property="remark"      column="remark"      />
     </resultMap>
 
-    <select id="getParamValueByName" resultType="Object">
-        select value from sys_param where name = #{name}
+    <select id="getParamValueByName" resultType="SysParam">
+        select * from sys_param where name = #{name}
     </select>
 
 </mapper>

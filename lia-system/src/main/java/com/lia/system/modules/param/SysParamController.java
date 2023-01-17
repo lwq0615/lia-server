@@ -3,6 +3,7 @@ package com.lia.system.modules.param;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysParam;
+import com.lia.system.utils.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class SysParamController {
         if(current != null && size != null){
             PageHelper.startPage(current,size);
         }
-        return new PageInfo<>(sysParamService.selectList(sysParam));
+        return new PageInfo<>(sysParamService.selectList(sysParam, true));
     }
 
     /**
@@ -66,7 +67,7 @@ public class SysParamController {
      * @return 参数值
      */
     @GetMapping("/getParamValue")
-    public Object getParamValue(String name){
+    public HttpResult getParamValue(String name){
         return sysParamService.getParamValueByName(name);
     }
 

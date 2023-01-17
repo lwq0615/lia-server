@@ -103,7 +103,7 @@
         order by user_id desc
     </select>
 
-    <insert id="addSysUser" parameterType="SysUser">
+    <insert id="addSysUser" parameterType="SysUser" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId">
         insert  into sys_user
         (username,password,nick,role_id,sex,phone,email,head_img,status,del_flag,create_by,remark)
         values

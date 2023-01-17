@@ -3,19 +3,18 @@ package com.lia.system.modules.file;
 import com.lia.system.entity.SysFile;
 import com.lia.system.exception.HttpException;
 import com.lia.system.security.LoginUser;
+import com.lia.system.utils.DateUtils;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,8 +44,7 @@ public class SysFileService {
         String oldName = file.getOriginalFilename();
         String fileType = oldName.split("\\.")[oldName.split("\\.").length - 1];
         String newName = UUID.randomUUID().toString() + "." + fileType;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        String date = sdf.format(new Date());
+        String date = DateUtils.format(new Date(), "yyyyMMdd");
         String newFilePath = basePath + "/" + dirName + "/" + date + "/" + newName;
         File newFile = new File(newFilePath);
         // 路径不存在则先创建文件目录

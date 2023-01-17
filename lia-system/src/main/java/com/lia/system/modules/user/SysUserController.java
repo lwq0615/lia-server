@@ -8,6 +8,7 @@ import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysUser;
 import com.lia.system.security.LoginUser;
 import com.lia.system.modules.file.SysFileService;
+import com.lia.system.utils.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -111,15 +112,27 @@ public class SysUserController {
 
 
     /**
+     * 用户注册
+     * @param user 用户参数
+     * @param registerCode 注册码
+     * @return 相应信息
+     */
+    @PostMapping("/register")
+    public HttpResult registerUser(@RequestBody SysUser user, String registerCode){
+        return sysUserService.register(user, registerCode);
+    }
+
+
+    /**
      * 新增和编辑用户
      * @param user 用户数据，每条数据如果有userId则为修改，userId为null则为新增
      * @return 操作成功的数量
      */
     @PostMapping("/saveUser")
     @PreAuthorize("hasAuthority('system:user:saveUser')")
-    public String saveUser(@RequestBody SysUser user) {
+    public HttpResult saveUser(@RequestBody SysUser user) {
         if(user.getUserId() == null){
-            return sysUserService.register(user);
+            return sysUserService.register(user, null);
         }else{
             return sysUserService.editUser(user);
         }

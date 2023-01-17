@@ -30,9 +30,6 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
      */
     @Override
     public String save(SysRegisterCode registerCode){
-        if(registerCode.getUseBy() != null){
-            return "注册码已被使用";
-        }
         return super.save(registerCode);
     }
 
@@ -52,7 +49,7 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
         }
         List<SysRegisterCode> registerCodes = new ArrayList<>();
         int errorCount = 0;
-        String datetime = DateUtils.format(new Date(), DateUtils.MYSQL_DATETIME_PATTERN);
+        String datetime = DateUtils.mysqlDatetime(new Date());
         while (count > 0) {
             if(errorCount > 3){
                 throw new HttpException(500, "服务端生成注册码失败");

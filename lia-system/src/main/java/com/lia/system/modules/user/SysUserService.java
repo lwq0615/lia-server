@@ -1,16 +1,18 @@
 package com.lia.system.modules.user;
 
 
-import com.lia.system.entity.SysUser;
+import com.lia.system.entity.*;
 import com.lia.system.exception.HttpException;
-import com.lia.system.entity.SysDictData;
-import com.lia.system.entity.SysFile;
 import com.lia.system.modules.file.SysFileService;
+import com.lia.system.modules.registerCode.SysRegisterCodeService;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
 import com.lia.system.security.Jwt;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.ArrayUtils;
+import com.lia.system.utils.DateUtils;
+import com.lia.system.utils.HttpResult;
+import com.lia.system.utils.StringUtils;
 import com.lia.system.websocket.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,7 +23,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.socket.TextMessage;
 
@@ -43,6 +44,8 @@ public class SysUserService {
     private SysUserMapper sysUserMapper;
     @Autowired
     private SysFileService sysFileService;
+    @Autowired
+    private SysRegisterCodeService sysRegisterCodeService;
 
 
     /**
@@ -130,8 +133,23 @@ public class SysUserService {
     /**
      * 编辑用户信息
      */
-    public String editUser(SysUser user) {
-        SysUser.check(user);
+    public HttpResult editUser(SysUser user) {
+        if (user.getUsername() == null || user.getUsername().equals("")) {
+            throw new HttpException(400, "缺少参数username");
+        }
+        if (user.getNick() == null || user.getNick().equals("")) {
+            throw new HttpException(400, "缺少参数nick");
+        }
+        if (user.getRoleId() == null) {
+            throw new HttpException(400, "缺少参数roleId");
+        }
+        // 校验手机号
+        if(!StringUtils.isEmpty(user.getPhone())){
+            String regex = "^[1]([3-9])[0-9]{9}$";
+            if(user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())){
+                throw new HttpException(400, "请输入正确的手机号");
+            }
+        }
         //查询是否有相同用户名未删除的用户
         SysUser newUser = new SysUser();
         newUser.setUsername(user.getUsername());
@@ -139,9 +157,13 @@ public class SysUserService {
         List<SysUser> sysUserPage = sysUserMapper.getSysUserPage(newUser);
         if (sysUserPage == null || sysUserPage.size() == 0
                 || sysUserPage.get(0).getUserId().equals(user.getUserId())) {
-            return sysUserMapper.editSysUser(user) > 0 ? "success" : "error";
+            if(sysUserMapper.editSysUser(user) > 0){
+                return HttpResult.success("success");
+            }else{
+                throw new HttpException(500, "编辑失败");
+            }
         } else {
-            return "用户名已存在";
+            return HttpResult.error(202, "用户名已存在");
         }
     }
 
@@ -149,8 +171,37 @@ public class SysUserService {
     /**
      * 用户注册
      */
-    public String register(SysUser user) {
-        SysUser.check(user);
+    public HttpResult register(SysUser user, String registerCode) {
+        if (user.getUsername() == null || user.getUsername().equals("")) {
+            throw new HttpException(400, "缺少参数username");
+        }
+        if (user.getNick() == null || user.getNick().equals("")) {
+            throw new HttpException(400, "缺少参数nick");
+        }
+        // 新增的用户必须要有password
+        if (user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))) {
+            throw new HttpException(400, "缺少参数password");
+        }
+        // 校验手机号
+        if(!StringUtils.isEmpty(user.getPhone())){
+            String regex = "^[1]([3-9])[0-9]{9}$";
+            if(user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())){
+                throw new HttpException(400, "请输入正确的手机号");
+            }
+        }
+        SysRegisterCode sysRegisterCode = null;
+        if(!StringUtils.isEmpty(registerCode)){
+            sysRegisterCode = sysRegisterCodeService.selectOne(new SysRegisterCode().setCode(registerCode));
+            if(sysRegisterCode == null){
+                return HttpResult.error(203, "注册码不存在");
+            }
+            if(sysRegisterCode.getUseBy() != null){
+                return HttpResult.error(201, "注册码已被使用");
+            }
+            user.setRoleId(sysRegisterCode.getRoleId());
+        }else{
+            user.setRoleId(SysRole.COMMON_ROLE_ID);
+        }
         // 密码加密后在存入数据库
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         //查询是否有相同用户名未删除的用户
@@ -161,9 +212,18 @@ public class SysUserService {
         if (sysUserPage == null || sysUserPage.size() == 0) {
             // 新增的用户createBy为当前用户
             user.setCreateBy(LoginUser.getLoginUserId());
-            return sysUserMapper.addSysUser(user) > 0 ? "success" : "error";
+            if(sysUserMapper.addSysUser(user) > 0){
+                if(!StringUtils.isEmpty(registerCode)){
+                    // 将注册码标记为已使用
+                    sysRegisterCode.setUseBy(user.getUserId()).setUseTime(DateUtils.mysqlDatetime(new Date()));
+                    sysRegisterCodeService.save(sysRegisterCode);
+                }
+                return HttpResult.success(user);
+            }else{
+                throw new HttpException(500, "注册失败");
+            }
         } else {
-            return "用户名已存在";
+            return HttpResult.error(202, "用户名已存在");
         }
     }
 
@@ -175,12 +235,12 @@ public class SysUserService {
      */
     public int deleteUsers(List<Long> userIds) {
         // 不允许删除admin账户
-        if (userIds.contains(1L)) {
-            userIds.remove(userIds.indexOf(1L));
+        if (userIds.contains(SysUser.ADMIN_USER_ID)) {
+            userIds.remove(userIds.indexOf(SysUser.ADMIN_USER_ID));
         }
         // 不允许删除测试账户
-        if (userIds.contains(2L)) {
-            userIds.remove(userIds.indexOf(2L));
+        if (userIds.contains(SysUser.TEST_USER_ID)) {
+            userIds.remove(userIds.indexOf(SysUser.TEST_USER_ID));
         }
         if (userIds.size() == 0) {
             return 0;

@@ -102,8 +102,16 @@ public class SysRoleService {
      */
     public int deleteRoles(List<Integer> roleIds){
         // 不允许删除开发者角色
-        if(roleIds.contains(1)){
-            roleIds.remove(roleIds.indexOf(1));
+        if(roleIds.contains(SysRole.ADMIN_ROLE_ID)){
+            roleIds.remove(roleIds.indexOf(SysRole.ADMIN_ROLE_ID));
+        }
+        // 不允许删除测试角色
+        if(roleIds.contains(SysRole.TEST_ROLE_ID)){
+            roleIds.remove(roleIds.indexOf(SysRole.TEST_ROLE_ID));
+        }
+        // 不允许删除普通用户角色
+        if(roleIds.contains(SysRole.COMMON_ROLE_ID)){
+            roleIds.remove(roleIds.indexOf(SysRole.COMMON_ROLE_ID));
         }
         if(roleIds.size() == 0){
             return 0;

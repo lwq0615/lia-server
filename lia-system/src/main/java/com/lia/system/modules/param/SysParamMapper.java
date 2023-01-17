@@ -13,6 +13,6 @@ public interface SysParamMapper extends BaseMapper<SysParam> {
      * @param name 参数名
      * @return 参数值
      */
-    Object getParamValueByName(String name);
+    SysParam getParamValueByName(String name);
 
 }

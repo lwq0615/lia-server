@@ -5,14 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysRegisterCode;
 import com.lia.system.exception.HttpException;
-import com.lia.system.security.LoginUser;
-import com.lia.system.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -37,7 +33,7 @@ public class SysRegisterCodeController {
         if(current != null && size != null){
             PageHelper.startPage(current,size);
         }
-        return new PageInfo<>(sysRegisterCodeService.selectList(sysRegisterCode));
+        return new PageInfo<>(sysRegisterCodeService.selectList(sysRegisterCode, true));
     }
 
 
