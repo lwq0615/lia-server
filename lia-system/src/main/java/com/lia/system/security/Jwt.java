@@ -11,11 +11,8 @@ import java.util.UUID;
 @Component
 public class Jwt {
 
-    /**
-     * Authorization字符串过期时间
-     */
-    @Value("${token.expireTime}")
-    private int expireTime;
+
+
     @Value("${token.signature}")
     private String signature;
 
@@ -33,9 +30,6 @@ public class Jwt {
                 .setClaims(map)
                 .setId(UUID.randomUUID().toString())
                 .signWith(SignatureAlgorithm.HS256,signature);
-        if(expireTime != 0){
-            jwt.setExpiration(new Date(System.currentTimeMillis() + expireTime*60*1000));
-        }
         return jwt.compact();
     }
 

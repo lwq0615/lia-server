@@ -50,7 +50,6 @@ public class SysUserService {
 
     /**
      * 获取用户的Authorization字符串
-     *
      * @param checkUser 用户信息
      * @return 生成的Authorization字符串
      */

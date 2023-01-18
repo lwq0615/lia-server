@@ -99,7 +99,7 @@ token:
   # 令牌密钥
   signature: liweiqiang
   # 令牌有效期（单位分钟，设置0则不会过期）
-  expireTime: 1
+  expireTime: 0
 
 # 上传设置
 upload:

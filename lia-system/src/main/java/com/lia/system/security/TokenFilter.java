@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -28,6 +29,11 @@ import java.util.Map;
 @Component
 public class TokenFilter extends OncePerRequestFilter {
 
+    /**
+     * Authorization字符串过期时间
+     */
+    @Value("${token.expireTime}")
+    private int expireTime;
     @Value("${token.header}")
     private String header;
     @Autowired
@@ -50,14 +56,19 @@ public class TokenFilter extends OncePerRequestFilter {
                 return;
             }
             LoginUser user = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
+            if(expireTime != 0){
+                long time = new Date().getTime() - user.getLoginTime().getTime();
+                // 登录状态过期
+                if(time > expireTime * 60 * 1000){
+                    response.setStatus(402);
+                    Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(uid);
+                    return;
+                }
+            }
             //登录成功
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        }catch (ExpiredJwtException je){
-            // 登录状态过期
-            response.setStatus(402);
-            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(uid);
         }catch (Exception e) {
         }finally{
             filterChain.doFilter(request,response);
