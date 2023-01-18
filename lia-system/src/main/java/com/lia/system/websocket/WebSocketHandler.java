@@ -64,11 +64,11 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
         if(sysMessageService.sendMessage(sysMessage)){
             try{
                 // 通知消息发送者消息发送成功
-                session.sendMessage(new TextMessage(JSON.toJSONString(HttpResult.success(sysMessage))));
+                session.sendMessage(new TextMessage(JSON.toJSONString(HttpResult.ok(sysMessage))));
                 // 接受者在线
                 if(!Objects.isNull(toSession)){
                     // 将消息推送给接受者
-                    toSession.sendMessage(new TextMessage(JSON.toJSONString(HttpResult.success(sysMessage))));
+                    toSession.sendMessage(new TextMessage(JSON.toJSONString(HttpResult.ok(sysMessage))));
                 }
             }catch (IOException e){
                 e.printStackTrace();

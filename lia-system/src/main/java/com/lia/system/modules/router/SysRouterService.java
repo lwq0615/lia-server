@@ -2,7 +2,7 @@ package com.lia.system.modules.router;
 
 
 import com.lia.system.entity.SysRouter;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysRole;
 import com.lia.system.modules.role.SysRoleService;
 import com.lia.system.result.HttpResult;
@@ -42,7 +42,7 @@ public class SysRouterService {
      */
     public List<SysRouter> findRouterByRoleId(Integer roleId){
         if(roleId == null){
-            throw new HttpException(400, "缺少参数roleId");
+            throw new HttpException("缺少参数roleId");
         }
         SysRole role = new SysRole();
         role.setRoleId(roleId);
@@ -81,18 +81,18 @@ public class SysRouterService {
      * @param router
      * @return
      */
-    public HttpResult saveRouter(SysRouter router){
+    public int saveRouter(SysRouter router){
         if(router.getPath() == null || router.getPath().equals("")){
-            throw new HttpException(400,"缺少参数path");
+            throw new HttpException("缺少参数path");
         }
         if(router.getLabel() == null || router.getLabel().equals("")){
-            throw new HttpException(400,"缺少参数label");
+            throw new HttpException("缺少参数label");
         }
         if(router.getPath().contains("/")){
-            return HttpResult.error(ResultCode.ROUTER_PATH_ERROR);
+            throw new HttpException(ResultCode.ROUTER_PATH_ERROR);
         }
         if(router.getRouterId() != null && router.getRouterId() == router.getParent()){
-            return HttpResult.error(ResultCode.ROUTER_PARENT_OWN);
+            throw new HttpException(ResultCode.ROUTER_PARENT_OWN);
         }
         if(!StringUtils.isEmpty(router.getElement())){
             if(!router.getElement().substring(0, 1).equals("/")){
@@ -117,16 +117,12 @@ public class SysRouterService {
             String name = replace.split("\\.")[1].split("-")[1];
             switch (name) {
                 case "element":
-                    return HttpResult.error(ResultCode.ROUTER_ELEMENT_EXISTED);
+                    throw new HttpException(ResultCode.ROUTER_ELEMENT_EXISTED);
                 case "parent,path":
-                    return HttpResult.error(ResultCode.ROUTER_PATH_EXISTED);
+                    throw new HttpException(ResultCode.ROUTER_PATH_EXISTED);
             }
         }
-        if(success > 0){
-            return HttpResult.success("success");
-        }else{
-            throw new HttpException(500, "新增或编辑失败");
-        }
+        return success;
     }
 
 

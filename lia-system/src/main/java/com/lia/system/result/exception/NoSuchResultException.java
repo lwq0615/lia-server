@@ -1,4 +1,4 @@
-package com.lia.system.exception;
+package com.lia.system.result.exception;
 
 public class NoSuchResultException extends RuntimeException {
 

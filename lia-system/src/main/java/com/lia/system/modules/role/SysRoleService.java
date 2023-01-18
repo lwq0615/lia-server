@@ -2,7 +2,7 @@ package com.lia.system.modules.role;
 
 
 import com.lia.system.entity.SysRole;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.result.HttpResult;
 import com.lia.system.result.ResultCode;
@@ -38,18 +38,18 @@ public class SysRoleService {
      * @param role
      * @return
      */
-    public HttpResult saveRole(SysRole role){
+    public int saveRole(SysRole role){
         if(role.getName() == null || role.getName().equals("")){
-            throw new HttpException(400,"缺少参数name");
+            throw new HttpException("缺少参数name");
         }
         if(role.getKey() == null || role.getKey().equals("")){
-            throw new HttpException(400,"缺少参数key");
+            throw new HttpException("缺少参数key");
         }
         if(role.getRootRouterId() == null){
-            throw new HttpException(400,"缺少参数rootRouterId");
+            throw new HttpException("缺少参数rootRouterId");
         }
         if(role.getCompanyId() == null){
-            throw new HttpException(400,"缺少参数companyId");
+            throw new HttpException("缺少参数companyId");
         }
         int success;
         try{
@@ -63,13 +63,9 @@ public class SysRoleService {
             this.changeRoleAuths(role.getAuths(), role.getRoleId());
             this.changeRoleRouters(role.getRouters(), role.getRoleId());
         }catch (DuplicateKeyException e){
-            return HttpResult.error(ResultCode.ROLE_KEY_EXISTED);
+            throw new HttpException(ResultCode.ROLE_KEY_EXISTED);
         }
-        if(success > 0){
-            return HttpResult.success("success");
-        }else{
-            throw new HttpException(500, "新增或编辑失败");
-        }
+        return success;
     }
 
 

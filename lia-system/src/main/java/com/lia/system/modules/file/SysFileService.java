@@ -1,7 +1,7 @@
 package com.lia.system.modules.file;
 
 import com.lia.system.entity.SysFile;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.DateUtils;
 import net.coobird.thumbnailator.Thumbnails;
@@ -74,7 +74,7 @@ public class SysFileService {
      */
     public void getFileByFileId(HttpServletResponse response, Long fileId) {
         if (fileId == null) {
-            throw new HttpException(400, "缺少参数fileId");
+            throw new HttpException("缺少参数fileId");
         }
         SysFile sysFile = new SysFile();
         sysFile.setFileId(fileId);
@@ -110,7 +110,7 @@ public class SysFileService {
      */
     public void loadPicByFileId(HttpServletResponse response, Long fileId, Boolean comp) {
         if (fileId == null) {
-            throw new HttpException(400, "缺少参数fileId");
+            throw new HttpException("缺少参数fileId");
         }
         String path = null;
         SysFile image = new SysFile();

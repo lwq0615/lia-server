@@ -1,6 +1,6 @@
 package com.lia.system.modules.code;
 
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysToolCode;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +37,13 @@ public class SysToolCodeService {
      */
     public String saveSysToolCode(SysToolCode sysToolCode) {
         if(sysToolCode.getColumns() == null || sysToolCode.getColumns().equals("")){
-            throw new HttpException(400,"缺少参数columns");
+            throw new HttpException("缺少参数columns");
         }
         if(sysToolCode.getTableName() == null || sysToolCode.getTableName().equals("")){
-            throw new HttpException(400,"缺少参数tableName");
+            throw new HttpException("缺少参数tableName");
         }
         if(sysToolCode.getPrimaryKey() == null || sysToolCode.getPrimaryKey().equals("")){
-            throw new HttpException(400,"缺少参数primaryKey");
+            throw new HttpException("缺少参数primaryKey");
         }
         int success = 0;
         try {

@@ -42,7 +42,7 @@ public class SysRoleController {
      */
     @PostMapping("/saveRole")
     @PreAuthorize("hasAuthority('system:role:saveRole')")
-    public HttpResult saveRole(@RequestBody SysRole role){
+    public int saveRole(@RequestBody SysRole role){
         return sysRoleService.saveRole(role);
     }
 

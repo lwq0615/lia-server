@@ -1,0 +1,44 @@
+package com.lia.system.result;
+
+import com.alibaba.fastjson2.JSON;
+import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+
+/**
+ * 对响应信息统一处理，包装为HttpResult类
+ */
+@RestControllerAdvice
+public class ResponseAdvice implements ResponseBodyAdvice {
+
+
+    @Override
+    public boolean supports(MethodParameter methodParameter, Class aClass) {
+        return true;
+    }
+
+    @Override
+    public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        if (o == null) {
+            return HttpResult.ok(o);
+        }
+        if (o instanceof HttpResult) {
+            return o;
+        }
+        if (o instanceof String){
+            /**
+             * 当返回类型是String时，消息转换器则是：StringHttpMessageConverter。
+             * 但通过ResponseAdvice返回的是一个Perf2WebRPCResult对象，并不是String类型，
+             * 通过异常堆栈可知，当在执行 getContentLength 时出错，即对该对象强转String发生异常。
+             * 所以将返回的String转为对象之后再转为JSON字符串
+             */
+            return JSON.toJSONString(HttpResult.ok(o));
+        }
+        return HttpResult.ok(o);
+    }
+}

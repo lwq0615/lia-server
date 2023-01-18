@@ -45,7 +45,7 @@ public class SysDictTypeController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:dictType:save')")
-    public HttpResult saveSysDictType(@RequestBody SysDictType sysDictType){
+    public int saveSysDictType(@RequestBody SysDictType sysDictType){
         return sysDictTypeService.saveSysDictType(sysDictType);
     }
 

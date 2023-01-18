@@ -4,7 +4,7 @@ package com.lia.system.modules.param;
 import com.lia.system.crud.BaseService;
 import com.lia.system.crud.exception.UniqueException;
 import com.lia.system.entity.SysParam;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.result.HttpResult;
 import com.lia.system.result.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +23,11 @@ public class SysParamService extends BaseService<SysParam> {
     /**
      * 新增或编辑系统参数
      */
-    public HttpResult saveParam(SysParam param){
+    public int saveParam(SysParam param){
         try {
             return this.save(param);
         }catch (UniqueException e){
-            return HttpResult.error(ResultCode.PARAM_NAME_EXISTED);
+            throw new HttpException(ResultCode.PARAM_NAME_EXISTED);
         }
     }
 
@@ -40,13 +40,13 @@ public class SysParamService extends BaseService<SysParam> {
      */
     public HttpResult getParamValueByName(String name) {
         if(name == null || name.equals("")){
-            throw new HttpException(400,"缺少参数name");
+            throw new HttpException("缺少参数name");
         }
         SysParam sysParam = sysParamMapper.getParamValueByName(name);
         if(sysParam == null){
             return HttpResult.error(ResultCode.PARAM_NOT_EXIST);
         }
-        return HttpResult.success(sysParam.getValue());
+        return HttpResult.ok(sysParam.getValue());
     }
 }
 

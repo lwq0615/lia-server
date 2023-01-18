@@ -46,7 +46,7 @@ public class SysAuthController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:auth:save')")
-    public HttpResult save(@RequestBody SysAuth auth){
+    public int save(@RequestBody SysAuth auth){
         return sysAuthService.saveAuth(auth);
     }
 

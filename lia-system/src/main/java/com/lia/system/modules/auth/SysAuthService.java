@@ -2,7 +2,7 @@ package com.lia.system.modules.auth;
 
 
 import com.lia.system.entity.SysAuth;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.result.HttpResult;
 import com.lia.system.result.ResultCode;
@@ -48,18 +48,18 @@ public class SysAuthService {
      * @param auth
      * @return
      */
-    public HttpResult saveAuth(SysAuth auth) {
+    public int saveAuth(SysAuth auth) {
         if(auth.getName() == null || auth.getName().equals("")){
-            throw new HttpException(400,"缺少参数name");
+            throw new HttpException("缺少参数name");
         }
         if(auth.getUrl() == null || auth.getUrl().equals("")){
-            throw new HttpException(400,"缺少参数url");
+            throw new HttpException("缺少参数url");
         }
         if(auth.getKey() == null || auth.getKey().equals("")){
-            throw new HttpException(400,"缺少参数key");
+            throw new HttpException("缺少参数key");
         }
         if(auth.getRouterId() == null){
-            throw new HttpException(400,"缺少参数routerId");
+            throw new HttpException("缺少参数routerId");
         }
         if(!auth.getUrl().substring(0, 1).equals("/")){
            auth.setUrl("/"+auth.getUrl());
@@ -82,16 +82,12 @@ public class SysAuthService {
             String name = replace.split("\\.")[1].split("-")[1];
             switch (name) {
                 case "key":
-                    return HttpResult.error(ResultCode.AUTH_KEY_EXISTED);
+                    throw new HttpException(ResultCode.AUTH_KEY_EXISTED);
                 case "url":
-                    return HttpResult.error(ResultCode.AUTH_URL_EXISTED);
+                    throw new HttpException(ResultCode.AUTH_URL_EXISTED);
             }
         }
-        if(success > 0){
-            return HttpResult.success("success");
-        }else{
-            throw new HttpException(500, "新增或编辑权限失败");
-        }
+        return success;
     }
 
 

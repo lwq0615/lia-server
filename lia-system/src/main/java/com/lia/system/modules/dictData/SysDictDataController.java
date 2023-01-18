@@ -43,7 +43,7 @@ public class SysDictDataController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:dictData:save')")
-    public HttpResult saveSysDictData(@RequestBody SysDictData sysDictData){
+    public int saveSysDictData(@RequestBody SysDictData sysDictData){
         return sysDictDataService.saveSysDictData(sysDictData);
     }
 

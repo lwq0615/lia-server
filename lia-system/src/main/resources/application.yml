@@ -82,8 +82,8 @@ mybatis-plus:
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   # 打印sql语句到控制台
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 # PageHelper分页插件
@@ -99,7 +99,7 @@ token:
   # 令牌密钥
   signature: liweiqiang
   # 令牌有效期（单位分钟，设置0则不会过期）
-  expireTime: 0
+  expireTime: 1
 
 # 上传设置
 upload:

@@ -1,7 +1,7 @@
 package com.lia.system.modules.company;
 
 import com.lia.system.entity.SysCompany;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.result.HttpResult;
 import com.lia.system.result.ResultCode;
@@ -39,21 +39,21 @@ public class SysCompanyService {
      * @param sysCompany
      * @return
      */
-    public HttpResult saveSysCompany(SysCompany sysCompany) {
+    public int saveSysCompany(SysCompany sysCompany) {
         if(sysCompany.getName() == null || sysCompany.getName().equals("")){
-            throw new HttpException(400,"缺少参数name");
+            throw new HttpException("缺少参数name");
         }
         if(sysCompany.getPhone() == null || sysCompany.getPhone().equals("")){
-            throw new HttpException(400,"缺少参数phone");
+            throw new HttpException("缺少参数phone");
         }
         if(sysCompany.getPrincipal() == null || sysCompany.getPrincipal().equals("")){
-            throw new HttpException(400,"缺少参数principal");
+            throw new HttpException("缺少参数principal");
         }
         // 校验手机号
         if(!StringUtils.isEmpty(sysCompany.getPhone())){
             String regex = "^[1]([3-9])[0-9]{9}$";
             if(sysCompany.getPhone().length() != 11 || !Pattern.matches(regex, sysCompany.getPhone())){
-                return HttpResult.error(ResultCode.PHONE_ERROR);
+                throw new HttpException(ResultCode.PHONE_ERROR);
             }
         }
         int success;
@@ -67,13 +67,9 @@ public class SysCompanyService {
                 success = sysCompanyMapper.editSysCompany(sysCompany);
             }
         } catch (DuplicateKeyException e) {
-            return HttpResult.error(ResultCode.COMPANY_NAME_EXISTED);
+            throw new HttpException(ResultCode.COMPANY_NAME_EXISTED);
         }
-        if(success > 0){
-            return HttpResult.success();
-        }else{
-            throw new HttpException(500, "企业信息新增或编辑失败");
-        }
+        return success;
     }
 
 

@@ -1,7 +1,7 @@
 package com.lia.system.result;
 
 
-import com.lia.system.exception.NoSuchResultException;
+import com.lia.system.result.exception.NoSuchResultException;
 
 /**
  * 响应码
@@ -28,7 +28,15 @@ public enum ResultCode {
     ROUTER_ELEMENT_EXISTED(217, "路由组件地址重复"),
     ROUTER_PATH_EXISTED(218, "同目录下路由地址重复"),
     ROUTER_PATH_ERROR(219, "路由地址不能包含'/'"),
-    ROUTER_PARENT_OWN(220, "路由父路由不能是自己");
+    ROUTER_PARENT_OWN(220, "路由父路由不能是自己"),
+    USER_DEACTIVATE(221, "账号已停用"),
+    REQUEST_ERROR(400, "请求有误"),
+    NOT_LOGIN(401, "未登录，请先登录"),
+    LOGIN_OUT_TIME(402, "登录过期，请重新登陆"),
+    NOT_AUTH(403, "没有权限"),
+    RECOURSE_NOT_FOUNT(404, "目标资源不存在"),
+    REQUEST_METHOD_ERROR(405, "请求类型有误"),
+    SERVER_ERROR(500, "服务器内部错误");
 
 
     /**

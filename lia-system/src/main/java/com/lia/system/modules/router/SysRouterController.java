@@ -45,7 +45,7 @@ public class SysRouterController {
      */
     @PostMapping("/saveRouter")
     @PreAuthorize("hasAuthority('system:router:saveRouter')")
-    public HttpResult saveUser(@RequestBody SysRouter router){
+    public int saveUser(@RequestBody SysRouter router){
         return sysRouterService.saveRouter(router);
     }
 

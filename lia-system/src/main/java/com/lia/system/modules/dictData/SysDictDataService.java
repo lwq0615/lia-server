@@ -1,7 +1,7 @@
 package com.lia.system.modules.dictData;
 
 import com.lia.system.entity.SysDictData;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.result.HttpResult;
 import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
@@ -33,19 +33,18 @@ public class SysDictDataService {
 
     /**
      * 新增或编辑
-     *
      * @param sysDictData
      * @return
      */
-    public HttpResult saveSysDictData(SysDictData sysDictData) {
+    public int saveSysDictData(SysDictData sysDictData) {
         if(sysDictData.getValue() == null || sysDictData.getValue().equals("")){
-            throw new HttpException(400,"缺少参数value");
+            throw new HttpException("缺少参数value");
         }
         if(sysDictData.getLabel() == null || sysDictData.getLabel().equals("")){
-            throw new HttpException(400,"缺少参数label");
+            throw new HttpException("缺少参数label");
         }
         if(sysDictData.getTypeId() == null){
-            throw new HttpException(400,"缺少参数typeId");
+            throw new HttpException("缺少参数typeId");
         }
         int success = 0;
         try {
@@ -58,13 +57,9 @@ public class SysDictDataService {
                 success = sysDictDataMapper.editSysDictData(sysDictData);
             }
         } catch (DuplicateKeyException e) {
-            return HttpResult.error(ResultCode.DICTDATA_VALUE_TYPE_EXISTED);
+           throw new HttpException(ResultCode.DICTDATA_VALUE_TYPE_EXISTED);
         }
-        if(success > 0){
-            return HttpResult.success();
-        }else{
-            throw new HttpException(500, "字典新增或编辑失败");
-        }
+        return success;
     }
 
 

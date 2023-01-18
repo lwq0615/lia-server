@@ -4,7 +4,6 @@ package com.lia.system.modules.registerCode;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysRegisterCode;
-import com.lia.system.exception.HttpException;
 import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -55,7 +54,7 @@ public class SysRegisterCodeController {
      */
     @PostMapping("/edit")
     @PreAuthorize("hasAuthority('system:register:code:edit')")
-    public HttpResult editSysRegisterCode(@RequestBody SysRegisterCode sysRegisterCode){
+    public int editSysRegisterCode(@RequestBody SysRegisterCode sysRegisterCode){
         return sysRegisterCodeService.editCodeRole(sysRegisterCode.getId(), sysRegisterCode.getRoleId());
     }
 

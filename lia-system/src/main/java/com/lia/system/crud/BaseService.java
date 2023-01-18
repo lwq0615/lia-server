@@ -10,7 +10,8 @@ import com.lia.system.crud.anno.UpdateTime;
 import com.lia.system.crud.exception.NoEntityException;
 import com.lia.system.crud.exception.NotFoundBaseMapperException;
 import com.lia.system.crud.exception.UniqueException;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.ResultCode;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.result.HttpResult;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,32 +139,26 @@ public abstract class BaseService<E> {
      * @param entity
      * @return 结果信息
      */
-    public HttpResult save(E entity) {
+    public int save(E entity) {
         QueryParam queryParam = new QueryParam(entity);
-        String type = "新增";
         try {
             for (Field field : entity.getClass().getDeclaredFields()) {
                 field.setAccessible(true);
                 // 判断有没有值为null的必填字段
                 if (field.getAnnotation(Required.class) != null && field.get(entity) == null) {
-                    throw new HttpException(400, "缺少参数" + field.getName());
+                    throw new HttpException("缺少参数" + field.getName());
                 }
             }
             QueryParam.Column idColumn = queryParam.getIdColumn();
             // 如果id字段有值，则根据id匹配编辑
             if (idColumn != null && idColumn.getValue() != null) {
-                type = "编辑";
                 UpdateWrapper<E> updateWrapper = new UpdateWrapper<>();
                 List<QueryParam.Column> columns = queryParam.getUpdateColumn();
                 updateWrapper.eq(idColumn.getName(), idColumn.getValue());
                 for (QueryParam.Column column : columns) {
                     updateWrapper.set(column.getName(), column.getValue());
                 }
-                if(baseMapper.update(null, updateWrapper) > 0){
-                    return HttpResult.success();
-                }else{
-                    throw new HttpException(500, "编辑失败");
-                }
+                return baseMapper.update(null, updateWrapper);
             } else {
                 // 如果有@CreateBy字段，则新增时默认填充当前登录用户
                 for (Field field : entity.getClass().getDeclaredFields()) {
@@ -181,9 +176,9 @@ public abstract class BaseService<E> {
                     }
                 }
                 if(baseMapper.insert(entity) > 0){
-                    return HttpResult.success();
+                    return 1;
                 }else{
-                    throw new HttpException(500, "失败");
+                    throw new HttpException(ResultCode.SERVER_ERROR);
                 }
             }
         } catch (DuplicateKeyException e) {
@@ -192,7 +187,7 @@ public abstract class BaseService<E> {
             throw new UniqueException(name, "字段值重复");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            throw new HttpException(500, type+"失败");
+            throw new HttpException(ResultCode.SERVER_ERROR);
         }
     }
 

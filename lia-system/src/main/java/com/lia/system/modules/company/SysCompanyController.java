@@ -44,7 +44,7 @@ public class SysCompanyController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:company:save')")
-    public HttpResult saveSysCompany(@RequestBody SysCompany sysCompany){
+    public int saveSysCompany(@RequestBody SysCompany sysCompany){
         return sysCompanyService.saveSysCompany(sysCompany);
     }
 

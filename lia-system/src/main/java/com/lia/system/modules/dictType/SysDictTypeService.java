@@ -1,7 +1,7 @@
 package com.lia.system.modules.dictType;
 
 import com.lia.system.entity.SysDictType;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.result.HttpResult;
 import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
@@ -36,12 +36,12 @@ public class SysDictTypeService {
      * @param sysDictType
      * @return
      */
-    public HttpResult saveSysDictType(SysDictType sysDictType) {
+    public int saveSysDictType(SysDictType sysDictType) {
         if(sysDictType.getName() == null || sysDictType.getName().equals("")){
-            throw new HttpException(400,"缺少参数name");
+            throw new HttpException("缺少参数name");
         }
         if(sysDictType.getKey() == null || sysDictType.getKey().equals("")){
-            throw new HttpException(400,"缺少参数key");
+            throw new HttpException("缺少参数key");
         }
         int success = 0;
         try {
@@ -54,13 +54,9 @@ public class SysDictTypeService {
                 success = sysDictTypeMapper.editSysDictType(sysDictType);
             }
         } catch (DuplicateKeyException e) {
-            return HttpResult.error(ResultCode.DICTTYPE_KEY_EXISTED);
+            throw new HttpException(ResultCode.DICTTYPE_KEY_EXISTED);
         }
-        if(success > 0){
-            return HttpResult.success();
-        }else{
-            throw new HttpException(500, "企业信息新增或编辑失败");
-        }
+        return success;
     }
 
 

@@ -2,9 +2,8 @@
 package com.lia.system.modules.registerCode;
 
 import com.lia.system.crud.BaseService;
-import com.lia.system.crud.exception.UniqueException;
 import com.lia.system.entity.SysRegisterCode;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.result.HttpResult;
 import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
@@ -30,23 +29,19 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
     /**
      * 编辑注册码角色信息
      */
-    public HttpResult editCodeRole(Long id, Integer roleId){
+    public int editCodeRole(Long id, Integer roleId){
         if(id == null){
-            throw new HttpException(400, "缺少参数id");
+            throw new HttpException("缺少参数id");
         }
         if(roleId == null){
-            throw new HttpException(400, "缺少参数roleId");
+            throw new HttpException("缺少参数roleId");
         }
         SysRegisterCode code = sysRegisterCodeMapper.selectById(id);
         if(code.getUseBy() != null){
-            return HttpResult.error(ResultCode.REGISTER_USED);
+            throw new HttpException(ResultCode.REGISTER_USED);
         }
         SysRegisterCode newCode = new SysRegisterCode().setRoleId(roleId).setId(id);
-        if(sysRegisterCodeMapper.updateById(newCode) > 0){
-            return HttpResult.success();
-        }else{
-            throw new HttpException(500, "编辑注册码失败");
-        }
+        return sysRegisterCodeMapper.updateById(newCode);
     }
 
 
@@ -55,10 +50,10 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
      */
     public List<SysRegisterCode> create(Integer roleId, Integer count) {
         if (roleId == null) {
-            throw new HttpException(400, "缺少参数roleId");
+            throw new HttpException("缺少参数roleId");
         }
         if (count == null) {
-            throw new HttpException(400, "缺少参数count");
+            throw new HttpException("缺少参数count");
         }
         if (count < 1) {
             return new ArrayList<>();
@@ -68,7 +63,7 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
         String datetime = DateUtils.mysqlDatetime(new Date());
         while (count > 0) {
             if(errorCount > 3){
-                throw new HttpException(500, "服务端生成注册码失败");
+                throw new HttpException("服务端生成注册码失败");
             }
             registerCodes = new ArrayList<>();
             for (int i = 0; i < count; i++) {

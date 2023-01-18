@@ -29,15 +29,9 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
 
     /**
      * 握手前
-     * @param serverHttpRequest
-     * @param serverHttpResponse
-     * @param webSocketHandler
-     * @param attributes
-     * @return
-     * @throws Exception
      */
     @Override
-    public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> attributes) throws Exception {
+    public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> attributes) {
         try{
             ServletServerHttpRequest request = (ServletServerHttpRequest) serverHttpRequest;
             String uid = request.getServletRequest().getParameter(header);

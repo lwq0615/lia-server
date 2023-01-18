@@ -2,7 +2,7 @@ package com.lia.system.modules.user;
 
 
 import com.lia.system.entity.*;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.result.ResultCode;
 import com.lia.system.modules.file.SysFileService;
 import com.lia.system.modules.registerCode.SysRegisterCodeService;
@@ -50,41 +50,39 @@ public class SysUserService {
 
     /**
      * 获取用户的Authorization字符串
+     *
      * @param checkUser 用户信息
      * @return 生成的Authorization字符串
      */
     public String getAuthorization(SysUser checkUser) {
         //判断是否合法用户
-        if (checkUser.getUsername() == null || checkUser.getUsername().equals("")
-                || checkUser.getPassword() == null || checkUser.getPassword().equals("")) {
-            return "less param";
+        if (StringUtils.isEmpty(checkUser.getUsername())) {
+            throw new HttpException("缺少参数username");
+        }
+        if (StringUtils.isEmpty(checkUser.getPassword())) {
+            throw new HttpException("缺少参数password");
         }
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(checkUser.getUsername(), checkUser.getPassword());
-        try {
-            Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-            LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
-            // 账号停用
-            if (loginUser.getUser().getStatus() == '1') {
-                return "user deactivate";
-            }
-            ValueOperations<String, Object> ops = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue();
-            // 挤下线
-            String oldUUID = (String) ops.get("userId:" + loginUser.getUser().getUserId());
-            if (oldUUID != null) {
-                Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete("uuid:" + oldUUID);
-            }
-            Map userInfo = new HashMap();
-            userInfo.put("loginUser", loginUser);
-            String uid = UUID.randomUUID().toString();
-            // 登录状态存入redis
-            ops.set("userId:" + loginUser.getUser().getUserId(), uid);
-            ops.set("uuid:" + uid, jwt.getToken(userInfo));
-            return uid;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "login failed";
+        Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+        // 账号停用
+        if (loginUser.getUser().getStatus() == '1') {
+            throw new HttpException(ResultCode.USER_DEACTIVATE);
         }
+        ValueOperations<String, Object> ops = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue();
+        // 挤下线
+        String oldUUID = (String) ops.get("userId:" + loginUser.getUser().getUserId());
+        if (oldUUID != null) {
+            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete("uuid:" + oldUUID);
+        }
+        Map userInfo = new HashMap();
+        userInfo.put("loginUser", loginUser);
+        String uid = UUID.randomUUID().toString();
+        // 登录状态存入redis
+        ops.set("userId:" + loginUser.getUser().getUserId(), uid);
+        ops.set("uuid:" + uid, jwt.getToken(userInfo));
+        return uid;
     }
 
     /**
@@ -111,6 +109,7 @@ public class SysUserService {
 
     /**
      * 查询用户列表
+     *
      * @param user 查询参数
      * @return 用户列表
      */
@@ -133,21 +132,21 @@ public class SysUserService {
     /**
      * 编辑用户信息
      */
-    public HttpResult editUser(SysUser user) {
+    public int editUser(SysUser user) {
         if (user.getUsername() == null || user.getUsername().equals("")) {
-            throw new HttpException(400, "缺少参数username");
+            throw new HttpException("缺少参数username");
         }
         if (user.getNick() == null || user.getNick().equals("")) {
-            throw new HttpException(400, "缺少参数nick");
+            throw new HttpException("缺少参数nick");
         }
         if (user.getRoleId() == null) {
-            throw new HttpException(400, "缺少参数roleId");
+            throw new HttpException("缺少参数roleId");
         }
         // 校验手机号
-        if(!StringUtils.isEmpty(user.getPhone())){
+        if (!StringUtils.isEmpty(user.getPhone())) {
             String regex = "^[1]([3-9])[0-9]{9}$";
-            if(user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())){
-                throw new HttpException(400, "请输入正确的手机号");
+            if (user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())) {
+                throw new HttpException(ResultCode.PHONE_ERROR);
             }
         }
         //查询是否有相同用户名未删除的用户
@@ -157,13 +156,9 @@ public class SysUserService {
         List<SysUser> sysUserPage = sysUserMapper.getSysUserPage(newUser);
         if (sysUserPage == null || sysUserPage.size() == 0
                 || sysUserPage.get(0).getUserId().equals(user.getUserId())) {
-            if(sysUserMapper.editSysUser(user) > 0){
-                return HttpResult.success("success");
-            }else{
-                throw new HttpException(500, "编辑失败");
-            }
+            return sysUserMapper.editSysUser(user);
         } else {
-            return HttpResult.error(ResultCode.USERNAME_EXISTED);
+            throw new HttpException(ResultCode.USERNAME_EXISTED);
         }
     }
 
@@ -171,41 +166,41 @@ public class SysUserService {
     /**
      * 用户注册
      */
-    public HttpResult register(SysUser user, String registerCode) {
+    public int register(SysUser user, String registerCode) {
         if (user.getUsername() == null || user.getUsername().equals("")) {
-            throw new HttpException(400, "缺少参数username");
+            throw new HttpException("缺少参数username");
         }
-        if(user.getUsername().length() < 8){
-            return HttpResult.error(ResultCode.USERNAME_SIZE_MIX);
+        if (user.getUsername().length() < 8) {
+            throw new HttpException(ResultCode.USERNAME_SIZE_MIX);
         }
         if (user.getNick() == null || user.getNick().equals("")) {
-            throw new HttpException(400, "缺少参数nick");
+            throw new HttpException("缺少参数nick");
         }
         // 新增的用户必须要有password
         if (user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))) {
-            throw new HttpException(400, "缺少参数password");
+            throw new HttpException("缺少参数password");
         }
-        if(user.getPassword().length() < 8){
-            return HttpResult.error(ResultCode.PASSWORD_SIZE_MIX);
+        if (user.getPassword().length() < 8) {
+            throw new HttpException(ResultCode.PASSWORD_SIZE_MIX);
         }
         // 校验手机号
-        if(!StringUtils.isEmpty(user.getPhone())){
+        if (!StringUtils.isEmpty(user.getPhone())) {
             String regex = "^[1]([3-9])[0-9]{9}$";
-            if(user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())){
-                return HttpResult.error(ResultCode.PHONE_ERROR);
+            if (user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())) {
+                throw new HttpException(ResultCode.PHONE_ERROR);
             }
         }
         SysRegisterCode sysRegisterCode = null;
-        if(!StringUtils.isEmpty(registerCode)){
+        if (!StringUtils.isEmpty(registerCode)) {
             sysRegisterCode = sysRegisterCodeService.selectOne(new SysRegisterCode().setCode(registerCode));
-            if(sysRegisterCode == null){
-                return HttpResult.error(ResultCode.REGISTER_NOT_EXIST);
+            if (sysRegisterCode == null) {
+                throw new HttpException(ResultCode.REGISTER_NOT_EXIST);
             }
-            if(sysRegisterCode.getUseBy() != null){
-                return HttpResult.error(ResultCode.REGISTER_USED);
+            if (sysRegisterCode.getUseBy() != null) {
+                throw new HttpException(ResultCode.REGISTER_USED);
             }
             user.setRoleId(sysRegisterCode.getRoleId());
-        }else{
+        } else {
             user.setRoleId(SysRole.COMMON_ROLE_ID);
         }
         // 密码加密后在存入数据库
@@ -218,24 +213,26 @@ public class SysUserService {
         if (sysUserPage == null || sysUserPage.size() == 0) {
             // 新增的用户createBy为当前用户
             user.setCreateBy(LoginUser.getLoginUserId());
-            if(sysUserMapper.addSysUser(user) > 0){
-                if(!StringUtils.isEmpty(registerCode)){
+            int success = sysUserMapper.addSysUser(user);
+            if (success > 0) {
+                if (!StringUtils.isEmpty(registerCode)) {
                     // 将注册码标记为已使用
                     sysRegisterCode.setUseBy(user.getUserId()).setUseTime(DateUtils.mysqlDatetime(new Date()));
                     sysRegisterCodeService.save(sysRegisterCode);
                 }
-                return HttpResult.success(user);
-            }else{
-                throw new HttpException(500, "注册失败");
+                return success;
+            } else {
+                throw new HttpException(ResultCode.SERVER_ERROR);
             }
         } else {
-            return HttpResult.error(ResultCode.USERNAME_EXISTED);
+            throw new HttpException(ResultCode.USERNAME_EXISTED);
         }
     }
 
 
     /**
      * 批量删除用户
+     *
      * @param userIds 用户的id列表
      * @return 删除成功的数量
      */

@@ -2,7 +2,7 @@ package com.lia.system.modules.message;
 
 
 import com.lia.system.entity.SysMessage;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +28,10 @@ public class SysMessageService {
      */
     public List<SysMessage> getMsgRecord(Long u1Id, Long u2Id) {
         if(u1Id == null){
-            throw new HttpException(400, "缺少参数sendBy");
+            throw new HttpException("缺少参数sendBy");
         }
         if(u2Id == null){
-            throw new HttpException(400, "缺少参数sendTo");
+            throw new HttpException("缺少参数sendTo");
         }
         return sysMessageMapper.getMsgRecord(u1Id, u2Id);
     }

@@ -1,18 +1,16 @@
 package com.lia.system.security;
 
-import com.lia.system.exception.GlobalException;
-import com.lia.system.exception.HttpException;
+import com.lia.system.result.ResultCode;
+import com.lia.system.result.exception.GlobalException;
+import com.lia.system.result.exception.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 
 @Component
@@ -23,14 +21,15 @@ public class ExceptionHandler implements AuthenticationEntryPoint, AccessDeniedH
 
 
     /**
-     * 认证失败处理
+     * 认证失败时在Filter还未进入Servlet，无法被全局异常处理器捕获
+     * 需要自定义认证失败时的响应报文
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        if(response.getStatus() == 402){
-            globalException.httpError(new HttpException(402, "登录过期"));
+        if(response.getStatus() == ResultCode.LOGIN_OUT_TIME.getCode()){
+            GlobalException.httpError(ResultCode.LOGIN_OUT_TIME, response);
         }else{
-            globalException.httpError(new HttpException(401, "认证失败请先登录"));
+            GlobalException.httpError(ResultCode.NOT_LOGIN, response);
         }
     }
 
@@ -41,7 +40,7 @@ public class ExceptionHandler implements AuthenticationEntryPoint, AccessDeniedH
      * 异常处理逻辑在全局异常处理类中定义
      */
     @Override
-    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
-        globalException.httpError(new HttpException(403, "没有权限"));
+    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) {
+        globalException.httpError(new HttpException(ResultCode.NOT_AUTH));
     }
 }

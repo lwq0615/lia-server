@@ -1,9 +1,12 @@
 package com.lia.system.result;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * 定义请求的响应信息
  */
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class HttpResult {
 
     /**
@@ -32,11 +35,11 @@ public class HttpResult {
     /**
      * 成功响应
      */
-    public static HttpResult success(Object data){
+    public static HttpResult ok(Object data){
         return new HttpResult(ResultCode.SUCCESS, data);
     }
 
-    public static HttpResult success(){
+    public static HttpResult ok(){
         return new HttpResult(ResultCode.SUCCESS, null);
     }
 

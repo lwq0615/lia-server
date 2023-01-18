@@ -75,7 +75,6 @@ public class SysUserController {
     /**
      * 用户登录，登录成功后返回加密的token字符串
      * 之后的请求携带token在header中校验身份
-     *
      * @param user 用户信息
      * @return token字符串
      */
@@ -118,7 +117,7 @@ public class SysUserController {
      * @return 相应信息
      */
     @PostMapping("/register")
-    public HttpResult registerUser(@RequestBody SysUser user, String registerCode){
+    public int registerUser(@RequestBody SysUser user, String registerCode){
         return sysUserService.register(user, registerCode);
     }
 
@@ -130,7 +129,7 @@ public class SysUserController {
      */
     @PostMapping("/saveUser")
     @PreAuthorize("hasAuthority('system:user:saveUser')")
-    public HttpResult saveUser(@RequestBody SysUser user) {
+    public int saveUser(@RequestBody SysUser user) {
         if(user.getUserId() == null){
             return sysUserService.register(user, null);
         }else{
