@@ -2,8 +2,11 @@
 package com.lia.system.modules.registerCode;
 
 import com.lia.system.crud.BaseService;
+import com.lia.system.crud.exception.UniqueException;
 import com.lia.system.entity.SysRegisterCode;
 import com.lia.system.exception.HttpException;
+import com.lia.system.result.HttpResult;
+import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.DateUtils;
 import com.lia.system.utils.StringUtils;
@@ -25,11 +28,25 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
 
 
     /**
-     * 编辑注册码信息
+     * 编辑注册码角色信息
      */
-    @Override
-    public String save(SysRegisterCode registerCode){
-        return super.save(registerCode);
+    public HttpResult editCodeRole(Long id, Integer roleId){
+        if(id == null){
+            throw new HttpException(400, "缺少参数id");
+        }
+        if(roleId == null){
+            throw new HttpException(400, "缺少参数roleId");
+        }
+        SysRegisterCode code = sysRegisterCodeMapper.selectById(id);
+        if(code.getUseBy() != null){
+            return HttpResult.error(ResultCode.REGISTER_USED);
+        }
+        SysRegisterCode newCode = new SysRegisterCode().setRoleId(roleId).setId(id);
+        if(sysRegisterCodeMapper.updateById(newCode) > 0){
+            return HttpResult.success();
+        }else{
+            throw new HttpException(500, "编辑注册码失败");
+        }
     }
 
 

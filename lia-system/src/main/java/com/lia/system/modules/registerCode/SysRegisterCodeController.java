@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysRegisterCode;
 import com.lia.system.exception.HttpException;
+import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -54,11 +55,8 @@ public class SysRegisterCodeController {
      */
     @PostMapping("/edit")
     @PreAuthorize("hasAuthority('system:register:code:edit')")
-    public String editSysRegisterCode(@RequestBody SysRegisterCode sysRegisterCode){
-        if(sysRegisterCode.getId() == null){
-            throw new HttpException(400, "缺少参数id");
-        }
-        return sysRegisterCodeService.save(sysRegisterCode);
+    public HttpResult editSysRegisterCode(@RequestBody SysRegisterCode sysRegisterCode){
+        return sysRegisterCodeService.editCodeRole(sysRegisterCode.getId(), sysRegisterCode.getRoleId());
     }
 
 

@@ -43,8 +43,8 @@ public class SysParamController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:param:save')")
-    public String saveSysParam(@RequestBody SysParam sysParam){
-        return sysParamService.save(sysParam);
+    public HttpResult saveSysParam(@RequestBody SysParam sysParam){
+        return sysParamService.saveParam(sysParam);
     }
 
 

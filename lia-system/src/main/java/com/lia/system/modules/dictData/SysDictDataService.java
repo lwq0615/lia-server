@@ -2,6 +2,8 @@ package com.lia.system.modules.dictData;
 
 import com.lia.system.entity.SysDictData;
 import com.lia.system.exception.HttpException;
+import com.lia.system.result.HttpResult;
+import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -35,7 +37,7 @@ public class SysDictDataService {
      * @param sysDictData
      * @return
      */
-    public String saveSysDictData(SysDictData sysDictData) {
+    public HttpResult saveSysDictData(SysDictData sysDictData) {
         if(sysDictData.getValue() == null || sysDictData.getValue().equals("")){
             throw new HttpException(400,"缺少参数value");
         }
@@ -56,12 +58,13 @@ public class SysDictDataService {
                 success = sysDictDataMapper.editSysDictData(sysDictData);
             }
         } catch (DuplicateKeyException e) {
-            String[] split = e.getCause().getMessage().split(" ");
-            String replace = split[split.length - 1].replace("'", "");
-            String name = replace.split("\\.")[1].split("-")[1];
-            return name + "重复";
+            return HttpResult.error(ResultCode.DICTDATA_VALUE_TYPE_EXISTED);
         }
-        return success > 0 ? "success" : "error";
+        if(success > 0){
+            return HttpResult.success();
+        }else{
+            throw new HttpException(500, "字典新增或编辑失败");
+        }
     }
 
 

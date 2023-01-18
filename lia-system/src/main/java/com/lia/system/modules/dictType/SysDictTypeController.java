@@ -3,6 +3,7 @@ package com.lia.system.modules.dictType;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysDictType;
+import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +45,7 @@ public class SysDictTypeController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:dictType:save')")
-    public String saveSysDictType(@RequestBody SysDictType sysDictType){
+    public HttpResult saveSysDictType(@RequestBody SysDictType sysDictType){
         return sysDictTypeService.saveSysDictType(sysDictType);
     }
 

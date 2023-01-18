@@ -175,6 +175,9 @@ public class SysUserService {
         if (user.getUsername() == null || user.getUsername().equals("")) {
             throw new HttpException(400, "缺少参数username");
         }
+        if(user.getUsername().length() < 8){
+            return HttpResult.error(ResultCode.USERNAME_SIZE_MIX);
+        }
         if (user.getNick() == null || user.getNick().equals("")) {
             throw new HttpException(400, "缺少参数nick");
         }
@@ -182,11 +185,14 @@ public class SysUserService {
         if (user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))) {
             throw new HttpException(400, "缺少参数password");
         }
+        if(user.getPassword().length() < 8){
+            return HttpResult.error(ResultCode.PASSWORD_SIZE_MIX);
+        }
         // 校验手机号
         if(!StringUtils.isEmpty(user.getPhone())){
             String regex = "^[1]([3-9])[0-9]{9}$";
             if(user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())){
-                throw new HttpException(400, "请输入正确的手机号");
+                return HttpResult.error(ResultCode.PHONE_ERROR);
             }
         }
         SysRegisterCode sysRegisterCode = null;

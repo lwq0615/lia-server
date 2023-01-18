@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysCompany;
 import com.lia.system.entity.SysDictData;
+import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class SysCompanyController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:company:save')")
-    public String saveSysCompany(@RequestBody SysCompany sysCompany){
+    public HttpResult saveSysCompany(@RequestBody SysCompany sysCompany){
         return sysCompanyService.saveSysCompany(sysCompany);
     }
 

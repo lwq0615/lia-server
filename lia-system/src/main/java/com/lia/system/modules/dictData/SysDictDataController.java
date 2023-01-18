@@ -3,6 +3,7 @@ package com.lia.system.modules.dictData;
 import com.lia.system.entity.SysDictData;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class SysDictDataController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:dictData:save')")
-    public String saveSysDictData(@RequestBody SysDictData sysDictData){
+    public HttpResult saveSysDictData(@RequestBody SysDictData sysDictData){
         return sysDictDataService.saveSysDictData(sysDictData);
     }
 

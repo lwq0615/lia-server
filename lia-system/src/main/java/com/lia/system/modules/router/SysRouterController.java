@@ -2,6 +2,7 @@ package com.lia.system.modules.router;
 
 
 import com.lia.system.entity.SysRouter;
+import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class SysRouterController {
      */
     @PostMapping("/saveRouter")
     @PreAuthorize("hasAuthority('system:router:saveRouter')")
-    public String saveUser(@RequestBody SysRouter router){
+    public HttpResult saveUser(@RequestBody SysRouter router){
         return sysRouterService.saveRouter(router);
     }
 

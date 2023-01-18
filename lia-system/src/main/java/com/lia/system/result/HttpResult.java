@@ -22,7 +22,7 @@ public class HttpResult {
     private Object data;
 
 
-    public HttpResult(ResultCode resultCode, Object data){
+    private HttpResult(ResultCode resultCode, Object data){
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
         this.data = data;
@@ -34,6 +34,10 @@ public class HttpResult {
      */
     public static HttpResult success(Object data){
         return new HttpResult(ResultCode.SUCCESS, data);
+    }
+
+    public static HttpResult success(){
+        return new HttpResult(ResultCode.SUCCESS, null);
     }
 
     /**

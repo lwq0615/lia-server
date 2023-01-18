@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysAuth;
 import com.lia.system.entity.SysDictData;
+import com.lia.system.result.HttpResult;
 import com.lia.system.utils.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,7 +46,7 @@ public class SysAuthController {
      */
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('system:auth:save')")
-    public String save(@RequestBody SysAuth auth){
+    public HttpResult save(@RequestBody SysAuth auth){
         return sysAuthService.saveAuth(auth);
     }
 

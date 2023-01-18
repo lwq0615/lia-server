@@ -2,6 +2,8 @@ package com.lia.system.modules.dictType;
 
 import com.lia.system.entity.SysDictType;
 import com.lia.system.exception.HttpException;
+import com.lia.system.result.HttpResult;
+import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -34,7 +36,7 @@ public class SysDictTypeService {
      * @param sysDictType
      * @return
      */
-    public String saveSysDictType(SysDictType sysDictType) {
+    public HttpResult saveSysDictType(SysDictType sysDictType) {
         if(sysDictType.getName() == null || sysDictType.getName().equals("")){
             throw new HttpException(400,"缺少参数name");
         }
@@ -52,12 +54,13 @@ public class SysDictTypeService {
                 success = sysDictTypeMapper.editSysDictType(sysDictType);
             }
         } catch (DuplicateKeyException e) {
-            String[] split = e.getCause().getMessage().split(" ");
-            String replace = split[split.length - 1].replace("'", "");
-            String name = replace.split("\\.")[1].split("-")[1];
-            return name + "重复";
+            return HttpResult.error(ResultCode.DICTTYPE_KEY_EXISTED);
         }
-        return success > 0 ? "success" : "error";
+        if(success > 0){
+            return HttpResult.success();
+        }else{
+            throw new HttpException(500, "企业信息新增或编辑失败");
+        }
     }
 
 

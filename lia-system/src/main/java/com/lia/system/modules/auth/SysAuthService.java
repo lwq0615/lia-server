@@ -4,6 +4,8 @@ package com.lia.system.modules.auth;
 import com.lia.system.entity.SysAuth;
 import com.lia.system.exception.HttpException;
 import com.lia.system.entity.SysDictData;
+import com.lia.system.result.HttpResult;
+import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -46,7 +48,7 @@ public class SysAuthService {
      * @param auth
      * @return
      */
-    public String saveAuth(SysAuth auth) {
+    public HttpResult saveAuth(SysAuth auth) {
         if(auth.getName() == null || auth.getName().equals("")){
             throw new HttpException(400,"缺少参数name");
         }
@@ -58,6 +60,12 @@ public class SysAuthService {
         }
         if(auth.getRouterId() == null){
             throw new HttpException(400,"缺少参数routerId");
+        }
+        if(!auth.getUrl().substring(0, 1).equals("/")){
+           auth.setUrl("/"+auth.getUrl());
+        }
+        if(auth.getUrl().substring(auth.getUrl().length()-1).equals("/")){
+            auth.setUrl(auth.getUrl().substring(0, auth.getUrl().length()-1));
         }
         int success = 0;
         try {
@@ -74,12 +82,16 @@ public class SysAuthService {
             String name = replace.split("\\.")[1].split("-")[1];
             switch (name) {
                 case "key":
-                    return "标识符重复";
+                    return HttpResult.error(ResultCode.AUTH_KEY_EXISTED);
                 case "url":
-                    return "接口路径重复";
+                    return HttpResult.error(ResultCode.AUTH_URL_EXISTED);
             }
         }
-        return success > 0 ? "success" : "error";
+        if(success > 0){
+            return HttpResult.success("success");
+        }else{
+            throw new HttpException(500, "新增或编辑权限失败");
+        }
     }
 
 

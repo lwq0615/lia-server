@@ -3,13 +3,17 @@ package com.lia.system.modules.company;
 import com.lia.system.entity.SysCompany;
 import com.lia.system.exception.HttpException;
 import com.lia.system.entity.SysDictData;
+import com.lia.system.result.HttpResult;
+import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
+import com.lia.system.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional
@@ -32,11 +36,10 @@ public class SysCompanyService {
 
     /**
      * 新增或编辑
-     *
      * @param sysCompany
      * @return
      */
-    public String saveSysCompany(SysCompany sysCompany) {
+    public HttpResult saveSysCompany(SysCompany sysCompany) {
         if(sysCompany.getName() == null || sysCompany.getName().equals("")){
             throw new HttpException(400,"缺少参数name");
         }
@@ -45,6 +48,13 @@ public class SysCompanyService {
         }
         if(sysCompany.getPrincipal() == null || sysCompany.getPrincipal().equals("")){
             throw new HttpException(400,"缺少参数principal");
+        }
+        // 校验手机号
+        if(!StringUtils.isEmpty(sysCompany.getPhone())){
+            String regex = "^[1]([3-9])[0-9]{9}$";
+            if(sysCompany.getPhone().length() != 11 || !Pattern.matches(regex, sysCompany.getPhone())){
+                return HttpResult.error(ResultCode.PHONE_ERROR);
+            }
         }
         int success;
         try {
@@ -57,12 +67,13 @@ public class SysCompanyService {
                 success = sysCompanyMapper.editSysCompany(sysCompany);
             }
         } catch (DuplicateKeyException e) {
-            String[] split = e.getCause().getMessage().split(" ");
-            String replace = split[split.length - 1].replace("'", "");
-            String name = replace.split("\\.")[1].split("-")[1];
-            return name + "重复";
+            return HttpResult.error(ResultCode.COMPANY_NAME_EXISTED);
         }
-        return success > 0 ? "success" : "error";
+        if(success > 0){
+            return HttpResult.success();
+        }else{
+            throw new HttpException(500, "企业信息新增或编辑失败");
+        }
     }
 
 

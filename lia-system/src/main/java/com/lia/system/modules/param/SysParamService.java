@@ -2,6 +2,7 @@ package com.lia.system.modules.param;
 
 
 import com.lia.system.crud.BaseService;
+import com.lia.system.crud.exception.UniqueException;
 import com.lia.system.entity.SysParam;
 import com.lia.system.exception.HttpException;
 import com.lia.system.result.HttpResult;
@@ -17,6 +18,20 @@ public class SysParamService extends BaseService<SysParam> {
 
     @Autowired
     private SysParamMapper sysParamMapper;
+
+
+    /**
+     * 新增或编辑系统参数
+     */
+    public HttpResult saveParam(SysParam param){
+        try {
+            return this.save(param);
+        }catch (UniqueException e){
+            return HttpResult.error(ResultCode.PARAM_NAME_EXISTED);
+        }
+    }
+
+
 
     /**
      * 获取参数值
