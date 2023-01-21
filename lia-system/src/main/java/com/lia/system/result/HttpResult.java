@@ -2,6 +2,11 @@ package com.lia.system.result;
 
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.lia.system.utils.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 定义请求的响应信息
@@ -20,6 +25,11 @@ public class HttpResult {
     private String message;
 
     /**
+     * 请求地址
+     */
+    private String url;
+
+    /**
      * 响应报文
      */
     private Object data;
@@ -29,6 +39,17 @@ public class HttpResult {
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
         this.data = data;
+        try{
+            //从获取RequestAttributes中获取HttpServletRequest的信息
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            HttpServletRequest request = attributes.getRequest();
+            this.url = request.getRequestURL().toString();
+            if(!StringUtils.isEmpty(request.getQueryString())){
+                this.url += "?"+request.getQueryString();
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -39,16 +60,6 @@ public class HttpResult {
         return new HttpResult(ResultCode.SUCCESS, data);
     }
 
-    public static HttpResult ok(){
-        return new HttpResult(ResultCode.SUCCESS, null);
-    }
-
-    /**
-     * 失败响应
-     */
-    public static HttpResult error(ResultCode resultCode, Object data){
-        return new HttpResult(resultCode, data);
-    }
 
     public static HttpResult error(ResultCode resultCode){
         return new HttpResult(resultCode, null);
@@ -66,4 +77,10 @@ public class HttpResult {
     public Object getData() {
         return data;
     }
+
+    public String getUrl(){
+        return url;
+    }
+
+
 }
