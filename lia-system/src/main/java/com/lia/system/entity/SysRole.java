@@ -1,6 +1,7 @@
 package com.lia.system.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -84,11 +85,13 @@ public class SysRole {
     /**
      * 角色所拥有的权限ID列表
      */
+    @JsonIgnore
     private List<Integer> auths;
 
     /**
      * 角色可访问的路由ID列表
      */
+    @JsonIgnore
     private List<Integer> routers;
 
 }

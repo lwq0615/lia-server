@@ -98,6 +98,10 @@ public class Redis {
         return redisTemplateMap.get(redisDb.dbIndex());
     }
 
+    public static RedisTemplate<String, Object> getRedisTemplateByDb(int index) {
+        return redisTemplateMap.get(index);
+    }
+
     /**
      * 使用默认数据库
      *

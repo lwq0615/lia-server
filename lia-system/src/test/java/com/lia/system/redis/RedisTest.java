@@ -3,6 +3,7 @@ package com.lia.system.redis;
 
 import com.lia.system.crud.anno.DateType;
 import com.lia.system.entity.SysAuth;
+import com.lia.system.modules.auth.SysAuthService;
 import com.lia.system.modules.param.SysParamMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,11 @@ import java.lang.reflect.Field;
 public class RedisTest {
 
     @Autowired
-    private SysParamMapper sysParamMapper;
+    private SysAuthService sysParamMapper;
 
     @Test
     public void test(){
-//        BaseService<SysParam> baseService = new BaseService(sysParamMapper);
-//        SysParam sysParam = new SysParam();
-//        sysParam.setName("enable_register12");
-//        System.out.println(baseService.save(sysParam));
-        try {
-            Field createTime = SysAuth.class.getDeclaredField("createTime");
-            System.out.println(AnnotationUtils.findAnnotation(createTime, DateType.class));
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
+        System.out.println(sysParamMapper.findSysAuthByRoleId(999));
     }
 
 }

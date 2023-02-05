@@ -38,15 +38,15 @@ public class SysParamService extends BaseService<SysParam> {
      * @param name 参数名
      * @return 参数值
      */
-    public HttpResult getParamValueByName(String name) {
+    public Object getParamValueByName(String name) {
         if(name == null || name.equals("")){
             throw new HttpException("缺少参数name");
         }
         SysParam sysParam = sysParamMapper.getParamValueByName(name);
         if(sysParam == null){
-            return HttpResult.error(ResultCode.PARAM_NOT_EXIST);
+            throw new HttpException(ResultCode.PARAM_NOT_EXIST);
         }
-        return HttpResult.ok(sysParam.getValue());
+        return sysParam.getValue();
     }
 }
 

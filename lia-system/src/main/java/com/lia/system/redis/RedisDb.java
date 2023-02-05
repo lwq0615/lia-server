@@ -2,7 +2,7 @@ package com.lia.system.redis;
 
 public enum RedisDb {
 
-    USERTOKEN(1, "存放用户身份验证token");
+    USERTOKEN(1, "存放用户身份验证相关信息");
 
     private final int dbIndex;
     private final String remark;

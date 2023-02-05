@@ -34,6 +34,9 @@ public class ResponseAdvice implements ResponseBodyAdvice {
              */
             return JSON.toJSONString(HttpResult.ok(o));
         }
+        if(o instanceof HttpResult){
+            return o;
+        }
         return HttpResult.ok(o);
     }
 }

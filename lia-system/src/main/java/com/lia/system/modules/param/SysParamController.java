@@ -67,7 +67,7 @@ public class SysParamController {
      * @return 参数值
      */
     @GetMapping("/getParamValue")
-    public HttpResult getParamValue(String name){
+    public Object getParamValue(String name){
         return sysParamService.getParamValueByName(name);
     }
 

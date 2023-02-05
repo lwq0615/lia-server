@@ -48,7 +48,6 @@ public class HttpResult {
                 this.url += "?"+request.getQueryString();
             }
         }catch (NullPointerException e){
-            e.printStackTrace();
         }
     }
 

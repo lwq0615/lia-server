@@ -71,16 +71,16 @@ public class SysUserService {
         }
         ValueOperations<String, Object> ops = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue();
         // 挤下线
-        String oldUUID = (String) ops.get("userId:" + loginUser.getUser().getUserId());
+        String oldUUID = (String) ops.get(LoginUser.REDIS_LOGIN_USER_UUID + loginUser.getUser().getUserId());
         if (oldUUID != null) {
-            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete("uuid:" + oldUUID);
+            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(LoginUser.REDIS_LOGIN_USER_TOKEN + oldUUID);
         }
         Map userInfo = new HashMap();
         userInfo.put("loginUser", loginUser);
         String uid = UUID.randomUUID().toString();
         // 登录状态存入redis
-        ops.set("userId:" + loginUser.getUser().getUserId(), uid);
-        ops.set("uuid:" + uid, jwt.getToken(userInfo));
+        ops.set(LoginUser.REDIS_LOGIN_USER_UUID + loginUser.getUser().getUserId(), uid);
+        ops.set(LoginUser.REDIS_LOGIN_USER_TOKEN + uid, jwt.getToken(userInfo));
         return uid;
     }
 
@@ -91,9 +91,9 @@ public class SysUserService {
         // 删除redis内的用户登录数据
         RedisTemplate<String, Object> redisTemplate = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN);
         ValueOperations<String, Object> ops = redisTemplate.opsForValue();
-        String uuid = (String) ops.get("userId:" + userId);
-        redisTemplate.delete("uuid:" + uuid);
-        redisTemplate.delete("userId:" + userId);
+        String uuid = (String) ops.get(LoginUser.REDIS_LOGIN_USER_UUID + userId);
+        redisTemplate.delete(LoginUser.REDIS_LOGIN_USER_TOKEN + uuid);
+        redisTemplate.delete(LoginUser.REDIS_LOGIN_USER_UUID + userId);
     }
 
     /**
@@ -170,7 +170,7 @@ public class SysUserService {
             throw new HttpException("缺少参数username");
         }
         if (user.getUsername().length() < 8) {
-            throw new HttpException(ResultCode.USERNAME_SIZE_MIX);
+            throw new HttpException("用户名长度最少为8位");
         }
         if (user.getNick() == null || user.getNick().equals("")) {
             throw new HttpException("缺少参数nick");
@@ -180,7 +180,7 @@ public class SysUserService {
             throw new HttpException("缺少参数password");
         }
         if (user.getPassword().length() < 8) {
-            throw new HttpException(ResultCode.PASSWORD_SIZE_MIX);
+            throw new HttpException("用户密码长度最少为8位");
         }
         // 校验手机号
         if (!StringUtils.isEmpty(user.getPhone())) {

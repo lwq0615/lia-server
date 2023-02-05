@@ -7,6 +7,7 @@ import com.lia.system.modules.role.SysRoleMapper;
 import com.lia.system.modules.user.SysUserMapper;
 import com.lia.system.modules.auth.SysAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Autowired
     private SysRoleMapper sysRoleMapper;
     @Autowired
-    private SysAuthService sysAuthService;
+    private ApplicationContext applicationContext;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -35,19 +36,17 @@ public class UserDetailsService implements org.springframework.security.core.use
             return null;
         }
         SysRole role = null;
-        List<String> auths = new ArrayList<>();
         if(user.getRoleId() != null){
             SysRole checkRole = new SysRole();
             checkRole.setRoleId(user.getRoleId());
             List<SysRole> roles = sysRoleMapper.findSysRole(checkRole);
             if(roles.size() > 0){
                 role = roles.get(0);
-                for (SysAuth sysAuth : sysAuthService.findSysAuthByRoleId(role.getRoleId())) {
-                    auths.add(sysAuth.getKey());
-                }
             }
         }
-        return new LoginUser(user, role, auths, new Date());
+
+        LoginUser loginUser =  applicationContext.getBean(LoginUser.class);
+        return loginUser.init(user, role, new Date());
     }
 
 }

@@ -89,7 +89,7 @@ public class SysRouterService {
             throw new HttpException("缺少参数label");
         }
         if(router.getPath().contains("/")){
-            throw new HttpException(ResultCode.ROUTER_PATH_ERROR);
+            throw new HttpException("路由地址不能包含'/'");
         }
         if(router.getRouterId() != null && router.getRouterId() == router.getParent()){
             throw new HttpException(ResultCode.ROUTER_PARENT_OWN);
