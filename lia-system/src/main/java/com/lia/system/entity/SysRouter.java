@@ -96,19 +96,19 @@ public class SysRouter {
         //将返回结果转换为树形结构
         ArrayList<SysRouter> nullRouters = new ArrayList<>();
         for (SysRouter child : routers) {
-            // TODO 最后在进行插入index为null的路由，使这些路由展示在最后面
+            // 最后在进行插入index为null的路由，使这些路由展示在最后面
             if (child.getIndex() == null) {
                 nullRouters.add(child);
                 continue;
             }
             //如果路由没有父路由，则为最顶层路由，放入res中
-            if (child.getRouterId() == rootId) {
+            if (child.getRouterId().equals(rootId)) {
                 root.add(child);
             }
             //寻找路由的父路由，将自己存入父路由的childred列表中
             else {
                 for (SysRouter parent : routers) {
-                    if (child.getParent() == parent.getRouterId()) {
+                    if (child.getParent().equals(parent.getRouterId())) {
                         if (parent.getChildren() == null) {
                             parent.setChildren(new ArrayList<>());
                         }
@@ -121,13 +121,13 @@ public class SysRouter {
         // 将index为null的路由插入
         for (SysRouter child : nullRouters) {
             //如果路由没有父路由，则为最顶层路由，放入res中
-            if (child.getRouterId() == rootId) {
+            if (child.getRouterId().equals(rootId)) {
                 root.add(child);
             }
             //寻找路由的父路由，将自己存入父路由的childred列表中
             else {
                 for (SysRouter parent : routers) {
-                    if (child.getParent() == parent.getRouterId()) {
+                    if (child.getParent().equals(parent.getRouterId())) {
                         if (parent.getChildren() == null) {
                             parent.setChildren(new ArrayList<>());
                         }

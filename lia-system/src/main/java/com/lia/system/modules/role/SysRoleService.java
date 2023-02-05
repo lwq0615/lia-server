@@ -2,6 +2,8 @@ package com.lia.system.modules.role;
 
 
 import com.lia.system.entity.SysRole;
+import com.lia.system.redis.Redis;
+import com.lia.system.redis.RedisDb;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.result.HttpResult;
@@ -85,6 +87,7 @@ public class SysRoleService {
 
     /**
      * 更新角色权限
+     * 更新时清空redis中的角色权限信息，确保请求能获取到最新的权限信息
      * @param authIds 权限ID列表
      * @param roleId 角色ID
      */
@@ -93,6 +96,7 @@ public class SysRoleService {
         if(authIds != null && authIds.size() > 0){
             sysRoleMapper.addAuthsToRole(authIds, roleId);
         }
+        Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(LoginUser.REDIS_ROLE_AUTHS+roleId);
         return true;
     }
 

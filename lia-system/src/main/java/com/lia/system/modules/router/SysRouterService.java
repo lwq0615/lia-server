@@ -1,12 +1,11 @@
 package com.lia.system.modules.router;
 
 
-import com.lia.system.entity.SysRouter;
-import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysRole;
+import com.lia.system.entity.SysRouter;
 import com.lia.system.modules.role.SysRoleService;
-import com.lia.system.result.HttpResult;
 import com.lia.system.result.ResultCode;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +56,10 @@ public class SysRouterService {
             routers.add(root);
         }
         ArrayList<SysRouter> tree = SysRouter.asTreeWithRoot(routers, role.getRootRouterId());
-        if(tree != null && tree.size() > 0){
-            return tree.get(0).getChildren();
-        }else{
+        if(tree == null || tree.size() == 0 || tree.get(0).getChildren() == null){
             return new ArrayList<>();
+        }else{
+            return tree.get(0).getChildren();
         }
     }
 
@@ -71,7 +70,7 @@ public class SysRouterService {
      */
     public List<SysRouter> getRouterTree(){
         List<SysRouter> sysRouters = sysRouterMapper.findSysRouter(new SysRouter());
-        return SysRouter.asTreeWithRoot(sysRouters,SysRouter.ROOT_ROUTER_ID);
+        return SysRouter.asTreeWithRoot(sysRouters, SysRouter.ROOT_ROUTER_ID);
     }
 
 

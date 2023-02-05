@@ -12,6 +12,7 @@ import com.lia.system.result.exception.HttpException;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -45,6 +46,8 @@ public class TokenFilter extends OncePerRequestFilter {
     private String header;
     @Autowired
     private Jwt jwt;
+    @Autowired
+    private ApplicationContext applicationContext;
 
 
     @Override
@@ -64,7 +67,10 @@ public class TokenFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request,response);
                 return;
             }
-            LoginUser user = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
+            LoginUser userInfo = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
+            LoginUser user = applicationContext.getBean(LoginUser.class);
+            user.setLoginTime(userInfo.getLoginTime()).setUser(userInfo.getUser())
+                    .setRoleId(userInfo.getRoleId()).setRoleKey(userInfo.getRoleKey());
             if(expireTime != 0){
                 long time = new Date().getTime() - user.getLoginTime();
                 // 登录状态过期
@@ -79,7 +85,6 @@ public class TokenFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }catch (Exception e) {
-            e.printStackTrace();
         }finally{
             filterChain.doFilter(request,response);
         }

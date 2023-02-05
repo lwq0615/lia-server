@@ -10,6 +10,7 @@ import com.lia.system.redis.RedisDb;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 
 
 @Data
+@Accessors(chain = true)
 @Component
 @Scope("prototype")
 public class LoginUser implements UserDetails {
@@ -53,13 +55,15 @@ public class LoginUser implements UserDetails {
 
 
     private SysUser user;
-    private SysRole role;
+    private Integer roleId;
+    private String roleKey;
     private Long loginTime;
 
 
     public LoginUser init(SysUser user, SysRole role, Date date){
         this.user = user;
-        this.role = role;
+        this.roleId = role.getRoleId();
+        this.roleKey = role.getKey();
         this.loginTime = date.getTime();
         return this;
     }
@@ -84,15 +88,15 @@ public class LoginUser implements UserDetails {
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Authority> authorities = new ArrayList<>();
-        authorities.add(new Authority("ROLE_"+role.getKey()));
+        authorities.add(new Authority("ROLE_"+roleKey));
         List<String> auths = (ArrayList<String>) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN)
-                .opsForValue().get(REDIS_ROLE_AUTHS + role.getRoleId());
+                .opsForValue().get(REDIS_ROLE_AUTHS + roleId);
         if(auths == null){
             // 如果从redis中没有查询到，从mysql中查，并将结果存入redis
-            List<SysAuth> sysAuths = sysAuthService.findSysAuthByRoleId(role.getRoleId());
+            List<SysAuth> sysAuths = sysAuthService.findSysAuthByRoleId(roleId);
             auths = sysAuths.stream().map(auth -> auth.getKey()).collect(Collectors.toList());
             Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue()
-                    .set(LoginUser.REDIS_ROLE_AUTHS + role.getRoleId(), auths);
+                    .set(LoginUser.REDIS_ROLE_AUTHS + roleId, auths);
         }
         authorities.addAll(auths.stream().map(auth -> new Authority(auth)).collect(Collectors.toList()));
         return authorities;
@@ -128,13 +132,12 @@ public class LoginUser implements UserDetails {
         return true;
     }
 
-
     @Override
     public String toString() {
         return "LoginUser{" +
-                "sysAuthService=" + sysAuthService +
-                ", user=" + user +
-                ", role=" + role +
+                "user=" + user +
+                ", roleId=" + roleId +
+                ", roleKey='" + roleKey + '\'' +
                 ", loginTime=" + loginTime +
                 '}';
     }
