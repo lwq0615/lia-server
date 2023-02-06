@@ -7,6 +7,7 @@ import com.lia.system.entity.SysUser;
 import com.lia.system.modules.auth.SysAuthService;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
+import com.lia.system.utils.SpringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -28,8 +29,6 @@ import java.util.stream.Collectors;
 
 @Data
 @Accessors(chain = true)
-@Component
-@Scope("prototype")
 public class LoginUser implements UserDetails {
 
 
@@ -49,23 +48,19 @@ public class LoginUser implements UserDetails {
     public static final String REDIS_ROLE_AUTHS = "role:";
 
 
-    @Autowired
-    @JsonIgnore
-    private SysAuthService sysAuthService;
-
-
     private SysUser user;
     private Integer roleId;
     private String roleKey;
     private Long loginTime;
 
+    public LoginUser(){}
 
-    public LoginUser init(SysUser user, SysRole role, Date date){
+
+    public LoginUser(SysUser user, SysRole role, Date date){
         this.user = user;
         this.roleId = role.getRoleId();
         this.roleKey = role.getKey();
         this.loginTime = date.getTime();
-        return this;
     }
 
 
@@ -89,13 +84,14 @@ public class LoginUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Authority> authorities = new ArrayList<>();
         authorities.add(new Authority("ROLE_"+roleKey));
-        List<String> auths = (ArrayList<String>) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN)
+        List<String> auths = (ArrayList<String>) Redis.getTemplate(RedisDb.USERTOKEN)
                 .opsForValue().get(REDIS_ROLE_AUTHS + roleId);
         if(auths == null){
+            SysAuthService sysAuthService = SpringUtils.getContext().getBean(SysAuthService.class);
             // 如果从redis中没有查询到，从mysql中查，并将结果存入redis
             List<SysAuth> sysAuths = sysAuthService.findSysAuthByRoleId(roleId);
             auths = sysAuths.stream().map(auth -> auth.getKey()).collect(Collectors.toList());
-            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue()
+            Redis.getTemplate(RedisDb.USERTOKEN).opsForValue()
                     .set(LoginUser.REDIS_ROLE_AUTHS + roleId, auths);
         }
         authorities.addAll(auths.stream().map(auth -> new Authority(auth)).collect(Collectors.toList()));

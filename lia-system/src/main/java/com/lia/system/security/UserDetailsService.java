@@ -24,8 +24,6 @@ public class UserDetailsService implements org.springframework.security.core.use
     private SysUserMapper sysUserMapper;
     @Autowired
     private SysRoleMapper sysRoleMapper;
-    @Autowired
-    private ApplicationContext applicationContext;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,9 +42,7 @@ public class UserDetailsService implements org.springframework.security.core.use
                 role = roles.get(0);
             }
         }
-
-        LoginUser loginUser =  applicationContext.getBean(LoginUser.class);
-        return loginUser.init(user, role, new Date());
+        return new LoginUser(user, role, new Date());
     }
 
 }

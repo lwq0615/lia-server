@@ -69,11 +69,11 @@ public class SysUserService {
         if (loginUser.getUser().getStatus() == '1') {
             throw new HttpException(ResultCode.USER_DEACTIVATE);
         }
-        ValueOperations<String, Object> ops = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue();
+        ValueOperations<String, Object> ops = Redis.getTemplate(RedisDb.USERTOKEN).opsForValue();
         // 挤下线
         String oldUUID = (String) ops.get(LoginUser.REDIS_LOGIN_USER_UUID + loginUser.getUser().getUserId());
         if (oldUUID != null) {
-            Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(LoginUser.REDIS_LOGIN_USER_TOKEN + oldUUID);
+            Redis.getTemplate(RedisDb.USERTOKEN).delete(LoginUser.REDIS_LOGIN_USER_TOKEN + oldUUID);
         }
         Map userInfo = new HashMap();
         userInfo.put("loginUser", loginUser);
@@ -89,7 +89,7 @@ public class SysUserService {
      */
     public void logout(Long userId) {
         // 删除redis内的用户登录数据
-        RedisTemplate<String, Object> redisTemplate = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN);
+        RedisTemplate<String, Object> redisTemplate = Redis.getTemplate(RedisDb.USERTOKEN);
         ValueOperations<String, Object> ops = redisTemplate.opsForValue();
         String uuid = (String) ops.get(LoginUser.REDIS_LOGIN_USER_UUID + userId);
         redisTemplate.delete(LoginUser.REDIS_LOGIN_USER_TOKEN + uuid);

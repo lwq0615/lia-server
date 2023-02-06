@@ -96,7 +96,7 @@ public class SysRoleService {
         if(authIds != null && authIds.size() > 0){
             sysRoleMapper.addAuthsToRole(authIds, roleId);
         }
-        Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).delete(LoginUser.REDIS_ROLE_AUTHS+roleId);
+        Redis.getTemplate(RedisDb.USERTOKEN).delete(LoginUser.REDIS_ROLE_AUTHS+roleId);
         return true;
     }
 

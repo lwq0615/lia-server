@@ -94,11 +94,11 @@ public class Redis {
      * @param redisDb 数据库
      * @return
      */
-    public static RedisTemplate<String, Object> getRedisTemplateByDb(RedisDb redisDb) {
+    public static RedisTemplate<String, Object> getTemplate(RedisDb redisDb) {
         return redisTemplateMap.get(redisDb.dbIndex());
     }
 
-    public static RedisTemplate<String, Object> getRedisTemplateByDb(int index) {
+    public static RedisTemplate<String, Object> getTemplate(int index) {
         return redisTemplateMap.get(index);
     }
 
@@ -107,7 +107,7 @@ public class Redis {
      *
      * @return
      */
-    public static RedisTemplate<String, Object> getRedisTemplate() {
+    public static RedisTemplate<String, Object> getTemplate() {
         return redisTemplateMap.get(defaultDB);
     }
 }

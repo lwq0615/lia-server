@@ -35,7 +35,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
         try{
             ServletServerHttpRequest request = (ServletServerHttpRequest) serverHttpRequest;
             String uid = request.getServletRequest().getParameter(header);
-            Map map = jwt.parse((String) Redis.getRedisTemplateByDb(RedisDb.USERTOKEN).opsForValue()
+            Map map = jwt.parse((String) Redis.getTemplate(RedisDb.USERTOKEN).opsForValue()
                     .get(LoginUser.REDIS_LOGIN_USER_TOKEN+uid));
             LoginUser user = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
             Long userId = user.getUser().getUserId();

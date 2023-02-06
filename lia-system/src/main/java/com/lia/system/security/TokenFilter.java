@@ -61,16 +61,13 @@ public class TokenFilter extends OncePerRequestFilter {
         }
         //解析token
         try{
-            RedisTemplate<String, Object> redisTemplate = Redis.getRedisTemplateByDb(RedisDb.USERTOKEN);
+            RedisTemplate<String, Object> redisTemplate = Redis.getTemplate(RedisDb.USERTOKEN);
             Map map = jwt.parse((String) redisTemplate.opsForValue().get(LoginUser.REDIS_LOGIN_USER_TOKEN +uid));
             if(map == null || map.get("loginUser") == null){
                 filterChain.doFilter(request,response);
                 return;
             }
-            LoginUser userInfo = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
-            LoginUser user = applicationContext.getBean(LoginUser.class);
-            user.setLoginTime(userInfo.getLoginTime()).setUser(userInfo.getUser())
-                    .setRoleId(userInfo.getRoleId()).setRoleKey(userInfo.getRoleKey());
+            LoginUser user = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
             if(expireTime != 0){
                 long time = new Date().getTime() - user.getLoginTime();
                 // 登录状态过期
@@ -85,6 +82,7 @@ public class TokenFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }catch (Exception e) {
+            e.printStackTrace();
         }finally{
             filterChain.doFilter(request,response);
         }
