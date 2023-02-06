@@ -34,6 +34,13 @@ public class SpringUtils {
     }
 
     /**
+     * 获取容器中的bean
+     */
+    public static <T> T getBean(Class<T> tClass){
+        return applicationContext.getBean(tClass);
+    }
+
+    /**
      * 获取当前request对象
      */
     public static HttpServletRequest getRequest(){
