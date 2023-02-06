@@ -1,7 +1,9 @@
 package com.lia.system.modules.user;
 
 
+import com.alibaba.fastjson2.JSON;
 import com.lia.system.entity.*;
+import com.lia.system.modules.role.SysRoleService;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.result.ResultCode;
 import com.lia.system.modules.file.SysFileService;
@@ -46,6 +48,8 @@ public class SysUserService {
     private SysFileService sysFileService;
     @Autowired
     private SysRegisterCodeService sysRegisterCodeService;
+    @Autowired
+    private SysRoleService sysRoleService;
 
 
     /**
@@ -69,11 +73,11 @@ public class SysUserService {
         if (loginUser.getUser().getStatus() == '1') {
             throw new HttpException(ResultCode.USER_DEACTIVATE);
         }
-        ValueOperations<String, Object> ops = Redis.getTemplate(RedisDb.USERTOKEN).opsForValue();
+        ValueOperations<String, Object> ops = Redis.getTemplate(RedisDb.SYSTEM).opsForValue();
         // 挤下线
         String oldUUID = (String) ops.get(LoginUser.REDIS_LOGIN_USER_UUID + loginUser.getUser().getUserId());
         if (oldUUID != null) {
-            Redis.getTemplate(RedisDb.USERTOKEN).delete(LoginUser.REDIS_LOGIN_USER_TOKEN + oldUUID);
+            Redis.getTemplate(RedisDb.SYSTEM).delete(LoginUser.REDIS_LOGIN_USER_TOKEN + oldUUID);
         }
         Map userInfo = new HashMap();
         userInfo.put("loginUser", loginUser);
@@ -89,7 +93,7 @@ public class SysUserService {
      */
     public void logout(Long userId) {
         // 删除redis内的用户登录数据
-        RedisTemplate<String, Object> redisTemplate = Redis.getTemplate(RedisDb.USERTOKEN);
+        RedisTemplate<String, Object> redisTemplate = Redis.getTemplate(RedisDb.SYSTEM);
         ValueOperations<String, Object> ops = redisTemplate.opsForValue();
         String uuid = (String) ops.get(LoginUser.REDIS_LOGIN_USER_UUID + userId);
         redisTemplate.delete(LoginUser.REDIS_LOGIN_USER_TOKEN + uuid);
@@ -97,7 +101,7 @@ public class SysUserService {
     }
 
     /**
-     * 强制下线
+     * 强制下线，客户端也会同时被退出登录
      */
     public void forceLogout(Long userId) {
         this.logout(userId);
@@ -108,7 +112,6 @@ public class SysUserService {
 
     /**
      * 查询用户列表
-     *
      * @param user 查询参数
      * @return 用户列表
      */
@@ -129,17 +132,17 @@ public class SysUserService {
 
 
     /**
-     * 编辑用户信息
+     * 校验用户信息合法性
      */
-    public int editUser(SysUser user) {
+    private void checkUser(SysUser user){
         if (user.getUsername() == null || user.getUsername().equals("")) {
             throw new HttpException("缺少参数username");
         }
+        if (user.getUsername().length() < 8) {
+            throw new HttpException("用户名长度最少为8位");
+        }
         if (user.getNick() == null || user.getNick().equals("")) {
             throw new HttpException("缺少参数nick");
-        }
-        if (user.getRoleId() == null) {
-            throw new HttpException("缺少参数roleId");
         }
         // 校验手机号
         if (!StringUtils.isEmpty(user.getPhone())) {
@@ -148,6 +151,34 @@ public class SysUserService {
                 throw new HttpException(ResultCode.PHONE_ERROR);
             }
         }
+    }
+
+
+    /**
+     * 更新redis中的用户登录信息
+     */
+    public void updateRedisLoginUser(SysUser user){
+        RedisTemplate<String, Object> redisTemplate = Redis.getTemplate(RedisDb.SYSTEM);
+        String uuid = (String) redisTemplate.opsForValue().get(LoginUser.REDIS_LOGIN_USER_UUID + user.getUserId());
+        Map map = jwt.parse((String) redisTemplate.opsForValue().get(LoginUser.REDIS_LOGIN_USER_TOKEN +uuid));
+        if(map == null || map.get("loginUser") == null){
+            return;
+        }
+        LoginUser oldUser = JSON.parseObject(JSON.toJSONString(map.get("loginUser")),LoginUser.class);
+        oldUser.setUser(user);
+        SysRole role = sysRoleService.findSysRole(new SysRole().setRoleId(user.getRoleId())).get(0);
+        oldUser.setRoleKey(role.getKey());
+        Map userInfo = new HashMap();
+        userInfo.put("loginUser", oldUser);
+        redisTemplate.opsForValue().set(LoginUser.REDIS_LOGIN_USER_TOKEN+uuid, jwt.getToken(userInfo));
+    }
+
+
+    /**
+     * 编辑用户信息
+     */
+    public int editUser(SysUser user) {
+        this.checkUser(user);
         //查询是否有相同用户名未删除的用户
         SysUser newUser = new SysUser();
         newUser.setUsername(user.getUsername());
@@ -155,7 +186,13 @@ public class SysUserService {
         List<SysUser> sysUserPage = sysUserMapper.getSysUserPage(newUser);
         if (sysUserPage == null || sysUserPage.size() == 0
                 || sysUserPage.get(0).getUserId().equals(user.getUserId())) {
-            return sysUserMapper.editSysUser(user);
+            SysUser oldUser = sysUserMapper.getSysUserPage(new SysUser().setUserId(user.getUserId())).get(0);
+            int success = sysUserMapper.editSysUser(user);
+            // 修改了用户角色的同时修改redis中的用户信息
+            if(success > 0 && !user.getRoleId().equals(oldUser.getRoleId())){
+                this.updateRedisLoginUser(user);
+            }
+            return success;
         } else {
             throw new HttpException(ResultCode.USERNAME_EXISTED);
         }
@@ -166,28 +203,13 @@ public class SysUserService {
      * 用户注册
      */
     public int register(SysUser user, String registerCode) {
-        if (user.getUsername() == null || user.getUsername().equals("")) {
-            throw new HttpException("缺少参数username");
-        }
-        if (user.getUsername().length() < 8) {
-            throw new HttpException("用户名长度最少为8位");
-        }
-        if (user.getNick() == null || user.getNick().equals("")) {
-            throw new HttpException("缺少参数nick");
-        }
+        this.checkUser(user);
         // 新增的用户必须要有password
-        if (user.getUserId() == null && (user.getPassword() == null || user.getPassword().equals(""))) {
+        if (user.getPassword() == null || user.getPassword().equals("")) {
             throw new HttpException("缺少参数password");
         }
         if (user.getPassword().length() < 8) {
             throw new HttpException("用户密码长度最少为8位");
-        }
-        // 校验手机号
-        if (!StringUtils.isEmpty(user.getPhone())) {
-            String regex = "^[1]([3-9])[0-9]{9}$";
-            if (user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())) {
-                throw new HttpException(ResultCode.PHONE_ERROR);
-            }
         }
         SysRegisterCode sysRegisterCode = null;
         if (!StringUtils.isEmpty(registerCode)) {
@@ -231,7 +253,6 @@ public class SysUserService {
 
     /**
      * 批量删除用户
-     *
      * @param userIds 用户的id列表
      * @return 删除成功的数量
      */

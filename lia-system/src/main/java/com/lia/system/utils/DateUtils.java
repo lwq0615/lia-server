@@ -9,12 +9,12 @@ public class DateUtils {
     /**
      * mysql中datetime的日期格式
      */
-    public final static String MYSQL_DATETIME_PATTERN = "YYYY-MM-DD HH:mm:ss";
+    public final static String MYSQL_DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * mysql中date的日期格式
      */
-    public final static String MYSQL_DATE_PATTERN = "YYYY-MM-DD HH:mm:ss";
+    public final static String MYSQL_DATE_PATTERN = "yyyy-MM-dd";
 
 
     /**

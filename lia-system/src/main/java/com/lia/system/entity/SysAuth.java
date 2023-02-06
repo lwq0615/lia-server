@@ -16,6 +16,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class SysAuth {
 
+
+    /**
+     * redis中权限url对应的权限名称key
+     */
+    public static final String AUTH_URL_NAME = "auth:url:";
+
     /**
      * 权限ID
      */

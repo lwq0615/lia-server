@@ -74,7 +74,6 @@ public class SysRoleController {
      * 获取角色字典表
      */
     @GetMapping("/sysRoleDict")
-    @PreAuthorize("hasAuthority('system:role:sysRoleDict')")
     public List<SysDictData> sysRoleDict(){
         return sysRoleService.getSysRoleDict();
     }

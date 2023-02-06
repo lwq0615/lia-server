@@ -2,6 +2,7 @@ package com.lia.system.result;
 
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.lia.system.utils.SpringUtils;
 import com.lia.system.utils.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -35,19 +36,20 @@ public class HttpResult {
     private Object data;
 
 
-    private HttpResult(ResultCode resultCode, Object data){
+    private HttpResult(ResultCode resultCode, Object data, String message) {
         this.code = resultCode.getCode();
-        this.message = resultCode.getMessage();
+        if(message != null){
+            this.message = message;
+        }else{
+            this.message = resultCode.getMessage();
+        }
         this.data = data;
-        try{
-            //从获取RequestAttributes中获取HttpServletRequest的信息
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            HttpServletRequest request = attributes.getRequest();
+        HttpServletRequest request = SpringUtils.getRequest();
+        if (request != null) {
             this.url = request.getRequestURL().toString();
-            if(!StringUtils.isEmpty(request.getQueryString())){
-                this.url += "?"+request.getQueryString();
+            if (!StringUtils.isEmpty(request.getQueryString())) {
+                this.url += "?" + request.getQueryString();
             }
-        }catch (NullPointerException e){
         }
     }
 
@@ -55,13 +57,19 @@ public class HttpResult {
     /**
      * 成功响应
      */
-    public static HttpResult ok(Object data){
-        return new HttpResult(ResultCode.SUCCESS, data);
+    public static HttpResult ok(Object data) {
+        return new HttpResult(ResultCode.SUCCESS, data, null);
     }
 
+    /**
+     * 失败响应
+     */
+    public static HttpResult error(ResultCode resultCode) {
+        return new HttpResult(resultCode, null, null);
+    }
 
-    public static HttpResult error(ResultCode resultCode){
-        return new HttpResult(resultCode, null);
+    public static HttpResult error(ResultCode resultCode, String message) {
+        return new HttpResult(resultCode, null, message);
     }
 
 
@@ -77,7 +85,7 @@ public class HttpResult {
         return data;
     }
 
-    public String getUrl(){
+    public String getUrl() {
         return url;
     }
 

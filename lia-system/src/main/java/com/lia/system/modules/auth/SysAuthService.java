@@ -2,6 +2,8 @@ package com.lia.system.modules.auth;
 
 
 import com.lia.system.entity.SysAuth;
+import com.lia.system.redis.Redis;
+import com.lia.system.redis.RedisDb;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.result.HttpResult;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -75,6 +78,8 @@ public class SysAuthService {
                 success = sysAuthMapper.addSysAuth(auth);
             } else {
                 success = sysAuthMapper.editSysAuth(auth);
+                Set<String> keys = Redis.getTemplate(RedisDb.SYSTEM).keys(SysAuth.AUTH_URL_NAME + "*");
+                Redis.getTemplate(RedisDb.SYSTEM).delete(keys);
             }
         } catch (DuplicateKeyException e) {
             String[] split = e.getCause().getMessage().split(" ");

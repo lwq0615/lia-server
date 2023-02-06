@@ -49,7 +49,6 @@ public class LoginUser implements UserDetails {
 
 
     private SysUser user;
-    private Integer roleId;
     private String roleKey;
     private Long loginTime;
 
@@ -58,7 +57,6 @@ public class LoginUser implements UserDetails {
 
     public LoginUser(SysUser user, SysRole role, Date date){
         this.user = user;
-        this.roleId = role.getRoleId();
         this.roleKey = role.getKey();
         this.loginTime = date.getTime();
     }
@@ -84,15 +82,15 @@ public class LoginUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Authority> authorities = new ArrayList<>();
         authorities.add(new Authority("ROLE_"+roleKey));
-        List<String> auths = (ArrayList<String>) Redis.getTemplate(RedisDb.USERTOKEN)
-                .opsForValue().get(REDIS_ROLE_AUTHS + roleId);
+        List<String> auths = (ArrayList<String>) Redis.getTemplate(RedisDb.SYSTEM)
+                .opsForValue().get(REDIS_ROLE_AUTHS + user.getRoleId());
         if(auths == null){
             SysAuthService sysAuthService = SpringUtils.getContext().getBean(SysAuthService.class);
             // 如果从redis中没有查询到，从mysql中查，并将结果存入redis
-            List<SysAuth> sysAuths = sysAuthService.findSysAuthByRoleId(roleId);
+            List<SysAuth> sysAuths = sysAuthService.findSysAuthByRoleId(user.getRoleId());
             auths = sysAuths.stream().map(auth -> auth.getKey()).collect(Collectors.toList());
-            Redis.getTemplate(RedisDb.USERTOKEN).opsForValue()
-                    .set(LoginUser.REDIS_ROLE_AUTHS + roleId, auths);
+            Redis.getTemplate(RedisDb.SYSTEM).opsForValue()
+                    .set(LoginUser.REDIS_ROLE_AUTHS + user.getRoleId(), auths);
         }
         authorities.addAll(auths.stream().map(auth -> new Authority(auth)).collect(Collectors.toList()));
         return authorities;
@@ -132,7 +130,6 @@ public class LoginUser implements UserDetails {
     public String toString() {
         return "LoginUser{" +
                 "user=" + user +
-                ", roleId=" + roleId +
                 ", roleKey='" + roleKey + '\'' +
                 ", loginTime=" + loginTime +
                 '}';

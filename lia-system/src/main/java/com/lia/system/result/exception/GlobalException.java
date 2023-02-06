@@ -1,8 +1,14 @@
 package com.lia.system.result.exception;
 
 import com.alibaba.fastjson2.JSON;
+import com.lia.system.entity.SysAuth;
+import com.lia.system.modules.auth.SysAuthService;
+import com.lia.system.redis.Redis;
+import com.lia.system.redis.RedisDb;
 import com.lia.system.result.HttpResult;
 import com.lia.system.result.ResultCode;
+import com.lia.system.utils.SpringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
@@ -18,6 +24,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static com.lia.system.entity.SysAuth.AUTH_URL_NAME;
 
 
 /**
@@ -28,6 +40,9 @@ import java.io.IOException;
 @Component
 public class GlobalException {
 
+
+    @Autowired
+    private SysAuthService sysAuthService;
 
 
     /**
@@ -59,7 +74,19 @@ public class GlobalException {
      */
     @ExceptionHandler(AccessDeniedException.class)
     public HttpResult noAuth(){
-        return this.httpError(new HttpException(ResultCode.NOT_AUTH));
+        String uri = SpringUtils.getRequest().getRequestURI();
+        String urlName = (String) Redis.getTemplate(RedisDb.SYSTEM).opsForValue().get(AUTH_URL_NAME + uri);
+        if (urlName == null) {
+            HashMap<String, String> urlNameMap = new HashMap();
+            for (SysAuth sysAuth : sysAuthService.findSysAuth(null)) {
+                if (sysAuth.getUrl().equals(uri)) {
+                    urlName = sysAuth.getName();
+                }
+                urlNameMap.put(SysAuth.AUTH_URL_NAME+sysAuth.getUrl(), sysAuth.getName());
+            }
+            Redis.getTemplate().opsForValue().multiSet(urlNameMap);
+        }
+        return HttpResult.error(ResultCode.NOT_AUTH, urlName + ResultCode.NOT_AUTH.getMessage());
     }
 
 
@@ -79,7 +106,7 @@ public class GlobalException {
     @ExceptionHandler(HttpException.class)
     public HttpResult httpError(HttpException e) {
         // 动态的修改http返回状态码
-        return HttpResult.error(ResultCode.valueOf(e.getStatus()));
+        return HttpResult.error(ResultCode.valueOf(e.getStatus()), e.getMessage());
     }
 
 

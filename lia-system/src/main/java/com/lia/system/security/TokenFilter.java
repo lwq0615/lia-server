@@ -61,7 +61,7 @@ public class TokenFilter extends OncePerRequestFilter {
         }
         //解析token
         try{
-            RedisTemplate<String, Object> redisTemplate = Redis.getTemplate(RedisDb.USERTOKEN);
+            RedisTemplate<String, Object> redisTemplate = Redis.getTemplate(RedisDb.SYSTEM);
             Map map = jwt.parse((String) redisTemplate.opsForValue().get(LoginUser.REDIS_LOGIN_USER_TOKEN +uid));
             if(map == null || map.get("loginUser") == null){
                 filterChain.doFilter(request,response);
@@ -82,7 +82,6 @@ public class TokenFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }catch (Exception e) {
-            e.printStackTrace();
         }finally{
             filterChain.doFilter(request,response);
         }
