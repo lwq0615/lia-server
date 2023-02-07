@@ -53,7 +53,6 @@
         <where>
             router_id in (
             select router_id from sys_role_router where role_id = #{roleId}
-            UNION select router_id from sys_router where router_id = (select root_router_id from sys_role where role_id = #{roleId})
             )
         </where>
         ORDER BY `index` asc
