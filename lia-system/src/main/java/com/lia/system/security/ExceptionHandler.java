@@ -1,6 +1,6 @@
 package com.lia.system.security;
 
-import com.lia.system.result.ResultCode;
+import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.GlobalException;
 import com.lia.system.result.exception.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +26,10 @@ public class ExceptionHandler implements AuthenticationEntryPoint, AccessDeniedH
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        if(response.getStatus() == ResultCode.LOGIN_OUT_TIME.getCode()){
-            GlobalException.httpError(ResultCode.LOGIN_OUT_TIME, response);
+        if(response.getStatus() == SysResult.LOGIN_OUT_TIME.getCode()){
+            GlobalException.httpError(SysResult.LOGIN_OUT_TIME, response);
         }else{
-            GlobalException.httpError(ResultCode.NOT_LOGIN, response);
+            GlobalException.httpError(SysResult.NOT_LOGIN, response);
         }
     }
 
@@ -41,6 +41,6 @@ public class ExceptionHandler implements AuthenticationEntryPoint, AccessDeniedH
      */
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) {
-        globalException.httpError(new HttpException(ResultCode.NOT_AUTH));
+        globalException.httpError(new HttpException(SysResult.NOT_AUTH));
     }
 }

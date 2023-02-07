@@ -1,9 +1,8 @@
 package com.lia.system.modules.dictType;
 
 import com.lia.system.entity.SysDictType;
+import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
-import com.lia.system.result.HttpResult;
-import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -54,7 +53,7 @@ public class SysDictTypeService {
                 success = sysDictTypeMapper.editSysDictType(sysDictType);
             }
         } catch (DuplicateKeyException e) {
-            throw new HttpException(ResultCode.DICTTYPE_KEY_EXISTED);
+            throw new HttpException(SysResult.DICTTYPE_KEY_EXISTED);
         }
         return success;
     }

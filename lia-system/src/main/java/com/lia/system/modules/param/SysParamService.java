@@ -5,8 +5,7 @@ import com.lia.system.crud.BaseService;
 import com.lia.system.crud.exception.UniqueException;
 import com.lia.system.entity.SysParam;
 import com.lia.system.result.exception.HttpException;
-import com.lia.system.result.HttpResult;
-import com.lia.system.result.ResultCode;
+import com.lia.system.result.SysResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +26,7 @@ public class SysParamService extends BaseService<SysParam> {
         try {
             return this.save(param);
         }catch (UniqueException e){
-            throw new HttpException(ResultCode.PARAM_NAME_EXISTED);
+            throw new HttpException(SysResult.PARAM_NAME_EXISTED);
         }
     }
 
@@ -44,7 +43,7 @@ public class SysParamService extends BaseService<SysParam> {
         }
         SysParam sysParam = sysParamMapper.getParamValueByName(name);
         if(sysParam == null){
-            throw new HttpException(ResultCode.PARAM_NOT_EXIST);
+            throw new HttpException(SysResult.PARAM_NOT_EXIST);
         }
         return sysParam.getValue();
     }

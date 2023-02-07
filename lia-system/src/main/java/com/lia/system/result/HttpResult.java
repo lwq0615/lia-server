@@ -4,8 +4,6 @@ package com.lia.system.result;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.lia.system.utils.SpringUtils;
 import com.lia.system.utils.StringUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +24,11 @@ public class HttpResult {
     private String message;
 
     /**
+     * 响应类型
+     */
+    private String type;
+
+    /**
      * 请求地址
      */
     private String url;
@@ -38,6 +41,7 @@ public class HttpResult {
 
     private HttpResult(ResultCode resultCode, Object data, String message) {
         this.code = resultCode.getCode();
+        this.type = resultCode.getResultClass().getName();
         if(message != null){
             this.message = message;
         }else{
@@ -58,7 +62,7 @@ public class HttpResult {
      * 成功响应
      */
     public static HttpResult ok(Object data) {
-        return new HttpResult(ResultCode.SUCCESS, data, null);
+        return new HttpResult(SysResult.SUCCESS, data, null);
     }
 
     /**
@@ -87,6 +91,10 @@ public class HttpResult {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getType() {
+        return type;
     }
 
 

@@ -4,7 +4,7 @@ package com.lia.system.modules.router;
 import com.lia.system.entity.SysRole;
 import com.lia.system.entity.SysRouter;
 import com.lia.system.modules.role.SysRoleService;
-import com.lia.system.result.ResultCode;
+import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.StringUtils;
@@ -91,7 +91,7 @@ public class SysRouterService {
             throw new HttpException("路由地址不能包含'/'");
         }
         if(router.getRouterId() != null && router.getRouterId() == router.getParent()){
-            throw new HttpException(ResultCode.ROUTER_PARENT_OWN);
+            throw new HttpException(SysResult.ROUTER_PARENT_OWN);
         }
         if(!StringUtils.isEmpty(router.getElement())){
             if(!router.getElement().substring(0, 1).equals("/")){
@@ -116,9 +116,9 @@ public class SysRouterService {
             String name = replace.split("\\.")[1].split("-")[1];
             switch (name) {
                 case "element":
-                    throw new HttpException(ResultCode.ROUTER_ELEMENT_EXISTED);
+                    throw new HttpException(SysResult.ROUTER_ELEMENT_EXISTED);
                 case "parent,path":
-                    throw new HttpException(ResultCode.ROUTER_PATH_EXISTED);
+                    throw new HttpException(SysResult.ROUTER_PATH_EXISTED);
             }
         }
         return success;

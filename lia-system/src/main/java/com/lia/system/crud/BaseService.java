@@ -10,9 +10,8 @@ import com.lia.system.crud.anno.UpdateTime;
 import com.lia.system.crud.exception.NoEntityException;
 import com.lia.system.crud.exception.NotFoundBaseMapperException;
 import com.lia.system.crud.exception.UniqueException;
-import com.lia.system.result.ResultCode;
+import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
-import com.lia.system.result.HttpResult;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -178,7 +177,7 @@ public abstract class BaseService<E> {
                 if(baseMapper.insert(entity) > 0){
                     return 1;
                 }else{
-                    throw new HttpException(ResultCode.SERVER_ERROR);
+                    throw new HttpException(SysResult.SERVER_ERROR);
                 }
             }
         } catch (DuplicateKeyException e) {
@@ -187,7 +186,7 @@ public abstract class BaseService<E> {
             throw new UniqueException(name, "字段值重复");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            throw new HttpException(ResultCode.SERVER_ERROR);
+            throw new HttpException(SysResult.SERVER_ERROR);
         }
     }
 

@@ -4,8 +4,8 @@ package com.lia.system.modules.user;
 import com.alibaba.fastjson2.JSON;
 import com.lia.system.entity.*;
 import com.lia.system.modules.role.SysRoleService;
+import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
-import com.lia.system.result.ResultCode;
 import com.lia.system.modules.file.SysFileService;
 import com.lia.system.modules.registerCode.SysRegisterCodeService;
 import com.lia.system.redis.Redis;
@@ -71,7 +71,7 @@ public class SysUserService {
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         // 账号停用
         if (loginUser.getUser().getStatus() == '1') {
-            throw new HttpException(ResultCode.USER_DEACTIVATE);
+            throw new HttpException(SysResult.USER_DEACTIVATE);
         }
         ValueOperations<String, Object> ops = Redis.getTemplate(RedisDb.SYSTEM).opsForValue();
         // 挤下线
@@ -106,7 +106,7 @@ public class SysUserService {
     public void forceLogout(Long userId) {
         this.logout(userId);
         // 通知客户端登录状态已经无效
-        WebSocketHandler.sendMessage(HttpResult.error(ResultCode.USER_STATE_CHANGE), userId);
+        WebSocketHandler.sendMessage(HttpResult.error(SysResult.USER_STATE_CHANGE), userId);
     }
 
 
@@ -148,7 +148,7 @@ public class SysUserService {
         if (!StringUtils.isEmpty(user.getPhone())) {
             String regex = "^[1]([3-9])[0-9]{9}$";
             if (user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())) {
-                throw new HttpException(ResultCode.PHONE_ERROR);
+                throw new HttpException(SysResult.PHONE_ERROR);
             }
         }
     }
@@ -194,7 +194,7 @@ public class SysUserService {
             }
             return success;
         } else {
-            throw new HttpException(ResultCode.USERNAME_EXISTED);
+            throw new HttpException(SysResult.USERNAME_EXISTED);
         }
     }
 
@@ -215,10 +215,10 @@ public class SysUserService {
         if (!StringUtils.isEmpty(registerCode)) {
             sysRegisterCode = sysRegisterCodeService.selectOne(new SysRegisterCode().setCode(registerCode));
             if (sysRegisterCode == null) {
-                throw new HttpException(ResultCode.REGISTER_NOT_EXIST);
+                throw new HttpException(SysResult.REGISTER_NOT_EXIST);
             }
             if (sysRegisterCode.getUseBy() != null) {
-                throw new HttpException(ResultCode.REGISTER_USED);
+                throw new HttpException(SysResult.REGISTER_USED);
             }
             user.setRoleId(sysRegisterCode.getRoleId());
         } else {
@@ -243,10 +243,10 @@ public class SysUserService {
                 }
                 return success;
             } else {
-                throw new HttpException(ResultCode.SERVER_ERROR);
+                throw new HttpException(SysResult.SERVER_ERROR);
             }
         } else {
-            throw new HttpException(ResultCode.USERNAME_EXISTED);
+            throw new HttpException(SysResult.USERNAME_EXISTED);
         }
     }
 

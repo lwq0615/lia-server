@@ -1,10 +1,9 @@
 package com.lia.system.modules.company;
 
 import com.lia.system.entity.SysCompany;
+import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
-import com.lia.system.result.HttpResult;
-import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +52,7 @@ public class SysCompanyService {
         if(!StringUtils.isEmpty(sysCompany.getPhone())){
             String regex = "^[1]([3-9])[0-9]{9}$";
             if(sysCompany.getPhone().length() != 11 || !Pattern.matches(regex, sysCompany.getPhone())){
-                throw new HttpException(ResultCode.PHONE_ERROR);
+                throw new HttpException(SysResult.PHONE_ERROR);
             }
         }
         int success;
@@ -67,7 +66,7 @@ public class SysCompanyService {
                 success = sysCompanyMapper.editSysCompany(sysCompany);
             }
         } catch (DuplicateKeyException e) {
-            throw new HttpException(ResultCode.COMPANY_NAME_EXISTED);
+            throw new HttpException(SysResult.COMPANY_NAME_EXISTED);
         }
         return success;
     }

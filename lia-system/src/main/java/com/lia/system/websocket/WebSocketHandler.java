@@ -3,7 +3,7 @@ package com.lia.system.websocket;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.lia.system.entity.SysMessage;
-import com.lia.system.result.ResultCode;
+import com.lia.system.result.SysResult;
 import com.lia.system.modules.message.SysMessageService;
 import com.lia.system.security.LoginUser;
 import com.lia.system.result.HttpResult;
@@ -40,7 +40,7 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
         LoginUser loginUser = (LoginUser) session.getAttributes().get("loginUser");
         WebSocketSession put = sessionPools.put(loginUser.getUser().getUserId(), session);
         if(put != null){
-            String res = JSON.toJSONString(HttpResult.error(ResultCode.USER_LOGIN_OTHER));
+            String res = JSON.toJSONString(HttpResult.error(SysResult.USER_LOGIN_OTHER));
             try {
                 put.sendMessage(new TextMessage(res));
                 put.close();

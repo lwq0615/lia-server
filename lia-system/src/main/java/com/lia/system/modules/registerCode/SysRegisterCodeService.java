@@ -3,9 +3,8 @@ package com.lia.system.modules.registerCode;
 
 import com.lia.system.crud.BaseService;
 import com.lia.system.entity.SysRegisterCode;
+import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
-import com.lia.system.result.HttpResult;
-import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.DateUtils;
 import com.lia.system.utils.StringUtils;
@@ -38,7 +37,7 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
         }
         SysRegisterCode code = sysRegisterCodeMapper.selectById(id);
         if(code.getUseBy() != null){
-            throw new HttpException(ResultCode.REGISTER_USED);
+            throw new HttpException(SysResult.REGISTER_USED);
         }
         SysRegisterCode newCode = new SysRegisterCode().setRoleId(roleId).setId(id);
         return sysRegisterCodeMapper.updateById(newCode);

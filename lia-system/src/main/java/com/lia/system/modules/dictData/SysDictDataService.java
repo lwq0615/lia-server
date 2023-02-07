@@ -2,8 +2,7 @@ package com.lia.system.modules.dictData;
 
 import com.lia.system.entity.SysDictData;
 import com.lia.system.result.exception.HttpException;
-import com.lia.system.result.HttpResult;
-import com.lia.system.result.ResultCode;
+import com.lia.system.result.SysResult;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -57,7 +56,7 @@ public class SysDictDataService {
                 success = sysDictDataMapper.editSysDictData(sysDictData);
             }
         } catch (DuplicateKeyException e) {
-           throw new HttpException(ResultCode.DICTDATA_VALUE_TYPE_EXISTED);
+           throw new HttpException(SysResult.DICTDATA_VALUE_TYPE_EXISTED);
         }
         return success;
     }

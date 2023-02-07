@@ -6,28 +6,19 @@ import com.lia.system.modules.auth.SysAuthService;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
 import com.lia.system.result.HttpResult;
-import com.lia.system.result.ResultCode;
+import com.lia.system.result.SysResult;
 import com.lia.system.utils.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.lia.system.entity.SysAuth.AUTH_URL_NAME;
 
@@ -48,9 +39,9 @@ public class GlobalException {
     /**
      * 异常响应客户端
      */
-    public static void httpError(ResultCode resultCode, HttpServletResponse response){
+    public static void httpError(SysResult resultCode, HttpServletResponse response){
         try {
-            response.setStatus(ResultCode.SUCCESS.getCode());
+            response.setStatus(SysResult.SUCCESS.getCode());
             response.getWriter().write(JSON.toJSONString(HttpResult.error(resultCode)));
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,7 +54,7 @@ public class GlobalException {
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public void notParamError() {
-        this.httpError(new HttpException(ResultCode.REQUEST_ERROR));
+        this.httpError(new HttpException(SysResult.REQUEST_ERROR));
     }
 
 
@@ -86,7 +77,7 @@ public class GlobalException {
             }
             Redis.getTemplate().opsForValue().multiSet(urlNameMap);
         }
-        return HttpResult.error(ResultCode.NOT_AUTH, urlName + ResultCode.NOT_AUTH.getMessage());
+        return HttpResult.error(SysResult.NOT_AUTH, urlName + SysResult.NOT_AUTH.getMessage());
     }
 
 
@@ -96,7 +87,7 @@ public class GlobalException {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public HttpResult methodError(){
-        return this.httpError(new HttpException(ResultCode.REQUEST_METHOD_ERROR));
+        return this.httpError(new HttpException(SysResult.REQUEST_METHOD_ERROR));
     }
 
 
@@ -106,7 +97,7 @@ public class GlobalException {
     @ExceptionHandler(HttpException.class)
     public HttpResult httpError(HttpException e) {
         // 动态的修改http返回状态码
-        return HttpResult.error(ResultCode.valueOf(e.getStatus()), e.getMessage());
+        return HttpResult.error(SysResult.valueOf(e.getStatus()), e.getMessage());
     }
 
 
@@ -116,7 +107,7 @@ public class GlobalException {
     @ExceptionHandler(Exception.class)
     public HttpResult error(Exception e){
         e.printStackTrace();
-        return HttpResult.error(ResultCode.SERVER_ERROR);
+        return HttpResult.error(SysResult.SERVER_ERROR);
     }
 
 }

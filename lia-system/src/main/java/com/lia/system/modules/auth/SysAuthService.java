@@ -6,8 +6,7 @@ import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
-import com.lia.system.result.HttpResult;
-import com.lia.system.result.ResultCode;
+import com.lia.system.result.SysResult;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -87,9 +86,9 @@ public class SysAuthService {
             String name = replace.split("\\.")[1].split("-")[1];
             switch (name) {
                 case "key":
-                    throw new HttpException(ResultCode.AUTH_KEY_EXISTED);
+                    throw new HttpException(SysResult.AUTH_KEY_EXISTED);
                 case "url":
-                    throw new HttpException(ResultCode.AUTH_URL_EXISTED);
+                    throw new HttpException(SysResult.AUTH_URL_EXISTED);
             }
         }
         return success;

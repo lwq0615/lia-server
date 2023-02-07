@@ -1,6 +1,7 @@
 package com.lia.system.result.exception;
 
 import com.lia.system.result.ResultCode;
+import com.lia.system.result.SysResult;
 
 
 /**
@@ -19,11 +20,6 @@ public class HttpException extends RuntimeException {
      */
     private String message;
 
-
-    public HttpException(int code){
-        this.status = ResultCode.valueOf(code).getCode();
-        this.message = ResultCode.valueOf(code).getMessage();
-    }
 
     public HttpException(ResultCode resultCode){
         this.status = resultCode.getCode();

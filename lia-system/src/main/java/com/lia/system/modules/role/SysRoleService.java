@@ -4,10 +4,9 @@ package com.lia.system.modules.role;
 import com.lia.system.entity.SysRole;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
+import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
-import com.lia.system.result.HttpResult;
-import com.lia.system.result.ResultCode;
 import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -65,7 +64,7 @@ public class SysRoleService {
             this.changeRoleAuths(role.getAuths(), role.getRoleId());
             this.changeRoleRouters(role.getRouters(), role.getRoleId());
         }catch (DuplicateKeyException e){
-            throw new HttpException(ResultCode.ROLE_KEY_EXISTED);
+            throw new HttpException(SysResult.ROLE_KEY_EXISTED);
         }
         return success;
     }

@@ -1,15 +1,8 @@
 package com.lia.system.security;
 
 import com.alibaba.fastjson2.JSON;
-import com.lia.system.entity.SysAuth;
-import com.lia.system.modules.auth.SysAuthService;
-import com.lia.system.modules.user.SysUserService;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
-import com.lia.system.result.ResultCode;
-import com.lia.system.result.exception.GlobalException;
-import com.lia.system.result.exception.HttpException;
-import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -24,11 +17,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 /**
