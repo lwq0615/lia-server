@@ -148,7 +148,7 @@ public class SysUserService {
         if (!StringUtils.isEmpty(user.getPhone())) {
             String regex = "^[1]([3-9])[0-9]{9}$";
             if (user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())) {
-                throw new HttpException(SysResult.PHONE_ERROR);
+                throw new HttpException("手机号格式错误");
             }
         }
     }

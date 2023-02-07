@@ -26,6 +26,11 @@ public class SysToolCode {
     private String columns;
 
     /**
+     * 包路径
+     */
+    private String module;
+
+    /**
      * 表格名
      */
     private String tableName;

@@ -52,7 +52,7 @@ public class SysCompanyService {
         if(!StringUtils.isEmpty(sysCompany.getPhone())){
             String regex = "^[1]([3-9])[0-9]{9}$";
             if(sysCompany.getPhone().length() != 11 || !Pattern.matches(regex, sysCompany.getPhone())){
-                throw new HttpException(SysResult.PHONE_ERROR);
+                throw new HttpException("手机号格式错误");
             }
         }
         int success;

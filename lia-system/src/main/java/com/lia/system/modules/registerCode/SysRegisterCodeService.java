@@ -3,6 +3,7 @@ package com.lia.system.modules.registerCode;
 
 import com.lia.system.crud.BaseService;
 import com.lia.system.entity.SysRegisterCode;
+import com.lia.system.entity.SysRole;
 import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.security.LoginUser;
@@ -53,6 +54,9 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
         }
         if (count == null) {
             throw new HttpException("缺少参数count");
+        }
+        if(roleId.equals(SysRole.COMMON_ROLE_ID)){
+            throw new HttpException(SysResult.COMMON_NOT_CREATE);
         }
         if (count < 1) {
             return new ArrayList<>();

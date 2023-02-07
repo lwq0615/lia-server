@@ -32,18 +32,18 @@ public enum SysResult implements ResultCode {
     REGISTER_NOT_EXIST(203, "注册码不存在"),
     USER_STATE_CHANGE(204, "账号状态发生改变"),
     USER_LOGIN_OTHER(205, "账号在其他设备登录"),
-    PHONE_ERROR(206, "手机号格式错误"),
-    USER_DEACTIVATE(207, "账号已停用"),
+    USER_DEACTIVATE(206, "账号已停用"),
 
     /**
      * 系统参数
      */
-    PARAM_NOT_EXIST(208, "系统参数不存在"),
-    PARAM_NAME_EXISTED(209, "系统参数名重复"),
+    PARAM_NOT_EXIST(207, "系统参数不存在"),
+    PARAM_NAME_EXISTED(208, "系统参数名重复"),
 
     /**
      * 角色
      */
+    COMMON_NOT_CREATE(209, "无法创建普通用户注册码"),
     ROLE_KEY_EXISTED(210, "角色标识符已存在"),
 
     /**

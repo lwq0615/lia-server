@@ -8,6 +8,7 @@
         <id     property="codeId"      column="code_id"      />
         <id     property="columns"      column="columns"      />
         <id     property="tableName"      column="table_name"      />
+        <id     property="module"      column="module"      />
         <id     property="primaryKey"      column="primary_key"      />
         <id     property="httpUrl"      column="http_url"      />
         <id     property="createByFlag"      column="create_by_flag"      />
@@ -27,6 +28,9 @@
             </if>
             <if test="columns != null">
                 AND `columns` = #{columns}
+            </if>
+            <if test="module != null">
+                AND `module` = #{module}
             </if>
             <if test="tableName != null">
                 AND `table_name` = #{tableName}
@@ -61,8 +65,9 @@
 
 
     <insert id="addSysToolCode" parameterType="SysToolCode">
-        insert  into sys_tool_code (
+        insert into sys_tool_code (
             `columns`,
+            `module`,
             `table_name`,
             `primary_key`,
             `http_url`,
@@ -74,6 +79,7 @@
         )
         values (
             #{columns},
+            #{module},
             #{tableName},
             #{primaryKey},
             #{httpUrl},
@@ -89,6 +95,7 @@
     <update id="editSysToolCode" parameterType="SysToolCode">
         update sys_tool_code set
         `columns` = #{columns},
+        `module` = #{module},
         `table_name` = #{tableName},
         `primary_key` = #{primaryKey},
         `http_url` = #{httpUrl},
