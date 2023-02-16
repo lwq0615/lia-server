@@ -135,6 +135,12 @@ public class SysUserService {
      * 校验用户信息合法性
      */
     private void checkUser(SysUser user){
+        if(user.getUserId().equals(SysUser.ADMIN_USER_ID)){
+            return;
+        }
+        if(user.getUserId().equals(SysUser.TEST_USER_ID)){
+            return;
+        }
         if (user.getUsername() == null || user.getUsername().equals("")) {
             throw new HttpException("缺少参数username");
         }

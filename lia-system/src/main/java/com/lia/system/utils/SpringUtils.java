@@ -1,28 +1,20 @@
 package com.lia.system.utils;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component
 public class SpringUtils {
 
 
     private static ApplicationContext applicationContext;
 
-    @Autowired
-    private ApplicationContext applicationContext1;
-
-    @PostConstruct
-    private void init(){
-        SpringUtils.applicationContext = applicationContext1;
+    public static void setApplicationContext(ApplicationContext ac){
+        applicationContext = ac;
     }
 
 
