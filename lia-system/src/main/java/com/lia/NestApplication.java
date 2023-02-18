@@ -16,8 +16,7 @@ public class NestApplication
 {
     public static void main(String[] args)
     {
-        ApplicationContext applicationContext = SpringApplication.run(NestApplication.class, args);
-        SpringUtils.setApplicationContext(applicationContext);
+        SpringUtils.setApplicationContext(SpringApplication.run(NestApplication.class, args));
         System.out.println("(♥◠‿◠)ﾉﾞ  启动成功   ლ(´ڡ`ლ)ﾞ");
     }
 }

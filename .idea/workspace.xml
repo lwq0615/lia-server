@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7a15456e-f01c-4541-806b-bda62d72b376" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/lia-system/target/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -50,15 +48,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="15">
               <caret line="38" selection-start-line="38" selection-end-line="38" />
               <folding>
                 <element signature="e#2147#2148#0" expanded="true" />
                 <element signature="e#2207#2208#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
             </state>
           </provider>
         </entry>
@@ -192,13 +199,13 @@
         <option value="$PROJECT_DIR$/lia-system/src/main/resources/mapper/SysToolCodeMapper.xml" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/code/SysToolCodeService.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/utils/SpringUtils.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/result/SysResult.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketInterceptor.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserController.java" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java" />
       </list>
     </option>
   </component>
@@ -325,29 +332,6 @@
               <item name="lia" type="462c0819:PsiDirectoryNode" />
               <item name="system" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nest" type="462c0819:PsiDirectoryNode" />
-              <item name="lia-system" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="lia" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nest" type="462c0819:PsiDirectoryNode" />
-              <item name="lia-system" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="lia" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-              <item name="websocket" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nest" type="b2602c69:ProjectViewProjectNode" />
@@ -737,7 +721,7 @@
       <workItem from="1676464918631" duration="2536000" />
       <workItem from="1676545188771" duration="7710000" />
       <workItem from="1676609753957" duration="655000" />
-      <workItem from="1676641657127" duration="3038000" />
+      <workItem from="1676641657127" duration="3259000" />
     </task>
     <task id="LOCAL-00001" summary="company">
       <created>1663726262881</created>
@@ -886,7 +870,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676562076885</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="修复websocket重复连接问题">
+      <created>1676698824020</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1676698824020</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -922,7 +913,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="512273000" />
+    <option name="totallyTimeSpent" value="512494000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -937,7 +928,7 @@
     <frame x="-7" y="-7" width="1550" height="830" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.495702" visible="true" weight="0.27345845" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.495702" visible="true" weight="0.27345845" />
       <window_info id="Structure" order="1" sideWeight="0.504298" side_tool="true" weight="0.26072386" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -947,7 +938,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295129" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49865952" visible="true" weight="0.3452722" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49865952" weight="0.3452722" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3982808" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -958,7 +949,7 @@
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49798927" weight="0.260745" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
-      <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.5013405" weight="0.25358167" />
+      <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.5013405" visible="true" weight="0.25358167" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.71346706" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1036,7 +1027,8 @@
     <MESSAGE value="响应码分类" />
     <MESSAGE value="代码生成新增包路径字段" />
     <MESSAGE value="开发者与测试账户不做校验" />
-    <option name="LAST_COMMIT_MESSAGE" value="开发者与测试账户不做校验" />
+    <MESSAGE value="修复websocket重复连接问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复websocket重复连接问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1376,13 +1368,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="19" column="60" selection-start-line="19" selection-start-column="60" selection-end-line="19" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
@@ -1435,12 +1420,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
+        <state relative-caret-position="15">
           <caret line="38" selection-start-line="38" selection-end-line="38" />
           <folding>
             <element signature="e#2147#2148#0" expanded="true" />
             <element signature="e#2207#2208#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
