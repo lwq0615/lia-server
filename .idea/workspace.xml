@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7a15456e-f01c-4541-806b-bda62d72b376" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/utils/SpringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/utils/SpringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/lia-system/target/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -35,26 +36,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="181" column="23" lean-forward="true" selection-start-line="181" selection-start-column="23" selection-end-line="181" selection-end-column="23" />
+            <state relative-caret-position="455">
+              <caret line="84" selection-start-line="84" selection-end-line="84" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#11107#11108#0" expanded="true" />
+                <element signature="e#11161#11162#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
+              <folding>
+                <element signature="e#2147#2148#0" expanded="true" />
+                <element signature="e#2207#2208#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserController.java">
+        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="70" column="35" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
+            <state relative-caret-position="171">
+              <caret line="46" column="89" selection-start-line="46" selection-start-column="89" selection-end-line="46" selection-end-column="89" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketInterceptor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="227">
+              <caret line="40" selection-start-line="40" selection-end-line="40" />
               <folding>
-                <element signature="e#2147#2148#0" expanded="true" />
-                <element signature="e#2207#2208#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -78,7 +102,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getQueryString</find>
       <find>userId:</find>
       <find>&quot;userId:&quot;</find>
       <find>&quot;uuid:&quot;</find>
@@ -102,12 +125,13 @@
       <find>create</find>
       <find>PHONE_ERROR</find>
       <find>账号在其他设备登录</find>
-      <find>USER_LOGIN_OTHER</find>
       <find>updateHeadImg</find>
       <find>用户名长度至少为用户名长度至少为啊</find>
       <find>用户名长度至少为</find>
       <find>用户名长度最少为8位</find>
       <find>checkUser</find>
+      <find>USER_LOGIN_OTHER</find>
+      <find>new LoginUser</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -130,11 +154,9 @@
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/dictType/SysDictTypeController.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/dictData/SysDictDataService.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/company/SysCompanyController.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserController.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/dictData/SysDictDataController.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/registerCode/SysRegisterCodeController.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/crud/BaseService.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/ExceptionHandler.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/result/R.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/resources/application-pro.yml" />
@@ -158,10 +180,8 @@
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/auth/SysAuthService.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/result/exception/GlobalException.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/utils/DateUtils.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketInterceptor.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/role/SysRoleController.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/SecurityConfig.java" />
-        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/result/ResultCode.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/result/exception/HttpException.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/result/HttpResult.java" />
@@ -174,7 +194,11 @@
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/utils/SpringUtils.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/result/SysResult.java" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java" />
         <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketInterceptor.java" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java" />
+        <option value="$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserController.java" />
       </list>
     </option>
   </component>
@@ -228,8 +252,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -291,6 +313,17 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="lia" type="462c0819:PsiDirectoryNode" />
               <item name="system" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nest" type="462c0819:PsiDirectoryNode" />
+              <item name="lia-system" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lia" type="462c0819:PsiDirectoryNode" />
+              <item name="system" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -314,19 +347,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="lia" type="462c0819:PsiDirectoryNode" />
               <item name="system" type="462c0819:PsiDirectoryNode" />
-              <item name="result" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nest" type="462c0819:PsiDirectoryNode" />
-              <item name="lia-system" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="lia" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-              <item name="result" type="462c0819:PsiDirectoryNode" />
-              <item name="exception" type="462c0819:PsiDirectoryNode" />
+              <item name="websocket" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nest" type="b2602c69:ProjectViewProjectNode" />
@@ -373,6 +394,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -382,7 +405,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1676562049659" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1676563501593" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -712,7 +735,9 @@
       <workItem from="1675600463744" duration="24499000" />
       <workItem from="1675745041234" duration="5821000" />
       <workItem from="1676464918631" duration="2536000" />
-      <workItem from="1676545188771" duration="5587000" />
+      <workItem from="1676545188771" duration="7710000" />
+      <workItem from="1676609753957" duration="655000" />
+      <workItem from="1676641657127" duration="3038000" />
     </task>
     <task id="LOCAL-00001" summary="company">
       <created>1663726262881</created>
@@ -854,7 +879,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675776282424</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="开发者与测试账户不做校验">
+      <created>1676562076885</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1676562076885</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -890,7 +922,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="506457000" />
+    <option name="totallyTimeSpent" value="512273000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -905,7 +937,7 @@
     <frame x="-7" y="-7" width="1550" height="830" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.495702" visible="true" weight="0.26675603" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.495702" visible="true" weight="0.27345845" />
       <window_info id="Structure" order="1" sideWeight="0.504298" side_tool="true" weight="0.26072386" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1003,7 +1035,8 @@
     <MESSAGE value="角色权限热更新" />
     <MESSAGE value="响应码分类" />
     <MESSAGE value="代码生成新增包路径字段" />
-    <option name="LAST_COMMIT_MESSAGE" value="代码生成新增包路径字段" />
+    <MESSAGE value="开发者与测试账户不做校验" />
+    <option name="LAST_COMMIT_MESSAGE" value="开发者与测试账户不做校验" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1018,34 +1051,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/ExceptionHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/redis/RedisDb.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/stream/Stream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="806" column="13" selection-start-line="806" selection-start-column="13" selection-end-line="806" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/Authority.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/Throwable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
@@ -1168,16 +1173,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/role/SysRoleController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="311">
@@ -1189,27 +1184,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="277">
           <caret line="68" selection-start-line="68" selection-end-line="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="132" selection-start-line="132" selection-end-line="132" />
-          <folding>
-            <element signature="e#3249#3250#0" expanded="true" />
-            <element signature="e#3290#3291#0" expanded="true" />
-            <element signature="e#3339#3340#0" expanded="true" />
-            <element signature="e#3380#3381#0" expanded="true" />
-            <element signature="e#3438#3439#0" expanded="true" />
-            <element signature="e#3465#3466#0" expanded="true" />
-            <element signature="e#3522#3523#0" expanded="true" />
-            <element signature="e#3549#3550#0" expanded="true" />
-            <element signature="e#3611#3612#0" expanded="true" />
-            <element signature="e#3638#3639#0" expanded="true" />
-            <element signature="e#3686#3687#0" expanded="true" />
-            <element signature="e#3713#3714#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1355,13 +1329,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="42" column="70" selection-start-line="42" selection-start-column="70" selection-end-line="42" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lia-system/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1740" />
@@ -1371,13 +1338,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
           <caret line="825" column="49" selection-start-line="825" selection-start-column="49" selection-end-line="825" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="19" column="60" selection-start-line="19" selection-start-column="60" selection-end-line="19" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -1395,30 +1355,91 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/result/SysResult.java">
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/entity/SysUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+        <state relative-caret-position="23">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserController.java">
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/result/SysResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="70" column="35" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
+        <state relative-caret-position="660">
+          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/UserDetailsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="44" column="15" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/NestApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="19" column="60" selection-start-line="19" selection-start-column="60" selection-end-line="19" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/security/LoginUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="129" column="5" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
           <folding>
-            <element signature="e#2147#2148#0" expanded="true" />
-            <element signature="e#2207#2208#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/websocket/WebSocketHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="46" column="89" selection-start-line="46" selection-start-column="89" selection-end-line="46" selection-end-column="89" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="181" column="23" lean-forward="true" selection-start-line="181" selection-start-column="23" selection-end-line="181" selection-end-column="23" />
+        <state relative-caret-position="455">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#11107#11108#0" expanded="true" />
+            <element signature="e#11161#11162#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/environment/maven_repository/org/springframework/spring-core/5.3.9/spring-core-5.3.9-sources.jar!/org/springframework/cglib/proxy/MethodProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="217" selection-start-line="217" selection-end-line="217" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/environment/maven_repository/org/springframework/spring-aop/5.3.9/spring-aop-5.3.9.jar!/org/springframework/aop/framework/CglibAopProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="459" selection-start-line="459" selection-end-line="459" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lia-system/src/main/java/com/lia/system/modules/user/SysUserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="e#2147#2148#0" expanded="true" />
+            <element signature="e#2207#2208#0" expanded="true" />
           </folding>
         </state>
       </provider>

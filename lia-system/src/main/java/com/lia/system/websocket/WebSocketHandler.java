@@ -40,6 +40,10 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
         LoginUser loginUser = (LoginUser) session.getAttributes().get("loginUser");
         WebSocketSession put = sessionPools.put(loginUser.getUser().getUserId(), session);
         if(put != null){
+            LoginUser user = (LoginUser) put.getAttributes().get("loginUser");
+            if(user.getTokenUuid().equals(loginUser.getTokenUuid())){
+                return;
+            }
             String res = JSON.toJSONString(HttpResult.error(SysResult.USER_LOGIN_OTHER));
             try {
                 put.sendMessage(new TextMessage(res));

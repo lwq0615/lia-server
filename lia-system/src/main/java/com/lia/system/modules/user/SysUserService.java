@@ -80,8 +80,9 @@ public class SysUserService {
             Redis.getTemplate(RedisDb.SYSTEM).delete(LoginUser.REDIS_LOGIN_USER_TOKEN + oldUUID);
         }
         Map userInfo = new HashMap();
-        userInfo.put("loginUser", loginUser);
         String uid = UUID.randomUUID().toString();
+        loginUser.setTokenUuid(uid);
+        userInfo.put("loginUser", loginUser);
         // 登录状态存入redis
         ops.set(LoginUser.REDIS_LOGIN_USER_UUID + loginUser.getUser().getUserId(), uid);
         ops.set(LoginUser.REDIS_LOGIN_USER_TOKEN + uid, jwt.getToken(userInfo));
