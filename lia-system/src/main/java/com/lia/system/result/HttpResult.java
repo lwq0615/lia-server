@@ -3,7 +3,7 @@ package com.lia.system.result;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.lia.system.utils.SpringUtils;
-import com.lia.system.utils.StringUtils;
+import com.lia.system.utils.StrUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,7 +51,7 @@ public class HttpResult {
         HttpServletRequest request = SpringUtils.getRequest();
         if (request != null) {
             this.url = request.getRequestURL().toString();
-            if (!StringUtils.isEmpty(request.getQueryString())) {
+            if (!StrUtils.isEmpty(request.getQueryString())) {
                 this.url += "?" + request.getQueryString();
             }
         }

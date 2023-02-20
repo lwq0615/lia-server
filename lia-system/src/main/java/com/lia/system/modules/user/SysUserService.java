@@ -15,7 +15,7 @@ import com.lia.system.security.LoginUser;
 import com.lia.system.utils.ArrayUtils;
 import com.lia.system.utils.DateUtils;
 import com.lia.system.result.HttpResult;
-import com.lia.system.utils.StringUtils;
+import com.lia.system.utils.StrUtils;
 import com.lia.system.websocket.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -59,10 +59,10 @@ public class SysUserService {
      */
     public String getAuthorization(SysUser checkUser) {
         //判断是否合法用户
-        if (StringUtils.isEmpty(checkUser.getUsername())) {
+        if (StrUtils.isEmpty(checkUser.getUsername())) {
             throw new HttpException("缺少参数username");
         }
-        if (StringUtils.isEmpty(checkUser.getPassword())) {
+        if (StrUtils.isEmpty(checkUser.getPassword())) {
             throw new HttpException("缺少参数password");
         }
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
@@ -152,7 +152,7 @@ public class SysUserService {
             throw new HttpException("缺少参数nick");
         }
         // 校验手机号
-        if (!StringUtils.isEmpty(user.getPhone())) {
+        if (!StrUtils.isEmpty(user.getPhone())) {
             String regex = "^[1]([3-9])[0-9]{9}$";
             if (user.getPhone().length() != 11 || !Pattern.matches(regex, user.getPhone())) {
                 throw new HttpException("手机号格式错误");
@@ -219,7 +219,7 @@ public class SysUserService {
             throw new HttpException("用户密码长度最少为8位");
         }
         SysRegisterCode sysRegisterCode = null;
-        if (!StringUtils.isEmpty(registerCode)) {
+        if (!StrUtils.isEmpty(registerCode)) {
             sysRegisterCode = sysRegisterCodeService.selectOne(new SysRegisterCode().setCode(registerCode));
             if (sysRegisterCode == null) {
                 throw new HttpException(SysResult.REGISTER_NOT_EXIST);
@@ -243,7 +243,7 @@ public class SysUserService {
             user.setCreateBy(LoginUser.getLoginUserId());
             int success = sysUserMapper.addSysUser(user);
             if (success > 0) {
-                if (!StringUtils.isEmpty(registerCode)) {
+                if (!StrUtils.isEmpty(registerCode)) {
                     // 将注册码标记为已使用
                     sysRegisterCode.setUseBy(user.getUserId()).setUseTime(DateUtils.mysqlDatetime(new Date()));
                     sysRegisterCodeService.save(sysRegisterCode);

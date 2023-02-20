@@ -5,7 +5,7 @@ import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.security.LoginUser;
-import com.lia.system.utils.StringUtils;
+import com.lia.system.utils.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -49,7 +49,7 @@ public class SysCompanyService {
             throw new HttpException("缺少参数principal");
         }
         // 校验手机号
-        if(!StringUtils.isEmpty(sysCompany.getPhone())){
+        if(!StrUtils.isEmpty(sysCompany.getPhone())){
             String regex = "^[1]([3-9])[0-9]{9}$";
             if(sysCompany.getPhone().length() != 11 || !Pattern.matches(regex, sysCompany.getPhone())){
                 throw new HttpException("手机号格式错误");

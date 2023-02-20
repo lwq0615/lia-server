@@ -7,7 +7,7 @@ import com.lia.system.modules.role.SysRoleService;
 import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.security.LoginUser;
-import com.lia.system.utils.StringUtils;
+import com.lia.system.utils.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -93,7 +93,7 @@ public class SysRouterService {
         if(router.getRouterId() != null && router.getRouterId() == router.getParent()){
             throw new HttpException(SysResult.ROUTER_PARENT_OWN);
         }
-        if(!StringUtils.isEmpty(router.getElement())){
+        if(!StrUtils.isEmpty(router.getElement())){
             if(!router.getElement().substring(0, 1).equals("/")){
                 router.setElement("/"+router.getElement());
             }
