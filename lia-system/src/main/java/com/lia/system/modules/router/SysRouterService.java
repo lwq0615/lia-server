@@ -139,4 +139,15 @@ public class SysRouterService {
     }
 
 
+    /**
+     * 路由重新排序
+     */
+    public int reloadIndex(List<List<Integer>> list){
+        int success = 0;
+        for (int i = 0; i < list.size(); i++) {
+            success += sysRouterMapper.reloadIndex(list.get(i), i);
+        }
+        return success;
+    }
+
 }

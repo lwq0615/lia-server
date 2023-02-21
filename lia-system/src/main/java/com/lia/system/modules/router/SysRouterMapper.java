@@ -55,4 +55,10 @@ public interface SysRouterMapper {
      * @return
      */
     List<Integer> findIdsbyRoleId(Integer roleId);
+
+    /**
+     * 路由重新排序
+     */
+    int reloadIndex(List<Integer> routerIds, int index);
+
 }
