@@ -8,17 +8,13 @@ import com.lia.system.modules.auth.SysAuthService;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
 import com.lia.system.utils.SpringUtils;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Accessors(chain = true)
+@ToString
 public class LoginUser implements UserDetails {
 
 
@@ -51,6 +48,7 @@ public class LoginUser implements UserDetails {
     private SysUser user;
     private String roleKey;
     private Long loginTime;
+    private String tokenUuid;
 
     public LoginUser(){}
 
@@ -124,14 +122,5 @@ public class LoginUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "LoginUser{" +
-                "user=" + user +
-                ", roleKey='" + roleKey + '\'' +
-                ", loginTime=" + loginTime +
-                '}';
     }
 }

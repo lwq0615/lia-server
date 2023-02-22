@@ -2,7 +2,7 @@ package com.lia.system.utils;
 
 import java.util.Random;
 
-public class StringUtils {
+public class StrUtils {
 
 
     /**

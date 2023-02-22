@@ -8,7 +8,7 @@ import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import com.lia.system.utils.DateUtils;
-import com.lia.system.utils.StringUtils;
+import com.lia.system.utils.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -73,7 +73,7 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
                 SysRegisterCode registerCode = new SysRegisterCode();
                 registerCode.setCreateBy(LoginUser.getLoginUserId())
                         .setRoleId(roleId)
-                        .setCode(StringUtils.ramdomCode(20))
+                        .setCode(StrUtils.ramdomCode(20))
                         .setCreateTime(datetime);
                 registerCodes.add(registerCode);
             }

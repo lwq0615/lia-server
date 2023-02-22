@@ -62,12 +62,29 @@ public class SysRouterController {
     }
 
 
+    /**
+     * 根据id获取路由
+     * @param routerId
+     * @return
+     */
     @GetMapping("/getRouterById")
     @PreAuthorize("hasAuthority('system:router:getRouterById')")
     public SysRouter getRouterById(Integer routerId){
         SysRouter router = new SysRouter();
         router.setRouterId(routerId);
         return sysRouterService.getRouters(router).get(0);
+    }
+
+
+    /**
+     * 路由重新排序
+     * @param list
+     * @return
+     */
+    @PostMapping("/reloadIndex")
+    @PreAuthorize("hasAuthority('system:router:reloadIndex')")
+    public int reloadIndex(@RequestBody List<List<Integer>> list){
+        return sysRouterService.reloadIndex(list);
     }
 
 }

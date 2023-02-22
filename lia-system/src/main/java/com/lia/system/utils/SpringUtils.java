@@ -13,7 +13,7 @@ public class SpringUtils {
 
     private static ApplicationContext applicationContext;
 
-    public static void setApplicationContext(ApplicationContext ac){
+    public static void initApplicationContext(ApplicationContext ac){
         applicationContext = ac;
     }
 

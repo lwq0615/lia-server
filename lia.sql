@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 21/01/2023 12:18:28
+ Date: 22/02/2023 00:17:33
 */
 
 SET NAMES utf8mb4;
@@ -37,13 +37,12 @@ CREATE TABLE `sys_auth`  (
   INDEX `sys_auth-router_id`(`router_id`) USING BTREE,
   CONSTRAINT `sys_auth-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 91 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 90 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_auth
 -- ----------------------------
 INSERT INTO `sys_auth` VALUES (1, '查询用户', '/system/user/getPage', 'system:user:getPage', 3, 1, '2022-05-06 17:25:00', NULL);
-INSERT INTO `sys_auth` VALUES (3, '查询角色字典表', '/system/role/sysRoleDict', 'system:role:sysRoleDict', 41, 1, '2022-05-11 15:10:18', NULL);
 INSERT INTO `sys_auth` VALUES (5, '添加或编辑用户', '/system/user/saveUser', 'system:user:saveUser', 3, 1, '2022-05-12 17:16:06', NULL);
 INSERT INTO `sys_auth` VALUES (6, '批量删除用户', '/system/user/deleteUsers', 'system:user:deleteUsers', 3, 1, '2022-05-15 20:28:25', NULL);
 INSERT INTO `sys_auth` VALUES (7, '获取创建人字典表', '/system/user/getCreateByDict', 'system:user:getCreateByDict', 3, 1, '2022-05-16 14:38:54', NULL);
@@ -67,7 +66,7 @@ INSERT INTO `sys_auth` VALUES (64, '字典类别分页查询', '/system/dictType
 INSERT INTO `sys_auth` VALUES (65, '字典类别新增和编辑', '/system/dictType/save', 'system:dictType:save', 6, 1, '2022-09-23 11:21:40', NULL);
 INSERT INTO `sys_auth` VALUES (66, '批量删除字典类别', '/system/dictType/delete', 'system:dictType:delete', 6, 1, '2022-09-23 11:22:05', NULL);
 INSERT INTO `sys_auth` VALUES (68, '字典数据分页查询', '/system/dictData/getPage', 'system:dictData:getPage', 6, 1, '2022-09-23 11:47:42', NULL);
-INSERT INTO `sys_auth` VALUES (69, '字典数据新增或编辑', '/system/dictData/:save', 'system:dictData:save', 6, 1, '2022-09-23 11:48:28', NULL);
+INSERT INTO `sys_auth` VALUES (69, '字典数据新增或编辑', '/system/dictData/save', 'system:dictData:save', 6, 1, '2022-09-23 11:48:28', NULL);
 INSERT INTO `sys_auth` VALUES (70, '字典数据批量删除', '/system/dictData/delete', 'system:dictData:delete', 6, 1, '2022-09-23 11:48:55', NULL);
 INSERT INTO `sys_auth` VALUES (72, '获取性别字典表', '/system/dictData/getSexDict', 'system:dictData:getSexDict', 6, 1, '2022-09-23 12:08:03', NULL);
 INSERT INTO `sys_auth` VALUES (73, '代码生成添加或编辑记录', '/system/tool/code/save', 'system:tool:code:save', 40, 1, '2022-09-23 16:10:40', NULL);
@@ -82,6 +81,7 @@ INSERT INTO `sys_auth` VALUES (82, '分页查询', '/system/register/code/getPag
 INSERT INTO `sys_auth` VALUES (83, '编辑', '/system/register/code/edit', 'system:register:code:edit', 47, 1, '2023-01-10 21:32:07', NULL);
 INSERT INTO `sys_auth` VALUES (84, '批量删除', '/system/register/code/delete', 'system:register:code:delete', 47, 1, '2023-01-10 21:32:27', NULL);
 INSERT INTO `sys_auth` VALUES (85, '批量生成注册码', '/system/register/code/create', 'system:register:code:create', 47, 1, '2023-01-11 00:40:12', NULL);
+INSERT INTO `sys_auth` VALUES (91, '路由重新排序', '/system/router/reloadIndex', 'system:router:reloadIndex', 5, 1, '2023-02-22 00:10:57', NULL);
 
 -- ----------------------------
 -- Table structure for sys_company
@@ -121,9 +121,9 @@ CREATE TABLE `sys_dict_data`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`data_id`) USING BTREE,
+  UNIQUE INDEX `sys_dict_data-type_id,value`(`value`, `type_id`) USING BTREE,
   INDEX `sys_dict_data-create_by`(`create_by`) USING BTREE,
   INDEX `sys_dict_data-type_id`(`type_id`) USING BTREE,
-  UNIQUE INDEX `sys_dict_data-type_id,value`(`value`, `type_id`) USING BTREE,
   CONSTRAINT `sys_dict_data-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_dict_data-type_id` FOREIGN KEY (`type_id`) REFERENCES `sys_dict_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
@@ -174,14 +174,14 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user`) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_file
 -- ----------------------------
 INSERT INTO `sys_file` VALUES (41, '微信图片_20220312191446.jpg', 'public/image/20221003/19afa398-9430-46c5-ac3a-997259d48f16.jpg', 1781778, '2022-10-03 21:27:02', NULL);
 INSERT INTO `sys_file` VALUES (45, '微信图片_202203121913362.jpg', 'public/image/20221003/f1881fa8-79a2-4a8f-89f4-6b22219d3f9f.jpg', 241151, '2022-10-03 21:52:39', 2);
-INSERT INTO `sys_file` VALUES (64, '屏幕截图_20230101_190859.png', 'public/image/20230119/1125b3ef-9269-4857-8ca5-a15159c7c3a9.png', 2094168, '2023-01-19 01:34:26', 1);
+INSERT INTO `sys_file` VALUES (81, '屏幕截图_20230101_190859.png', 'public/image/20230221/a197e493-e0f5-4b2c-9cb9-86b04b2e25ad.png', 2094168, '2023-02-21 21:43:13', 1);
 
 -- ----------------------------
 -- Table structure for sys_msg
@@ -200,7 +200,7 @@ CREATE TABLE `sys_msg`  (
   INDEX `sys_msg-send_to`(`send_to`) USING BTREE,
   CONSTRAINT `sys_msg-send_by` FOREIGN KEY (`send_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_msg-send_to` FOREIGN KEY (`send_to`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 158 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 180 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_msg
@@ -217,6 +217,28 @@ INSERT INTO `sys_msg` VALUES (154, '321', '1', '0', 2, 1, '2023-01-17 23:01:10')
 INSERT INTO `sys_msg` VALUES (155, '1', '1', '0', 1, 2, '2023-01-18 16:39:32');
 INSERT INTO `sys_msg` VALUES (156, '322', '1', '0', 1, 2, '2023-01-19 01:39:14');
 INSERT INTO `sys_msg` VALUES (157, '123123', '1', '0', 2, 1, '2023-01-19 03:00:40');
+INSERT INTO `sys_msg` VALUES (158, 'ceshi', '1', '0', 2, 1, '2023-02-05 22:20:36');
+INSERT INTO `sys_msg` VALUES (159, '111', '1', '0', 2, 1, '2023-02-05 22:25:40');
+INSERT INTO `sys_msg` VALUES (160, '222aa', '1', '0', 2, 1, '2023-02-05 22:27:05');
+INSERT INTO `sys_msg` VALUES (161, '1212', '1', '0', 2, 1, '2023-02-06 20:55:53');
+INSERT INTO `sys_msg` VALUES (162, '111', '1', '0', 1, 2, '2023-02-06 20:59:20');
+INSERT INTO `sys_msg` VALUES (163, '1', '1', '0', 2, 1, '2023-02-06 21:00:54');
+INSERT INTO `sys_msg` VALUES (164, '111', '1', '0', 2, 1, '2023-02-06 21:01:23');
+INSERT INTO `sys_msg` VALUES (165, '222', '1', '0', 2, 1, '2023-02-06 21:01:25');
+INSERT INTO `sys_msg` VALUES (166, '1', '1', '0', 1, 2, '2023-02-06 21:08:42');
+INSERT INTO `sys_msg` VALUES (167, '1', '1', '0', 1, 2, '2023-02-06 21:09:28');
+INSERT INTO `sys_msg` VALUES (168, '2', '1', '0', 1, 2, '2023-02-06 21:09:41');
+INSERT INTO `sys_msg` VALUES (169, '3', '1', '0', 1, 2, '2023-02-06 21:09:42');
+INSERT INTO `sys_msg` VALUES (170, '2', '0', '0', 1, 2, '2023-02-17 00:04:37');
+INSERT INTO `sys_msg` VALUES (171, '3', '0', '0', 1, 2, '2023-02-17 00:04:38');
+INSERT INTO `sys_msg` VALUES (172, '1', '0', '0', 1, 2, '2023-02-17 00:04:39');
+INSERT INTO `sys_msg` VALUES (173, '2', '0', '0', 1, 2, '2023-02-17 00:05:08');
+INSERT INTO `sys_msg` VALUES (174, '3', '0', '0', 1, 2, '2023-02-17 00:05:10');
+INSERT INTO `sys_msg` VALUES (175, '4', '0', '0', 1, 2, '2023-02-17 00:05:11');
+INSERT INTO `sys_msg` VALUES (176, '5', '0', '0', 1, 2, '2023-02-17 00:05:11');
+INSERT INTO `sys_msg` VALUES (177, '1', '0', '0', 1, 2, '2023-02-17 00:05:12');
+INSERT INTO `sys_msg` VALUES (178, '321', '0', '0', 1, 2, '2023-02-19 14:51:59');
+INSERT INTO `sys_msg` VALUES (179, '11', '0', '0', 1, 2, '2023-02-21 22:18:11');
 
 -- ----------------------------
 -- Table structure for sys_param
@@ -242,7 +264,6 @@ CREATE TABLE `sys_param`  (
 INSERT INTO `sys_param` VALUES (1, 'enable_register', 'true', '是否开启注册', 1, '2022-11-30 16:38:12', '是否开启注册');
 INSERT INTO `sys_param` VALUES (3, 'login_check_code', 'false', '登录时是否需要验证码', 1, '2022-12-10 22:50:59', '登录时是否需要验证码');
 INSERT INTO `sys_param` VALUES (5, 'register_check_code', 'true', '注册时是否需要验证码', 1, '2023-01-17 18:53:35', NULL);
-INSERT INTO `sys_param` VALUES (9, '1', '3', NULL, 1, '2023-01-19 01:29:49', NULL);
 
 -- ----------------------------
 -- Table structure for sys_register_code
@@ -271,11 +292,11 @@ CREATE TABLE `sys_register_code`  (
 -- ----------------------------
 INSERT INTO `sys_register_code` VALUES (1, 'Ndy6dNwdgwdh7s0UzZmO', 2, 99, '2023-01-17 19:19:24', 1, '2023-01-17 15:41:30');
 INSERT INTO `sys_register_code` VALUES (2, 'v8v1ifVmyk0uRqMTBky9', 3, NULL, NULL, 1, '2023-01-17 15:41:38');
-INSERT INTO `sys_register_code` VALUES (3, 'l5u6YdIxFYs3ZaCHoRBS', 3, NULL, NULL, 1, '2023-01-17 15:41:38');
+INSERT INTO `sys_register_code` VALUES (3, 'l5u6YdIxFYs3ZaCHoRBS', 3, 109, '2023-02-06 20:46:30', 1, '2023-01-17 15:41:38');
 INSERT INTO `sys_register_code` VALUES (4, 'BHGEoqf2rnvZPoUy1grO', 1, NULL, NULL, 1, '2023-01-17 15:41:51');
-INSERT INTO `sys_register_code` VALUES (5, 'k5Qh0x3WPAIbpZeswi5M', 3, NULL, NULL, 1, '2023-01-17 15:41:51');
+INSERT INTO `sys_register_code` VALUES (5, 'k5Qh0x3WPAIbpZeswi5M', 3, 108, '2023-02-06 20:45:19', 1, '2023-01-17 15:41:51');
 INSERT INTO `sys_register_code` VALUES (6, 'ybpkW1IQh8JZHWbDWYsg', 3, NULL, NULL, 1, '2023-01-17 15:41:51');
-INSERT INTO `sys_register_code` VALUES (7, 'FmcaAgQ2JQUdGxsNwUMd', 1, NULL, NULL, 1, '2023-01-17 15:41:51');
+INSERT INTO `sys_register_code` VALUES (7, 'FmcaAgQ2JQUdGxsNwUMd', 1, 112, '2023-02-06 20:49:37', 1, '2023-01-17 15:41:51');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -328,7 +349,6 @@ CREATE TABLE `sys_role_auth`  (
 -- Records of sys_role_auth
 -- ----------------------------
 INSERT INTO `sys_role_auth` VALUES (1, 1);
-INSERT INTO `sys_role_auth` VALUES (1, 3);
 INSERT INTO `sys_role_auth` VALUES (1, 5);
 INSERT INTO `sys_role_auth` VALUES (1, 6);
 INSERT INTO `sys_role_auth` VALUES (1, 7);
@@ -367,30 +387,7 @@ INSERT INTO `sys_role_auth` VALUES (1, 82);
 INSERT INTO `sys_role_auth` VALUES (1, 83);
 INSERT INTO `sys_role_auth` VALUES (1, 84);
 INSERT INTO `sys_role_auth` VALUES (1, 85);
-INSERT INTO `sys_role_auth` VALUES (2, 3);
-INSERT INTO `sys_role_auth` VALUES (2, 5);
-INSERT INTO `sys_role_auth` VALUES (2, 6);
-INSERT INTO `sys_role_auth` VALUES (2, 7);
-INSERT INTO `sys_role_auth` VALUES (2, 8);
-INSERT INTO `sys_role_auth` VALUES (2, 9);
-INSERT INTO `sys_role_auth` VALUES (2, 10);
-INSERT INTO `sys_role_auth` VALUES (2, 11);
-INSERT INTO `sys_role_auth` VALUES (2, 12);
-INSERT INTO `sys_role_auth` VALUES (2, 13);
-INSERT INTO `sys_role_auth` VALUES (2, 14);
-INSERT INTO `sys_role_auth` VALUES (2, 15);
-INSERT INTO `sys_role_auth` VALUES (2, 16);
-INSERT INTO `sys_role_auth` VALUES (2, 17);
-INSERT INTO `sys_role_auth` VALUES (2, 18);
-INSERT INTO `sys_role_auth` VALUES (2, 62);
-INSERT INTO `sys_role_auth` VALUES (2, 64);
-INSERT INTO `sys_role_auth` VALUES (2, 65);
-INSERT INTO `sys_role_auth` VALUES (2, 66);
-INSERT INTO `sys_role_auth` VALUES (2, 68);
-INSERT INTO `sys_role_auth` VALUES (2, 69);
-INSERT INTO `sys_role_auth` VALUES (2, 70);
-INSERT INTO `sys_role_auth` VALUES (2, 72);
-INSERT INTO `sys_role_auth` VALUES (2, 76);
+INSERT INTO `sys_role_auth` VALUES (1, 91);
 
 -- ----------------------------
 -- Table structure for sys_role_router
@@ -422,11 +419,12 @@ INSERT INTO `sys_role_router` VALUES (2, 6);
 INSERT INTO `sys_role_router` VALUES (1, 38);
 INSERT INTO `sys_role_router` VALUES (2, 38);
 INSERT INTO `sys_role_router` VALUES (1, 40);
-INSERT INTO `sys_role_router` VALUES (2, 40);
 INSERT INTO `sys_role_router` VALUES (1, 41);
+INSERT INTO `sys_role_router` VALUES (2, 41);
 INSERT INTO `sys_role_router` VALUES (1, 44);
-INSERT INTO `sys_role_router` VALUES (1, 46);
+INSERT INTO `sys_role_router` VALUES (2, 44);
 INSERT INTO `sys_role_router` VALUES (1, 47);
+INSERT INTO `sys_role_router` VALUES (2, 47);
 
 -- ----------------------------
 -- Table structure for sys_router
@@ -450,23 +448,22 @@ CREATE TABLE `sys_router`  (
   INDEX `sys_router-parent`(`parent`) USING BTREE,
   CONSTRAINT `sys_router-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_router-parent` FOREIGN KEY (`parent`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_router
 -- ----------------------------
 INSERT INTO `sys_router` VALUES (1, '根目录', '', NULL, NULL, 1, NULL, 1, '2022-06-05 02:55:58', NULL);
-INSERT INTO `sys_router` VALUES (2, '系统管理', 'system', NULL, 1, 1, 'SettingOutlined', 1, '2022-05-09 10:51:00', NULL);
-INSERT INTO `sys_router` VALUES (3, '用户管理', 'user', '/system/user/User', 2, 1, 'TeamOutlined', 1, '2022-05-09 10:55:00', NULL);
-INSERT INTO `sys_router` VALUES (4, '权限管理', 'auth', '/system/auth/Auth', 2, 4, 'KeyOutlined', 1, '2022-05-09 11:01:00', NULL);
-INSERT INTO `sys_router` VALUES (5, '路由管理', 'router', '/system/router/Router', 2, 5, 'GoldOutlined', 1, '2022-05-30 21:14:00', NULL);
-INSERT INTO `sys_router` VALUES (6, '字典配置', 'dict', '/system/dict/Dict', 2, 6, 'PicRightOutlined', 1, '2022-06-11 11:25:44', NULL);
-INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 2, 8, 'CodeSandboxOutlined', 1, '2022-06-19 16:57:58', NULL);
-INSERT INTO `sys_router` VALUES (40, '代码生成', 'codeGenerator', '/system/tool/codeGenerator/CodeGenerator', 38, 1, 'CopyrightOutlined', 1, '2022-06-19 17:00:51', NULL);
-INSERT INTO `sys_router` VALUES (41, '企业管理', 'company', '/system/company/Company', 2, 2, 'VerifiedOutlined', 1, '2022-09-20 15:27:00', NULL);
-INSERT INTO `sys_router` VALUES (44, '系统参数', 'param', '/system/param/Param', 2, 7, 'ProfileOutlined', 1, '2022-11-30 16:54:04', NULL);
-INSERT INTO `sys_router` VALUES (46, '应聘笔记', 'acceptNote', NULL, 1, 2, 'BehanceSquareOutlined', 1, '2023-01-09 01:29:03', '应聘笔记');
-INSERT INTO `sys_router` VALUES (47, '注册码', 'registerCode', '/system/registerCode/RegisterCode', 2, 3, 'FieldStringOutlined', 1, '2023-01-10 21:29:01', NULL);
+INSERT INTO `sys_router` VALUES (2, '系统管理', 'system', NULL, 1, 0, 'SettingOutlined', 1, '2022-05-09 10:51:00', NULL);
+INSERT INTO `sys_router` VALUES (3, '用户管理', 'user', '/system/user/User', 2, 0, 'TeamOutlined', 1, '2022-05-09 10:55:00', NULL);
+INSERT INTO `sys_router` VALUES (4, '权限管理', 'auth', '/system/auth/Auth', 2, 3, 'KeyOutlined', 1, '2022-05-09 11:01:00', NULL);
+INSERT INTO `sys_router` VALUES (5, '路由管理', 'router', '/system/router/Router', 2, 4, 'GoldOutlined', 1, '2022-05-30 21:14:00', NULL);
+INSERT INTO `sys_router` VALUES (6, '字典配置', 'dict', '/system/dict/Dict', 2, 5, 'PicRightOutlined', 1, '2022-06-11 11:25:44', NULL);
+INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 2, 7, 'CodeSandboxOutlined', 1, '2022-06-19 16:57:58', NULL);
+INSERT INTO `sys_router` VALUES (40, '代码生成', 'codeGenerator', '/system/tool/codeGenerator/CodeGenerator', 38, 0, 'CopyrightOutlined', 1, '2022-06-19 17:00:51', NULL);
+INSERT INTO `sys_router` VALUES (41, '企业管理', 'company', '/system/company/Company', 2, 1, 'VerifiedOutlined', 1, '2022-09-20 15:27:00', NULL);
+INSERT INTO `sys_router` VALUES (44, '系统参数', 'param', '/system/param/Param', 2, 6, 'ProfileOutlined', 1, '2022-11-30 16:54:04', NULL);
+INSERT INTO `sys_router` VALUES (47, '注册码', 'registerCode', '/system/registerCode/RegisterCode', 2, 2, 'FieldStringOutlined', 1, '2023-01-10 21:29:01', NULL);
 
 -- ----------------------------
 -- Table structure for sys_tool_code
@@ -475,6 +472,7 @@ DROP TABLE IF EXISTS `sys_tool_code`;
 CREATE TABLE `sys_tool_code`  (
   `code_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `columns` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表格字段信息',
+  `module` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '包路径',
   `table_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表格名',
   `primary_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主键信息',
   `http_url` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '接口基本地址',
@@ -492,22 +490,23 @@ CREATE TABLE `sys_tool_code`  (
 -- ----------------------------
 -- Records of sys_tool_code
 -- ----------------------------
-INSERT INTO `sys_tool_code` VALUES (80, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-01 20:47:38');
-INSERT INTO `sys_tool_code` VALUES (81, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-01 20:47:52');
-INSERT INTO `sys_tool_code` VALUES (82, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-01 23:03:50');
-INSERT INTO `sys_tool_code` VALUES (83, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-01 23:04:06');
-INSERT INTO `sys_tool_code` VALUES (84, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":true,\"unique\":true,\"like\":true,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-02 13:18:29');
-INSERT INTO `sys_tool_code` VALUES (85, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":true,\"unique\":true,\"like\":true,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-02 13:18:48');
-INSERT INTO `sys_tool_code` VALUES (86, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2023-01-03 15:01:44');
-INSERT INTO `sys_tool_code` VALUES (87, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:35:38');
-INSERT INTO `sys_tool_code` VALUES (88, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '1', 1, '2023-01-10 20:40:03');
-INSERT INTO `sys_tool_code` VALUES (89, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:40:11');
-INSERT INTO `sys_tool_code` VALUES (90, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:40:17');
-INSERT INTO `sys_tool_code` VALUES (91, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:42:57');
-INSERT INTO `sys_tool_code` VALUES (92, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:44:49');
-INSERT INTO `sys_tool_code` VALUES (93, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:45:48');
-INSERT INTO `sys_tool_code` VALUES (94, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:47:25');
-INSERT INTO `sys_tool_code` VALUES (95, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '1', 1, '2023-01-10 20:47:39');
+INSERT INTO `sys_tool_code` VALUES (80, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', '', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-01 20:47:38');
+INSERT INTO `sys_tool_code` VALUES (81, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', '', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-01 20:47:52');
+INSERT INTO `sys_tool_code` VALUES (82, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', '', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-01 23:03:50');
+INSERT INTO `sys_tool_code` VALUES (83, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', '', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-01 23:04:06');
+INSERT INTO `sys_tool_code` VALUES (84, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":true,\"unique\":true,\"like\":true,\"remark\":\"\"}]', '', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-02 13:18:29');
+INSERT INTO `sys_tool_code` VALUES (85, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":true,\"unique\":true,\"like\":true,\"remark\":\"\"}]', '', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2022-12-02 13:18:48');
+INSERT INTO `sys_tool_code` VALUES (86, '[{\"name\":\"asd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', '', 'asd', '{\"name\":\"asdId\",\"type\":\"autoIncrement\"}', 'asd', '1', '1', '1', '1', 1, '2023-01-03 15:01:44');
+INSERT INTO `sys_tool_code` VALUES (87, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:35:38');
+INSERT INTO `sys_tool_code` VALUES (88, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '1', 1, '2023-01-10 20:40:03');
+INSERT INTO `sys_tool_code` VALUES (89, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:40:11');
+INSERT INTO `sys_tool_code` VALUES (90, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:40:17');
+INSERT INTO `sys_tool_code` VALUES (91, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:42:57');
+INSERT INTO `sys_tool_code` VALUES (92, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:44:49');
+INSERT INTO `sys_tool_code` VALUES (93, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:45:48');
+INSERT INTO `sys_tool_code` VALUES (94, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:47:25');
+INSERT INTO `sys_tool_code` VALUES (95, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'asd', 'sys_register_code', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '1', 1, '2023-01-10 20:47:39');
+INSERT INTO `sys_tool_code` VALUES (97, '[{\"name\":\"asdasd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'com.as', 'asd', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', NULL, '1', '1', '1', '1', 1, '2023-02-07 20:57:21');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -535,12 +534,12 @@ CREATE TABLE `sys_user`  (
   CONSTRAINT `sys_user-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-head_img` FOREIGN KEY (`head_img`) REFERENCES `sys_file` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 107 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 64, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 81, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
 INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '测试', 2, '0', '18150027197', '1072864729@qq.com', 45, '0', '0', 1, '2022-05-17 02:12:00', '测试账号，不可删除');
 INSERT INTO `sys_user` VALUES (89, '1', '$2a$10$30cfIcdCW/iM.mSEI5FQpejfBPjLsltvOXMGtxWgg3B2NL4f2wSBq', '2', NULL, '0', NULL, NULL, NULL, '0', '1', 2, '2023-01-05 11:12:37', NULL);
 INSERT INTO `sys_user` VALUES (90, '1', '$2a$10$a5ubpT8n2sGATK3jtBSc5.PxegJx4lDqvtlGNWkFk.dVUCJJOoaZy', '1', 1, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-10 20:21:33', NULL);
@@ -559,5 +558,11 @@ INSERT INTO `sys_user` VALUES (103, '3', '$2a$10$lPQNe8l9qlKiV3sMQ8WFkePLj4LGv5G
 INSERT INTO `sys_user` VALUES (104, '11111111', '$2a$10$w.Ag79GqpOPRh2rI9y4Uj.t0nBHpKb4/eNqMst.7KGr1KLW.BcLR2', '1', 3, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-01-18 16:58:32', NULL);
 INSERT INTO `sys_user` VALUES (105, '1111111111', '$2a$10$4AZFS6WvrZXms3gBOdsdx.dO95CvcwdcAUuj6j3cyyBSykJ2pahs6', '1111111111', 3, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-19 00:47:14', NULL);
 INSERT INTO `sys_user` VALUES (106, '33333333333', '$2a$10$Kc3XpYEjNuX7Say2ML7Cp.444PEIZPwka2/OtYz4Km2/W/XTXCC6u', '1', 3, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-19 01:16:25', NULL);
+INSERT INTO `sys_user` VALUES (108, 'commonnn', '$2a$10$gD/vsGC0PoHeNRKbbtEna.mFGq/DMzU6c8QlHOXQsgx5vWREKi9Ou', '普通用户', 3, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-06 20:45:19', NULL);
+INSERT INTO `sys_user` VALUES (109, 'asdasdasdasd', '$2a$10$0LI7UIrPlBfk4OGkC1ts9evtSHP1qlct9U5mKO8bQT29msDn1G342', 'asdasdsad', 3, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-06 20:46:30', NULL);
+INSERT INTO `sys_user` VALUES (110, 'asdssssss', '$2a$10$5ZjD.WUj8dl6oX9pDLIUkO78ienHJLoeuvyI.RKdHAlfhXB/7dIMO', 'asdasd', 3, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-06 20:48:15', NULL);
+INSERT INTO `sys_user` VALUES (111, 'asdssssss1', '$2a$10$fmfyML.BgGCGN3PdVGv7we/mhPoSKUqZQkLEh2T2o7.27OrGDBMM.', 'asdasd', 3, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-06 20:48:37', NULL);
+INSERT INTO `sys_user` VALUES (112, 'kkkkkkkk', '$2a$10$3//.8roSB1Uw5mRo6KGv0O6U0gHp/fB0JZBNpyrG0zSMVjQFBbqhC', 'kkk', 1, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-06 20:49:37', NULL);
+INSERT INTO `sys_user` VALUES (113, 'aaaaaaaaaaaaaa', '$2a$10$VxfstUG36n7/aMf7NaRhQuXX91at3iTlWOozw.3lFW6yluOfbqg0O', '啊啊啊啊啊啊啊啊啊啊', 3, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-07 23:45:10', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
