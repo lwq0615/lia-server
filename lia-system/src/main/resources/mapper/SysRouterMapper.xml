@@ -108,12 +108,7 @@
     </delete>
 
     <update id="reloadIndex">
-        update sys_router set `index` = #{index} where router_id in
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <foreach collection="routerIds" index="index" item="item">
-                #{item},
-            </foreach>
-        </trim>
+        update sys_router set `index` = #{index} where router_id = #{routerId}
     </update>
 
 </mapper>

@@ -59,6 +59,6 @@ public interface SysRouterMapper {
     /**
      * 路由重新排序
      */
-    int reloadIndex(List<Integer> routerIds, int index);
+    int reloadIndex(Integer routerId, int index);
 
 }

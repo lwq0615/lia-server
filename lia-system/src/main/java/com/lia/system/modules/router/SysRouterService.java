@@ -87,6 +87,9 @@ public class SysRouterService {
         if(router.getLabel() == null || router.getLabel().equals("")){
             throw new HttpException("缺少参数label");
         }
+        if(router.getParent() == null){
+            throw new HttpException("缺少参数parent");
+        }
         if(router.getPath().contains("/")){
             throw new HttpException("路由地址不能包含'/'");
         }
@@ -142,7 +145,7 @@ public class SysRouterService {
     /**
      * 路由重新排序
      */
-    public int reloadIndex(List<List<Integer>> list){
+    public int reloadIndex(List<Integer> list){
         int success = 0;
         for (int i = 0; i < list.size(); i++) {
             success += sysRouterMapper.reloadIndex(list.get(i), i);

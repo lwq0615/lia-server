@@ -101,7 +101,7 @@ public class SysRouter {
                 nullRouters.add(child);
                 continue;
             }
-            //如果路由没有父路由，则为最顶层路由，放入res中
+            //如果路由是跟路由，则为最顶层路由，放入res中
             if (child.getRouterId().equals(rootId)) {
                 root.add(child);
             }
