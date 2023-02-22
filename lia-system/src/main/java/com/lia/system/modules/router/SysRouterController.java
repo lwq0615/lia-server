@@ -83,7 +83,7 @@ public class SysRouterController {
      */
     @PostMapping("/reloadIndex")
     @PreAuthorize("hasAuthority('system:router:reloadIndex')")
-    public int reloadIndex(@RequestBody List<List<Integer>> list){
+    public int reloadIndex(@RequestBody List<Integer> list){
         return sysRouterService.reloadIndex(list);
     }
 
