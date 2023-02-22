@@ -1,17 +1,17 @@
 /*
- Navicat MySQL Data Transfer
+ Navicat Premium Data Transfer
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80021
+ Source Server Version : 80031
  Source Host           : localhost:3306
  Source Schema         : lia
 
  Target Server Type    : MySQL
- Target Server Version : 80021
+ Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 22/02/2023 00:17:33
+ Date: 22/02/2023 11:02:06
 */
 
 SET NAMES utf8mb4;
@@ -22,22 +22,22 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_auth`;
 CREATE TABLE `sys_auth`  (
-  `auth_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `auth_id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '权限名称',
   `url` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '权限接口地址',
   `key` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '权限标识',
-  `router_id` int(0) NOT NULL COMMENT '所属路由',
-  `create_by` bigint(0) NULL DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `router_id` int NOT NULL COMMENT '所属路由',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`auth_id`) USING BTREE,
-  UNIQUE INDEX `sys_auth-url`(`url`) USING BTREE,
-  UNIQUE INDEX `sys_auth-key`(`key`) USING BTREE,
-  INDEX `sys_auth-create_by`(`create_by`) USING BTREE,
-  INDEX `sys_auth-router_id`(`router_id`) USING BTREE,
+  UNIQUE INDEX `sys_auth-url`(`url` ASC) USING BTREE,
+  UNIQUE INDEX `sys_auth-key`(`key` ASC) USING BTREE,
+  INDEX `sys_auth-create_by`(`create_by` ASC) USING BTREE,
+  INDEX `sys_auth-router_id`(`router_id` ASC) USING BTREE,
   CONSTRAINT `sys_auth-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 90 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_auth
@@ -88,20 +88,20 @@ INSERT INTO `sys_auth` VALUES (91, '路由重新排序', '/system/router/reloadI
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_company`;
 CREATE TABLE `sys_company`  (
-  `company_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `company_id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '企业名称',
   `principal` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '企业负责人',
   `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '负责人联系方式',
   `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '企业地址',
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱地址',
-  `create_by` bigint(0) NULL DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`company_id`) USING BTREE,
-  UNIQUE INDEX `sys_company-name`(`name`) USING BTREE COMMENT '企业名称唯一',
-  INDEX `sys_company-create_by`(`create_by`) USING BTREE,
+  UNIQUE INDEX `sys_company-name`(`name` ASC) USING BTREE COMMENT '企业名称唯一',
+  INDEX `sys_company-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_company-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_company
@@ -113,20 +113,20 @@ INSERT INTO `sys_company` VALUES (1, '泉州师范学院', '李伟强', '1815002
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data`  (
-  `data_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `data_id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `value` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '字典数据key',
   `label` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '字典数据值',
-  `type_id` int(0) NOT NULL COMMENT '字典分类',
-  `create_by` bigint(0) NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `type_id` int NOT NULL COMMENT '字典分类',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`data_id`) USING BTREE,
-  UNIQUE INDEX `sys_dict_data-type_id,value`(`value`, `type_id`) USING BTREE,
-  INDEX `sys_dict_data-create_by`(`create_by`) USING BTREE,
-  INDEX `sys_dict_data-type_id`(`type_id`) USING BTREE,
+  UNIQUE INDEX `sys_dict_data-type_id,value`(`value` ASC, `type_id` ASC) USING BTREE,
+  INDEX `sys_dict_data-create_by`(`create_by` ASC) USING BTREE,
+  INDEX `sys_dict_data-type_id`(`type_id` ASC) USING BTREE,
   CONSTRAINT `sys_dict_data-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_dict_data-type_id` FOREIGN KEY (`type_id`) REFERENCES `sys_dict_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -142,17 +142,17 @@ INSERT INTO `sys_dict_data` VALUES (24, '1', '停用', 5, 1, '2022-09-28 21:46:5
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type`  (
-  `type_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `type_id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '类别名',
   `key` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标识符',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  `create_by` bigint(0) NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`type_id`) USING BTREE,
-  UNIQUE INDEX `sys_dict_type-key`(`key`) USING BTREE,
-  INDEX `sys_dict_type-create_by`(`create_by`) USING BTREE,
+  UNIQUE INDEX `sys_dict_type-key`(`key` ASC) USING BTREE,
+  INDEX `sys_dict_type-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_dict_type-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -165,16 +165,16 @@ INSERT INTO `sys_dict_type` VALUES (5, '账号状态', 'sys:user:status', NULL, 
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_file`;
 CREATE TABLE `sys_file`  (
-  `file_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `file_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '原文件名',
   `path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文件存储路径',
-  `size` bigint(0) NULL DEFAULT NULL COMMENT '文件大小',
-  `upload_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '上传时间',
-  `upload_user` bigint(0) NULL DEFAULT NULL COMMENT '上传者',
+  `size` bigint NULL DEFAULT NULL COMMENT '文件大小',
+  `upload_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '上传时间',
+  `upload_user` bigint NULL DEFAULT NULL COMMENT '上传者',
   PRIMARY KEY (`file_id`) USING BTREE,
-  INDEX `sys_file-upload_user`(`upload_user`) USING BTREE,
+  INDEX `sys_file-upload_user`(`upload_user` ASC) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_file
@@ -188,19 +188,19 @@ INSERT INTO `sys_file` VALUES (81, '屏幕截图_20230101_190859.png', 'public/i
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_msg`;
 CREATE TABLE `sys_msg`  (
-  `msg_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `msg_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `content` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '消息内容',
   `read` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '是否已读（0：未读，1：已读）',
   `type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '消息类型（0：普通消息，1：图片）',
-  `send_by` bigint(0) NULL DEFAULT NULL COMMENT '发送人',
-  `send_to` bigint(0) NULL DEFAULT NULL COMMENT '接收人',
-  `send_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '发送时间',
+  `send_by` bigint NULL DEFAULT NULL COMMENT '发送人',
+  `send_to` bigint NULL DEFAULT NULL COMMENT '接收人',
+  `send_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
   PRIMARY KEY (`msg_id`) USING BTREE,
-  INDEX `sys_msg-send_by`(`send_by`) USING BTREE,
-  INDEX `sys_msg-send_to`(`send_to`) USING BTREE,
+  INDEX `sys_msg-send_by`(`send_by` ASC) USING BTREE,
+  INDEX `sys_msg-send_to`(`send_to` ASC) USING BTREE,
   CONSTRAINT `sys_msg-send_by` FOREIGN KEY (`send_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_msg-send_to` FOREIGN KEY (`send_to`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 180 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 180 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_msg
@@ -245,18 +245,18 @@ INSERT INTO `sys_msg` VALUES (179, '11', '0', '0', 1, 2, '2023-02-21 22:18:11');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_param`;
 CREATE TABLE `sys_param`  (
-  `param_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '参数主键',
+  `param_id` int NOT NULL AUTO_INCREMENT COMMENT '参数主键',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '参数名',
   `value` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '参数值',
   `mean` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '说明',
-  `create_by` bigint(0) NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`param_id`) USING BTREE,
-  UNIQUE INDEX `sys_param-name`(`name`) USING BTREE,
-  INDEX `sys_param-create_by`(`create_by`) USING BTREE,
+  UNIQUE INDEX `sys_param-name`(`name` ASC) USING BTREE,
+  INDEX `sys_param-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_param-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_param
@@ -270,22 +270,22 @@ INSERT INTO `sys_param` VALUES (5, 'register_check_code', 'true', '注册时是�
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_register_code`;
 CREATE TABLE `sys_register_code`  (
-  `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '注册码',
-  `role_id` int(0) NOT NULL COMMENT '该注册码可激活的角色',
-  `use_by` bigint(0) NULL DEFAULT NULL COMMENT '使用该注册码的用户ID',
-  `use_time` datetime(0) NULL DEFAULT NULL COMMENT '注册码被使用的时间',
-  `create_by` bigint(0) NOT NULL COMMENT '创建该注册码的用户ID',
-  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `role_id` int NOT NULL COMMENT '该注册码可激活的角色',
+  `use_by` bigint NULL DEFAULT NULL COMMENT '使用该注册码的用户ID',
+  `use_time` datetime NULL DEFAULT NULL COMMENT '注册码被使用的时间',
+  `create_by` bigint NOT NULL COMMENT '创建该注册码的用户ID',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `sys_register_code-code`(`code`) USING BTREE,
-  INDEX `sys_register_code-role_id`(`role_id`) USING BTREE,
-  INDEX `sys_register_code-use_by`(`use_by`) USING BTREE,
-  INDEX `sys_register_code-create_by`(`create_by`) USING BTREE,
+  UNIQUE INDEX `sys_register_code-code`(`code` ASC) USING BTREE,
+  INDEX `sys_register_code-role_id`(`role_id` ASC) USING BTREE,
+  INDEX `sys_register_code-use_by`(`use_by` ASC) USING BTREE,
+  INDEX `sys_register_code-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_register_code_ibfk_1` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_register_code_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_register_code_ibfk_3` FOREIGN KEY (`use_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_register_code
@@ -303,26 +303,26 @@ INSERT INTO `sys_register_code` VALUES (7, 'FmcaAgQ2JQUdGxsNwUMd', 1, 112, '2023
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
-  `role_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `role_id` int NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色名称',
   `key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色权限字符串',
-  `company_id` int(0) NOT NULL COMMENT '所属企业',
-  `superior` int(0) NULL DEFAULT NULL COMMENT '上级',
-  `root_router_id` int(0) NULL DEFAULT 0 COMMENT '指定用户的根目录',
-  `create_by` bigint(0) NULL DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `company_id` int NOT NULL COMMENT '所属企业',
+  `superior` int NULL DEFAULT NULL COMMENT '上级',
+  `root_router_id` int NULL DEFAULT 0 COMMENT '指定用户的根目录',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE,
-  UNIQUE INDEX `sys_role-key`(`key`) USING BTREE,
-  INDEX `sys_role-create_by`(`create_by`) USING BTREE,
-  INDEX `sys_role-superior`(`superior`) USING BTREE,
-  INDEX `sys_role-company_id`(`company_id`) USING BTREE,
-  INDEX `sys_role-root_router_id`(`root_router_id`) USING BTREE,
+  UNIQUE INDEX `sys_role-key`(`key` ASC) USING BTREE,
+  INDEX `sys_role-create_by`(`create_by` ASC) USING BTREE,
+  INDEX `sys_role-superior`(`superior` ASC) USING BTREE,
+  INDEX `sys_role-company_id`(`company_id` ASC) USING BTREE,
+  INDEX `sys_role-root_router_id`(`root_router_id` ASC) USING BTREE,
   CONSTRAINT `sys_role-company_id` FOREIGN KEY (`company_id`) REFERENCES `sys_company` (`company_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_role-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_role-root_router_id` FOREIGN KEY (`root_router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_role-superior` FOREIGN KEY (`superior`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 135 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 135 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
@@ -336,14 +336,14 @@ INSERT INTO `sys_role` VALUES (3, '普通用户', 'sys:user:common', 1, 1, 1, 1,
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_auth`;
 CREATE TABLE `sys_role_auth`  (
-  `role_id` int(0) NOT NULL COMMENT '角色ID（外键）',
-  `auth_id` int(0) NOT NULL COMMENT '权限ID（外键）',
+  `role_id` int NOT NULL COMMENT '角色ID（外键）',
+  `auth_id` int NOT NULL COMMENT '权限ID（外键）',
   PRIMARY KEY (`role_id`, `auth_id`) USING BTREE,
-  INDEX `sys_role_auth-role_id`(`role_id`) USING BTREE,
-  INDEX `sys_role_auth-auth_id`(`auth_id`) USING BTREE,
+  INDEX `sys_role_auth-role_id`(`role_id` ASC) USING BTREE,
+  INDEX `sys_role_auth-auth_id`(`auth_id` ASC) USING BTREE,
   CONSTRAINT `sys_role_auth  -role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_role_auth-auth_id` FOREIGN KEY (`auth_id`) REFERENCES `sys_auth` (`auth_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_auth
@@ -394,14 +394,14 @@ INSERT INTO `sys_role_auth` VALUES (1, 91);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_router`;
 CREATE TABLE `sys_role_router`  (
-  `role_id` int(0) NOT NULL COMMENT '角色ID（外键）',
-  `router_id` int(0) NOT NULL COMMENT '权限ID（外键）',
+  `role_id` int NOT NULL COMMENT '角色ID（外键）',
+  `router_id` int NOT NULL COMMENT '权限ID（外键）',
   PRIMARY KEY (`role_id`, `router_id`) USING BTREE,
-  INDEX `sys_role_router-router_id`(`router_id`) USING BTREE,
-  INDEX `sys_role_router-role_id`(`role_id`) USING BTREE,
+  INDEX `sys_role_router-router_id`(`router_id` ASC) USING BTREE,
+  INDEX `sys_role_router-role_id`(`role_id` ASC) USING BTREE,
   CONSTRAINT `sys_role_router-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_role_router-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_router
@@ -431,46 +431,46 @@ INSERT INTO `sys_role_router` VALUES (2, 47);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_router`;
 CREATE TABLE `sys_router`  (
-  `router_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '路由ID',
+  `router_id` int NOT NULL AUTO_INCREMENT COMMENT '路由ID',
   `label` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '路由名称',
   `path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '路由地址',
   `element` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '组件地址',
-  `parent` int(0) NULL DEFAULT 0 COMMENT '父路由',
-  `index` int(0) NULL DEFAULT NULL COMMENT '索引，决定路由展示的顺序',
+  `parent` int NOT NULL DEFAULT 0 COMMENT '父路由',
+  `index` int NULL DEFAULT NULL COMMENT '索引，决定路由展示的顺序',
   `icon` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '按钮图标',
-  `create_by` bigint(0) NULL DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`router_id`) USING BTREE,
-  UNIQUE INDEX `sys_router-element`(`element`) USING BTREE,
-  UNIQUE INDEX `sys_router-parent,path`(`path`, `parent`) USING BTREE,
-  INDEX `sys_router-create_by`(`create_by`) USING BTREE,
-  INDEX `sys_router-parent`(`parent`) USING BTREE,
+  UNIQUE INDEX `sys_router-parent,path`(`path` ASC, `parent` ASC) USING BTREE,
+  UNIQUE INDEX `sys_router-element`(`element` ASC) USING BTREE,
+  INDEX `sys_router-create_by`(`create_by` ASC) USING BTREE,
+  INDEX `sys_router-parent`(`parent` ASC) USING BTREE,
   CONSTRAINT `sys_router-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_router-parent` FOREIGN KEY (`parent`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_router
 -- ----------------------------
-INSERT INTO `sys_router` VALUES (1, '根目录', '', NULL, NULL, 1, NULL, 1, '2022-06-05 02:55:58', NULL);
-INSERT INTO `sys_router` VALUES (2, '系统管理', 'system', NULL, 1, 0, 'SettingOutlined', 1, '2022-05-09 10:51:00', NULL);
+INSERT INTO `sys_router` VALUES (1, '根目录', '', NULL, 1, 1, NULL, 1, '2022-06-05 02:55:58', NULL);
+INSERT INTO `sys_router` VALUES (2, '系统管理', 'system', NULL, 1, 1, 'SettingOutlined', 1, '2022-05-09 10:51:00', NULL);
 INSERT INTO `sys_router` VALUES (3, '用户管理', 'user', '/system/user/User', 2, 0, 'TeamOutlined', 1, '2022-05-09 10:55:00', NULL);
-INSERT INTO `sys_router` VALUES (4, '权限管理', 'auth', '/system/auth/Auth', 2, 3, 'KeyOutlined', 1, '2022-05-09 11:01:00', NULL);
-INSERT INTO `sys_router` VALUES (5, '路由管理', 'router', '/system/router/Router', 2, 4, 'GoldOutlined', 1, '2022-05-30 21:14:00', NULL);
+INSERT INTO `sys_router` VALUES (4, '权限管理', 'auth', '/system/auth/Auth', 2, 2, 'KeyOutlined', 1, '2022-05-09 11:01:00', NULL);
+INSERT INTO `sys_router` VALUES (5, '路由管理', 'router', '/system/router/Router', 2, 3, 'GoldOutlined', 1, '2022-05-30 21:14:00', NULL);
 INSERT INTO `sys_router` VALUES (6, '字典配置', 'dict', '/system/dict/Dict', 2, 5, 'PicRightOutlined', 1, '2022-06-11 11:25:44', NULL);
 INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 2, 7, 'CodeSandboxOutlined', 1, '2022-06-19 16:57:58', NULL);
 INSERT INTO `sys_router` VALUES (40, '代码生成', 'codeGenerator', '/system/tool/codeGenerator/CodeGenerator', 38, 0, 'CopyrightOutlined', 1, '2022-06-19 17:00:51', NULL);
 INSERT INTO `sys_router` VALUES (41, '企业管理', 'company', '/system/company/Company', 2, 1, 'VerifiedOutlined', 1, '2022-09-20 15:27:00', NULL);
 INSERT INTO `sys_router` VALUES (44, '系统参数', 'param', '/system/param/Param', 2, 6, 'ProfileOutlined', 1, '2022-11-30 16:54:04', NULL);
-INSERT INTO `sys_router` VALUES (47, '注册码', 'registerCode', '/system/registerCode/RegisterCode', 2, 2, 'FieldStringOutlined', 1, '2023-01-10 21:29:01', NULL);
+INSERT INTO `sys_router` VALUES (47, '注册码', 'registerCode', '/system/registerCode/RegisterCode', 2, 4, 'FieldStringOutlined', 1, '2023-01-10 21:29:01', NULL);
 
 -- ----------------------------
 -- Table structure for sys_tool_code
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_tool_code`;
 CREATE TABLE `sys_tool_code`  (
-  `code_id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code_id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `columns` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表格字段信息',
   `module` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '包路径',
   `table_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表格名',
@@ -480,12 +480,12 @@ CREATE TABLE `sys_tool_code`  (
   `create_time_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加创建时间字段(0:是，1:否)',
   `update_time_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加更新时间字段(0:是，1:否)',
   `remark_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加备注字段(0:是，1:否)',
-  `create_by` bigint(0) NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`code_id`) USING BTREE,
-  INDEX `sys_tool_code-create_by`(`create_by`) USING BTREE,
+  INDEX `sys_tool_code-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_tool_code-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 97 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 98 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_tool_code
@@ -513,28 +513,28 @@ INSERT INTO `sys_tool_code` VALUES (97, '[{\"name\":\"asdasd\",\"type\":\"String
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
-  `user_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户名',
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码',
   `nick` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '昵称',
-  `role_id` int(0) NULL DEFAULT NULL COMMENT '用户角色ID',
+  `role_id` int NULL DEFAULT NULL COMMENT '用户角色ID',
   `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '性别（0男 1女 2其他）',
   `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '手机号码',
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `head_img` bigint(0) NULL DEFAULT NULL COMMENT '头像地址',
+  `head_img` bigint NULL DEFAULT NULL COMMENT '头像地址',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
   `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
-  `create_by` bigint(0) NULL DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE,
-  INDEX `sys_user-create_by`(`create_by`) USING BTREE,
-  INDEX `sys_user-role_id`(`role_id`) USING BTREE,
-  INDEX `sys_user-head_img`(`head_img`) USING BTREE,
+  INDEX `sys_user-create_by`(`create_by` ASC) USING BTREE,
+  INDEX `sys_user-role_id`(`role_id` ASC) USING BTREE,
+  INDEX `sys_user-head_img`(`head_img` ASC) USING BTREE,
   CONSTRAINT `sys_user-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-head_img` FOREIGN KEY (`head_img`) REFERENCES `sys_file` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
