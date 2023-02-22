@@ -100,7 +100,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!-- 指定该Main Class为全局的唯一入口 -->
-                    <mainClass>com.lia.NestApplication</mainClass>
+                    <mainClass>com.lia.Application</mainClass>
                 </configuration>
                 <executions>
                     <execution>

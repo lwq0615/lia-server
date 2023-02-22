@@ -3,8 +3,6 @@ package com.lia;
 import com.lia.system.utils.SpringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 
 /**
@@ -12,11 +10,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
  * @author liweiqiang
  */
 @SpringBootApplication
-public class NestApplication
+public class Application
 {
     public static void main(String[] args)
     {
-        SpringUtils.initApplicationContext(SpringApplication.run(NestApplication.class, args));
+        SpringUtils.initApplicationContext(SpringApplication.run(Application.class, args));
         System.out.println("(♥◠‿◠)ﾉﾞ  启动成功   ლ(´ڡ`ლ)ﾞ");
     }
 }
