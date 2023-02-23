@@ -54,7 +54,10 @@ public class SysAuthService {
         if(auth.getName() == null || auth.getName().equals("")){
             throw new HttpException("缺少参数name");
         }
-        if(auth.getUrl() == null || auth.getUrl().equals("")){
+        if(auth.getType() == null){
+            throw new HttpException("缺少参数type");
+        }
+        if(auth.getType().equals('0') && (auth.getUrl() == null || auth.getUrl().equals(""))){
             throw new HttpException("缺少参数url");
         }
         if(auth.getKey() == null || auth.getKey().equals("")){
@@ -63,14 +66,13 @@ public class SysAuthService {
         if(auth.getRouterId() == null){
             throw new HttpException("缺少参数routerId");
         }
-        if(auth.getType() == null){
-            throw new HttpException("缺少参数type");
-        }
-        if(!auth.getUrl().substring(0, 1).equals("/")){
-           auth.setUrl("/"+auth.getUrl());
-        }
-        if(auth.getUrl().substring(auth.getUrl().length()-1).equals("/")){
-            auth.setUrl(auth.getUrl().substring(0, auth.getUrl().length()-1));
+        if(auth.getUrl() != null){
+            if(!auth.getUrl().substring(0, 1).equals("/")){
+                auth.setUrl("/"+auth.getUrl());
+            }
+            if(auth.getUrl().substring(auth.getUrl().length()-1).equals("/")){
+                auth.setUrl(auth.getUrl().substring(0, auth.getUrl().length()-1));
+            }
         }
         int success = 0;
         try {
