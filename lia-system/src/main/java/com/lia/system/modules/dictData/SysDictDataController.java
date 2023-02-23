@@ -81,4 +81,14 @@ public class SysDictDataController {
     }
 
 
+    /**
+     * 根据key获取字典数据
+     */
+    @GetMapping("/getByKey")
+    @PreAuthorize("hasAuthority('system:dictData:getByKey')")
+    public List<SysDictData> getDictByKey(String key){
+        return sysDictDataService.getDictByKey(key);
+    }
+
+
 }

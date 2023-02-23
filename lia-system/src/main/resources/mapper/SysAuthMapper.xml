@@ -36,6 +36,9 @@
             <if test="routerId != null">
                 AND router_id = #{routerId}
             </if>
+            <if test="type != null">
+                AND `type` = #{type}
+            </if>
             <if test="createBy != null">
                 AND create_by = #{createBy}
             </if>
@@ -52,13 +55,14 @@
 
     <insert id="addSysAuth" parameterType="SysAuth">
         insert  into sys_auth
-        (`name`,url,`key`,router_id,create_by,remark)
+        (`name`,url,`key`,router_id,`type`,create_by,remark)
         values
         <trim prefix="(" suffix=")" suffixOverrides="," >
             #{name},
             #{url},
             #{key},
             #{routerId},
+            #{type},
             #{createBy},
             #{remark},
         </trim>
@@ -71,6 +75,7 @@
         url = #{url},
         `key` = #{key},
         router_id = #{routerId},
+        `type` = #{type},
         remark = #{remark}
         where auth_id = #{authId}
     </update>

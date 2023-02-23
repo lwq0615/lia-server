@@ -48,6 +48,11 @@ public class SysAuth {
     private Integer routerId;
 
     /**
+     * 权限类型（0：接口，1：组件）
+     */
+    private Character type;
+
+    /**
      * 创建人
      */
     private Long createBy;

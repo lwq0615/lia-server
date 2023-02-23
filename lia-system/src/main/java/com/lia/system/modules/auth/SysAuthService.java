@@ -63,6 +63,9 @@ public class SysAuthService {
         if(auth.getRouterId() == null){
             throw new HttpException("缺少参数routerId");
         }
+        if(auth.getType() == null){
+            throw new HttpException("缺少参数type");
+        }
         if(!auth.getUrl().substring(0, 1).equals("/")){
            auth.setUrl("/"+auth.getUrl());
         }

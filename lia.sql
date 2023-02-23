@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 22/02/2023 11:02:06
+ Date: 23/02/2023 16:18:09
 */
 
 SET NAMES utf8mb4;
@@ -27,6 +27,7 @@ CREATE TABLE `sys_auth`  (
   `url` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '权限接口地址',
   `key` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '权限标识',
   `router_id` int NOT NULL COMMENT '所属路由',
+  `type` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '权限类型(0：接口，1：组件)',
   `create_by` bigint NULL DEFAULT NULL COMMENT '创建者',
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
@@ -37,51 +38,52 @@ CREATE TABLE `sys_auth`  (
   INDEX `sys_auth-router_id`(`router_id` ASC) USING BTREE,
   CONSTRAINT `sys_auth-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 93 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_auth
 -- ----------------------------
-INSERT INTO `sys_auth` VALUES (1, '查询用户', '/system/user/getPage', 'system:user:getPage', 3, 1, '2022-05-06 17:25:00', NULL);
-INSERT INTO `sys_auth` VALUES (5, '添加或编辑用户', '/system/user/saveUser', 'system:user:saveUser', 3, 1, '2022-05-12 17:16:06', NULL);
-INSERT INTO `sys_auth` VALUES (6, '批量删除用户', '/system/user/deleteUsers', 'system:user:deleteUsers', 3, 1, '2022-05-15 20:28:25', NULL);
-INSERT INTO `sys_auth` VALUES (7, '获取创建人字典表', '/system/user/getCreateByDict', 'system:user:getCreateByDict', 3, 1, '2022-05-16 14:38:54', NULL);
-INSERT INTO `sys_auth` VALUES (8, '查询路由树', '/system/router/getRouterTree', 'system:router:getRouterTree', 5, 1, '2022-05-30 14:55:21', NULL);
-INSERT INTO `sys_auth` VALUES (9, '保存路由', '/system/router/saveRouter', 'system:router:saveRouter', 5, 1, '2022-05-30 15:19:25', NULL);
-INSERT INTO `sys_auth` VALUES (10, '批量删除路由', '/system/router/deleteRouters', 'system:router:deleteRouters', 5, 1, '2022-05-30 15:19:50', NULL);
-INSERT INTO `sys_auth` VALUES (11, '批量删除权限', '/system/auth/delete', 'system:auth:delete', 4, 1, '2022-06-11 11:51:33', NULL);
-INSERT INTO `sys_auth` VALUES (12, '根据id查询路由', '/system/router/getRouterById', 'system:router:getRouterById', 5, 1, '2022-06-06 01:55:50', NULL);
-INSERT INTO `sys_auth` VALUES (13, '查询角色列表', '/system/role/getPage', 'system:role:getPage', 41, 1, '2022-06-10 23:09:27', NULL);
-INSERT INTO `sys_auth` VALUES (14, '新增或编辑角色', '/system/role/saveRole', 'system:role:saveRole', 41, 1, '2022-06-10 23:31:23', NULL);
-INSERT INTO `sys_auth` VALUES (15, '批量删除角色', '/system/role/deleteRoles', 'system:role:deleteRoles', 41, 1, '2022-06-10 23:32:29', NULL);
-INSERT INTO `sys_auth` VALUES (16, '获取权限字典表', '/system/auth/sysAuthDict', 'system:auth:sysAuthDict', 4, 1, '2022-06-11 01:20:20', NULL);
-INSERT INTO `sys_auth` VALUES (17, '分页查询权限', '/system/auth/getPage', 'system:auth:getPage', 4, 1, '2022-06-11 11:50:18', NULL);
-INSERT INTO `sys_auth` VALUES (18, '新增或编辑权限', '/system/auth/save', 'system:auth:save', 4, 1, '2022-06-11 11:50:58', NULL);
-INSERT INTO `sys_auth` VALUES (59, '企业管理分页查询', '/system/company/getPage', 'system:company:getPage', 41, 1, '2022-09-20 15:51:20', NULL);
-INSERT INTO `sys_auth` VALUES (60, '企业管理新增和编辑', '/system/company/save', 'system:company:save', 41, 1, '2022-09-20 15:51:51', NULL);
-INSERT INTO `sys_auth` VALUES (61, '企业管理批量删除', '/system/company/delete', 'system:company:delete', 41, 1, '2022-09-20 15:52:15', NULL);
-INSERT INTO `sys_auth` VALUES (62, '获取企业字典表', '/system/company/sysCompanyDict', 'system:company:sysCompanyDict', 41, 1, '2022-09-20 19:56:00', NULL);
-INSERT INTO `sys_auth` VALUES (63, '获取某企业下的角色字典表', '/system/role/getRoleOfCompanyDict', 'system:role:getRoleOfCompanyDict', 41, 1, '2022-09-20 20:37:00', '根据企业ID获取某企业下的角色字典表');
-INSERT INTO `sys_auth` VALUES (64, '字典类别分页查询', '/system/dictType/getPage', 'system:dictType:getPage', 6, 1, '2022-09-23 11:21:13', NULL);
-INSERT INTO `sys_auth` VALUES (65, '字典类别新增和编辑', '/system/dictType/save', 'system:dictType:save', 6, 1, '2022-09-23 11:21:40', NULL);
-INSERT INTO `sys_auth` VALUES (66, '批量删除字典类别', '/system/dictType/delete', 'system:dictType:delete', 6, 1, '2022-09-23 11:22:05', NULL);
-INSERT INTO `sys_auth` VALUES (68, '字典数据分页查询', '/system/dictData/getPage', 'system:dictData:getPage', 6, 1, '2022-09-23 11:47:42', NULL);
-INSERT INTO `sys_auth` VALUES (69, '字典数据新增或编辑', '/system/dictData/save', 'system:dictData:save', 6, 1, '2022-09-23 11:48:28', NULL);
-INSERT INTO `sys_auth` VALUES (70, '字典数据批量删除', '/system/dictData/delete', 'system:dictData:delete', 6, 1, '2022-09-23 11:48:55', NULL);
-INSERT INTO `sys_auth` VALUES (72, '获取性别字典表', '/system/dictData/getSexDict', 'system:dictData:getSexDict', 6, 1, '2022-09-23 12:08:03', NULL);
-INSERT INTO `sys_auth` VALUES (73, '代码生成添加或编辑记录', '/system/tool/code/save', 'system:tool:code:save', 40, 1, '2022-09-23 16:10:40', NULL);
-INSERT INTO `sys_auth` VALUES (74, '代码生成分页查询', '/system/tool/code/getPage', 'system:tool:code:getPage', 40, 1, '2022-09-23 16:12:12', NULL);
-INSERT INTO `sys_auth` VALUES (75, '代码生成批量删除', '/system/tool/code/delete', 'system:tool:code:delete', 40, 1, '2022-09-23 16:18:15', NULL);
-INSERT INTO `sys_auth` VALUES (76, '角色状态字典表', '/system/dictData/getUserStatusDict', 'system:dictData:getUserStatusDict', 6, 1, '2022-09-28 21:51:47', NULL);
-INSERT INTO `sys_auth` VALUES (77, '分页查询系统参数', '/system/param/getPage', 'system:param:getPage', 44, 1, '2022-11-30 16:55:39', NULL);
-INSERT INTO `sys_auth` VALUES (78, '新增或编辑参数', '/system/param/save', 'system:param:save', 44, 1, '2022-11-30 16:56:13', NULL);
-INSERT INTO `sys_auth` VALUES (79, '批量删除参数', '/system/param/delete', 'system:param:delete', 44, 1, '2022-11-30 16:56:37', NULL);
-INSERT INTO `sys_auth` VALUES (81, '批量移动权限', '/system/auth/moveToRouter', 'system:auth:moveToRouter', 4, 1, '2023-01-10 13:34:56', '批量移动权限到某路由');
-INSERT INTO `sys_auth` VALUES (82, '分页查询', '/system/register/code/getPage', 'system:register:code:getPage', 47, 1, '2023-01-10 21:31:40', NULL);
-INSERT INTO `sys_auth` VALUES (83, '编辑', '/system/register/code/edit', 'system:register:code:edit', 47, 1, '2023-01-10 21:32:07', NULL);
-INSERT INTO `sys_auth` VALUES (84, '批量删除', '/system/register/code/delete', 'system:register:code:delete', 47, 1, '2023-01-10 21:32:27', NULL);
-INSERT INTO `sys_auth` VALUES (85, '批量生成注册码', '/system/register/code/create', 'system:register:code:create', 47, 1, '2023-01-11 00:40:12', NULL);
-INSERT INTO `sys_auth` VALUES (91, '路由重新排序', '/system/router/reloadIndex', 'system:router:reloadIndex', 5, 1, '2023-02-22 00:10:57', NULL);
+INSERT INTO `sys_auth` VALUES (1, '查询用户', '/system/user/getPage', 'system:user:getPage', 3, '0', 1, '2022-05-06 17:25:00', NULL);
+INSERT INTO `sys_auth` VALUES (5, '添加或编辑用户', '/system/user/saveUser', 'system:user:saveUser', 3, '0', 1, '2022-05-12 17:16:06', NULL);
+INSERT INTO `sys_auth` VALUES (6, '批量删除用户', '/system/user/deleteUsers', 'system:user:deleteUsers', 3, '0', 1, '2022-05-15 20:28:25', NULL);
+INSERT INTO `sys_auth` VALUES (7, '获取创建人字典表', '/system/user/getCreateByDict', 'system:user:getCreateByDict', 3, '0', 1, '2022-05-16 14:38:54', NULL);
+INSERT INTO `sys_auth` VALUES (8, '查询路由树', '/system/router/getRouterTree', 'system:router:getRouterTree', 5, '0', 1, '2022-05-30 14:55:21', NULL);
+INSERT INTO `sys_auth` VALUES (9, '保存路由', '/system/router/saveRouter', 'system:router:saveRouter', 5, '0', 1, '2022-05-30 15:19:25', NULL);
+INSERT INTO `sys_auth` VALUES (10, '批量删除路由', '/system/router/deleteRouters', 'system:router:deleteRouters', 5, '0', 1, '2022-05-30 15:19:50', NULL);
+INSERT INTO `sys_auth` VALUES (11, '批量删除权限', '/system/auth/delete', 'system:auth:delete', 4, '0', 1, '2022-06-11 11:51:33', NULL);
+INSERT INTO `sys_auth` VALUES (12, '根据id查询路由', '/system/router/getRouterById', 'system:router:getRouterById', 5, '0', 1, '2022-06-06 01:55:50', NULL);
+INSERT INTO `sys_auth` VALUES (13, '查询角色列表', '/system/role/getPage', 'system:role:getPage', 41, '0', 1, '2022-06-10 23:09:27', NULL);
+INSERT INTO `sys_auth` VALUES (14, '新增或编辑角色', '/system/role/saveRole', 'system:role:saveRole', 41, '0', 1, '2022-06-10 23:31:23', NULL);
+INSERT INTO `sys_auth` VALUES (15, '批量删除角色', '/system/role/deleteRoles', 'system:role:deleteRoles', 41, '0', 1, '2022-06-10 23:32:29', NULL);
+INSERT INTO `sys_auth` VALUES (16, '获取权限字典表', '/system/auth/sysAuthDict', 'system:auth:sysAuthDict', 4, '0', 1, '2022-06-11 01:20:20', NULL);
+INSERT INTO `sys_auth` VALUES (17, '分页查询权限', '/system/auth/getPage', 'system:auth:getPage', 4, '0', 1, '2022-06-11 11:50:18', NULL);
+INSERT INTO `sys_auth` VALUES (18, '新增或编辑权限', '/system/auth/save', 'system:auth:save', 4, '0', 1, '2022-06-11 11:50:58', NULL);
+INSERT INTO `sys_auth` VALUES (59, '企业管理分页查询', '/system/company/getPage', 'system:company:getPage', 41, '0', 1, '2022-09-20 15:51:20', NULL);
+INSERT INTO `sys_auth` VALUES (60, '企业管理新增和编辑', '/system/company/save', 'system:company:save', 41, '0', 1, '2022-09-20 15:51:51', NULL);
+INSERT INTO `sys_auth` VALUES (61, '企业管理批量删除', '/system/company/delete', 'system:company:delete', 41, '0', 1, '2022-09-20 15:52:15', NULL);
+INSERT INTO `sys_auth` VALUES (62, '获取企业字典表', '/system/company/sysCompanyDict', 'system:company:sysCompanyDict', 41, '0', 1, '2022-09-20 19:56:00', NULL);
+INSERT INTO `sys_auth` VALUES (63, '获取某企业下的角色字典表', '/system/role/getRoleOfCompanyDict', 'system:role:getRoleOfCompanyDict', 41, '0', 1, '2022-09-20 20:37:00', '根据企业ID获取某企业下的角色字典表');
+INSERT INTO `sys_auth` VALUES (64, '字典类别分页查询', '/system/dictType/getPage', 'system:dictType:getPage', 6, '0', 1, '2022-09-23 11:21:13', NULL);
+INSERT INTO `sys_auth` VALUES (65, '字典类别新增和编辑', '/system/dictType/save', 'system:dictType:save', 6, '0', 1, '2022-09-23 11:21:40', NULL);
+INSERT INTO `sys_auth` VALUES (66, '批量删除字典类别', '/system/dictType/delete', 'system:dictType:delete', 6, '0', 1, '2022-09-23 11:22:05', NULL);
+INSERT INTO `sys_auth` VALUES (68, '字典数据分页查询', '/system/dictData/getPage', 'system:dictData:getPage', 6, '0', 1, '2022-09-23 11:47:42', NULL);
+INSERT INTO `sys_auth` VALUES (69, '字典数据新增或编辑', '/system/dictData/save', 'system:dictData:save', 6, '0', 1, '2022-09-23 11:48:28', NULL);
+INSERT INTO `sys_auth` VALUES (70, '字典数据批量删除', '/system/dictData/delete', 'system:dictData:delete', 6, '0', 1, '2022-09-23 11:48:55', NULL);
+INSERT INTO `sys_auth` VALUES (72, '获取性别字典表', '/system/dictData/getSexDict', 'system:dictData:getSexDict', 6, '0', 1, '2022-09-23 12:08:03', NULL);
+INSERT INTO `sys_auth` VALUES (73, '代码生成添加或编辑记录', '/system/tool/code/save', 'system:tool:code:save', 40, '0', 1, '2022-09-23 16:10:40', NULL);
+INSERT INTO `sys_auth` VALUES (74, '代码生成分页查询', '/system/tool/code/getPage', 'system:tool:code:getPage', 40, '0', 1, '2022-09-23 16:12:12', NULL);
+INSERT INTO `sys_auth` VALUES (75, '代码生成批量删除', '/system/tool/code/delete', 'system:tool:code:delete', 40, '0', 1, '2022-09-23 16:18:15', NULL);
+INSERT INTO `sys_auth` VALUES (76, '角色状态字典表', '/system/dictData/getUserStatusDict', 'system:dictData:getUserStatusDict', 6, '0', 1, '2022-09-28 21:51:47', NULL);
+INSERT INTO `sys_auth` VALUES (77, '分页查询系统参数', '/system/param/getPage', 'system:param:getPage', 44, '0', 1, '2022-11-30 16:55:39', NULL);
+INSERT INTO `sys_auth` VALUES (78, '新增或编辑参数', '/system/param/save', 'system:param:save', 44, '0', 1, '2022-11-30 16:56:13', NULL);
+INSERT INTO `sys_auth` VALUES (79, '批量删除参数', '/system/param/delete', 'system:param:delete', 44, '0', 1, '2022-11-30 16:56:37', NULL);
+INSERT INTO `sys_auth` VALUES (81, '批量移动权限', '/system/auth/moveToRouter', 'system:auth:moveToRouter', 4, '0', 1, '2023-01-10 13:34:56', '批量移动权限到某路由');
+INSERT INTO `sys_auth` VALUES (82, '分页查询', '/system/register/code/getPage', 'system:register:code:getPage', 47, '0', 1, '2023-01-10 21:31:40', NULL);
+INSERT INTO `sys_auth` VALUES (83, '编辑', '/system/register/code/edit', 'system:register:code:edit', 47, '0', 1, '2023-01-10 21:32:07', NULL);
+INSERT INTO `sys_auth` VALUES (84, '批量删除', '/system/register/code/delete', 'system:register:code:delete', 47, '0', 1, '2023-01-10 21:32:27', NULL);
+INSERT INTO `sys_auth` VALUES (85, '批量生成注册码', '/system/register/code/create', 'system:register:code:create', 47, '0', 1, '2023-01-11 00:40:12', NULL);
+INSERT INTO `sys_auth` VALUES (91, '路由重新排序', '/system/router/reloadIndex', 'system:router:reloadIndex', 5, '0', 1, '2023-02-22 00:10:57', NULL);
+INSERT INTO `sys_auth` VALUES (92, '根据key获取字典', '/system/dictData/getByKey', 'system:dictData:getByKey', 6, '0', 1, '2023-02-23 16:13:25', NULL);
 
 -- ----------------------------
 -- Table structure for sys_company
@@ -101,7 +103,7 @@ CREATE TABLE `sys_company`  (
   UNIQUE INDEX `sys_company-name`(`name` ASC) USING BTREE COMMENT '企业名称唯一',
   INDEX `sys_company-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_company-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '企业表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_company
@@ -126,7 +128,7 @@ CREATE TABLE `sys_dict_data`  (
   INDEX `sys_dict_data-type_id`(`type_id` ASC) USING BTREE,
   CONSTRAINT `sys_dict_data-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_dict_data-type_id` FOREIGN KEY (`type_id`) REFERENCES `sys_dict_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -136,6 +138,8 @@ INSERT INTO `sys_dict_data` VALUES (2, '1', '女', 1, 1, '2022-06-12 00:00:00', 
 INSERT INTO `sys_dict_data` VALUES (3, '2', '其他', 1, 1, '2022-06-11 00:00:00', NULL);
 INSERT INTO `sys_dict_data` VALUES (23, '0', '正常', 5, 1, '2022-09-28 21:46:32', NULL);
 INSERT INTO `sys_dict_data` VALUES (24, '1', '停用', 5, 1, '2022-09-28 21:46:57', NULL);
+INSERT INTO `sys_dict_data` VALUES (27, '0', '接口', 7, 1, '2023-02-23 16:07:39', NULL);
+INSERT INTO `sys_dict_data` VALUES (28, '1', '组件', 7, 1, '2023-02-23 16:07:45', NULL);
 
 -- ----------------------------
 -- Table structure for sys_dict_type
@@ -152,13 +156,14 @@ CREATE TABLE `sys_dict_type`  (
   UNIQUE INDEX `sys_dict_type-key`(`key` ASC) USING BTREE,
   INDEX `sys_dict_type-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_dict_type-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典类型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_type
 -- ----------------------------
 INSERT INTO `sys_dict_type` VALUES (1, '性别', 'sys:sex', NULL, 1, '2022-06-11 12:14:48');
 INSERT INTO `sys_dict_type` VALUES (5, '账号状态', 'sys:user:status', NULL, 1, '2022-09-28 21:45:59');
+INSERT INTO `sys_dict_type` VALUES (7, '权限类型', 'sys:auth:type', '权限类型', 1, '2023-02-23 16:07:26');
 
 -- ----------------------------
 -- Table structure for sys_file
@@ -166,7 +171,7 @@ INSERT INTO `sys_dict_type` VALUES (5, '账号状态', 'sys:user:status', NULL, 
 DROP TABLE IF EXISTS `sys_file`;
 CREATE TABLE `sys_file`  (
   `file_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '原文件名',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '原文件名',
   `path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文件存储路径',
   `size` bigint NULL DEFAULT NULL COMMENT '文件大小',
   `upload_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '上传时间',
@@ -174,14 +179,14 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user` ASC) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_file
 -- ----------------------------
 INSERT INTO `sys_file` VALUES (41, '微信图片_20220312191446.jpg', 'public/image/20221003/19afa398-9430-46c5-ac3a-997259d48f16.jpg', 1781778, '2022-10-03 21:27:02', NULL);
 INSERT INTO `sys_file` VALUES (45, '微信图片_202203121913362.jpg', 'public/image/20221003/f1881fa8-79a2-4a8f-89f4-6b22219d3f9f.jpg', 241151, '2022-10-03 21:52:39', 2);
-INSERT INTO `sys_file` VALUES (81, '屏幕截图_20230101_190859.png', 'public/image/20230221/a197e493-e0f5-4b2c-9cb9-86b04b2e25ad.png', 2094168, '2023-02-21 21:43:13', 1);
+INSERT INTO `sys_file` VALUES (83, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/image/20230223/d2fa49de-a566-4ef9-9cf0-367d6a3d22aa.jpg', 25572, '2023-02-23 09:10:19', 1);
 
 -- ----------------------------
 -- Table structure for sys_msg
@@ -190,8 +195,8 @@ DROP TABLE IF EXISTS `sys_msg`;
 CREATE TABLE `sys_msg`  (
   `msg_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `content` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '消息内容',
-  `read` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '是否已读（0：未读，1：已读）',
-  `type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '消息类型（0：普通消息，1：图片）',
+  `read` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '是否已读（0：未读，1：已读）',
+  `type` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '消息类型（0：普通消息，1：图片）',
   `send_by` bigint NULL DEFAULT NULL COMMENT '发送人',
   `send_to` bigint NULL DEFAULT NULL COMMENT '接收人',
   `send_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
@@ -200,7 +205,7 @@ CREATE TABLE `sys_msg`  (
   INDEX `sys_msg-send_to`(`send_to` ASC) USING BTREE,
   CONSTRAINT `sys_msg-send_by` FOREIGN KEY (`send_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_msg-send_to` FOREIGN KEY (`send_to`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 180 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 180 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '消息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_msg
@@ -241,6 +246,27 @@ INSERT INTO `sys_msg` VALUES (178, '321', '0', '0', 1, 2, '2023-02-19 14:51:59')
 INSERT INTO `sys_msg` VALUES (179, '11', '0', '0', 1, 2, '2023-02-21 22:18:11');
 
 -- ----------------------------
+-- Table structure for sys_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_notice`;
+CREATE TABLE `sys_notice`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标题',
+  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '公告正文',
+  `top_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '是否置顶(0：否，1：是)',
+  `level` enum('0','1','2') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '重要程度(0：普通，1：重要，2：紧急)',
+  `del_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '是否已删除(0：否，1：是)',
+  `create_by` bigint NULL DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_notice
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_param
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_param`;
@@ -256,7 +282,7 @@ CREATE TABLE `sys_param`  (
   UNIQUE INDEX `sys_param-name`(`name` ASC) USING BTREE,
   INDEX `sys_param-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_param-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统参数表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_param
@@ -285,7 +311,7 @@ CREATE TABLE `sys_register_code`  (
   CONSTRAINT `sys_register_code_ibfk_1` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_register_code_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_register_code_ibfk_3` FOREIGN KEY (`use_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '注册码' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_register_code
@@ -343,7 +369,7 @@ CREATE TABLE `sys_role_auth`  (
   INDEX `sys_role_auth-auth_id`(`auth_id` ASC) USING BTREE,
   CONSTRAINT `sys_role_auth  -role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_role_auth-auth_id` FOREIGN KEY (`auth_id`) REFERENCES `sys_auth` (`auth_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色-权限关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_auth
@@ -388,6 +414,7 @@ INSERT INTO `sys_role_auth` VALUES (1, 83);
 INSERT INTO `sys_role_auth` VALUES (1, 84);
 INSERT INTO `sys_role_auth` VALUES (1, 85);
 INSERT INTO `sys_role_auth` VALUES (1, 91);
+INSERT INTO `sys_role_auth` VALUES (1, 92);
 
 -- ----------------------------
 -- Table structure for sys_role_router
@@ -401,7 +428,7 @@ CREATE TABLE `sys_role_router`  (
   INDEX `sys_role_router-role_id`(`role_id` ASC) USING BTREE,
   CONSTRAINT `sys_role_router-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_role_router-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色-路由关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_router
@@ -448,7 +475,7 @@ CREATE TABLE `sys_router`  (
   INDEX `sys_router-parent`(`parent` ASC) USING BTREE,
   CONSTRAINT `sys_router-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_router-parent` FOREIGN KEY (`parent`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '路由' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_router
@@ -463,7 +490,7 @@ INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 2, 7, 'CodeS
 INSERT INTO `sys_router` VALUES (40, '代码生成', 'codeGenerator', '/system/tool/codeGenerator/CodeGenerator', 38, 0, 'CopyrightOutlined', 1, '2022-06-19 17:00:51', NULL);
 INSERT INTO `sys_router` VALUES (41, '企业管理', 'company', '/system/company/Company', 2, 1, 'VerifiedOutlined', 1, '2022-09-20 15:27:00', NULL);
 INSERT INTO `sys_router` VALUES (44, '系统参数', 'param', '/system/param/Param', 2, 6, 'ProfileOutlined', 1, '2022-11-30 16:54:04', NULL);
-INSERT INTO `sys_router` VALUES (47, '注册码', 'registerCode', '/system/registerCode/RegisterCode', 2, 4, 'FieldStringOutlined', 1, '2023-01-10 21:29:01', NULL);
+INSERT INTO `sys_router` VALUES (47, '注册码', 'registerCode', '/system/registerCode/registerCode', 2, 4, 'FieldStringOutlined', 1, '2023-01-10 21:29:01', NULL);
 
 -- ----------------------------
 -- Table structure for sys_tool_code
@@ -476,16 +503,16 @@ CREATE TABLE `sys_tool_code`  (
   `table_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表格名',
   `primary_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主键信息',
   `http_url` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '接口基本地址',
-  `create_by_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加创建人字段(0:是，1:否)',
-  `create_time_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加创建时间字段(0:是，1:否)',
-  `update_time_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加更新时间字段(0:是，1:否)',
-  `remark_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加备注字段(0:是，1:否)',
+  `create_by_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加创建人字段(0:是，1:否)',
+  `create_time_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加创建时间字段(0:是，1:否)',
+  `update_time_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加更新时间字段(0:是，1:否)',
+  `remark_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加备注字段(0:是，1:否)',
   `create_by` bigint NULL DEFAULT NULL COMMENT '创建人',
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`code_id`) USING BTREE,
   INDEX `sys_tool_code-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_tool_code-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 98 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成历史记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_tool_code
@@ -507,6 +534,11 @@ INSERT INTO `sys_tool_code` VALUES (93, '[{\"name\":\"code\",\"type\":\"String\"
 INSERT INTO `sys_tool_code` VALUES (94, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:47:25');
 INSERT INTO `sys_tool_code` VALUES (95, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'asd', 'sys_register_code', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '1', 1, '2023-01-10 20:47:39');
 INSERT INTO `sys_tool_code` VALUES (97, '[{\"name\":\"asdasd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'com.as', 'asd', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', NULL, '1', '1', '1', '1', 1, '2023-02-07 20:57:21');
+INSERT INTO `sys_tool_code` VALUES (98, '[{\"name\":\"title\",\"type\":\"String\",\"len\":100,\"notNull\":true,\"unique\":false,\"like\":true,\"remark\":\"标题\"},{\"name\":\"content\",\"type\":\"String\",\"len\":2000,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"公告正文\"},{\"name\":\"topFlag\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"是否置顶\"},{\"name\":\"level\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"重要程度\"}]', 'com.lia.system', 'sys_notice', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/notice', '1', '1', '1', '0', 1, '2023-02-23 15:40:19');
+INSERT INTO `sys_tool_code` VALUES (99, '[{\"name\":\"title\",\"type\":\"String\",\"len\":100,\"notNull\":true,\"unique\":false,\"like\":true,\"remark\":\"标题\"},{\"name\":\"content\",\"type\":\"String\",\"len\":2000,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"公告正文\"},{\"name\":\"topFlag\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"是否置顶\"},{\"name\":\"level\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"重要程度\"}]', 'com.lia.system', 'sys_notice', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/notice', '1', '1', '1', '0', 1, '2023-02-23 15:43:33');
+INSERT INTO `sys_tool_code` VALUES (100, '[{\"name\":\"title\",\"type\":\"String\",\"len\":100,\"notNull\":true,\"unique\":false,\"like\":true,\"remark\":\"标题\"},{\"name\":\"content\",\"type\":\"String\",\"len\":2000,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"公告正文\"},{\"name\":\"topFlag\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"是否置顶\"},{\"name\":\"level\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"重要程度\"}]', 'com.lia.system', 'sys_notice', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/notice', '1', '1', '1', '0', 1, '2023-02-23 15:46:34');
+INSERT INTO `sys_tool_code` VALUES (101, '[{\"name\":\"title\",\"type\":\"String\",\"len\":100,\"notNull\":true,\"unique\":false,\"like\":true,\"remark\":\"标题\"},{\"name\":\"content\",\"type\":\"String\",\"len\":2000,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"公告正文\"},{\"name\":\"topFlag\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"是否置顶\"},{\"name\":\"level\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"重要程度\"},{\"name\":\"delFlag\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"是否删除\"}]', 'com.lia.system', 'sys_notice', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/notice', '1', '1', '1', '0', 1, '2023-02-23 15:47:21');
+INSERT INTO `sys_tool_code` VALUES (102, '[{\"name\":\"title\",\"type\":\"String\",\"len\":100,\"notNull\":true,\"unique\":false,\"like\":true,\"remark\":\"标题\"},{\"name\":\"content\",\"type\":\"String\",\"len\":2000,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"公告正文\"},{\"name\":\"topFlag\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"是否置顶(0：否，1：是)\"},{\"name\":\"level\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"重要程度(0：普通，1：重要，2：紧急)\"},{\"name\":\"delFlag\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"是否删除(0：否，1：是)\"}]', 'com.lia.system', 'sys_notice', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/notice', '1', '1', '1', '0', 1, '2023-02-23 15:49:39');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -518,12 +550,12 @@ CREATE TABLE `sys_user`  (
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码',
   `nick` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '昵称',
   `role_id` int NULL DEFAULT NULL COMMENT '用户角色ID',
-  `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '性别（0男 1女 2其他）',
+  `sex` enum('0','1','2') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '性别（0男 1女 2其他）',
   `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '手机号码',
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱',
   `head_img` bigint NULL DEFAULT NULL COMMENT '头像地址',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
+  `status` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
+  `del_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
   `create_by` bigint NULL DEFAULT NULL COMMENT '创建者',
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
@@ -534,12 +566,12 @@ CREATE TABLE `sys_user`  (
   CONSTRAINT `sys_user-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-head_img` FOREIGN KEY (`head_img`) REFERENCES `sys_file` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 81, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 83, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
 INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '测试', 2, '0', '18150027197', '1072864729@qq.com', 45, '0', '0', 1, '2022-05-17 02:12:00', '测试账号，不可删除');
 INSERT INTO `sys_user` VALUES (89, '1', '$2a$10$30cfIcdCW/iM.mSEI5FQpejfBPjLsltvOXMGtxWgg3B2NL4f2wSBq', '2', NULL, '0', NULL, NULL, NULL, '0', '1', 2, '2023-01-05 11:12:37', NULL);
 INSERT INTO `sys_user` VALUES (90, '1', '$2a$10$a5ubpT8n2sGATK3jtBSc5.PxegJx4lDqvtlGNWkFk.dVUCJJOoaZy', '1', 1, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-10 20:21:33', NULL);
