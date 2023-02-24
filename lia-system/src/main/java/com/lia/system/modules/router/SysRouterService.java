@@ -76,7 +76,7 @@ public class SysRouterService {
 
 
     /**
-     * 新增或编辑用户
+     * 新增或编辑路由
      * @param router
      * @return
      */
