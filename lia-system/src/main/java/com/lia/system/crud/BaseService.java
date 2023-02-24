@@ -7,6 +7,7 @@ import com.lia.system.crud.anno.CreateBy;
 import com.lia.system.crud.anno.CreateTime;
 import com.lia.system.crud.anno.Required;
 import com.lia.system.crud.anno.UpdateTime;
+import com.lia.system.crud.exception.IdNullValueException;
 import com.lia.system.crud.exception.NoEntityException;
 import com.lia.system.crud.exception.NotFoundBaseMapperException;
 import com.lia.system.crud.exception.UniqueException;
@@ -44,16 +45,16 @@ public abstract class BaseService<E> {
         if (type instanceof ParameterizedType) {
             Class entityClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[0];
             this.baseMapper = this.getBaseMapper(entityClass);
-            if(this.baseMapper == null){
+            if (this.baseMapper == null) {
                 throw new NotFoundBaseMapperException(entityClass);
             }
-        }else{
+        } else {
             throw new NoEntityException();
         }
     }
 
     private BaseMapper<E> getBaseMapper(Class clazz) {
-        if(mappers != null){
+        if (mappers != null) {
             return mappers.get(clazz);
         }
         mappers = new ConcurrentHashMap<>();
@@ -81,8 +82,9 @@ public abstract class BaseService<E> {
 
     /**
      * 列表查询
+     *
      * @param entity 查询参数
-     * @param desc 是否降序
+     * @param desc   是否降序
      * @return
      */
     public List<E> selectList(E entity, boolean desc) {
@@ -120,6 +122,7 @@ public abstract class BaseService<E> {
 
     /**
      * 查询一条记录
+     *
      * @param entity
      */
     public E selectOne(E entity) {
@@ -140,6 +143,66 @@ public abstract class BaseService<E> {
      */
     public int save(E entity) {
         QueryParam queryParam = new QueryParam(entity);
+        QueryParam.Column idColumn = queryParam.getIdColumn();
+        // 如果id字段有值，则根据id匹配编辑
+        if (idColumn != null && idColumn.getValue() != null) {
+            return this.update(entity);
+        } else {
+            return this.insert(entity);
+        }
+    }
+
+    /**
+     * 新增
+     */
+    public int insert(E entity) {
+        QueryParam queryParam = new QueryParam(entity);
+        try {
+            // 如果id有值，清空id的值
+            QueryParam.Column idColumn = queryParam.getIdColumn();
+            if (idColumn != null && idColumn.getValue() != null) {
+                entity.getClass().getDeclaredField(idColumn.getName()).set(entity, null);
+            }
+            for (Field field : entity.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                // 判断有没有值为null的必填字段
+                if (field.getAnnotation(Required.class) != null && field.get(entity) == null) {
+                    throw new HttpException("缺少参数" + field.getName());
+                }
+                // 如果有@CreateBy字段，则新增时默认填充当前登录用户
+                if (field.getAnnotation(CreateBy.class) != null) {
+                    field.setAccessible(true);
+                    field.set(entity, LoginUser.getLoginUserId());
+                }
+                if (field.getAnnotation(UpdateTime.class) != null) {
+                    field.setAccessible(true);
+                    field.set(entity, null);
+                }
+                if (field.getAnnotation(CreateTime.class) != null) {
+                    field.setAccessible(true);
+                    field.set(entity, null);
+                }
+            }
+            return baseMapper.insert(entity);
+        } catch (DuplicateKeyException e) {
+            String[] split = e.getCause().getMessage().split(" ");
+            String name = split[split.length - 1].replace("'", "");
+            throw new UniqueException(name, "字段值重复");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            throw new HttpException(SysResult.SERVER_ERROR);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new HttpException(SysResult.SERVER_ERROR);
+        }
+    }
+
+
+    /**
+     * 编辑
+     */
+    public int update(E entity) {
+        QueryParam queryParam = new QueryParam(entity);
         try {
             for (Field field : entity.getClass().getDeclaredFields()) {
                 field.setAccessible(true);
@@ -149,37 +212,18 @@ public abstract class BaseService<E> {
                 }
             }
             QueryParam.Column idColumn = queryParam.getIdColumn();
-            // 如果id字段有值，则根据id匹配编辑
-            if (idColumn != null && idColumn.getValue() != null) {
-                UpdateWrapper<E> updateWrapper = new UpdateWrapper<>();
-                List<QueryParam.Column> columns = queryParam.getUpdateColumn();
-                updateWrapper.eq(idColumn.getName(), idColumn.getValue());
-                for (QueryParam.Column column : columns) {
-                    updateWrapper.set(column.getName(), column.getValue());
-                }
-                return baseMapper.update(null, updateWrapper);
-            } else {
-                // 如果有@CreateBy字段，则新增时默认填充当前登录用户
-                for (Field field : entity.getClass().getDeclaredFields()) {
-                    if (field.getAnnotation(CreateBy.class) != null) {
-                        field.setAccessible(true);
-                        field.set(entity, LoginUser.getLoginUserId());
-                    }
-                    if (field.getAnnotation(UpdateTime.class) != null) {
-                        field.setAccessible(true);
-                        field.set(entity, null);
-                    }
-                    if (field.getAnnotation(CreateTime.class) != null) {
-                        field.setAccessible(true);
-                        field.set(entity, null);
-                    }
-                }
-                if(baseMapper.insert(entity) > 0){
-                    return 1;
-                }else{
-                    throw new HttpException(SysResult.SERVER_ERROR);
-                }
+            // 如果id字段值为空，抛出异常
+            if (idColumn == null || idColumn.getValue() == null) {
+                throw new IdNullValueException();
             }
+            // 如果id字段有值，则根据id匹配编辑
+            UpdateWrapper<E> updateWrapper = new UpdateWrapper<>();
+            List<QueryParam.Column> columns = queryParam.getUpdateColumn();
+            updateWrapper.eq(idColumn.getName(), idColumn.getValue());
+            for (QueryParam.Column column : columns) {
+                updateWrapper.set(column.getName(), column.getValue());
+            }
+            return baseMapper.update(null, updateWrapper);
         } catch (DuplicateKeyException e) {
             String[] split = e.getCause().getMessage().split(" ");
             String name = split[split.length - 1].replace("'", "");
@@ -189,6 +233,7 @@ public abstract class BaseService<E> {
             throw new HttpException(SysResult.SERVER_ERROR);
         }
     }
+
 
     /**
      * 根据id列表删除数据

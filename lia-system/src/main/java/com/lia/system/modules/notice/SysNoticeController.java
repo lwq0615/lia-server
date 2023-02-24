@@ -38,15 +38,26 @@ public class SysNoticeController {
     }
 
     /**
-     * 新增和编辑
-     * 自增主键为空时为新增，否则为编辑
+     * 新增
      * @param sysNotice 参数数据
      * @return 操作成功的数量
      */
-    @PostMapping("/save")
-    @PreAuthorize("hasAuthority('system:notice:save')")
-    public int saveSysNotice(@RequestBody SysNotice sysNotice){
-        return sysNoticeService.save(sysNotice);
+    @PostMapping("/add")
+    @PreAuthorize("hasAuthority('system:notice:add')")
+    public int addSysNotice(@RequestBody SysNotice sysNotice){
+        return sysNoticeService.insert(sysNotice);
+    }
+
+
+    /**
+     * 编辑
+     * @param sysNotice 参数数据
+     * @return 操作成功的数量
+     */
+    @PostMapping("/edit")
+    @PreAuthorize("hasAuthority('system:notice:edit')")
+    public int editSysNotice(@RequestBody SysNotice sysNotice){
+        return sysNoticeService.update(sysNotice);
     }
 
 
