@@ -53,8 +53,8 @@ public class GlobalException {
      * 缺少请求参数时返回状态码400
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public void notParamError() {
-        this.httpError(new HttpException(SysResult.REQUEST_ERROR));
+    public HttpResult notParamError() {
+        return this.httpError(new HttpException(SysResult.REQUEST_ERROR));
     }
 
 
