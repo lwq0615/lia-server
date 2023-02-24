@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class GlobalException {
 
 
     /**
-     * 缺少请求参数时返回状态码400
+     * 请求参数有误时返回状态码400
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public HttpResult notParamError() {
@@ -78,6 +79,15 @@ public class GlobalException {
             Redis.getTemplate().opsForValue().multiSet(urlNameMap);
         }
         return HttpResult.error(SysResult.NOT_AUTH, urlName + SysResult.NOT_AUTH.getMessage());
+    }
+
+
+    /**
+     * 404
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public HttpResult notFoundHandleError(){
+        return this.httpError(new HttpException(SysResult.RECOURSE_NOT_FOUNT));
     }
 
 
