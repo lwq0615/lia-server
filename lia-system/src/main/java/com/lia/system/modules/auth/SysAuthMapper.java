@@ -69,4 +69,11 @@ public interface SysAuthMapper {
      * 批量移动权限到某路由
      */
     int moveToRouter(List<Integer> authIds, Integer routerId);
+
+
+    /**
+     * 查询用户是否有某个key的权限
+     */
+    List<Integer> hasAuth(String key, Long userId);
+
 }

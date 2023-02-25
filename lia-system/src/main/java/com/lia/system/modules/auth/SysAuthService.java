@@ -129,4 +129,13 @@ public class SysAuthService {
         }
         return sysAuthMapper.moveToRouter(authIds, routerId);
     }
+
+
+    /**
+     * 查询用户是否有某个key的权限
+     */
+    public boolean hasAuth(String key, Long userId){
+        return sysAuthMapper.hasAuth(key, userId).size() > 0;
+    }
+
 }
