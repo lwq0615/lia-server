@@ -21,7 +21,6 @@ public class SysNotice {
      * 主键
      */
     @TableId(type = IdType.AUTO)
-    @TableField("`id`")
     private Long id;
 
     /**

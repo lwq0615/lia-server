@@ -33,8 +33,12 @@ public class QueryParam{
             }
             // 获取与数据库映射的字段名
             String columnName;
+            TableId tableId = field.getAnnotation(TableId.class);
             TableField tableField = field.getAnnotation(TableField.class);
-            if(tableField != null){
+            if(tableId != null){
+                columnName = tableId.value();
+            }
+            else if(tableField != null){
                 columnName = tableField.value();
             }else{
                 columnName = field.getName();
@@ -87,13 +91,12 @@ public class QueryParam{
     public Column getIdColumn(){
         for (Field field : entity.getClass().getDeclaredFields()) {
             field.setAccessible(true);
-            // 创建人与创建时间和主键字段不参与更新
-            if(field.getAnnotation(TableId.class) != null){
+            TableId tableId = field.getAnnotation(TableId.class);
+            if(tableId != null){
                 // 获取与数据库映射的字段名
                 String columnName;
-                TableField tableField = field.getAnnotation(TableField.class);
-                if(tableField != null){
-                    columnName = tableField.value();
+                if(tableId.value() != null){
+                    columnName = tableId.value();
                 }else{
                     columnName = field.getName();
                 }

@@ -25,8 +25,7 @@ public class SysParam {
     /**
      * 参数ID
      */
-    @TableId(type = IdType.AUTO)
-    @TableField("param_id")
+    @TableId(value = "`param_id`", type = IdType.AUTO)
     private Integer paramId;
 
     /**
