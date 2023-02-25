@@ -4,6 +4,7 @@ package com.lia.system.crud;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.lia.system.crud.anno.*;
+import com.lia.system.utils.StrUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
@@ -25,6 +26,7 @@ public class QueryParam{
         for (Field field : eClass.getDeclaredFields()) {
             field.setAccessible(true);
             try {
+                // 值为null则不参与查询
                 if(field.get(entity) == null){
                     continue;
                 }
@@ -51,7 +53,6 @@ public class QueryParam{
                     Collections.addAll(btw, ((String) value).split(","));
                     value = btw;
                 }
-                // 值为null则不参与查询
                 columns.add(new Column(columnName, value, field.getAnnotation(Like.class) != null));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -95,7 +96,7 @@ public class QueryParam{
             if(tableId != null){
                 // 获取与数据库映射的字段名
                 String columnName;
-                if(tableId.value() != null){
+                if(!StrUtils.isEmpty(tableId.value())){
                     columnName = tableId.value();
                 }else{
                     columnName = field.getName();
@@ -144,6 +145,15 @@ public class QueryParam{
 
         public boolean isLike() {
             return isLike;
+        }
+
+        @Override
+        public String toString() {
+            return "Column{" +
+                    "name='" + name + '\'' +
+                    ", value=" + value +
+                    ", isLike=" + isLike +
+                    '}';
         }
     }
 

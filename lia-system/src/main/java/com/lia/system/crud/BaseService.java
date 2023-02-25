@@ -7,7 +7,7 @@ import com.lia.system.crud.anno.CreateBy;
 import com.lia.system.crud.anno.CreateTime;
 import com.lia.system.crud.anno.Required;
 import com.lia.system.crud.anno.UpdateTime;
-import com.lia.system.crud.exception.IdNullValueException;
+import com.lia.system.crud.exception.NullValueOfIdException;
 import com.lia.system.crud.exception.NoEntityException;
 import com.lia.system.crud.exception.NotFoundBaseMapperException;
 import com.lia.system.crud.exception.UniqueException;
@@ -214,7 +214,7 @@ public abstract class BaseService<E> {
             QueryParam.Column idColumn = queryParam.getIdColumn();
             // 如果id字段值为空，抛出异常
             if (idColumn == null || idColumn.getValue() == null) {
-                throw new IdNullValueException();
+                throw new NullValueOfIdException();
             }
             // 如果id字段有值，则根据id匹配编辑
             UpdateWrapper<E> updateWrapper = new UpdateWrapper<>();
