@@ -4,6 +4,7 @@ package com.lia.system.result;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.lia.system.utils.SpringUtils;
 import com.lia.system.utils.StrUtils;
+import lombok.ToString;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * 定义请求的响应信息
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@ToString
 public class HttpResult {
 
     /**

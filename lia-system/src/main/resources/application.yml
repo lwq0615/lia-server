@@ -7,11 +7,6 @@ server:
   error:
     path: /error
 spring:
-  resources:
-    add-mappings: false
-  mvc:
-    # 404抛出异常
-    throw-exception-if-no-handler-found: true
   profiles:
     # 程序运行的环境（dev：开发，pro：生产）
     active: dev

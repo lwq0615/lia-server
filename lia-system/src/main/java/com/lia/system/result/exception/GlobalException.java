@@ -62,7 +62,7 @@ public class GlobalException {
     /**
      * 403权限不足
      * 虽然在security中配置了没有权限的自定义处理，但是因为在没有权限时security会抛出异常
-     * 而被全局异常处理捕获导致无法正常处理，所以security没有权限的处理应该通过ExceptionHandler处理
+     * 而被全局异常处理捕获导致security无法正常处理，所以security没有权限的处理应该通过ExceptionHandler处理
      */
     @ExceptionHandler(AccessDeniedException.class)
     public HttpResult noAuth(){
