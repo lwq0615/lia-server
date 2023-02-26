@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80031
+ Source Server Version : 80021 (8.0.21)
  Source Host           : localhost:3306
  Source Schema         : lia
 
  Target Server Type    : MySQL
- Target Server Version : 80031
+ Target Server Version : 80021 (8.0.21)
  File Encoding         : 65001
 
- Date: 24/02/2023 22:08:42
+ Date: 26/02/2023 21:36:34
 */
 
 SET NAMES utf8mb4;
@@ -129,7 +129,7 @@ CREATE TABLE `sys_dict_data`  (
   INDEX `sys_dict_data-type_id`(`type_id` ASC) USING BTREE,
   CONSTRAINT `sys_dict_data-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_dict_data-type_id` FOREIGN KEY (`type_id`) REFERENCES `sys_dict_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -141,6 +141,9 @@ INSERT INTO `sys_dict_data` VALUES (23, '0', '正常', 5, 1, '2022-09-28 21:46:3
 INSERT INTO `sys_dict_data` VALUES (24, '1', '停用', 5, 1, '2022-09-28 21:46:57', NULL);
 INSERT INTO `sys_dict_data` VALUES (27, '0', '接口', 7, 1, '2023-02-23 16:07:39', NULL);
 INSERT INTO `sys_dict_data` VALUES (28, '1', '组件', 7, 1, '2023-02-23 16:07:45', NULL);
+INSERT INTO `sys_dict_data` VALUES (29, '0', '普通', 8, 1, '2023-02-24 22:22:14', NULL);
+INSERT INTO `sys_dict_data` VALUES (30, '1', '重要', 8, 1, '2023-02-24 22:22:20', NULL);
+INSERT INTO `sys_dict_data` VALUES (31, '2', '紧急', 8, 1, '2023-02-24 22:22:25', NULL);
 
 -- ----------------------------
 -- Table structure for sys_dict_type
@@ -157,7 +160,7 @@ CREATE TABLE `sys_dict_type`  (
   UNIQUE INDEX `sys_dict_type-key`(`key` ASC) USING BTREE,
   INDEX `sys_dict_type-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_dict_type-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典类型表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典类型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -165,6 +168,7 @@ CREATE TABLE `sys_dict_type`  (
 INSERT INTO `sys_dict_type` VALUES (1, '性别', 'sys:sex', NULL, 1, '2022-06-11 12:14:48');
 INSERT INTO `sys_dict_type` VALUES (5, '账号状态', 'sys:user:status', NULL, 1, '2022-09-28 21:45:59');
 INSERT INTO `sys_dict_type` VALUES (7, '权限类型', 'sys:auth:type', '权限类型', 1, '2023-02-23 16:07:26');
+INSERT INTO `sys_dict_type` VALUES (8, '通知/公告级别', 'sys:notice:level', NULL, 1, '2023-02-24 22:22:03');
 
 -- ----------------------------
 -- Table structure for sys_file
@@ -180,14 +184,14 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user` ASC) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 95 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_file
 -- ----------------------------
 INSERT INTO `sys_file` VALUES (41, '微信图片_20220312191446.jpg', 'public/image/20221003/19afa398-9430-46c5-ac3a-997259d48f16.jpg', 1781778, '2022-10-03 21:27:02', NULL);
 INSERT INTO `sys_file` VALUES (84, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/image/20230224/9adf6db1-f120-4008-8753-f384dc3b8d9f.jpg', 40553, '2023-02-24 10:55:53', 2);
-INSERT INTO `sys_file` VALUES (91, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/image/20230224/9d41ebeb-66ac-4bb1-a9ea-4de9764f0790.jpg', 36247, '2023-02-24 16:10:40', 1);
+INSERT INTO `sys_file` VALUES (94, '屏幕截图_20230101_190847.png', 'public/image/20230226/7a9e235b-418c-46ee-be88-6dae11abeeb4.png', 2094083, '2023-02-26 11:59:05', 1);
 
 -- ----------------------------
 -- Table structure for sys_msg
@@ -261,7 +265,7 @@ CREATE TABLE `sys_notice`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice
@@ -272,6 +276,77 @@ INSERT INTO `sys_notice` VALUES (3, '11213123', '123', '0', '0', '0', 1, '2023-0
 INSERT INTO `sys_notice` VALUES (4, '1', NULL, '0', '0', '0', 1, '2023-02-24 21:58:50', '2023-02-24 21:58:50');
 INSERT INTO `sys_notice` VALUES (5, '2', NULL, '0', '0', '0', 1, '2023-02-24 21:59:14', '2023-02-24 21:59:14');
 INSERT INTO `sys_notice` VALUES (6, '1', NULL, '0', '0', '0', 1, '2023-02-24 22:00:57', '2023-02-24 22:00:57');
+INSERT INTO `sys_notice` VALUES (7, '123', NULL, '0', '0', '0', 1, '2023-02-24 22:21:12', '2023-02-24 22:21:12');
+INSERT INTO `sys_notice` VALUES (8, '11', NULL, '0', '0', '0', 1, '2023-02-24 22:22:37', '2023-02-24 22:22:37');
+INSERT INTO `sys_notice` VALUES (9, 'r', NULL, '0', '1', '0', 1, '2023-02-24 22:23:40', '2023-02-24 22:23:40');
+INSERT INTO `sys_notice` VALUES (10, '3', NULL, '0', '1', '0', 1, '2023-02-24 22:26:07', '2023-02-24 22:26:07');
+INSERT INTO `sys_notice` VALUES (11, '12', NULL, '0', '1', '0', 1, '2023-02-24 22:27:02', '2023-02-24 22:27:02');
+INSERT INTO `sys_notice` VALUES (12, '1', NULL, '1', '1', '0', 1, '2023-02-24 22:28:08', '2023-02-24 22:28:08');
+INSERT INTO `sys_notice` VALUES (13, '1', NULL, '0', '2', '0', 1, '2023-02-24 22:50:04', '2023-02-24 22:50:04');
+INSERT INTO `sys_notice` VALUES (14, '123', 'asdsad', '0', '1', '0', 1, '2023-02-25 14:54:04', '2023-02-25 14:54:04');
+INSERT INTO `sys_notice` VALUES (15, 'asd', '1235', '0', '2', '0', 1, '2023-02-25 14:54:16', '2023-02-25 14:54:16');
+INSERT INTO `sys_notice` VALUES (16, '测我是', '# 测试', '1', '2', '0', 1, '2023-02-25 15:01:24', '2023-02-25 15:01:24');
+INSERT INTO `sys_notice` VALUES (17, '奥萨蒂', '# 奥萨蒂\n啊啊啊', '1', '1', '0', 1, '2023-02-25 15:01:38', '2023-02-25 15:01:38');
+INSERT INTO `sys_notice` VALUES (18, '1123', NULL, '0', '1', '0', 1, '2023-02-25 15:28:30', '2023-02-25 15:28:30');
+INSERT INTO `sys_notice` VALUES (19, '123', NULL, '1', '0', '0', 1, '2023-02-25 15:33:20', '2023-02-25 15:33:20');
+INSERT INTO `sys_notice` VALUES (20, '1', NULL, '0', '0', '0', 1, '2023-02-26 20:31:32', '2023-02-26 20:31:32');
+INSERT INTO `sys_notice` VALUES (21, '1', NULL, '0', '0', '0', 1, '2023-02-26 20:43:55', '2023-02-26 20:43:55');
+INSERT INTO `sys_notice` VALUES (23, '2', NULL, '0', '1', '0', 1, '2023-02-26 20:50:42', '2023-02-26 20:50:42');
+INSERT INTO `sys_notice` VALUES (24, '1', NULL, '0', '1', '0', 1, '2023-02-26 20:51:17', '2023-02-26 20:51:17');
+INSERT INTO `sys_notice` VALUES (25, '123', NULL, '0', '0', '0', 1, '2023-02-26 20:52:55', '2023-02-26 20:52:55');
+INSERT INTO `sys_notice` VALUES (29, '123', '123', '0', '0', '0', 1, '2023-02-26 21:06:36', '2023-02-26 21:06:36');
+INSERT INTO `sys_notice` VALUES (30, '213', NULL, '0', '0', '0', 1, '2023-02-26 21:08:11', '2023-02-26 21:08:11');
+INSERT INTO `sys_notice` VALUES (31, '123', NULL, '0', '0', '0', 1, '2023-02-26 21:09:22', '2023-02-26 21:09:22');
+INSERT INTO `sys_notice` VALUES (32, '123', '123', '0', '0', '0', 1, '2023-02-26 21:09:41', '2023-02-26 21:09:41');
+INSERT INTO `sys_notice` VALUES (33, 'asd ', 'asds', '0', '0', '0', 1, '2023-02-26 21:10:13', '2023-02-26 21:10:13');
+
+-- ----------------------------
+-- Table structure for sys_notice_file
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_notice_file`;
+CREATE TABLE `sys_notice_file`  (
+  `nitice_id` bigint NOT NULL COMMENT '公告id',
+  `file_id` bigint NOT NULL COMMENT '附件id',
+  PRIMARY KEY (`nitice_id`, `file_id`) USING BTREE,
+  INDEX `sys_notice_file-file_id`(`file_id` ASC) USING BTREE,
+  CONSTRAINT `sys_notice_file-file_id` FOREIGN KEY (`file_id`) REFERENCES `sys_file` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sys_notice_file-notice_id` FOREIGN KEY (`nitice_id`) REFERENCES `sys_notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_notice_file
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_notice_role
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_notice_role`;
+CREATE TABLE `sys_notice_role`  (
+  `role_id` int NOT NULL COMMENT '角色id',
+  `notice_id` bigint NOT NULL COMMENT '公告id',
+  PRIMARY KEY (`role_id`, `notice_id`) USING BTREE,
+  INDEX `sys_notice_role-notice_id`(`notice_id` ASC) USING BTREE,
+  CONSTRAINT `sys_notice_role-notice_id` FOREIGN KEY (`notice_id`) REFERENCES `sys_notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sys_notice_role-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_notice_role
+-- ----------------------------
+INSERT INTO `sys_notice_role` VALUES (1, 29);
+INSERT INTO `sys_notice_role` VALUES (2, 29);
+INSERT INTO `sys_notice_role` VALUES (3, 29);
+INSERT INTO `sys_notice_role` VALUES (1, 30);
+INSERT INTO `sys_notice_role` VALUES (2, 30);
+INSERT INTO `sys_notice_role` VALUES (3, 30);
+INSERT INTO `sys_notice_role` VALUES (1, 31);
+INSERT INTO `sys_notice_role` VALUES (2, 31);
+INSERT INTO `sys_notice_role` VALUES (3, 31);
+INSERT INTO `sys_notice_role` VALUES (1, 32);
+INSERT INTO `sys_notice_role` VALUES (2, 32);
+INSERT INTO `sys_notice_role` VALUES (3, 32);
+INSERT INTO `sys_notice_role` VALUES (2, 33);
+INSERT INTO `sys_notice_role` VALUES (3, 33);
 
 -- ----------------------------
 -- Table structure for sys_param
@@ -423,6 +498,7 @@ INSERT INTO `sys_role_auth` VALUES (1, 85);
 INSERT INTO `sys_role_auth` VALUES (1, 91);
 INSERT INTO `sys_role_auth` VALUES (1, 92);
 INSERT INTO `sys_role_auth` VALUES (1, 95);
+INSERT INTO `sys_role_auth` VALUES (2, 95);
 
 -- ----------------------------
 -- Table structure for sys_role_router
@@ -442,25 +518,36 @@ CREATE TABLE `sys_role_router`  (
 -- Records of sys_role_router
 -- ----------------------------
 INSERT INTO `sys_role_router` VALUES (1, 2);
+INSERT INTO `sys_role_router` VALUES (3, 2);
 INSERT INTO `sys_role_router` VALUES (1, 3);
 INSERT INTO `sys_role_router` VALUES (2, 3);
+INSERT INTO `sys_role_router` VALUES (3, 3);
 INSERT INTO `sys_role_router` VALUES (1, 4);
 INSERT INTO `sys_role_router` VALUES (2, 4);
+INSERT INTO `sys_role_router` VALUES (3, 4);
 INSERT INTO `sys_role_router` VALUES (1, 5);
 INSERT INTO `sys_role_router` VALUES (2, 5);
+INSERT INTO `sys_role_router` VALUES (3, 5);
 INSERT INTO `sys_role_router` VALUES (1, 6);
 INSERT INTO `sys_role_router` VALUES (2, 6);
+INSERT INTO `sys_role_router` VALUES (3, 6);
 INSERT INTO `sys_role_router` VALUES (1, 7);
 INSERT INTO `sys_role_router` VALUES (2, 7);
+INSERT INTO `sys_role_router` VALUES (3, 7);
 INSERT INTO `sys_role_router` VALUES (1, 38);
 INSERT INTO `sys_role_router` VALUES (2, 38);
+INSERT INTO `sys_role_router` VALUES (3, 38);
 INSERT INTO `sys_role_router` VALUES (1, 40);
+INSERT INTO `sys_role_router` VALUES (3, 40);
 INSERT INTO `sys_role_router` VALUES (1, 41);
 INSERT INTO `sys_role_router` VALUES (2, 41);
+INSERT INTO `sys_role_router` VALUES (3, 41);
 INSERT INTO `sys_role_router` VALUES (1, 44);
 INSERT INTO `sys_role_router` VALUES (2, 44);
+INSERT INTO `sys_role_router` VALUES (3, 44);
 INSERT INTO `sys_role_router` VALUES (1, 47);
 INSERT INTO `sys_role_router` VALUES (2, 47);
+INSERT INTO `sys_role_router` VALUES (3, 47);
 
 -- ----------------------------
 -- Table structure for sys_router
@@ -581,7 +668,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 91, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 94, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
 INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '测试', 2, '0', '18150027197', '1072864729@qq.com', 84, '0', '0', 1, '2022-05-17 02:12:00', '测试账号，不可删除');
 INSERT INTO `sys_user` VALUES (89, '1', '$2a$10$30cfIcdCW/iM.mSEI5FQpejfBPjLsltvOXMGtxWgg3B2NL4f2wSBq', '2', NULL, '0', NULL, NULL, NULL, '0', '1', 2, '2023-01-05 11:12:37', NULL);
 INSERT INTO `sys_user` VALUES (90, '1', '$2a$10$a5ubpT8n2sGATK3jtBSc5.PxegJx4lDqvtlGNWkFk.dVUCJJOoaZy', '1', 1, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-10 20:21:33', NULL);
