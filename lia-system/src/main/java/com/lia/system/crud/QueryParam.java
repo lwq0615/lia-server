@@ -26,8 +26,8 @@ public class QueryParam{
         for (Field field : eClass.getDeclaredFields()) {
             field.setAccessible(true);
             try {
-                // 值为null则不参与查询
-                if(field.get(entity) == null){
+                // 值为null或者配置了@Pass注解则不参与查询
+                if(field.get(entity) == null || field.getAnnotation(Pass.class) != null){
                     continue;
                 }
             } catch (IllegalAccessException e) {
@@ -68,7 +68,8 @@ public class QueryParam{
             field.setAccessible(true);
             // 创建人与创建时间和更新时间和主键字段不参与更新
             if(field.getAnnotation(CreateBy.class) != null || field.getAnnotation(UpdateTime.class) != null
-            || field.getAnnotation(TableId.class) != null || field.getAnnotation(CreateTime.class) != null){
+            || field.getAnnotation(TableId.class) != null || field.getAnnotation(CreateTime.class) != null
+            || field.getAnnotation(Pass.class) != null){
                 continue;
             }
             // 获取与数据库映射的字段名

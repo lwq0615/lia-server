@@ -13,6 +13,13 @@ public class SysNoticeService extends BaseService<SysNotice> {
     @Autowired
     private SysNoticeMapper sysNoticeMapper;
 
-
+    /**
+     * 发布公告
+     */
+    @Override
+    public int insert(SysNotice entity) {
+        int success = super.insert(entity, true);
+        return success;
+    }
 }
 
