@@ -18,8 +18,8 @@ public class SysNoticeService extends BaseService<SysNotice> {
      */
     @Override
     public int insert(SysNotice entity) {
-        int success = super.insert(entity, true);
-        return success;
+        super.insert(entity, true);
+        return sysNoticeMapper.publishToRole(entity.getId(), entity.getPublishTo());
     }
 }
 
