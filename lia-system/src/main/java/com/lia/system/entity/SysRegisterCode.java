@@ -22,7 +22,6 @@ public class SysRegisterCode {
      * 主键
      */
     @TableId(type = IdType.AUTO)
-    @TableField("`id`")
     private Long id;
 
     /**

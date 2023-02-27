@@ -1,13 +1,11 @@
 package com.lia.system.crud;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lia.system.crud.anno.CreateBy;
-import com.lia.system.crud.anno.CreateTime;
-import com.lia.system.crud.anno.Required;
-import com.lia.system.crud.anno.UpdateTime;
-import com.lia.system.crud.exception.IdNullValueException;
+import com.lia.system.crud.anno.*;
+import com.lia.system.crud.exception.NullValueOfIdException;
 import com.lia.system.crud.exception.NoEntityException;
 import com.lia.system.crud.exception.NotFoundBaseMapperException;
 import com.lia.system.crud.exception.UniqueException;
@@ -156,34 +154,58 @@ public abstract class BaseService<E> {
      * 新增
      */
     public int insert(E entity) {
-        QueryParam queryParam = new QueryParam(entity);
+        return this.insert(entity, false);
+    }
+
+
+    /**
+     * 新增
+     * @param entity 实体类
+     * @param returnId 是否返回自增id
+     * @return
+     */
+    public int insert(E entity, boolean returnId) {
+        E entityCopy = (E)JSON.parseObject(JSON.toJSONString(entity), entity.getClass());
+        QueryParam queryParam = new QueryParam(entityCopy);
         try {
             // 如果id有值，清空id的值
             QueryParam.Column idColumn = queryParam.getIdColumn();
             if (idColumn != null && idColumn.getValue() != null) {
-                entity.getClass().getDeclaredField(idColumn.getName()).set(entity, null);
+                entityCopy.getClass().getDeclaredField(idColumn.getName()).set(entityCopy, null);
             }
-            for (Field field : entity.getClass().getDeclaredFields()) {
+            for (Field field : entityCopy.getClass().getDeclaredFields()) {
                 field.setAccessible(true);
+                if(field.getAnnotation(Pass.class) != null){
+                    field.set(entityCopy, null);
+                    continue;
+                }
                 // 判断有没有值为null的必填字段
-                if (field.getAnnotation(Required.class) != null && field.get(entity) == null) {
+                if (field.getAnnotation(Required.class) != null && field.get(entityCopy) == null) {
                     throw new HttpException("缺少参数" + field.getName());
                 }
                 // 如果有@CreateBy字段，则新增时默认填充当前登录用户
                 if (field.getAnnotation(CreateBy.class) != null) {
                     field.setAccessible(true);
-                    field.set(entity, LoginUser.getLoginUserId());
+                    field.set(entityCopy, LoginUser.getLoginUserId());
                 }
                 if (field.getAnnotation(UpdateTime.class) != null) {
                     field.setAccessible(true);
-                    field.set(entity, null);
+                    field.set(entityCopy, null);
                 }
                 if (field.getAnnotation(CreateTime.class) != null) {
                     field.setAccessible(true);
-                    field.set(entity, null);
+                    field.set(entityCopy, null);
                 }
             }
-            return baseMapper.insert(entity);
+            int success = baseMapper.insert(entityCopy);
+            // 返回自增id
+            if(returnId){
+                Field idField = entity.getClass().getDeclaredField(idColumn.getName());
+                idField.setAccessible(true);
+                Object idValue = idField.get(entityCopy);
+                idField.set(entity, idValue);
+            }
+            return success;
         } catch (DuplicateKeyException e) {
             String[] split = e.getCause().getMessage().split(" ");
             String name = split[split.length - 1].replace("'", "");
@@ -214,7 +236,7 @@ public abstract class BaseService<E> {
             QueryParam.Column idColumn = queryParam.getIdColumn();
             // 如果id字段值为空，抛出异常
             if (idColumn == null || idColumn.getValue() == null) {
-                throw new IdNullValueException();
+                throw new NullValueOfIdException();
             }
             // 如果id字段有值，则根据id匹配编辑
             UpdateWrapper<E> updateWrapper = new UpdateWrapper<>();

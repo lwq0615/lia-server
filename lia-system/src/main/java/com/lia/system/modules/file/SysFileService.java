@@ -37,7 +37,7 @@ public class SysFileService {
      * dirName 文件上传的目标目录
      * @return 文件信息
      */
-    public SysFile uploadFile(MultipartFile file, String dirName) {
+    public SysFile uploadFile(MultipartFile file, UploadDir dirName) {
         if (file == null) {
             return null;
         }
@@ -45,7 +45,7 @@ public class SysFileService {
         String fileType = oldName.split("\\.")[oldName.split("\\.").length - 1];
         String newName = UUID.randomUUID().toString() + "." + fileType;
         String date = DateUtils.format(new Date(), "yyyyMMdd");
-        String newFilePath = basePath + "/" + dirName + "/" + date + "/" + newName;
+        String newFilePath = basePath + "/" + dirName.getDirNamme() + "/" + date + "/" + newName;
         File newFile = new File(newFilePath);
         // 路径不存在则先创建文件目录
         if (!newFile.getParentFile().exists()) {

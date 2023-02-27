@@ -119,5 +119,11 @@
         </trim>
     </update>
 
+    <select id="hasAuth" resultType="Integer">
+        select auth_id from sys_role_auth
+        where auth_id = (select auth_id from sys_auth where `key` = #{key})
+        and role_id = (select role_id from sys_user where user_id = #{userId})
+    </select>
+
 
 </mapper>

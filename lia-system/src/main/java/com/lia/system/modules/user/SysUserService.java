@@ -3,6 +3,7 @@ package com.lia.system.modules.user;
 
 import com.alibaba.fastjson2.JSON;
 import com.lia.system.entity.*;
+import com.lia.system.modules.file.UploadDir;
 import com.lia.system.modules.role.SysRoleService;
 import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
@@ -291,7 +292,7 @@ public class SysUserService {
         user.setUserId(LoginUser.getLoginUserId());
         user = this.findSysUser(user).get(0);
         // 保存新的头像
-        SysFile image = sysFileService.uploadFile(file, "image");
+        SysFile image = sysFileService.uploadFile(file, UploadDir.IMAGE);
         // 如果是更换头像，则删除原来的头像数据
         if (user.getHeadImg() != null) {
             //删除数据库内的头像数据

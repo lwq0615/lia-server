@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysUser;
+import com.lia.system.result.exception.HttpException;
 import com.lia.system.security.LoginUser;
 import com.lia.system.modules.file.SysFileService;
 import com.lia.system.result.HttpResult;

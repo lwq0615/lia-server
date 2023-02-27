@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysAuth;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.result.HttpResult;
+import com.lia.system.security.LoginUser;
 import com.lia.system.utils.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -83,5 +84,13 @@ public class SysAuthController {
         return sysAuthService.moveToRouter(ArrayUtils.asList(authIds), routerId);
     }
 
+
+    /**
+     * 查询用户是否有某个key的权限
+     */
+    @GetMapping("/hasAuth")
+    public boolean hasAuth(String key){
+        return sysAuthService.hasAuth(key, LoginUser.getLoginUserId());
+    }
 
 }

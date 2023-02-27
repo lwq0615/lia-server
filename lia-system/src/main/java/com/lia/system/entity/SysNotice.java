@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.lia.system.crud.anno.*;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +23,6 @@ public class SysNotice {
      * 主键
      */
     @TableId(type = IdType.AUTO)
-    @TableField("`id`")
     private Long id;
 
     /**
@@ -49,6 +50,18 @@ public class SysNotice {
      */
     @TableField("`level`")
     private Character level;
+
+    /**
+     * 推送给
+     */
+    @Pass
+    private List<Integer> publishTo;
+
+    /**
+     * 附件列表
+     */
+    @Pass
+    private List<Long> files;
 
     /**
      * 是否删除(0：否，1：是)

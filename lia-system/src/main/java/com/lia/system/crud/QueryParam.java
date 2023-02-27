@@ -4,6 +4,7 @@ package com.lia.system.crud;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.lia.system.crud.anno.*;
+import com.lia.system.utils.StrUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
@@ -25,7 +26,8 @@ public class QueryParam{
         for (Field field : eClass.getDeclaredFields()) {
             field.setAccessible(true);
             try {
-                if(field.get(entity) == null){
+                // 值为null或者配置了@Pass注解则不参与查询
+                if(field.get(entity) == null || field.getAnnotation(Pass.class) != null){
                     continue;
                 }
             } catch (IllegalAccessException e) {
@@ -33,8 +35,12 @@ public class QueryParam{
             }
             // 获取与数据库映射的字段名
             String columnName;
+            TableId tableId = field.getAnnotation(TableId.class);
             TableField tableField = field.getAnnotation(TableField.class);
-            if(tableField != null){
+            if(tableId != null){
+                columnName = tableId.value();
+            }
+            else if(tableField != null){
                 columnName = tableField.value();
             }else{
                 columnName = field.getName();
@@ -47,7 +53,6 @@ public class QueryParam{
                     Collections.addAll(btw, ((String) value).split(","));
                     value = btw;
                 }
-                // 值为null则不参与查询
                 columns.add(new Column(columnName, value, field.getAnnotation(Like.class) != null));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -63,7 +68,8 @@ public class QueryParam{
             field.setAccessible(true);
             // 创建人与创建时间和更新时间和主键字段不参与更新
             if(field.getAnnotation(CreateBy.class) != null || field.getAnnotation(UpdateTime.class) != null
-            || field.getAnnotation(TableId.class) != null || field.getAnnotation(CreateTime.class) != null){
+            || field.getAnnotation(TableId.class) != null || field.getAnnotation(CreateTime.class) != null
+            || field.getAnnotation(Pass.class) != null){
                 continue;
             }
             // 获取与数据库映射的字段名
@@ -87,13 +93,12 @@ public class QueryParam{
     public Column getIdColumn(){
         for (Field field : entity.getClass().getDeclaredFields()) {
             field.setAccessible(true);
-            // 创建人与创建时间和主键字段不参与更新
-            if(field.getAnnotation(TableId.class) != null){
+            TableId tableId = field.getAnnotation(TableId.class);
+            if(tableId != null){
                 // 获取与数据库映射的字段名
                 String columnName;
-                TableField tableField = field.getAnnotation(TableField.class);
-                if(tableField != null){
-                    columnName = tableField.value();
+                if(!StrUtils.isEmpty(tableId.value())){
+                    columnName = tableId.value();
                 }else{
                     columnName = field.getName();
                 }
@@ -141,6 +146,15 @@ public class QueryParam{
 
         public boolean isLike() {
             return isLike;
+        }
+
+        @Override
+        public String toString() {
+            return "Column{" +
+                    "name='" + name + '\'' +
+                    ", value=" + value +
+                    ", isLike=" + isLike +
+                    '}';
         }
     }
 
