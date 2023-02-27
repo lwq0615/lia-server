@@ -8,9 +8,7 @@ import com.lia.system.utils.StrUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class QueryParam{
 
@@ -18,6 +16,34 @@ public class QueryParam{
 
     public QueryParam(Object entity) {
         this.entity = entity;
+    }
+
+    public String[] getReturnColumn(){
+        List<String> columns = new ArrayList<>();
+        for (Field field : entity.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            if(field.getAnnotation(Pass.class) != null){
+                continue;
+            }
+            // 获取与数据库映射的字段名
+            String columnName;
+            TableId tableId = field.getAnnotation(TableId.class);
+            TableField tableField = field.getAnnotation(TableField.class);
+            if(tableId != null && !StrUtils.isEmpty(tableId.value())){
+                columnName = tableId.value();
+            }
+            else if(tableField != null && !StrUtils.isEmpty(tableField.value())){
+                columnName = tableField.value();
+            }else{
+                columnName = field.getName();
+            }
+            columns.add(columnName);
+        }
+        String[] res = new String[columns.size()];
+        for (int i = 0; i < columns.size() - 1; i++) {
+            res[i] = columns.get(i);
+        }
+        return res;
     }
 
     public List<Column> getSelectColumn(){
@@ -37,10 +63,10 @@ public class QueryParam{
             String columnName;
             TableId tableId = field.getAnnotation(TableId.class);
             TableField tableField = field.getAnnotation(TableField.class);
-            if(tableId != null){
+            if(tableId != null && !StrUtils.isEmpty(tableId.value())){
                 columnName = tableId.value();
             }
-            else if(tableField != null){
+            else if(tableField != null && !StrUtils.isEmpty(tableField.value())){
                 columnName = tableField.value();
             }else{
                 columnName = field.getName();
@@ -75,7 +101,7 @@ public class QueryParam{
             // 获取与数据库映射的字段名
             String columnName;
             TableField tableField = field.getAnnotation(TableField.class);
-            if(tableField != null){
+            if(tableField != null && !StrUtils.isEmpty(tableField.value())){
                 columnName = tableField.value();
             }else{
                 columnName = field.getName();

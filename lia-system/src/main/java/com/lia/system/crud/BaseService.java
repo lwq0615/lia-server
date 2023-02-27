@@ -12,11 +12,13 @@ import com.lia.system.crud.exception.UniqueException;
 import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.security.LoginUser;
+import com.lia.system.utils.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.dao.DuplicateKeyException;
 
 import javax.annotation.PostConstruct;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -92,6 +94,7 @@ public abstract class BaseService<E> {
             queryWrapper.orderByDesc(queryParam.getIdColumn().getName());
         }
         List<QueryParam.Column> columns = queryParam.getSelectColumn();
+        queryWrapper.select(queryParam.getReturnColumn());
         for (int i = 0; i < columns.size(); i++) {
             QueryParam.Column column = columns.get(i);
             String name = column.getName();

@@ -79,7 +79,7 @@ public class GlobalException {
             }
             Redis.getTemplate().opsForValue().multiSet(urlNameMap);
         }
-        return HttpResult.error(SysResult.NOT_AUTH, urlName + SysResult.NOT_AUTH.getMessage());
+        return HttpResult.error(SysResult.NOT_AUTH, (urlName == null ? "" : urlName) + SysResult.NOT_AUTH.getMessage());
     }
 
 
