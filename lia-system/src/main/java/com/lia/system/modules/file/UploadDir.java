@@ -2,7 +2,8 @@ package com.lia.system.modules.file;
 
 public enum UploadDir {
 
-    IMAGE("image");
+    IMAGE("image"),
+    FILE("file");
 
     private String dirNamme;
 

@@ -34,18 +34,19 @@ public class SysFileService {
 
     /**
      * 上传文件
-     * dirName 文件上传的目标目录
-     * @return 文件信息
+     * @param file 文件资源
+     * @param dirName 目标文件夹
+     * @param uuid 存储在本地的文件名
+     * @return
      */
-    public SysFile uploadFile(MultipartFile file, UploadDir dirName) {
+    public SysFile uploadFile(MultipartFile file, UploadDir dirName, String uuid){
         if (file == null) {
             return null;
         }
         String oldName = file.getOriginalFilename();
         String fileType = oldName.split("\\.")[oldName.split("\\.").length - 1];
-        String newName = UUID.randomUUID().toString() + "." + fileType;
         String date = DateUtils.format(new Date(), "yyyyMMdd");
-        String newFilePath = basePath + "/" + dirName.getDirNamme() + "/" + date + "/" + newName;
+        String newFilePath = basePath + "/" + dirName.getDirNamme() + "/" + date + "/" + uuid + "." + fileType;
         File newFile = new File(newFilePath);
         // 路径不存在则先创建文件目录
         if (!newFile.getParentFile().exists()) {
@@ -67,6 +68,16 @@ public class SysFileService {
         sysFile.setUploadUser(LoginUser.getLoginUserId());
         sysFileMapper.addSysFile(sysFile);
         return sysFile;
+    }
+
+
+    /**
+     * 上传文件
+     * dirName 文件上传的目标目录
+     * @return 文件信息
+     */
+    public SysFile uploadFile(MultipartFile file, UploadDir dirName) {
+        return this.uploadFile(file, dirName, UUID.randomUUID().toString());
     }
 
     /**

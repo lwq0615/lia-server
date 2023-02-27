@@ -1,9 +1,11 @@
 package com.lia.system.modules.file;
 
 
+import com.lia.system.entity.SysFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,8 +43,11 @@ public class SysFileController {
     /**
      * 上传文件
      */
-//    @PostMapping("upload")
-//    public
+    @PostMapping("upload")
+    @PreAuthorize("hasAuthority('system:file:upload')")
+    public SysFile uploadFile(@RequestBody MultipartFile file, String uuid){
+        return sysFileService.uploadFile(file, UploadDir.FILE, uuid);
+    }
 
 
 }
