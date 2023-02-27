@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80021 (8.0.21)
+ Source Server Version : 80031
  Source Host           : localhost:3306
  Source Schema         : lia
 
  Target Server Type    : MySQL
- Target Server Version : 80021 (8.0.21)
+ Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 26/02/2023 21:36:34
+ Date: 27/02/2023 17:09:20
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `sys_auth`  (
   INDEX `sys_auth-router_id`(`router_id` ASC) USING BTREE,
   CONSTRAINT `sys_auth-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 96 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_auth
@@ -85,6 +85,10 @@ INSERT INTO `sys_auth` VALUES (85, '批量生成注册码', '/system/register/co
 INSERT INTO `sys_auth` VALUES (91, '路由重新排序', '/system/router/reloadIndex', 'system:router:reloadIndex', 6, '0', 1, '2023-02-22 00:10:57', NULL);
 INSERT INTO `sys_auth` VALUES (92, '根据key获取字典', '/system/dictData/getByKey', 'system:dictData:getByKey', 7, '0', 1, '2023-02-23 16:13:25', NULL);
 INSERT INTO `sys_auth` VALUES (95, '发布系统公告', '/system/notice/add', 'system:notice:add', 2, '0', 1, '2023-02-24 17:08:02', NULL);
+INSERT INTO `sys_auth` VALUES (96, '下载文件', '/system/file/getFile', 'system:file:getFile', 51, '0', 1, '2023-02-27 10:06:42', NULL);
+INSERT INTO `sys_auth` VALUES (97, '获取图片资源', '/system/file/getPic', 'system:file:getPic', 51, '0', 1, '2023-02-27 10:07:08', NULL);
+INSERT INTO `sys_auth` VALUES (98, '上传文件', '/system/file/upload', 'system:file:upload', 51, '0', 1, '2023-02-27 10:23:57', NULL);
+INSERT INTO `sys_auth` VALUES (99, '查询公告列表', '/system/notice/getPage', 'system:notice:getPage', 2, '0', 1, '2023-02-27 16:00:54', NULL);
 
 -- ----------------------------
 -- Table structure for sys_company
@@ -184,14 +188,81 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user` ASC) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 95 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 169 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_file
 -- ----------------------------
 INSERT INTO `sys_file` VALUES (41, '微信图片_20220312191446.jpg', 'public/image/20221003/19afa398-9430-46c5-ac3a-997259d48f16.jpg', 1781778, '2022-10-03 21:27:02', NULL);
 INSERT INTO `sys_file` VALUES (84, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/image/20230224/9adf6db1-f120-4008-8753-f384dc3b8d9f.jpg', 40553, '2023-02-24 10:55:53', 2);
-INSERT INTO `sys_file` VALUES (94, '屏幕截图_20230101_190847.png', 'public/image/20230226/7a9e235b-418c-46ee-be88-6dae11abeeb4.png', 2094083, '2023-02-26 11:59:05', 1);
+INSERT INTO `sys_file` VALUES (101, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/image/20230227/16e1d329-2d7e-413c-8143-e46fdf37cfbd.jpg', 25572, '2023-02-27 09:51:48', 1);
+INSERT INTO `sys_file` VALUES (102, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/null.jpg', 36247, '2023-02-27 10:45:03', 1);
+INSERT INTO `sys_file` VALUES (103, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/null.jpg', 25572, '2023-02-27 10:45:03', 1);
+INSERT INTO `sys_file` VALUES (104, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677465952690-3.jpg', 36247, '2023-02-27 10:46:00', 1);
+INSERT INTO `sys_file` VALUES (105, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677465952690-4.jpg', 25572, '2023-02-27 10:46:00', 1);
+INSERT INTO `sys_file` VALUES (106, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677466341838-5.jpg', 40553, '2023-02-27 10:52:29', 1);
+INSERT INTO `sys_file` VALUES (107, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677466341838-4.jpg', 25572, '2023-02-27 10:52:29', 1);
+INSERT INTO `sys_file` VALUES (108, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677466341838-3.jpg', 36247, '2023-02-27 10:52:29', 1);
+INSERT INTO `sys_file` VALUES (109, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677467897517-5.jpg', 32670, '2023-02-27 11:18:25', 1);
+INSERT INTO `sys_file` VALUES (110, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677467897517-3.jpg', 25572, '2023-02-27 11:18:25', 1);
+INSERT INTO `sys_file` VALUES (111, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677467897517-4.jpg', 40553, '2023-02-27 11:18:25', 1);
+INSERT INTO `sys_file` VALUES (112, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-4.jpg', 25572, '2023-02-27 11:21:50', 1);
+INSERT INTO `sys_file` VALUES (113, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-3.jpg', 36247, '2023-02-27 11:21:50', 1);
+INSERT INTO `sys_file` VALUES (114, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-4.jpg', 25572, '2023-02-27 11:22:00', 1);
+INSERT INTO `sys_file` VALUES (115, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-3.jpg', 36247, '2023-02-27 11:22:00', 1);
+INSERT INTO `sys_file` VALUES (116, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-3.jpg', 36247, '2023-02-27 11:22:30', 1);
+INSERT INTO `sys_file` VALUES (117, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-4.jpg', 25572, '2023-02-27 11:22:30', 1);
+INSERT INTO `sys_file` VALUES (118, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-4.jpg', 25572, '2023-02-27 11:22:41', 1);
+INSERT INTO `sys_file` VALUES (119, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-3.jpg', 36247, '2023-02-27 11:22:41', 1);
+INSERT INTO `sys_file` VALUES (120, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-4.jpg', 25572, '2023-02-27 11:23:44', 1);
+INSERT INTO `sys_file` VALUES (121, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-3.jpg', 36247, '2023-02-27 11:23:44', 1);
+INSERT INTO `sys_file` VALUES (122, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-8.jpg', 25572, '2023-02-27 11:24:41', 1);
+INSERT INTO `sys_file` VALUES (123, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-7.jpg', 36247, '2023-02-27 11:24:41', 1);
+INSERT INTO `sys_file` VALUES (124, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-7.jpg', 36247, '2023-02-27 11:24:57', 1);
+INSERT INTO `sys_file` VALUES (125, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-8.jpg', 25572, '2023-02-27 11:24:57', 1);
+INSERT INTO `sys_file` VALUES (126, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677468105130-30.jpg', 40553, '2023-02-27 11:36:55', 1);
+INSERT INTO `sys_file` VALUES (127, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677469219475-3.jpg', 25572, '2023-02-27 11:40:22', 1);
+INSERT INTO `sys_file` VALUES (128, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677469283627-3.jpg', 36247, '2023-02-27 11:41:27', 1);
+INSERT INTO `sys_file` VALUES (129, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677469379540-6.jpg', 40553, '2023-02-27 11:43:12', 1);
+INSERT INTO `sys_file` VALUES (130, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677470256020-3.jpg', 36247, '2023-02-27 11:57:43', 1);
+INSERT INTO `sys_file` VALUES (131, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677470256020-4.jpg', 25572, '2023-02-27 11:57:43', 1);
+INSERT INTO `sys_file` VALUES (132, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677470256020-5.jpg', 40553, '2023-02-27 11:57:43', 1);
+INSERT INTO `sys_file` VALUES (133, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677470256020-6.jpg', 32670, '2023-02-27 11:57:43', 1);
+INSERT INTO `sys_file` VALUES (134, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677470383258-3.jpg', 36247, '2023-02-27 11:59:47', 1);
+INSERT INTO `sys_file` VALUES (135, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677470402152-3.jpg', 36247, '2023-02-27 12:00:07', 1);
+INSERT INTO `sys_file` VALUES (136, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677479507223-3.jpg', 25572, '2023-02-27 14:31:57', 1);
+INSERT INTO `sys_file` VALUES (137, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677479684199-3.jpg', 36247, '2023-02-27 14:34:52', 1);
+INSERT INTO `sys_file` VALUES (138, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677479684199-5.jpg', 40553, '2023-02-27 14:34:52', 1);
+INSERT INTO `sys_file` VALUES (139, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677479684199-4.jpg', 25572, '2023-02-27 14:34:52', 1);
+INSERT INTO `sys_file` VALUES (140, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677480629042-3.jpg', 36247, '2023-02-27 14:50:39', 1);
+INSERT INTO `sys_file` VALUES (141, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677480629042-4.jpg', 25572, '2023-02-27 14:50:39', 1);
+INSERT INTO `sys_file` VALUES (142, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677480629042-5.jpg', 40553, '2023-02-27 14:50:39', 1);
+INSERT INTO `sys_file` VALUES (143, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677480629042-5.jpg', 40553, '2023-02-27 14:51:33', 1);
+INSERT INTO `sys_file` VALUES (144, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677480629042-4.jpg', 25572, '2023-02-27 14:51:33', 1);
+INSERT INTO `sys_file` VALUES (145, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677480629042-3.jpg', 36247, '2023-02-27 14:51:33', 1);
+INSERT INTO `sys_file` VALUES (146, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677480629042-11.jpg', 40553, '2023-02-27 14:53:34', 1);
+INSERT INTO `sys_file` VALUES (147, '11.pdf', 'public/file/20230227/rc-upload-1677480629042-8.pdf', 217591, '2023-02-27 14:53:34', 1);
+INSERT INTO `sys_file` VALUES (148, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677480629042-10.jpg', 25572, '2023-02-27 14:53:34', 1);
+INSERT INTO `sys_file` VALUES (149, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677480629042-9.jpg', 36247, '2023-02-27 14:53:34', 1);
+INSERT INTO `sys_file` VALUES (150, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481283425-4.jpg', 25572, '2023-02-27 15:01:38', 1);
+INSERT INTO `sys_file` VALUES (151, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481283425-6.jpg', 32670, '2023-02-27 15:01:38', 1);
+INSERT INTO `sys_file` VALUES (152, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481549232-6.jpg', 32670, '2023-02-27 15:06:15', 1);
+INSERT INTO `sys_file` VALUES (153, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481549232-4.jpg', 25572, '2023-02-27 15:06:15', 1);
+INSERT INTO `sys_file` VALUES (154, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481549232-12.jpg', 25572, '2023-02-27 15:06:15', 1);
+INSERT INTO `sys_file` VALUES (155, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481549232-14.jpg', 32670, '2023-02-27 15:06:15', 1);
+INSERT INTO `sys_file` VALUES (156, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481549232-6.jpg', 32670, '2023-02-27 15:06:30', 1);
+INSERT INTO `sys_file` VALUES (157, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481549232-4.jpg', 25572, '2023-02-27 15:06:30', 1);
+INSERT INTO `sys_file` VALUES (158, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481549232-12.jpg', 25572, '2023-02-27 15:06:30', 1);
+INSERT INTO `sys_file` VALUES (159, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481549232-14.jpg', 32670, '2023-02-27 15:06:30', 1);
+INSERT INTO `sys_file` VALUES (160, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481668522-4.jpg', 25572, '2023-02-27 15:07:58', 1);
+INSERT INTO `sys_file` VALUES (161, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481668522-6.jpg', 32670, '2023-02-27 15:07:58', 1);
+INSERT INTO `sys_file` VALUES (162, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481668522-9.jpg', 25572, '2023-02-27 15:10:37', 1);
+INSERT INTO `sys_file` VALUES (163, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481668522-11.jpg', 32670, '2023-02-27 15:10:37', 1);
+INSERT INTO `sys_file` VALUES (164, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481906534-16.jpg', 25572, '2023-02-27 15:13:50', 1);
+INSERT INTO `sys_file` VALUES (165, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481906534-18.jpg', 32670, '2023-02-27 15:13:50', 1);
+INSERT INTO `sys_file` VALUES (166, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481906534-23.jpg', 25572, '2023-02-27 15:13:50', 1);
+INSERT INTO `sys_file` VALUES (167, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677482521561-4.jpg', 25572, '2023-02-27 15:22:51', 1);
+INSERT INTO `sys_file` VALUES (168, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677482521561-6.jpg', 32670, '2023-02-27 15:22:51', 1);
 
 -- ----------------------------
 -- Table structure for sys_msg
@@ -210,7 +281,7 @@ CREATE TABLE `sys_msg`  (
   INDEX `sys_msg-send_to`(`send_to` ASC) USING BTREE,
   CONSTRAINT `sys_msg-send_by` FOREIGN KEY (`send_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_msg-send_to` FOREIGN KEY (`send_to`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 180 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '消息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 181 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '消息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_msg
@@ -249,6 +320,7 @@ INSERT INTO `sys_msg` VALUES (176, '5', '0', '0', 1, 2, '2023-02-17 00:05:11');
 INSERT INTO `sys_msg` VALUES (177, '1', '0', '0', 1, 2, '2023-02-17 00:05:12');
 INSERT INTO `sys_msg` VALUES (178, '321', '0', '0', 1, 2, '2023-02-19 14:51:59');
 INSERT INTO `sys_msg` VALUES (179, '11', '0', '0', 1, 2, '2023-02-21 22:18:11');
+INSERT INTO `sys_msg` VALUES (180, '321', '0', '0', 1, 2, '2023-02-27 09:51:36');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -265,7 +337,7 @@ CREATE TABLE `sys_notice`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice
@@ -299,23 +371,36 @@ INSERT INTO `sys_notice` VALUES (30, '213', NULL, '0', '0', '0', 1, '2023-02-26 
 INSERT INTO `sys_notice` VALUES (31, '123', NULL, '0', '0', '0', 1, '2023-02-26 21:09:22', '2023-02-26 21:09:22');
 INSERT INTO `sys_notice` VALUES (32, '123', '123', '0', '0', '0', 1, '2023-02-26 21:09:41', '2023-02-26 21:09:41');
 INSERT INTO `sys_notice` VALUES (33, 'asd ', 'asds', '0', '0', '0', 1, '2023-02-26 21:10:13', '2023-02-26 21:10:13');
+INSERT INTO `sys_notice` VALUES (34, '6', NULL, '0', '0', '0', 1, '2023-02-27 09:20:50', '2023-02-27 09:20:50');
+INSERT INTO `sys_notice` VALUES (36, '123', NULL, '0', '0', '0', 1, '2023-02-27 14:51:33', '2023-02-27 14:51:33');
+INSERT INTO `sys_notice` VALUES (37, '123', NULL, '1', '2', '0', 1, '2023-02-27 14:53:34', '2023-02-27 14:53:34');
+INSERT INTO `sys_notice` VALUES (40, '12', NULL, '1', '2', '0', 1, '2023-02-27 15:22:58', '2023-02-27 15:22:58');
 
 -- ----------------------------
 -- Table structure for sys_notice_file
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_notice_file`;
 CREATE TABLE `sys_notice_file`  (
-  `nitice_id` bigint NOT NULL COMMENT '公告id',
+  `notice_id` bigint NOT NULL COMMENT '公告id',
   `file_id` bigint NOT NULL COMMENT '附件id',
-  PRIMARY KEY (`nitice_id`, `file_id`) USING BTREE,
+  PRIMARY KEY (`notice_id`, `file_id`) USING BTREE,
   INDEX `sys_notice_file-file_id`(`file_id` ASC) USING BTREE,
   CONSTRAINT `sys_notice_file-file_id` FOREIGN KEY (`file_id`) REFERENCES `sys_file` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `sys_notice_file-notice_id` FOREIGN KEY (`nitice_id`) REFERENCES `sys_notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `sys_notice_file-notice_id` FOREIGN KEY (`notice_id`) REFERENCES `sys_notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice_file
 -- ----------------------------
+INSERT INTO `sys_notice_file` VALUES (36, 143);
+INSERT INTO `sys_notice_file` VALUES (36, 144);
+INSERT INTO `sys_notice_file` VALUES (36, 145);
+INSERT INTO `sys_notice_file` VALUES (37, 146);
+INSERT INTO `sys_notice_file` VALUES (37, 147);
+INSERT INTO `sys_notice_file` VALUES (37, 148);
+INSERT INTO `sys_notice_file` VALUES (37, 149);
+INSERT INTO `sys_notice_file` VALUES (40, 167);
+INSERT INTO `sys_notice_file` VALUES (40, 168);
 
 -- ----------------------------
 -- Table structure for sys_notice_role
@@ -328,7 +413,7 @@ CREATE TABLE `sys_notice_role`  (
   INDEX `sys_notice_role-notice_id`(`notice_id` ASC) USING BTREE,
   CONSTRAINT `sys_notice_role-notice_id` FOREIGN KEY (`notice_id`) REFERENCES `sys_notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_notice_role-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice_role
@@ -347,6 +432,18 @@ INSERT INTO `sys_notice_role` VALUES (2, 32);
 INSERT INTO `sys_notice_role` VALUES (3, 32);
 INSERT INTO `sys_notice_role` VALUES (2, 33);
 INSERT INTO `sys_notice_role` VALUES (3, 33);
+INSERT INTO `sys_notice_role` VALUES (1, 34);
+INSERT INTO `sys_notice_role` VALUES (2, 34);
+INSERT INTO `sys_notice_role` VALUES (3, 34);
+INSERT INTO `sys_notice_role` VALUES (1, 36);
+INSERT INTO `sys_notice_role` VALUES (2, 36);
+INSERT INTO `sys_notice_role` VALUES (3, 36);
+INSERT INTO `sys_notice_role` VALUES (1, 37);
+INSERT INTO `sys_notice_role` VALUES (2, 37);
+INSERT INTO `sys_notice_role` VALUES (3, 37);
+INSERT INTO `sys_notice_role` VALUES (1, 40);
+INSERT INTO `sys_notice_role` VALUES (2, 40);
+INSERT INTO `sys_notice_role` VALUES (3, 40);
 
 -- ----------------------------
 -- Table structure for sys_param
@@ -498,6 +595,10 @@ INSERT INTO `sys_role_auth` VALUES (1, 85);
 INSERT INTO `sys_role_auth` VALUES (1, 91);
 INSERT INTO `sys_role_auth` VALUES (1, 92);
 INSERT INTO `sys_role_auth` VALUES (1, 95);
+INSERT INTO `sys_role_auth` VALUES (1, 96);
+INSERT INTO `sys_role_auth` VALUES (1, 97);
+INSERT INTO `sys_role_auth` VALUES (1, 98);
+INSERT INTO `sys_role_auth` VALUES (1, 99);
 INSERT INTO `sys_role_auth` VALUES (2, 95);
 
 -- ----------------------------
@@ -571,7 +672,7 @@ CREATE TABLE `sys_router`  (
   INDEX `sys_router-parent`(`parent` ASC) USING BTREE,
   CONSTRAINT `sys_router-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_router-parent` FOREIGN KEY (`parent`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '路由' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '路由' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_router
@@ -583,11 +684,12 @@ INSERT INTO `sys_router` VALUES (4, '用户管理', 'user', '/system/user/User',
 INSERT INTO `sys_router` VALUES (5, '权限管理', 'auth', '/system/auth/Auth', 3, 2, 'KeyOutlined', 1, '2022-05-09 11:01:00', NULL);
 INSERT INTO `sys_router` VALUES (6, '路由管理', 'router', '/system/router/Router', 3, 3, 'GoldOutlined', 1, '2022-05-30 21:14:00', NULL);
 INSERT INTO `sys_router` VALUES (7, '字典配置', 'dict', '/system/dict/Dict', 3, 5, 'PicRightOutlined', 1, '2022-06-11 11:25:44', NULL);
-INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 3, 7, 'CodeSandboxOutlined', 1, '2022-06-19 16:57:58', NULL);
+INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 3, 8, 'CodeSandboxOutlined', 1, '2022-06-19 16:57:58', NULL);
 INSERT INTO `sys_router` VALUES (40, '代码生成', 'codeGenerator', '/system/tool/codeGenerator/CodeGenerator', 38, 0, 'CopyrightOutlined', 1, '2022-06-19 17:00:51', NULL);
 INSERT INTO `sys_router` VALUES (41, '企业管理', 'company', '/system/company/Company', 3, 1, 'VerifiedOutlined', 1, '2022-09-20 15:27:00', NULL);
 INSERT INTO `sys_router` VALUES (44, '系统参数', 'param', '/system/param/Param', 3, 6, 'ProfileOutlined', 1, '2022-11-30 16:54:04', NULL);
 INSERT INTO `sys_router` VALUES (47, '注册码', 'registerCode', '/system/registerCode/registerCode', 3, 4, 'FieldStringOutlined', 1, '2023-01-10 21:29:01', NULL);
+INSERT INTO `sys_router` VALUES (51, '系统文件', 'file', NULL, 3, 7, 'FolderOutlined', 1, '2023-02-27 10:06:13', NULL);
 
 -- ----------------------------
 -- Table structure for sys_tool_code
@@ -668,7 +770,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 94, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 101, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
 INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '测试', 2, '0', '18150027197', '1072864729@qq.com', 84, '0', '0', 1, '2022-05-17 02:12:00', '测试账号，不可删除');
 INSERT INTO `sys_user` VALUES (89, '1', '$2a$10$30cfIcdCW/iM.mSEI5FQpejfBPjLsltvOXMGtxWgg3B2NL4f2wSBq', '2', NULL, '0', NULL, NULL, NULL, '0', '1', 2, '2023-01-05 11:12:37', NULL);
 INSERT INTO `sys_user` VALUES (90, '1', '$2a$10$a5ubpT8n2sGATK3jtBSc5.PxegJx4lDqvtlGNWkFk.dVUCJJOoaZy', '1', 1, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-10 20:21:33', NULL);
