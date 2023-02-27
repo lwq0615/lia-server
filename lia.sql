@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 24/02/2023 11:58:11
+ Date: 24/02/2023 22:08:42
 */
 
 SET NAMES utf8mb4;
@@ -32,13 +32,13 @@ CREATE TABLE `sys_auth`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`auth_id`) USING BTREE,
-  UNIQUE INDEX `sys_auth-url`(`url` ASC) USING BTREE,
   UNIQUE INDEX `sys_auth-key`(`key` ASC) USING BTREE,
+  UNIQUE INDEX `sys_auth-url`(`url` ASC) USING BTREE,
   INDEX `sys_auth-create_by`(`create_by` ASC) USING BTREE,
   INDEX `sys_auth-router_id`(`router_id` ASC) USING BTREE,
   CONSTRAINT `sys_auth-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 95 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 96 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_auth
@@ -84,6 +84,7 @@ INSERT INTO `sys_auth` VALUES (84, '批量删除', '/system/register/code/delete
 INSERT INTO `sys_auth` VALUES (85, '批量生成注册码', '/system/register/code/create', 'system:register:code:create', 47, '0', 1, '2023-01-11 00:40:12', NULL);
 INSERT INTO `sys_auth` VALUES (91, '路由重新排序', '/system/router/reloadIndex', 'system:router:reloadIndex', 6, '0', 1, '2023-02-22 00:10:57', NULL);
 INSERT INTO `sys_auth` VALUES (92, '根据key获取字典', '/system/dictData/getByKey', 'system:dictData:getByKey', 7, '0', 1, '2023-02-23 16:13:25', NULL);
+INSERT INTO `sys_auth` VALUES (95, '发布系统公告', '/system/notice/add', 'system:notice:add', 2, '0', 1, '2023-02-24 17:08:02', NULL);
 
 -- ----------------------------
 -- Table structure for sys_company
@@ -179,14 +180,14 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user` ASC) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 88 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_file
 -- ----------------------------
 INSERT INTO `sys_file` VALUES (41, '微信图片_20220312191446.jpg', 'public/image/20221003/19afa398-9430-46c5-ac3a-997259d48f16.jpg', 1781778, '2022-10-03 21:27:02', NULL);
 INSERT INTO `sys_file` VALUES (84, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/image/20230224/9adf6db1-f120-4008-8753-f384dc3b8d9f.jpg', 40553, '2023-02-24 10:55:53', 2);
-INSERT INTO `sys_file` VALUES (87, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/image/20230224/024e9525-e38a-4df6-a432-7cffb9e6a21d.jpg', 36247, '2023-02-24 11:06:23', 1);
+INSERT INTO `sys_file` VALUES (91, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/image/20230224/9d41ebeb-66ac-4bb1-a9ea-4de9764f0790.jpg', 36247, '2023-02-24 16:10:40', 1);
 
 -- ----------------------------
 -- Table structure for sys_msg
@@ -260,11 +261,17 @@ CREATE TABLE `sys_notice`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice
 -- ----------------------------
+INSERT INTO `sys_notice` VALUES (1, '11213123', '123', '0', '0', '0', 1, '2023-02-24 17:14:24', '2023-02-24 17:14:24');
+INSERT INTO `sys_notice` VALUES (2, '11213123', '123', '0', '0', '0', 1, '2023-02-24 17:15:15', '2023-02-24 17:15:15');
+INSERT INTO `sys_notice` VALUES (3, '11213123', '123', '0', '0', '0', 1, '2023-02-24 17:22:02', '2023-02-24 17:22:02');
+INSERT INTO `sys_notice` VALUES (4, '1', NULL, '0', '0', '0', 1, '2023-02-24 21:58:50', '2023-02-24 21:58:50');
+INSERT INTO `sys_notice` VALUES (5, '2', NULL, '0', '0', '0', 1, '2023-02-24 21:59:14', '2023-02-24 21:59:14');
+INSERT INTO `sys_notice` VALUES (6, '1', NULL, '0', '0', '0', 1, '2023-02-24 22:00:57', '2023-02-24 22:00:57');
 
 -- ----------------------------
 -- Table structure for sys_param
@@ -282,7 +289,7 @@ CREATE TABLE `sys_param`  (
   UNIQUE INDEX `sys_param-name`(`name` ASC) USING BTREE,
   INDEX `sys_param-create_by`(`create_by` ASC) USING BTREE,
   CONSTRAINT `sys_param-create_by` FOREIGN KEY (`create_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统参数表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统参数表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_param
@@ -415,6 +422,7 @@ INSERT INTO `sys_role_auth` VALUES (1, 84);
 INSERT INTO `sys_role_auth` VALUES (1, 85);
 INSERT INTO `sys_role_auth` VALUES (1, 91);
 INSERT INTO `sys_role_auth` VALUES (1, 92);
+INSERT INTO `sys_role_auth` VALUES (1, 95);
 
 -- ----------------------------
 -- Table structure for sys_role_router
@@ -482,7 +490,7 @@ CREATE TABLE `sys_router`  (
 -- Records of sys_router
 -- ----------------------------
 INSERT INTO `sys_router` VALUES (1, '根目录', '*', NULL, 1, 1, NULL, 1, '2022-06-05 02:55:58', NULL);
-INSERT INTO `sys_router` VALUES (2, '首页', '', '/system/index/Index', 1, 0, 'BankOutlined', 1, '2023-02-24 10:33:54', NULL);
+INSERT INTO `sys_router` VALUES (2, '首页', 'index', '/index/Index', 1, 0, 'BankOutlined', 1, '2023-02-24 10:33:54', NULL);
 INSERT INTO `sys_router` VALUES (3, '系统管理', 'system', NULL, 1, 1, 'SettingOutlined', 1, '2022-05-09 10:51:00', NULL);
 INSERT INTO `sys_router` VALUES (4, '用户管理', 'user', '/system/user/User', 3, 0, 'TeamOutlined', 1, '2022-05-09 10:55:00', NULL);
 INSERT INTO `sys_router` VALUES (5, '权限管理', 'auth', '/system/auth/Auth', 3, 2, 'KeyOutlined', 1, '2022-05-09 11:01:00', NULL);
@@ -573,7 +581,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 87, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 91, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
 INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '测试', 2, '0', '18150027197', '1072864729@qq.com', 84, '0', '0', 1, '2022-05-17 02:12:00', '测试账号，不可删除');
 INSERT INTO `sys_user` VALUES (89, '1', '$2a$10$30cfIcdCW/iM.mSEI5FQpejfBPjLsltvOXMGtxWgg3B2NL4f2wSBq', '2', NULL, '0', NULL, NULL, NULL, '0', '1', 2, '2023-01-05 11:12:37', NULL);
 INSERT INTO `sys_user` VALUES (90, '1', '$2a$10$a5ubpT8n2sGATK3jtBSc5.PxegJx4lDqvtlGNWkFk.dVUCJJOoaZy', '1', 1, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-10 20:21:33', NULL);
