@@ -14,12 +14,4 @@ public class ArrayUtils {
         return list;
     }
 
-    public static <T> ArrayList<T> asList(Set<T> set){
-        ArrayList<T> list = new ArrayList<T>();
-        for (T t : set) {
-            list.add(t);
-        }
-        return list;
-    }
-
 }
