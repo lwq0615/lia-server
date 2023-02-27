@@ -2,6 +2,7 @@ package com.lia.system.result.exception;
 
 import com.alibaba.fastjson2.JSON;
 import com.lia.system.entity.SysAuth;
+import com.lia.system.entity.SysFile;
 import com.lia.system.modules.auth.SysAuthService;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;

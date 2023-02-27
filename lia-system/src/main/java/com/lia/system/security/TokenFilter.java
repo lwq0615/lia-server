@@ -1,6 +1,7 @@
 package com.lia.system.security;
 
 import com.alibaba.fastjson2.JSON;
+import com.lia.system.entity.SysFile;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,12 @@ public class TokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        response.setContentType("application/json;charset=utf-8");
         String uid = request.getHeader(header);
         // 如果是访问图片或者文件资源接口，则从uri中获取token
-        if(request.getRequestURI().equals("/system/file/getPic")
-            || request.getRequestURI().equals("/system/file/getFile")){
+        if(SysFile.FILE_REQ_URL.contains(request.getRequestURI())){
             uid = request.getParameter(header);
+        }else{
+            response.setContentType("application/json;charset=utf-8");
         }
         // 没有token，不需要解析
         if(uid == null || uid.equals("")){

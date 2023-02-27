@@ -19,10 +19,6 @@ import java.util.Map;
 public class ErrorController extends BasicErrorController {
 
 
-    @Value("${server.error.path:/error}")
-    private String path;
-
-
     public ErrorController(ServerProperties serverProperties) {
         super(new DefaultErrorAttributes(), serverProperties.getError());
     }

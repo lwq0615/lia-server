@@ -2,6 +2,7 @@ package com.lia.system.modules.file;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,11 +21,10 @@ public class SysFileController {
      * @param comp 是否压缩
      */
     @GetMapping("/getPic")
+    @PreAuthorize("hasAuthority('system:file:getPic')")
     public void getPic(HttpServletResponse response, Long fileId, Boolean comp){
         sysFileService.loadPicByFileId(response, fileId, comp);
     }
-
-
 
 
     /**
@@ -32,9 +32,17 @@ public class SysFileController {
      * @param fileId 资源fileId
      */
     @GetMapping("/getFile")
+    @PreAuthorize("hasAuthority('system:file:getFile')")
     public void getFile(HttpServletResponse response, Long fileId){
         sysFileService.getFileByFileId(response, fileId);
     }
+
+
+    /**
+     * 上传文件
+     */
+//    @PostMapping("upload")
+//    public
 
 
 }

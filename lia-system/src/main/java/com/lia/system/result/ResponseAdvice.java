@@ -1,6 +1,8 @@
 package com.lia.system.result;
 
 import com.alibaba.fastjson2.JSON;
+import com.lia.system.entity.SysFile;
+import com.lia.system.utils.SpringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -28,6 +30,12 @@ public class ResponseAdvice implements ResponseBodyAdvice {
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         HttpServletResponse response = ((ServletServerHttpResponse) serverHttpResponse).getServletResponse();
         response.setStatus(SysResult.SUCCESS.getCode());
+        /**
+         * 文件资源请求的报错不需要处理响应格式
+         */
+        if(SysFile.FILE_REQ_URL.contains(SpringUtils.getRequest().getRequestURI())){
+            return null;
+        }
         if (o instanceof String){
             /**
              * 当返回类型是String时，消息转换器则是：StringHttpMessageConverter。

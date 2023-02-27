@@ -1,10 +1,13 @@
 package com.lia.system.entity;
 
 
+import com.lia.system.utils.ArrayUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 
 /**
@@ -15,6 +18,15 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class SysFile {
+
+
+    /**
+     * 文件资源请求相关路径
+     */
+    public static final List<String> FILE_REQ_URL = ArrayUtils.asList(
+            "/system/file/getPic",
+            "/system/file/getFile"
+    );
 
     /**
      * 文件ID
