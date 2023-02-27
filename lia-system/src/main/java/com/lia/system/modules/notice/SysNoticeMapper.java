@@ -16,4 +16,10 @@ public interface SysNoticeMapper extends BaseMapper<SysNotice> {
     int publishToRole(Long noticeId, List<Integer> roleIds);
 
 
+    /**
+     * 上传公告携带附件
+     */
+    int uploadNoticeFile(Long noticeId, List<Long> fileIds);
+
+
 }

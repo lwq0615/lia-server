@@ -26,4 +26,13 @@
         </trim>
     </insert>
 
+    <insert id="uploadNoticeFile">
+        insert into sys_notice_file (notice_id, file_id) values
+        <trim suffixOverrides=",">
+            <foreach collection="fileIds" item="item">
+                (#{noticeId}, #{item}),
+            </foreach>
+        </trim>
+    </insert>
+
 </mapper>

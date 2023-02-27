@@ -49,6 +49,7 @@ public class SysNotice {
      * 重要程度(0：普通，1：重要，2：紧急)
      */
     @TableField("`level`")
+    @Required
     private Character level;
 
     /**

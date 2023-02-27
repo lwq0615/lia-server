@@ -2,6 +2,7 @@ package com.lia.system.modules.file;
 
 
 import com.lia.system.entity.SysFile;
+import com.lia.system.result.exception.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
