@@ -22,4 +22,10 @@ public interface SysNoticeMapper extends BaseMapper<SysNotice> {
     int uploadNoticeFile(Long noticeId, List<Long> fileIds);
 
 
+    /**
+     * 根据公告id列表获取相关的文件
+     */
+
+
+
 }
