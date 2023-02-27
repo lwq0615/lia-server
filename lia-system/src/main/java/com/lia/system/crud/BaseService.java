@@ -212,7 +212,7 @@ public abstract class BaseService<E> {
         } catch (DuplicateKeyException e) {
             String[] split = e.getCause().getMessage().split(" ");
             String name = split[split.length - 1].replace("'", "");
-            throw new UniqueException(name, "字段值重复");
+            throw new UniqueException(name, "‘“+name+“‘字段值重复");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             throw new HttpException(SysResult.SERVER_ERROR);
@@ -252,7 +252,7 @@ public abstract class BaseService<E> {
         } catch (DuplicateKeyException e) {
             String[] split = e.getCause().getMessage().split(" ");
             String name = split[split.length - 1].replace("'", "");
-            throw new UniqueException(name, "字段值重复");
+            throw new UniqueException(name, "‘“+name+“‘字段值重复");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             throw new HttpException(SysResult.SERVER_ERROR);
