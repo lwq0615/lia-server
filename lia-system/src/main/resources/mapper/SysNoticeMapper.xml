@@ -20,7 +20,7 @@
     <select id="getNoticePage" resultMap="SysNoticeResult">
         select * from sys_notice where id in (
             select notice_id from sys_notice_role where role_id = #{roleId}
-            ) order by top_flag desc, create_time desc
+            ) and del_flag = '0' order by top_flag desc, create_time desc
     </select>
 
 
@@ -48,5 +48,15 @@
             select file_id from sys_notice_file where notice_id = #{noticeId}
             )
     </select>
+
+
+    <update id="deleteByIds">
+        update sys_notice set del_flag = '1' where id in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="ids" item="item">
+                #{item},
+            </foreach>
+        </trim>
+    </update>
 
 </mapper>

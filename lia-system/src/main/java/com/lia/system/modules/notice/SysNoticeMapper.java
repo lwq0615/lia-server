@@ -35,5 +35,10 @@ public interface SysNoticeMapper extends BaseMapper<SysNotice> {
     List<SysFile> getFilesOfNotice(Long noticeId);
 
 
+    /**
+     * 删除公告
+     */
+    int deleteByIds(List<Long> ids);
+
 
 }

@@ -52,5 +52,10 @@ public class SysNoticeService extends BaseService<SysNotice> {
         return sysNoticeMapper.getFilesOfNotice(noticeId);
     }
 
+
+    @Override
+    public int deleteByIds(List ids) {
+        return sysNoticeMapper.deleteByIds(ids);
+    }
 }
 

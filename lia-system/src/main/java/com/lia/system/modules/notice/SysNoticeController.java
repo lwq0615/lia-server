@@ -61,7 +61,6 @@ public class SysNoticeController {
     }
 
 
-
     /**
      * 批量删除
      * @param sysNoticeIds 要删除的数据id列表
@@ -72,6 +71,7 @@ public class SysNoticeController {
     public int delete(@RequestBody List<Integer> sysNoticeIds){
         return sysNoticeService.deleteByIds(sysNoticeIds);
     }
+
 
     /**
      * 获取公告相关附件
