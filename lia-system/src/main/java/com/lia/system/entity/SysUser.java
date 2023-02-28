@@ -54,9 +54,19 @@ public class SysUser {
     private Integer companyId;
 
     /**
+     * 企业名称
+     */
+    private String companyName;
+
+    /**
      * 角色ID（外键）
      */
     private Integer roleId;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
 
     /**
      * 性别（0男，1女，2其他）

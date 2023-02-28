@@ -81,7 +81,10 @@
 
     <!--不查询密码-->
     <select id="getSysUserPage" parameterType="SysUser" resultMap="SysUserResult">
-        select u.*, r.company_id from
+        select
+            u.*,
+            r.company_id
+        from
             (select
                 user_id,
                 username,
@@ -99,7 +102,34 @@
             from sys_user
             <include refid="where"></include>) u
             LEFT JOIN sys_role r on u.role_id = r.role_id
-            left join sys_company c on r.company_id = c.company_id
+        order by user_id desc
+    </select>
+
+    <select id="getUserDetail" resultMap="SysUserResult">
+        select
+            u.*,
+            r.company_id,
+            r.name as roleName,
+            c.name as companyName
+        from
+            (select
+                user_id,
+                username,
+                nick,
+                role_id,
+                sex,
+                phone,
+                email,
+                head_img,
+                status,
+                del_flag,
+                creater,
+                create_time,
+                remark
+            from sys_user
+            where user_id = #{userId}) u
+            LEFT JOIN sys_role r on u.role_id = r.role_id
+            left join sys_company c on c.company_id = r.company_id
         order by user_id desc
     </select>
 
@@ -165,7 +195,7 @@
         </trim>
     </delete>
 
-    <select id="getCreateByDict" resultMap="SysDictDataResult">
+    <select id="getCreaterDict" resultMap="SysDictDataResult">
         select nick as label,user_id as value
         from sys_user u,sys_role r
         where u.del_flag = '0' and r.company_id = 1 and u.role_id = r.role_id

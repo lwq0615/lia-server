@@ -48,7 +48,7 @@ public class SysToolCode {
     /**
      * 是否添加创建人字段（0：是，1：否）
      */
-    private Character createByFlag;
+    private Character createrFlag;
 
     /**
      * 是否添加创建时间字段（0：是，1：否）
@@ -78,13 +78,13 @@ public class SysToolCode {
 
     /**
      * 是否添加创建人字段set方法
-     * createByFlag值只能是'0' || '1'
+     * createrFlag值只能是'0' || '1'
      */
-    public void setCreateByFlag(Character createByFlag) {
-        if(!createByFlag.equals('0') && !createByFlag.equals('1')){
-            createByFlag = '1';
+    public void setCreaterFlag(Character createrFlag) {
+        if(!createrFlag.equals('0') && !createrFlag.equals('1')){
+            createrFlag = '1';
         }
-        this.createByFlag = createByFlag;
+        this.createrFlag = createrFlag;
     }
 
     /**

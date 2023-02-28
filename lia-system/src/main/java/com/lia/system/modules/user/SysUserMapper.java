@@ -22,6 +22,12 @@ public interface SysUserMapper {
 
 
     /**
+     * 根据用户id获取用户详情
+     */
+    SysUser getUserDetail(Long userId);
+
+
+    /**
      * 新增用户
      * @param user
      * @return
@@ -47,7 +53,7 @@ public interface SysUserMapper {
     /**
      * 获取创建人字典表
      */
-    List<SysDictData> getCreateByDict();
+    List<SysDictData> getCreaterDict();
 
 
     /**

@@ -42,6 +42,15 @@ public class SysUserController {
 
 
     /**
+     * 根据用户id查询用户详细信息
+     */
+    @PostMapping("detail")
+    @PreAuthorize("hasAuthority('system:user:detail')")
+    public SysUser getUserDetail(@RequestBody Long userId){
+        return sysUserService.getUserDetail(userId);
+    }
+
+    /**
      * 获取用户头像
      * @return
      */
@@ -154,10 +163,10 @@ public class SysUserController {
     /**
      * 获取创建人字典表
      */
-    @GetMapping("/getCreateByDict")
-    @PreAuthorize("hasAuthority('system:user:getCreateByDict')")
-    public List<SysDictData> createByDict() {
-        return sysUserService.getCreateByDict();
+    @GetMapping("/getCreaterDict")
+    @PreAuthorize("hasAuthority('system:user:getCreaterDict')")
+    public List<SysDictData> createrDict() {
+        return sysUserService.getCreaterDict();
     }
 
 }

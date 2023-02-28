@@ -107,7 +107,7 @@ public class SysRouterService {
         int success = 0;
         try{
             if(router.getRouterId() == null){
-                // 新增的用户createBy为当前用户
+                // 新增的用户creater为当前用户
                 router.setCreater(LoginUser.getLoginUserId());
                 success = sysRouterMapper.addSysRouter(router);
             }else{

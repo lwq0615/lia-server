@@ -20,7 +20,7 @@
     <select id="getNoticePage" resultMap="SysNoticeResult">
         select * from sys_notice where id in (
             select notice_id from sys_notice_role where role_id = #{roleId}
-            ) order by create_time desc
+            ) order by top_flag desc, create_time desc
     </select>
 
 

@@ -186,7 +186,7 @@ public abstract class BaseService<E> {
                 if (field.getAnnotation(Required.class) != null && field.get(entityCopy) == null) {
                     throw new HttpException("缺少参数" + field.getName());
                 }
-                // 如果有@CreateBy字段，则新增时默认填充当前登录用户
+                // 如果有@Creater字段，则新增时默认填充当前登录用户
                 if (field.getAnnotation(Creater.class) != null) {
                     field.setAccessible(true);
                     field.set(entityCopy, LoginUser.getLoginUserId());

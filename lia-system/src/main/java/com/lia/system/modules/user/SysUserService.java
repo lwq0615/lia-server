@@ -90,6 +90,15 @@ public class SysUserService {
         return uid;
     }
 
+
+    /**
+     * 根据用户id查询用户详细信息
+     */
+    public SysUser getUserDetail(Long userId){
+        return sysUserMapper.getUserDetail(userId);
+    }
+
+
     /**
      * 退出登录
      */
@@ -240,7 +249,7 @@ public class SysUserService {
         newUser.setDelFlag('0');
         List<SysUser> sysUserPage = sysUserMapper.getSysUserPage(newUser);
         if (sysUserPage == null || sysUserPage.size() == 0) {
-            // 新增的用户createBy为当前用户
+            // 新增的用户creater为当前用户
             user.setCreater(LoginUser.getLoginUserId());
             int success = sysUserMapper.addSysUser(user);
             if (success > 0) {
@@ -308,8 +317,8 @@ public class SysUserService {
     /**
      * 获取创建人字典表
      */
-    public List<SysDictData> getCreateByDict() {
-        return sysUserMapper.getCreateByDict();
+    public List<SysDictData> getCreaterDict() {
+        return sysUserMapper.getCreaterDict();
     }
 
 }
