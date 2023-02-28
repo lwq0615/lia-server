@@ -74,6 +74,19 @@ public class LoginUser implements UserDetails {
     }
 
 
+    /**
+     * 获取当前用户的角色id
+     */
+    public static Integer getUserRoleId(){
+        try{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+            return loginUser.user.getRoleId();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
 
     @Override
     @JsonIgnore

@@ -12,6 +12,12 @@ public interface SysNoticeMapper extends BaseMapper<SysNotice> {
 
 
     /**
+     * 根据角色id查询公告列表
+     */
+    List<SysNotice> getNoticePage(Integer roleId);
+
+
+    /**
      * 将公告与角色绑定到公告角色关系表
      */
     int publishToRole(Long noticeId, List<Integer> roleIds);

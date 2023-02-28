@@ -24,18 +24,17 @@ public class SysNoticeController {
 
     /**
      * 分页查询
-     * @param sysNotice 查询参数
      * @param current 当前页码
      * @param size 每页条数
      * @return PageInfo分页信息
      */
     @PostMapping("/getPage")
     @PreAuthorize("hasAuthority('system:notice:getPage')")
-    public PageInfo<SysNotice> getSysNoticePage(@RequestBody SysNotice sysNotice, Integer current, Integer size){
+    public PageInfo<SysNotice> getSysNoticePage(Integer current, Integer size){
         if(current != null && size != null){
             PageHelper.startPage(current,size);
         }
-        return new PageInfo<>(sysNoticeService.selectList(sysNotice, true));
+        return new PageInfo<>(sysNoticeService.selectList());
     }
 
     /**

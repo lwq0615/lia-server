@@ -4,6 +4,7 @@ import com.lia.system.crud.BaseService;
 import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysNotice;
 import com.lia.system.result.exception.HttpException;
+import com.lia.system.security.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,14 @@ public class SysNoticeService extends BaseService<SysNotice> {
 
     @Autowired
     private SysNoticeMapper sysNoticeMapper;
+
+
+    /**
+     * 分页查询
+     */
+    public List<SysNotice> selectList() {
+        return sysNoticeMapper.getNoticePage(LoginUser.getUserRoleId());
+    }
 
     /**
      * 发布公告
