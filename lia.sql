@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 27/02/2023 17:09:20
+ Date: 28/02/2023 18:00:51
 */
 
 SET NAMES utf8mb4;
@@ -34,11 +34,11 @@ CREATE TABLE `sys_auth`  (
   PRIMARY KEY (`auth_id`) USING BTREE,
   UNIQUE INDEX `sys_auth-key`(`key` ASC) USING BTREE,
   UNIQUE INDEX `sys_auth-url`(`url` ASC) USING BTREE,
-  INDEX `sys_auth-creater`(`creater` ASC) USING BTREE,
   INDEX `sys_auth-router_id`(`router_id` ASC) USING BTREE,
-  CONSTRAINT `sys_auth-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
+  INDEX `sys_auth-creater`(`creater` ASC) USING BTREE,
+  CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sys_auth-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_auth
@@ -89,6 +89,9 @@ INSERT INTO `sys_auth` VALUES (96, '下载文件', '/system/file/getFile', 'syst
 INSERT INTO `sys_auth` VALUES (97, '获取图片资源', '/system/file/getPic', 'system:file:getPic', 51, '0', 1, '2023-02-27 10:07:08', NULL);
 INSERT INTO `sys_auth` VALUES (98, '上传文件', '/system/file/upload', 'system:file:upload', 51, '0', 1, '2023-02-27 10:23:57', NULL);
 INSERT INTO `sys_auth` VALUES (99, '查询公告列表', '/system/notice/getPage', 'system:notice:getPage', 2, '0', 1, '2023-02-27 16:00:54', NULL);
+INSERT INTO `sys_auth` VALUES (100, '查询用户详细信息', '/system/user/detail', 'system:user:detail', 4, '0', 1, '2023-02-28 15:47:15', NULL);
+INSERT INTO `sys_auth` VALUES (101, '查询公告相关附件', '/system/notice/getFilesOfNotice', 'system:notice:getFilesOfNotice', 2, '0', 1, '2023-02-28 16:20:44', NULL);
+INSERT INTO `sys_auth` VALUES (102, '编辑公告信息', '/system/notice/edit', 'system:notice:edit', 2, '0', 1, '2023-02-28 17:07:31', NULL);
 
 -- ----------------------------
 -- Table structure for sys_company
@@ -129,10 +132,10 @@ CREATE TABLE `sys_dict_data`  (
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`data_id`) USING BTREE,
   UNIQUE INDEX `sys_dict_data-type_id,value`(`value` ASC, `type_id` ASC) USING BTREE,
-  INDEX `sys_dict_data-creater`(`creater` ASC) USING BTREE,
   INDEX `sys_dict_data-type_id`(`type_id` ASC) USING BTREE,
-  CONSTRAINT `sys_dict_data-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `sys_dict_data-type_id` FOREIGN KEY (`type_id`) REFERENCES `sys_dict_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  INDEX `sys_dict_data-creater`(`creater` ASC) USING BTREE,
+  CONSTRAINT `sys_dict_data-type_id` FOREIGN KEY (`type_id`) REFERENCES `sys_dict_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sys_dict_data-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -188,7 +191,7 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user` ASC) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 169 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 186 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_file
@@ -263,6 +266,23 @@ INSERT INTO `sys_file` VALUES (165, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_30
 INSERT INTO `sys_file` VALUES (166, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677481906534-23.jpg', 25572, '2023-02-27 15:13:50', 1);
 INSERT INTO `sys_file` VALUES (167, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677482521561-4.jpg', 25572, '2023-02-27 15:22:51', 1);
 INSERT INTO `sys_file` VALUES (168, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677482521561-6.jpg', 32670, '2023-02-27 15:22:51', 1);
+INSERT INTO `sys_file` VALUES (169, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677567415639-5.jpg', 25572, '2023-02-28 14:58:44', 1);
+INSERT INTO `sys_file` VALUES (170, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677567415639-4.jpg', 36247, '2023-02-28 14:58:44', 1);
+INSERT INTO `sys_file` VALUES (171, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677567415639-7.jpg', 32670, '2023-02-28 14:58:44', 1);
+INSERT INTO `sys_file` VALUES (172, 'v2-7b6e80aa32d49d34c3e7820a385412ff_720w.jpg', 'public/file/20230228/rc-upload-1677567415639-8.jpg', 31303, '2023-02-28 14:58:44', 1);
+INSERT INTO `sys_file` VALUES (173, '11.pdf', 'public/file/20230228/rc-upload-1677567415639-3.pdf', 217591, '2023-02-28 14:58:44', 1);
+INSERT INTO `sys_file` VALUES (174, 'v2-7b6e80aa32d49d34c3e7820a385412ff_720w.webp', 'public/file/20230228/rc-upload-1677567415639-9.webp', 31313, '2023-02-28 14:58:44', 1);
+INSERT INTO `sys_file` VALUES (175, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677567415639-6.jpg', 40553, '2023-02-28 14:58:44', 1);
+INSERT INTO `sys_file` VALUES (176, 'v2-15205d704598089b1048f153a5f8dbde_r.jpg', 'public/file/20230228/rc-upload-1677567415639-10.jpg', 40725, '2023-02-28 14:58:44', 1);
+INSERT INTO `sys_file` VALUES (177, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677567979895-4.jpg', 25572, '2023-02-28 15:06:32', 1);
+INSERT INTO `sys_file` VALUES (178, 'O1CN014mCSEK1xQCEUEcDoQ_!!2285216437.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677567979895-6.jpg', 32670, '2023-02-28 15:06:32', 1);
+INSERT INTO `sys_file` VALUES (179, 'v2-7b6e80aa32d49d34c3e7820a385412ff_720w.jpg', 'public/file/20230228/rc-upload-1677567979895-7.jpg', 31303, '2023-02-28 15:06:32', 1);
+INSERT INTO `sys_file` VALUES (180, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677567979895-3.jpg', 36247, '2023-02-28 15:06:32', 1);
+INSERT INTO `sys_file` VALUES (181, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677567979895-5.jpg', 40553, '2023-02-28 15:06:32', 1);
+INSERT INTO `sys_file` VALUES (182, 'v2-7b6e80aa32d49d34c3e7820a385412ff_720w.webp', 'public/file/20230228/rc-upload-1677567979895-8.webp', 31313, '2023-02-28 15:06:32', 1);
+INSERT INTO `sys_file` VALUES (183, 'v2-15205d704598089b1048f153a5f8dbde_r.jpg', 'public/file/20230228/rc-upload-1677567979895-9.jpg', 40725, '2023-02-28 15:06:32', 1);
+INSERT INTO `sys_file` VALUES (184, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677577217825-3.jpg', 36247, '2023-02-28 17:40:34', 1);
+INSERT INTO `sys_file` VALUES (185, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230228/rc-upload-1677577217825-4.jpg', 25572, '2023-02-28 17:40:34', 1);
 
 -- ----------------------------
 -- Table structure for sys_msg
@@ -337,7 +357,7 @@ CREATE TABLE `sys_notice`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice
@@ -375,6 +395,10 @@ INSERT INTO `sys_notice` VALUES (34, '6', NULL, '0', '0', '0', 1, '2023-02-27 09
 INSERT INTO `sys_notice` VALUES (36, '123', NULL, '0', '0', '0', 1, '2023-02-27 14:51:33', '2023-02-27 14:51:33');
 INSERT INTO `sys_notice` VALUES (37, '123', NULL, '1', '2', '0', 1, '2023-02-27 14:53:34', '2023-02-27 14:53:34');
 INSERT INTO `sys_notice` VALUES (40, '12', NULL, '1', '2', '0', 1, '2023-02-27 15:22:58', '2023-02-27 15:22:58');
+INSERT INTO `sys_notice` VALUES (41, '测试', '# 测试标题\n\n|t1|t2|t3|t4|\n|--|--|--|--|\n|a|b|c|f|g|\n\n\n```javascript\nconst a = 10;\nconst b= 20;\nconsole.log(a+b)\n```', '1', '2', '0', 1, '2023-02-28 14:58:45', '2023-02-28 14:58:45');
+INSERT INTO `sys_notice` VALUES (42, '123', '123', '1', '2', '0', 1, '2023-02-28 15:06:32', '2023-02-28 15:06:32');
+INSERT INTO `sys_notice` VALUES (43, '123a', NULL, '0', '0', '0', 1, '2023-02-28 15:09:13', '2023-02-28 15:09:13');
+INSERT INTO `sys_notice` VALUES (44, 'ceshi', '123', '1', '1', '0', 1, '2023-02-28 17:40:34', '2023-02-28 17:40:34');
 
 -- ----------------------------
 -- Table structure for sys_notice_file
@@ -401,6 +425,23 @@ INSERT INTO `sys_notice_file` VALUES (37, 148);
 INSERT INTO `sys_notice_file` VALUES (37, 149);
 INSERT INTO `sys_notice_file` VALUES (40, 167);
 INSERT INTO `sys_notice_file` VALUES (40, 168);
+INSERT INTO `sys_notice_file` VALUES (41, 169);
+INSERT INTO `sys_notice_file` VALUES (41, 170);
+INSERT INTO `sys_notice_file` VALUES (41, 171);
+INSERT INTO `sys_notice_file` VALUES (41, 172);
+INSERT INTO `sys_notice_file` VALUES (41, 173);
+INSERT INTO `sys_notice_file` VALUES (41, 174);
+INSERT INTO `sys_notice_file` VALUES (41, 175);
+INSERT INTO `sys_notice_file` VALUES (41, 176);
+INSERT INTO `sys_notice_file` VALUES (42, 177);
+INSERT INTO `sys_notice_file` VALUES (42, 178);
+INSERT INTO `sys_notice_file` VALUES (42, 179);
+INSERT INTO `sys_notice_file` VALUES (42, 180);
+INSERT INTO `sys_notice_file` VALUES (42, 181);
+INSERT INTO `sys_notice_file` VALUES (42, 182);
+INSERT INTO `sys_notice_file` VALUES (42, 183);
+INSERT INTO `sys_notice_file` VALUES (44, 184);
+INSERT INTO `sys_notice_file` VALUES (44, 185);
 
 -- ----------------------------
 -- Table structure for sys_notice_role
@@ -444,6 +485,18 @@ INSERT INTO `sys_notice_role` VALUES (3, 37);
 INSERT INTO `sys_notice_role` VALUES (1, 40);
 INSERT INTO `sys_notice_role` VALUES (2, 40);
 INSERT INTO `sys_notice_role` VALUES (3, 40);
+INSERT INTO `sys_notice_role` VALUES (1, 41);
+INSERT INTO `sys_notice_role` VALUES (2, 41);
+INSERT INTO `sys_notice_role` VALUES (3, 41);
+INSERT INTO `sys_notice_role` VALUES (1, 42);
+INSERT INTO `sys_notice_role` VALUES (2, 42);
+INSERT INTO `sys_notice_role` VALUES (3, 42);
+INSERT INTO `sys_notice_role` VALUES (1, 43);
+INSERT INTO `sys_notice_role` VALUES (2, 43);
+INSERT INTO `sys_notice_role` VALUES (3, 43);
+INSERT INTO `sys_notice_role` VALUES (1, 44);
+INSERT INTO `sys_notice_role` VALUES (2, 44);
+INSERT INTO `sys_notice_role` VALUES (3, 44);
 
 -- ----------------------------
 -- Table structure for sys_param
@@ -519,20 +572,20 @@ CREATE TABLE `sys_role`  (
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE,
   UNIQUE INDEX `sys_role-key`(`key` ASC) USING BTREE,
-  INDEX `sys_role-creater`(`creater` ASC) USING BTREE,
   INDEX `sys_role-superior`(`superior` ASC) USING BTREE,
   INDEX `sys_role-company_id`(`company_id` ASC) USING BTREE,
   INDEX `sys_role-root_router_id`(`root_router_id` ASC) USING BTREE,
+  INDEX `sys_role-creater`(`creater` ASC) USING BTREE,
   CONSTRAINT `sys_role-company_id` FOREIGN KEY (`company_id`) REFERENCES `sys_company` (`company_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `sys_role-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_role-root_router_id` FOREIGN KEY (`root_router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `sys_role-superior` FOREIGN KEY (`superior`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `sys_role-superior` FOREIGN KEY (`superior`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `sys_role-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 135 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '开发者', 'sys:user:admin', 1, NULL, 1, 1, '2022-05-06 15:52:00', '开发者');
+INSERT INTO `sys_role` VALUES (1, '开发者', 'sys:user:admin', 1, 1, 1, 1, '2022-05-06 15:52:00', '开发者');
 INSERT INTO `sys_role` VALUES (2, '测试', 'sys:user:test', 1, 1, 3, 1, '2022-05-11 14:46:00', '测试');
 INSERT INTO `sys_role` VALUES (3, '普通用户', 'sys:user:common', 1, 1, 1, 1, '2023-01-17 15:41:11', '默认用户角色');
 
@@ -599,6 +652,9 @@ INSERT INTO `sys_role_auth` VALUES (1, 96);
 INSERT INTO `sys_role_auth` VALUES (1, 97);
 INSERT INTO `sys_role_auth` VALUES (1, 98);
 INSERT INTO `sys_role_auth` VALUES (1, 99);
+INSERT INTO `sys_role_auth` VALUES (1, 100);
+INSERT INTO `sys_role_auth` VALUES (1, 101);
+INSERT INTO `sys_role_auth` VALUES (1, 102);
 INSERT INTO `sys_role_auth` VALUES (2, 95);
 
 -- ----------------------------
@@ -668,10 +724,10 @@ CREATE TABLE `sys_router`  (
   PRIMARY KEY (`router_id`) USING BTREE,
   UNIQUE INDEX `sys_router-parent,path`(`path` ASC, `parent` ASC) USING BTREE,
   UNIQUE INDEX `sys_router-element`(`element` ASC) USING BTREE,
-  INDEX `sys_router-creater`(`creater` ASC) USING BTREE,
   INDEX `sys_router-parent`(`parent` ASC) USING BTREE,
-  CONSTRAINT `sys_router-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `sys_router-parent` FOREIGN KEY (`parent`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  INDEX `sys_router-creater`(`creater` ASC) USING BTREE,
+  CONSTRAINT `sys_router-parent` FOREIGN KEY (`parent`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sys_router-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '路由' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -759,19 +815,19 @@ CREATE TABLE `sys_user`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE,
-  INDEX `sys_user-creater`(`creater` ASC) USING BTREE,
   INDEX `sys_user-role_id`(`role_id` ASC) USING BTREE,
   INDEX `sys_user-head_img`(`head_img` ASC) USING BTREE,
-  CONSTRAINT `sys_user-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  INDEX `sys_user-creater`(`creater` ASC) USING BTREE,
   CONSTRAINT `sys_user-head_img` FOREIGN KEY (`head_img`) REFERENCES `sys_file` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `sys_user-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `sys_user-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `sys_user-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '开发者', 1, '0', '18150027197', '1072864729@qq.com', 101, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
-INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', '测试', 2, '0', '18150027197', '1072864729@qq.com', 84, '0', '0', 1, '2022-05-17 02:12:00', '测试账号，不可删除');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', 'lwq', 1, '0', '18150027197', '1072864729@qq.com', 101, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
+INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', 'ceshi', 2, '0', '18150027197', '1072864729@qq.com', 84, '0', '0', 1, '2022-05-17 02:12:00', '测试账号，不可删除');
 INSERT INTO `sys_user` VALUES (89, '1', '$2a$10$30cfIcdCW/iM.mSEI5FQpejfBPjLsltvOXMGtxWgg3B2NL4f2wSBq', '2', NULL, '0', NULL, NULL, NULL, '0', '1', 2, '2023-01-05 11:12:37', NULL);
 INSERT INTO `sys_user` VALUES (90, '1', '$2a$10$a5ubpT8n2sGATK3jtBSc5.PxegJx4lDqvtlGNWkFk.dVUCJJOoaZy', '1', 1, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-10 20:21:33', NULL);
 INSERT INTO `sys_user` VALUES (91, 'test1', '$2a$10$2zzNf4qt58fgCskHm43Iv.RjtjdQdv0bryX.C9lpeAoHW3iv2b6FC', '123', 1, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-17 17:53:31', NULL);
