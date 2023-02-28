@@ -39,7 +39,7 @@ public class SysDictType {
     /**
      * 创建人
      */
-    private Long createBy;
+    private Long creater;
 
     /**
      * 创建时间

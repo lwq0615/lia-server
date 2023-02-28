@@ -56,7 +56,7 @@ public class SysRoleService {
         try{
             if(role.getRoleId() == null){
                 // 新增的角色
-                role.setCreateBy(LoginUser.getLoginUserId());
+                role.setCreater(LoginUser.getLoginUserId());
                 success = sysRoleMapper.addSysRole(role);
             }else{
                 success = sysRoleMapper.editSysRole(role);

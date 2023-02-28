@@ -59,7 +59,7 @@ public class SysCompanyService {
         try {
             if (sysCompany.getCompanyId() == null) {
                 // 新增
-                sysCompany.setCreateBy(LoginUser.getLoginUserId());
+                sysCompany.setCreater(LoginUser.getLoginUserId());
                 success = sysCompanyMapper.addSysCompany(sysCompany);
             } else {
                 // 编辑

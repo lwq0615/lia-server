@@ -241,7 +241,7 @@ public class SysUserService {
         List<SysUser> sysUserPage = sysUserMapper.getSysUserPage(newUser);
         if (sysUserPage == null || sysUserPage.size() == 0) {
             // 新增的用户createBy为当前用户
-            user.setCreateBy(LoginUser.getLoginUserId());
+            user.setCreater(LoginUser.getLoginUserId());
             int success = sysUserMapper.addSysUser(user);
             if (success > 0) {
                 if (!StrUtils.isEmpty(registerCode)) {

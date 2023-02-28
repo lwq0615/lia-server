@@ -15,7 +15,7 @@
         <id     property="createTimeFlag"      column="create_time_flag"      />
         <id     property="updateTimeFlag"      column="update_time_flag"      />
         <id     property="remarkFlag"      column="remark_flag"      />
-        <id     property="createBy"      column="create_by"      />
+        <id     property="creater"      column="creater"      />
         <id     property="createTime"      column="create_time"      />
     </resultMap>
 
@@ -53,8 +53,8 @@
             <if test="remarkFlag != null">
                 AND `remark_flag` = #{remarkFlag}
             </if>
-            <if test="createBy != null">
-                AND `create_by` = #{createBy}
+            <if test="creater != null">
+                AND `creater` = #{creater}
             </if>
             <if test="createTime != null">
                 AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
@@ -75,7 +75,7 @@
             `update_time_flag`,
             `create_by_flag`,
             `remark_flag`,
-            `create_by`
+            `creater`
         )
         values (
             #{columns},
@@ -87,7 +87,7 @@
             #{updateTimeFlag},
             #{createByFlag},
             #{remarkFlag},
-            #{createBy}
+            #{creater}
         )
     </insert>
 

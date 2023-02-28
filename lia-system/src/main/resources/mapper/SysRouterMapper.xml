@@ -6,7 +6,7 @@
 
     <resultMap type="SysRouter" id="SysRouterResult">
         <id     property="routerId"      column="router_id"      />
-        <result property="createBy"    column="create_by"    />
+        <result property="creater"    column="creater"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
@@ -35,8 +35,8 @@
             <if test="index != null">
                 AND `index` = #{index}
             </if>
-            <if test="createBy != null">
-                AND create_by = #{createBy}
+            <if test="creater != null">
+                AND creater = #{creater}
             </if>
             <if test="createTime != null">
                 AND create_time = #{createTime}
@@ -67,7 +67,7 @@
 
     <insert id="addSysRouter" parameterType="SysRouter">
         insert  into sys_router
-        (label,path,element,parent,`index`,icon,create_by,remark)
+        (label,path,element,parent,`index`,icon,creater,remark)
         values
         <trim prefix="(" suffix=")" suffixOverrides="," >
             #{label},
@@ -81,7 +81,7 @@
             </if>
             #{index},
             #{icon},
-            #{createBy},
+            #{creater},
             #{remark},
         </trim>
     </insert>

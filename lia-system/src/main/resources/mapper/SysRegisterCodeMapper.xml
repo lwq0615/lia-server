@@ -10,18 +10,18 @@
         <id     property="roleId"      column="role_id"      />
         <id     property="useBy"      column="use_by"      />
         <id     property="useTime"      column="use_time"      />
-        <id     property="createBy"      column="create_by"      />
+        <id     property="creater"      column="creater"      />
         <id     property="createTime"      column="create_time"      />
     </resultMap>
 
 
     <insert id="createRegisterCode" parameterType="List" useGeneratedKeys="true"  keyProperty="id" keyColumn="id">
         insert  into sys_register_code
-        (code, role_id, create_by, create_time)
+        (code, role_id, creater, create_time)
         values
         <trim suffixOverrides="," >
             <foreach collection="codes" item="item">
-                (#{item.code},#{item.roleId},#{item.createBy},#{item.createTime}),
+                (#{item.code},#{item.roleId},#{item.creater},#{item.createTime}),
             </foreach>
         </trim>
     </insert>

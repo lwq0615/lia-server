@@ -7,14 +7,14 @@
     <resultMap type="SysAuth" id="SysAuthResult">
         <id     property="authId"      column="auth_id"      />
         <id     property="routerId"      column="router_id"      />
-        <result property="createBy"    column="create_by"    />
+        <result property="creater"    column="creater"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
     <resultMap type="SysDictData" id="SysDictDataResult">
         <id     property="dataId"      column="data_id"      />
         <id     property="typeId"      column="type_id"      />
-        <result property="createBy"    column="create_by"    />
+        <result property="creater"    column="creater"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
@@ -39,8 +39,8 @@
             <if test="type != null">
                 AND `type` = #{type}
             </if>
-            <if test="createBy != null">
-                AND create_by = #{createBy}
+            <if test="creater != null">
+                AND creater = #{creater}
             </if>
             <if test="createTime != null">
                 AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
@@ -55,7 +55,7 @@
 
     <insert id="addSysAuth" parameterType="SysAuth">
         insert  into sys_auth
-        (`name`,url,`key`,router_id,`type`,create_by,remark)
+        (`name`,url,`key`,router_id,`type`,creater,remark)
         values
         <trim prefix="(" suffix=")" suffixOverrides="," >
             #{name},
@@ -63,7 +63,7 @@
             #{key},
             #{routerId},
             #{type},
-            #{createBy},
+            #{creater},
             #{remark},
         </trim>
     </insert>

@@ -11,7 +11,7 @@
         <id     property="topFlag"      column="top_flag"      />
         <id     property="level"      column="level"      />
         <id     property="delFlag"      column="del_flag"      />
-        <id     property="createBy"      column="create_by"      />
+        <id     property="creater"      column="creater"      />
         <id     property="createTime"      column="create_time"      />
         <id     property="updateTime"      column="update_time"      />
     </resultMap>

@@ -9,7 +9,7 @@
         <id     property="value"      column="value"      />
         <id     property="label"      column="label"      />
         <id     property="typeId"      column="type_id"      />
-        <id     property="createBy"      column="create_by"      />
+        <id     property="creater"      column="creater"      />
         <id     property="createTime"      column="create_time"      />
         <id     property="remark"      column="remark"      />
     </resultMap>
@@ -30,8 +30,8 @@
             <if test="typeId != null">
                 AND `type_id` = #{typeId}
             </if>
-            <if test="createBy != null">
-                AND `create_by` = #{createBy}
+            <if test="creater != null">
+                AND `creater` = #{creater}
             </if>
             <if test="createTime != null">
                 AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
@@ -46,11 +46,11 @@
 
     <insert id="addSysDictData" parameterType="SysDictData">
         insert  into sys_dict_data
-        (`value`,`label`,`type_id`,`create_by`,`remark`) values (
+        (`value`,`label`,`type_id`,`creater`,`remark`) values (
             #{value},
             #{label},
             #{typeId},
-            #{createBy},
+            #{creater},
             #{remark})
     </insert>
 

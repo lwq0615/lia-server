@@ -54,9 +54,9 @@ public class SysRegisterCode {
     /**
      * 创建人
      */
-    @TableField("`create_by`")
-    @CreateBy
-    private Long createBy;
+    @TableField("`creater`")
+    @Creater
+    private Long creater;
 
     /**
      * 创建时间

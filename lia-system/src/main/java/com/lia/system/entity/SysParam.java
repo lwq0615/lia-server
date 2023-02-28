@@ -3,7 +3,7 @@ package com.lia.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.lia.system.crud.anno.CreateBy;
+import com.lia.system.crud.anno.Creater;
 import com.lia.system.crud.anno.Like;
 import com.lia.system.crud.anno.Required;
 import com.lia.system.crud.anno.UpdateTime;
@@ -51,9 +51,9 @@ public class SysParam {
     /**
      * 创建人
      */
-    @TableField("create_by")
-    @CreateBy
-    private Long createBy;
+    @TableField("creater")
+    @Creater
+    private Long creater;
 
     /**
      * 创建时间

@@ -71,7 +71,7 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
             registerCodes = new ArrayList<>();
             for (int i = 0; i < count; i++) {
                 SysRegisterCode registerCode = new SysRegisterCode();
-                registerCode.setCreateBy(LoginUser.getLoginUserId())
+                registerCode.setCreater(LoginUser.getLoginUserId())
                         .setRoleId(roleId)
                         .setCode(StrUtils.ramdomCode(20))
                         .setCreateTime(datetime);

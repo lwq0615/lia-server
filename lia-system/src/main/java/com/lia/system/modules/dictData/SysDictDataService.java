@@ -49,7 +49,7 @@ public class SysDictDataService {
         try {
             if (sysDictData.getDataId() == null) {
                 // 新增
-                sysDictData.setCreateBy(LoginUser.getLoginUserId());
+                sysDictData.setCreater(LoginUser.getLoginUserId());
                 success = sysDictDataMapper.addSysDictData(sysDictData);
             } else {
                 // 编辑

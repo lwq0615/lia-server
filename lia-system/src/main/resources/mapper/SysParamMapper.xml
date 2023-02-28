@@ -8,7 +8,7 @@
         <id     property="paramId"      column="param_id"      />
         <id     property="name"      column="name"      />
         <id     property="value"      column="value"      />
-        <id     property="createBy"      column="create_by"      />
+        <id     property="creater"      column="creater"      />
         <id     property="createTime"      column="create_time"      />
         <id     property="remark"      column="remark"      />
     </resultMap>

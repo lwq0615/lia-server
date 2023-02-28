@@ -53,7 +53,7 @@ public class SysNotice {
     private Character level;
 
     /**
-     * 推送给
+     * 推送目标角色
      */
     @Pass
     private List<Integer> publishTo;
@@ -73,9 +73,13 @@ public class SysNotice {
     /**
      * 创建人
      */
-    @TableField("`create_by`")
-    @CreateBy
-    private Long createBy;
+    @TableField("`creater`")
+    @Creater
+    private Long creater;
+
+    /**
+     * 创建人名称
+     */
 
     /**
      * 创建时间

@@ -48,7 +48,7 @@ public class SysToolCodeService {
         try {
             if (sysToolCode.getCodeId() == null) {
                 // 新增
-                sysToolCode.setCreateBy(LoginUser.getLoginUserId());
+                sysToolCode.setCreater(LoginUser.getLoginUserId());
                 success = sysToolCodeMapper.addSysToolCode(sysToolCode);
             } else {
                 // 编辑

@@ -78,7 +78,7 @@ public class SysAuthService {
         try {
             if (auth.getAuthId() == null) {
                 // 新增的用户
-                auth.setCreateBy(LoginUser.getLoginUserId());
+                auth.setCreater(LoginUser.getLoginUserId());
                 success = sysAuthMapper.addSysAuth(auth);
             } else {
                 success = sysAuthMapper.editSysAuth(auth);

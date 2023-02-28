@@ -93,7 +93,7 @@ public class QueryParam{
         for (Field field : eClass.getDeclaredFields()) {
             field.setAccessible(true);
             // 创建人与创建时间和更新时间和主键字段不参与更新
-            if(field.getAnnotation(CreateBy.class) != null || field.getAnnotation(UpdateTime.class) != null
+            if(field.getAnnotation(Creater.class) != null || field.getAnnotation(UpdateTime.class) != null
             || field.getAnnotation(TableId.class) != null || field.getAnnotation(CreateTime.class) != null
             || field.getAnnotation(Pass.class) != null){
                 continue;

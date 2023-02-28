@@ -8,7 +8,7 @@
         <id     property="roleId"      column="role_id"      />
         <id     property="companyId"      column="company_id"      />
         <result property="rootRouterId"    column="root_router_id"    />
-        <result property="createBy"    column="create_by"    />
+        <result property="creater"    column="creater"    />
         <result property="createTime"    column="create_time"    />
         <collection property="auths" javaType="ArrayList" ofType="Integer"
                     select="com.lia.system.modules.auth.SysAuthMapper.findIdsbyRoleId"
@@ -23,7 +23,7 @@
     <resultMap type="SysDictData" id="SysDictDataResult">
         <id     property="dataId"      column="data_id"      />
         <id     property="typeId"      column="type_id"      />
-        <result property="createBy"    column="create_by"    />
+        <result property="creater"    column="creater"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
@@ -48,8 +48,8 @@
             <if test="rootRouterId != null">
                 AND root_router_id = #{rootRouterId}
             </if>
-            <if test="createBy != null">
-                AND create_by = #{createBy}
+            <if test="creater != null">
+                AND creater = #{creater}
             </if>
             <if test="createTime != null">
                 AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
@@ -64,14 +64,14 @@
 
     <insert id="addSysRole" parameterType="SysRole" useGeneratedKeys="true" keyProperty ="roleId" keyColumn="role_id">
         insert  into sys_role
-        (`name`,`key`,company_id,superior,root_router_id,create_by,remark)
+        (`name`,`key`,company_id,superior,root_router_id,creater,remark)
         values (
             #{name},
             #{key},
             #{companyId},
             #{superior},
             #{rootRouterId},
-            #{createBy},
+            #{creater},
             #{remark}
         )
     </insert>
