@@ -1,6 +1,7 @@
 package com.lia.system.modules.notice;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysNotice;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,8 +24,9 @@ public interface SysNoticeMapper extends BaseMapper<SysNotice> {
 
 
     /**
-     * 根据公告id列表获取相关的文件
+     * 根据公告id获取相关的文件
      */
+    List<SysFile> getFilesOfNotice(Long noticeId);
 
 
 

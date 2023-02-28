@@ -1,6 +1,7 @@
 package com.lia.system.modules.notice;
 
 import com.lia.system.crud.BaseService;
+import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysNotice;
 import com.lia.system.result.exception.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +19,6 @@ public class SysNoticeService extends BaseService<SysNotice> {
     @Autowired
     private SysNoticeMapper sysNoticeMapper;
 
-
-    /**
-     * 分页查询
-     */
-    @Override
-    public List<SysNotice> selectList(SysNotice entity, boolean desc) {
-        List<SysNotice> notices = super.selectList(entity, desc);
-        Map<Long, SysNotice> map = notices.stream().collect(Collectors.toMap(SysNotice::getId, SysNotice -> SysNotice));
-        List<Long> ids = notices.stream().map(SysNotice::getId).collect(Collectors.toList());
-        return notices;
-    }
-
     /**
      * 发布公告
      */
@@ -44,5 +33,15 @@ public class SysNoticeService extends BaseService<SysNotice> {
         }
         return sysNoticeMapper.publishToRole(entity.getId(), entity.getPublishTo());
     }
+
+    /**
+     * 获取公告相关附件
+     * @param noticeId 公告id
+     * @return 附件列表
+     */
+    public List<SysFile> getFilesOfNotice(Long noticeId){
+        return sysNoticeMapper.getFilesOfNotice(noticeId);
+    }
+
 }
 

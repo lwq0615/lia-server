@@ -35,4 +35,11 @@
         </trim>
     </insert>
 
+
+    <select id="getFilesOfNotice" resultType="SysFile">
+        select * from sys_file where file_id in (
+            select file_id from sys_notice_file where notice_id = #{noticeId}
+            )
+    </select>
+
 </mapper>

@@ -2,6 +2,7 @@ package com.lia.system.modules.notice;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysNotice;
 import com.lia.system.result.exception.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,15 @@ public class SysNoticeController {
         return sysNoticeService.deleteByIds(sysNoticeIds);
     }
 
+    /**
+     * 获取公告相关附件
+     * @param noticeId 公告id
+     * @return 附件列表
+     */
+    @PostMapping("/getFilesOfNotice")
+    @PreAuthorize("hasAuthority('system:notice:getFilesOfNotice')")
+    public List<SysFile> getFilesOfNotice(@RequestBody Long noticeId){
+        return sysNoticeService.getFilesOfNotice(noticeId);
+    }
 
 }
