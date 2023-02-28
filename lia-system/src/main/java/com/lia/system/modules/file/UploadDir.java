@@ -5,14 +5,14 @@ public enum UploadDir {
     IMAGE("image"),
     FILE("file");
 
-    private String dirNamme;
+    private String dirName;
 
     UploadDir(String dirName){
-        this.dirNamme = dirName;
+        this.dirName = dirName;
     }
 
-    public String getDirNamme(){
-        return this.dirNamme;
+    public String getDirName(){
+        return this.dirName;
     }
 
 }

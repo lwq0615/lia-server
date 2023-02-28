@@ -46,7 +46,7 @@ public class SysFileService {
         String oldName = file.getOriginalFilename();
         String fileType = oldName.split("\\.")[oldName.split("\\.").length - 1];
         String date = DateUtils.format(new Date(), "yyyyMMdd");
-        String newFilePath = basePath + "/" + dirName.getDirNamme() + "/" + date + "/" + uuid + "." + fileType;
+        String newFilePath = basePath + "/" + dirName.getDirName() + "/" + date + "/" + uuid + "." + fileType;
         File newFile = new File(newFilePath);
         // 路径不存在则先创建文件目录
         if (!newFile.getParentFile().exists()) {
