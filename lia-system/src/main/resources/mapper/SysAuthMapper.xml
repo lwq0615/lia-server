@@ -25,7 +25,7 @@
                 AND auth_id = #{authId}
             </if>
             <if test="name != null">
-                AND name = #{name}
+                AND name like concat('%',#{name},'%')
             </if>
             <if test="url != null">
                 AND url like concat('%',#{url},'%')
