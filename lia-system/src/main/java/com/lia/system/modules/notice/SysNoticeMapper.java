@@ -3,6 +3,7 @@ package com.lia.system.modules.notice;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysNotice;
+import com.lia.system.entity.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -36,9 +37,21 @@ public interface SysNoticeMapper extends BaseMapper<SysNotice> {
 
 
     /**
+     * 根据公告id获取相关的文件
+     */
+    List<SysRole> getRolesOfNotice(Long noticeId);
+
+
+    /**
      * 删除公告
      */
     int deleteByIds(List<Long> ids);
+
+
+    /**
+     * 删除公告关联的角色
+     */
+    int deleteRoles(Long noticeId);
 
 
 }

@@ -49,6 +49,12 @@
             )
     </select>
 
+    <select id="getRolesOfNotice" resultType="SysRole">
+        select * from sys_role where role_id in (
+            select role_id from sys_notice_role where notice_id = #{noticeId}
+        )
+    </select>
+
 
     <update id="deleteByIds">
         update sys_notice set del_flag = '1' where id in
@@ -58,5 +64,9 @@
             </foreach>
         </trim>
     </update>
+
+    <delete id="deleteRoles">
+        delete from sys_notice_role where notice_id = #{noticeId}
+    </delete>
 
 </mapper>

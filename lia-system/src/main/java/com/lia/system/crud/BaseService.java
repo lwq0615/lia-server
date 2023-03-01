@@ -81,6 +81,28 @@ public abstract class BaseService<E> {
 
 
     /**
+     * 检验参数合法性
+     */
+    public boolean check(E entity){
+        for (Field field : entity.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            if(field.getAnnotation(Pass.class) != null){
+                continue;
+            }
+            // 判断有没有值为null的必填字段
+            try {
+                if (field.getAnnotation(Required.class) != null && field.get(entity) == null) {
+                    throw new HttpException("缺少参数" + field.getName());
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
+
+    /**
      * 列表查询
      *
      * @param entity 查询参数
@@ -168,6 +190,7 @@ public abstract class BaseService<E> {
      * @return
      */
     public int insert(E entity, boolean returnId) {
+        this.check(entity);
         E entityCopy = (E)JSON.parseObject(JSON.toJSONString(entity), entity.getClass());
         QueryParam queryParam = new QueryParam(entityCopy);
         try {
@@ -181,10 +204,6 @@ public abstract class BaseService<E> {
                 if(field.getAnnotation(Pass.class) != null){
                     field.set(entityCopy, null);
                     continue;
-                }
-                // 判断有没有值为null的必填字段
-                if (field.getAnnotation(Required.class) != null && field.get(entityCopy) == null) {
-                    throw new HttpException("缺少参数" + field.getName());
                 }
                 // 如果有@Creater字段，则新增时默认填充当前登录用户
                 if (field.getAnnotation(Creater.class) != null) {
@@ -227,15 +246,9 @@ public abstract class BaseService<E> {
      * 编辑
      */
     public int update(E entity) {
+        this.check(entity);
         QueryParam queryParam = new QueryParam(entity);
         try {
-            for (Field field : entity.getClass().getDeclaredFields()) {
-                field.setAccessible(true);
-                // 判断有没有值为null的必填字段
-                if (field.getAnnotation(Required.class) != null && field.get(entity) == null) {
-                    throw new HttpException("缺少参数" + field.getName());
-                }
-            }
             QueryParam.Column idColumn = queryParam.getIdColumn();
             // 如果id字段值为空，抛出异常
             if (idColumn == null || idColumn.getValue() == null) {
@@ -253,9 +266,6 @@ public abstract class BaseService<E> {
             String[] split = e.getCause().getMessage().split(" ");
             String name = split[split.length - 1].replace("'", "");
             throw new UniqueException(name, "‘“+name+“‘字段值重复");
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            throw new HttpException(SysResult.SERVER_ERROR);
         }
     }
 

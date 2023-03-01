@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysFile;
 import com.lia.system.entity.SysNotice;
+import com.lia.system.entity.SysRole;
 import com.lia.system.result.exception.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,7 +30,6 @@ public class SysNoticeController {
      * @return PageInfo分页信息
      */
     @PostMapping("/getPage")
-    @PreAuthorize("hasAuthority('system:notice:getPage')")
     public PageInfo<SysNotice> getSysNoticePage(Integer current, Integer size){
         if(current != null && size != null){
             PageHelper.startPage(current,size);
@@ -79,9 +79,16 @@ public class SysNoticeController {
      * @return 附件列表
      */
     @PostMapping("/getFilesOfNotice")
-    @PreAuthorize("hasAuthority('system:notice:getFilesOfNotice')")
     public List<SysFile> getFilesOfNotice(@RequestBody Long noticeId){
         return sysNoticeService.getFilesOfNotice(noticeId);
+    }
+
+    /**
+     * 获取公告关联角色
+     */
+    @PostMapping("/getRolesOfNotice")
+    public List<SysRole> getRolesOfNotice(@RequestBody Long noticeId){
+        return sysNoticeService.getRolesOfNotice(noticeId);
     }
 
 }

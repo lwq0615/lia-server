@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -65,6 +66,7 @@ public class SysFileService {
         sysFile.setName(oldName);
         sysFile.setPath(newFilePath);
         sysFile.setSize(file.getSize());
+        sysFile.setUploadTime(DateUtils.mysqlDatetime(new Date()));
         sysFile.setUploadUser(LoginUser.getLoginUserId());
         sysFileMapper.addSysFile(sysFile);
         return sysFile;

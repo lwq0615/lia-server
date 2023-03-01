@@ -95,4 +95,8 @@ public class SysNotice {
     @TableField("`update_time`")
     private String updateTime;
 
+
+    public Character getDelFlag() {
+        return delFlag == null ? '0' : '1';
+    }
 }
