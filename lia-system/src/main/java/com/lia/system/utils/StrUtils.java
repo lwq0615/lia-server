@@ -27,5 +27,9 @@ public class StrUtils {
         return sb.toString();
     }
 
+    public static String firstUp(String str){
+        return str.substring(0 ,1).toUpperCase()+str.substring(1);
+    }
+
 
 }

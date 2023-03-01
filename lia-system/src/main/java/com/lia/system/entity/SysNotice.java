@@ -97,6 +97,10 @@ public class SysNotice {
 
 
     public Character getDelFlag() {
-        return delFlag == null ? '0' : '1';
+        if(delFlag == null){
+            return '0';
+        }else{
+            return delFlag;
+        }
     }
 }
