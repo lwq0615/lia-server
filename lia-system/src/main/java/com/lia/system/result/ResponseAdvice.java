@@ -36,6 +36,7 @@ public class ResponseAdvice implements ResponseBodyAdvice {
         if(SysFile.FILE_REQ_URL.contains(SpringUtils.getRequest().getRequestURI())){
             return null;
         }
+        response.setContentType("application/json;charset=utf-8");
         if (o instanceof String){
             /**
              * 当返回类型是String时，消息转换器则是：StringHttpMessageConverter。

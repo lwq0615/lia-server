@@ -45,8 +45,6 @@ public class TokenFilter extends OncePerRequestFilter {
         // 如果是访问图片或者文件资源接口，则从uri中获取token
         if(SysFile.FILE_REQ_URL.contains(request.getRequestURI())){
             uid = request.getParameter(header);
-        }else{
-            response.setContentType("application/json;charset=utf-8");
         }
         // 没有token，不需要解析
         if(uid == null || uid.equals("")){
