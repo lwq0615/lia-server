@@ -73,8 +73,8 @@ public class QueryParam {
                 columnName = field.getName();
             }
             Object value = getColumnValue(field);
-            // 如果该字段是日期类型并且添加了DateType，则做范围查询
-            if (AnnotationUtils.findAnnotation(field, DateType.class) != null) {
+            // 如果该字段添加了Between，则做范围查询
+            if (AnnotationUtils.findAnnotation(field, Between.class) != null) {
                 List<String> btw = new ArrayList<>();
                 Collections.addAll(btw, ((String) value).split(","));
                 value = btw;

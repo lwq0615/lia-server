@@ -2,7 +2,6 @@
 package com.lia.system.entity;
 
 import com.lia.system.crud.anno.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -55,7 +54,7 @@ public class SysRegisterCode {
     /**
      * 注册码被使用的时间
      */
-    @DateType
+    @Between
     @TableField("`use_time`")
     private String useTime;
 
