@@ -64,7 +64,7 @@ public class SysNoticeService extends BaseService<SysNotice> {
             }
         }
         if(deleteFiles.size() > 0){
-            sysFileService.deleteFiles(deleteFiles);
+            sysFileService.deleteFileByIds(deleteFiles);
         }
         // 新上传的附件
         if(entity.getFiles() != null && entity.getFiles().size() > 0){

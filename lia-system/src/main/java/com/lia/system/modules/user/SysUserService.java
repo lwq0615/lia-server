@@ -305,7 +305,7 @@ public class SysUserService {
         // 如果是更换头像，则删除原来的头像数据
         if (user.getHeadImg() != null) {
             //删除数据库内的头像数据
-            sysFileService.deleteFiles(ArrayUtils.asList(user.getHeadImg()));
+            sysFileService.deleteFileByIds(ArrayUtils.asList(user.getHeadImg()));
         }
         //保存新的头像到数据库
         user.setHeadImg(image.getFileId());

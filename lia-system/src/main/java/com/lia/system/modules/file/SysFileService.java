@@ -174,7 +174,7 @@ public class SysFileService {
     /**
      * 根据Id删除文件
      */
-    public int deleteFiles(List<Long> fileIds) {
+    public int deleteFileByIds(List<Long> fileIds) {
         ArrayList<SysFile> sysFiles = sysFileMapper.findSysFileByIds(fileIds);
         for (SysFile sysFile : sysFiles) {
             // 删除本地磁盘的文件
@@ -185,4 +185,20 @@ public class SysFileService {
         }
         return sysFileMapper.deleteFiles(fileIds);
     }
+
+
+    /**
+     * 删除文件
+     */
+    public int deleteFiles(List<SysFile> sysFiles) {
+        for (SysFile sysFile : sysFiles) {
+            // 删除本地磁盘的文件
+            if (sysFile.getPath() != null && !sysFile.getPath().equals("")) {
+                File oldFile = new File(sysFile.getPath());
+                if (oldFile.exists()) oldFile.delete();
+            }
+        }
+        return sysFileMapper.deleteFiles(sysFiles.stream().map(SysFile::getFileId).collect(Collectors.toList()));
+    }
+
 }
