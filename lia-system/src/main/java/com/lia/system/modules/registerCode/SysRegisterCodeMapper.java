@@ -16,5 +16,11 @@ public interface SysRegisterCodeMapper extends BaseMapper<SysRegisterCode> {
      */
     int createRegisterCode(List<SysRegisterCode> codes);
 
+
+    /**
+     * 条件查询
+     */
+    List<SysRegisterCode> getPage(SysRegisterCode code);
+
 }                                   
     

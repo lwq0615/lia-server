@@ -42,7 +42,7 @@ public class QueryParam {
             columns.add(columnName);
         }
         String[] res = new String[columns.size()];
-        for (int i = 0; i < columns.size() - 1; i++) {
+        for (int i = 0; i < columns.size(); i++) {
             res[i] = columns.get(i);
         }
         return res;

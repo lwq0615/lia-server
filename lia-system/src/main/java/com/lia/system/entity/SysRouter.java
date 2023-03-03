@@ -26,6 +26,11 @@ public class SysRouter {
     public static final Integer ROOT_ROUTER_ID = 1;
 
     /**
+     * 首页路由的ID
+     */
+    public static final Integer INDEX_ROUTER_ID = 2;
+
+    /**
      * 路由ID
      */
     private Integer routerId;

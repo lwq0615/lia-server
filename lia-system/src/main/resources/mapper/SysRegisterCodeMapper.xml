@@ -16,7 +16,7 @@
 
 
     <insert id="createRegisterCode" parameterType="List" useGeneratedKeys="true"  keyProperty="id" keyColumn="id">
-        insert  into sys_register_code
+        insert into sys_register_code
         (code, role_id, creater, create_time)
         values
         <trim suffixOverrides="," >
@@ -25,5 +25,41 @@
             </foreach>
         </trim>
     </insert>
+
+    <select id="getPage" resultMap="SysRegisterCodeResult">
+        select * from sys_register_code
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="code != null">
+                AND code like concat('%',#{code},'%')
+            </if>
+            <if test="roleId != null">
+                AND role_id = #{roleId}
+            </if>
+            <if test="used != null">
+                <if test="used == true and useBy == null">
+                    AND `use_by` is not null
+                </if>
+                <if test="used == false">
+                    AND `use_by` is null
+                </if>
+            </if>
+            <if test="(used == null or used == true) and useBy != null">
+                AND `use_by` = #{useBy}
+            </if>
+            <if test="creater != null">
+                AND creater = #{creater}
+            </if>
+            <if test="createTime != null">
+                AND create_time between substring_index(#{createTime},',',1) and substring_index(#{createTime},',',-1)
+            </if>
+            <if test="(used == null or used == true) and useTime != null">
+                AND use_time between substring_index(#{useTime},',',1) and substring_index(#{useTime},',',-1)
+            </if>
+        </where>
+        order by create_time desc
+    </select>
 
 </mapper>

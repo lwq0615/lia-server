@@ -26,6 +26,11 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
     private SysRegisterCodeMapper sysRegisterCodeMapper;
 
 
+    @Override
+    public List<SysRegisterCode> selectList(SysRegisterCode entity, boolean desc) {
+        return sysRegisterCodeMapper.getPage(entity);
+    }
+
     /**
      * 编辑注册码角色信息
      */

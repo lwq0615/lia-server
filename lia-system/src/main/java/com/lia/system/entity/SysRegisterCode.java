@@ -2,6 +2,7 @@
 package com.lia.system.entity;
 
 import com.lia.system.crud.anno.*;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ public class SysRegisterCode {
      */
     @TableField("`code`")
     @Required
+    @Like
     private String code;
 
     /**
@@ -43,6 +45,12 @@ public class SysRegisterCode {
      */
     @TableField("`use_by`")
     private Long useBy;
+
+    /**
+     * 是否已使用
+     */
+    @Pass
+    private Boolean used;
 
     /**
      * 注册码被使用的时间
