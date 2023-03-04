@@ -42,6 +42,7 @@ public class TokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String uid = request.getHeader(header);
+        response.setContentType("application/json;charset=utf-8");
         // 如果是访问图片或者文件资源接口，则从uri中获取token
         if(SysFile.FILE_REQ_URL.contains(request.getRequestURI())){
             uid = request.getParameter(header);
