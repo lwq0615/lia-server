@@ -149,13 +149,7 @@ public abstract class BaseService<E> {
      * @param entity
      */
     public E selectOne(E entity) {
-        QueryWrapper<E> queryWrapper = new QueryWrapper<>();
-        QueryParam queryParam = new QueryParam(entity);
-        List<QueryParam.Column> columns = queryParam.getSelectColumn();
-        for (int i = 0; i < columns.size(); i++) {
-            queryWrapper.eq(columns.get(i).getName(), columns.get(i).getValue());
-        }
-        return baseMapper.selectOne(queryWrapper);
+        return this.selectList(entity).get(0);
     }
 
 
