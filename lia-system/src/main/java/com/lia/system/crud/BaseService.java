@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.pagehelper.PageHelper;
 import com.lia.system.crud.anno.*;
 import com.lia.system.crud.exception.NullValueOfIdException;
 import com.lia.system.crud.exception.NoEntityException;
@@ -149,6 +150,7 @@ public abstract class BaseService<E> {
      * @param entity
      */
     public E selectOne(E entity) {
+        PageHelper.startPage(1, 1);
         return this.selectList(entity).get(0);
     }
 
