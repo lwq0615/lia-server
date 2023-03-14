@@ -1,6 +1,10 @@
 package com.lia.system.entity;
 
 
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.alibaba.excel.annotation.write.style.HeadFontStyle;
 import com.lia.system.utils.ArrayUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,86 +35,111 @@ public class SysUser {
     /**
      * 用户ID
      */
+    @ExcelIgnore
     private Long userId;
 
     /**
      * 用户名
      */
+    @ExcelProperty("用户名")
+    @ColumnWidth(15)
     private String username;
 
     /**
      * 密码
      */
+    @ExcelIgnore
     private String password;
 
     /**
      * 昵称
      */
+    @ExcelProperty("昵称")
     private String nick;
 
     /**
      * 所属企业
      */
+    @ExcelIgnore
     private Integer companyId;
 
     /**
      * 企业名称
      */
+    @ExcelProperty("企业名称")
+    @ColumnWidth(15)
     private String companyName;
 
     /**
      * 角色ID（外键）
      */
+    @ExcelIgnore
     private Integer roleId;
 
     /**
      * 角色名称
      */
+    @ExcelProperty("角色名称")
+    @ColumnWidth(15)
     private String roleName;
 
     /**
      * 性别（0男，1女，2其他）
      */
+    @ExcelProperty("性别")
     private Character sex;
 
     /**
      * 手机号
      */
+    @ExcelProperty("手机号")
+    @ColumnWidth(15)
     private String phone;
 
     /**
      * 邮箱
      */
+    @ExcelProperty("邮箱")
+    @ColumnWidth(25)
     private String email;
 
     /**
      * 头像（外键）
      */
+    @ExcelIgnore
     private Long headImg;
 
     /**
      * 帐号状态（0：正常，1：停用）
      */
+    @ExcelProperty("帐号状态")
+    @ColumnWidth(15)
     private Character status;
 
     /**
      * 删除标志（0：存在，1：已删除）
      */
+    @ExcelIgnore
     private Character delFlag;
 
     /**
      * 创建人
      */
+    @ExcelProperty("创建人")
     private Long creater;
 
     /**
      * 创建时间
      */
+    @ExcelProperty("创建时间")
+    @ColumnWidth(20)
     private String createTime;
 
     /**
      * 备注
      */
+    @ExcelProperty("备注")
+    @ColumnWidth(20)
     private String remark;
 
 

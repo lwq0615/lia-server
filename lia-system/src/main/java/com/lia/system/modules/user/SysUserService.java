@@ -1,6 +1,7 @@
 package com.lia.system.modules.user;
 
 
+import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson2.JSON;
 import com.lia.system.entity.*;
 import com.lia.system.modules.file.UploadDir;
@@ -13,10 +14,8 @@ import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
 import com.lia.system.security.Jwt;
 import com.lia.system.security.LoginUser;
-import com.lia.system.utils.ArrayUtils;
-import com.lia.system.utils.DateUtils;
+import com.lia.system.utils.*;
 import com.lia.system.result.HttpResult;
-import com.lia.system.utils.StrUtils;
 import com.lia.system.websocket.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,6 +28,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -321,4 +324,13 @@ public class SysUserService {
         return sysUserMapper.getCreaterDict();
     }
 
+
+    /**
+     * 导出excel
+     * @param response
+     */
+    public void excel(HttpServletResponse response) {
+        List<SysUser> users = sysUserMapper.excelData();
+        ExcelUtils.write(response, "系统用户", users, SysUser.class);
+    }
 }

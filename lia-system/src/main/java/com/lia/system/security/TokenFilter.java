@@ -4,9 +4,10 @@ import com.alibaba.fastjson2.JSON;
 import com.lia.system.entity.SysFile;
 import com.lia.system.redis.Redis;
 import com.lia.system.redis.RedisDb;
+import com.lia.system.result.RequestTemp;
+import com.lia.system.utils.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +42,8 @@ public class TokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        RequestTemp req = SpringUtils.getBean(RequestTemp.class);
+        req.setReq(request);
         String uid = request.getHeader(header);
         response.setContentType("application/json;charset=utf-8");
         // 如果是访问图片或者文件资源接口，则从uri中获取token

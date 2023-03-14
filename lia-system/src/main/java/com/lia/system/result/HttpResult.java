@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @ToString
 public class HttpResult {
 
+
     /**
      * 响应码
      */
@@ -50,7 +51,7 @@ public class HttpResult {
             this.message = resultCode.getMessage();
         }
         this.data = data;
-        HttpServletRequest request = SpringUtils.getRequest();
+        HttpServletRequest request = SpringUtils.getBean(RequestTemp.class).getReq();
         if (request != null) {
             this.url = request.getRequestURL().toString();
             if (!StrUtils.isEmpty(request.getQueryString())) {

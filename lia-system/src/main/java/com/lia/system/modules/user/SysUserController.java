@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -167,6 +168,15 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('system:user:getCreaterDict')")
     public List<SysDictData> createrDict() {
         return sysUserService.getCreaterDict();
+    }
+
+
+    /**
+     * 导出excel
+     */
+    @GetMapping("/excel")
+    public void excel(HttpServletResponse response){
+        sysUserService.excel(response);
     }
 
 }

@@ -31,9 +31,9 @@ public class ResponseAdvice implements ResponseBodyAdvice {
         HttpServletResponse response = ((ServletServerHttpResponse) serverHttpResponse).getServletResponse();
         response.setStatus(SysResult.SUCCESS.getCode());
         /**
-         * 文件资源请求的报错不需要处理响应格式
+         * 响应不是json不做处理
          */
-        if(SysFile.FILE_REQ_URL.contains(SpringUtils.getRequest().getRequestURI())){
+        if(!response.getContentType().split(";")[0].equals("application/json")){
             return null;
         }
         if (o instanceof String){
