@@ -175,6 +175,7 @@ public class SysUserController {
      * 导出excel
      */
     @GetMapping("/excel")
+    @PreAuthorize("hasAuthority('system:user:excel')")
     public void excel(HttpServletResponse response){
         sysUserService.excel(response);
     }
