@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 03/03/2023 16:44:17
+ Date: 15/03/2023 16:58:13
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `sys_auth`  (
   INDEX `sys_auth-router_id`(`router_id` ASC) USING BTREE,
   CONSTRAINT `sys_auth-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 104 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 107 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_auth
@@ -91,6 +91,9 @@ INSERT INTO `sys_auth` VALUES (98, '上传文件', '/system/file/upload', 'syste
 INSERT INTO `sys_auth` VALUES (100, '查询用户详细信息', '/system/user/detail', 'system:user:detail', 4, '0', 1, '2023-02-28 15:47:15', NULL);
 INSERT INTO `sys_auth` VALUES (102, '编辑公告信息', '/system/notice/edit', 'system:notice:edit', 2, '0', 1, '2023-02-28 17:07:31', NULL);
 INSERT INTO `sys_auth` VALUES (103, '删除公告', '/system/notice/delete', 'system:notice:delete', 2, '0', 1, '2023-03-01 09:00:26', NULL);
+INSERT INTO `sys_auth` VALUES (104, '导出excel', '/system/user/excel', 'system:user:excel', 4, '0', 1, '2023-03-14 17:10:38', NULL);
+INSERT INTO `sys_auth` VALUES (105, '导出excel', '/system/register/code/excel', 'system:register:code:excel', 47, '0', 1, '2023-03-15 09:25:38', NULL);
+INSERT INTO `sys_auth` VALUES (106, '导出excel', '/system/company/excel', 'system:company:excel', 41, '0', 1, '2023-03-15 11:06:25', NULL);
 
 -- ----------------------------
 -- Table structure for sys_company
@@ -190,7 +193,7 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user` ASC) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 209 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 210 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_file
@@ -301,6 +304,7 @@ INSERT INTO `sys_file` VALUES (205, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300
 INSERT INTO `sys_file` VALUES (206, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230301/rc-upload-1677664688794-4.jpg', 25572, '2023-03-01 17:58:18', 1);
 INSERT INTO `sys_file` VALUES (207, 'v2-7b6e80aa32d49d34c3e7820a385412ff_720w.webp', 'public/file/20230301/rc-upload-1677664688794-8.webp', 31313, '2023-03-01 17:58:18', 1);
 INSERT INTO `sys_file` VALUES (208, 'v2-15205d704598089b1048f153a5f8dbde_r.jpg', 'public/file/20230301/rc-upload-1677664688794-9.jpg', 40725, '2023-03-01 17:58:18', 1);
+INSERT INTO `sys_file` VALUES (209, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230313/rc-upload-1678673742895-3.jpg', 25572, '2023-03-13 10:18:01', 1);
 
 -- ----------------------------
 -- Table structure for sys_msg
@@ -375,7 +379,7 @@ CREATE TABLE `sys_notice`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 59 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice
@@ -413,7 +417,7 @@ INSERT INTO `sys_notice` VALUES (34, '6', NULL, '0', '0', '0', 1, '2023-02-27 09
 INSERT INTO `sys_notice` VALUES (36, '123', NULL, '0', '0', '0', 1, '2023-02-27 14:51:33', '2023-02-27 14:51:33');
 INSERT INTO `sys_notice` VALUES (37, '123', NULL, '1', '2', '0', 1, '2023-02-27 14:53:34', '2023-02-27 14:53:34');
 INSERT INTO `sys_notice` VALUES (40, '12', NULL, '1', '2', '0', 1, '2023-02-27 15:22:58', '2023-02-27 15:22:58');
-INSERT INTO `sys_notice` VALUES (41, '测试', '# 测试标题\n\n|t1|t2|t3|t4|\n|--|--|--|--|\n|a|b|c|f|g|\n\n\n```javascript\nconst a = 10;\nconst b= 20;\nconsole.log(a+b)\n```', '1', '2', '0', 1, '2023-02-28 14:58:45', '2023-02-28 14:58:45');
+INSERT INTO `sys_notice` VALUES (41, '测试', '# 测试标题\n\n|t1|t2|t3|t4|\n|--|--|--|--|\n|a|b|c|f|g|\n\n\n```javascript\nconst a = 10;\nconst b= 20;\nconsole.log(a+b)\n```', '0', '2', '0', 1, '2023-02-28 14:58:45', '2023-03-15 14:36:50');
 INSERT INTO `sys_notice` VALUES (42, '123', '123', '1', '2', '0', 1, '2023-02-28 15:06:32', '2023-02-28 15:06:32');
 INSERT INTO `sys_notice` VALUES (43, '123a', NULL, '0', '0', '0', 1, '2023-02-28 15:09:13', '2023-02-28 15:09:13');
 INSERT INTO `sys_notice` VALUES (44, 'ceshi1', '123', '1', '1', '0', 1, '2023-02-28 17:40:34', '2023-03-01 15:11:46');
@@ -428,9 +432,10 @@ INSERT INTO `sys_notice` VALUES (52, '123', NULL, '0', '0', '1', 1, '2023-03-01 
 INSERT INTO `sys_notice` VALUES (53, '123', NULL, '0', '0', '0', 1, '2023-03-01 14:55:09', '2023-03-01 14:55:09');
 INSERT INTO `sys_notice` VALUES (54, 'cc', '123', '0', '2', '0', 1, '2023-03-01 15:12:58', '2023-03-01 17:50:22');
 INSERT INTO `sys_notice` VALUES (55, 'a', NULL, '0', '0', '0', 1, '2023-03-01 17:53:14', '2023-03-01 17:53:17');
-INSERT INTO `sys_notice` VALUES (56, '123', NULL, '1', '0', '0', 1, '2023-03-01 17:54:28', '2023-03-01 17:54:28');
+INSERT INTO `sys_notice` VALUES (56, '123', NULL, '0', '0', '0', 1, '2023-03-01 17:54:28', '2023-03-15 14:36:45');
 INSERT INTO `sys_notice` VALUES (57, '333', NULL, '0', '1', '0', 1, '2023-03-01 17:54:36', '2023-03-01 17:54:36');
 INSERT INTO `sys_notice` VALUES (58, 'bbb', '1111', '1', '2', '0', 2, '2023-03-03 10:53:42', '2023-03-03 10:53:42');
+INSERT INTO `sys_notice` VALUES (59, 'java', '```java\n/**\n * 启动程序\n * @author liweiqiang\n */\n@SpringBootApplication\npublic class Application\n{\n    public static void main(String[] args)\n    {\n        SpringUtils.initApplicationContext(SpringApplication.run(Application.class, args));\n        System.out.println(\"(♥◠‿◠)ﾉﾞ  启动成功   ლ(´ڡ`ლ)ﾞ\");\n    }\n}\n```\n# asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd', '0', '0', '0', 1, '2023-03-13 10:18:01', '2023-03-13 10:18:01');
 
 -- ----------------------------
 -- Table structure for sys_notice_file
@@ -495,6 +500,7 @@ INSERT INTO `sys_notice_file` VALUES (44, 205);
 INSERT INTO `sys_notice_file` VALUES (44, 206);
 INSERT INTO `sys_notice_file` VALUES (44, 207);
 INSERT INTO `sys_notice_file` VALUES (44, 208);
+INSERT INTO `sys_notice_file` VALUES (59, 209);
 
 -- ----------------------------
 -- Table structure for sys_notice_role
@@ -585,6 +591,9 @@ INSERT INTO `sys_notice_role` VALUES (1, 57);
 INSERT INTO `sys_notice_role` VALUES (1, 58);
 INSERT INTO `sys_notice_role` VALUES (2, 58);
 INSERT INTO `sys_notice_role` VALUES (3, 58);
+INSERT INTO `sys_notice_role` VALUES (1, 59);
+INSERT INTO `sys_notice_role` VALUES (2, 59);
+INSERT INTO `sys_notice_role` VALUES (3, 59);
 
 -- ----------------------------
 -- Table structure for sys_param
@@ -619,6 +628,7 @@ CREATE TABLE `sys_register_code`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '注册码',
   `role_id` int NOT NULL COMMENT '该注册码可激活的角色',
+  `expire_time` bigint NULL DEFAULT NULL COMMENT '有效期',
   `use_by` bigint NULL DEFAULT NULL COMMENT '使用该注册码的用户ID',
   `use_time` datetime NULL DEFAULT NULL COMMENT '注册码被使用的时间',
   `creater` bigint NOT NULL COMMENT '创建该注册码的用户ID',
@@ -631,18 +641,157 @@ CREATE TABLE `sys_register_code`  (
   CONSTRAINT `sys_register_code_ibfk_1` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_register_code_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sys_register_code_ibfk_3` FOREIGN KEY (`use_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '注册码' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 147 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '注册码' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_register_code
 -- ----------------------------
-INSERT INTO `sys_register_code` VALUES (1, 'Ndy6dNwdgwdh7s0UzZmO', 2, 99, '2023-01-17 19:19:24', 1, '2023-01-17 15:41:30');
-INSERT INTO `sys_register_code` VALUES (2, 'v8v1ifVmyk0uRqMTBky9', 3, NULL, NULL, 1, '2023-01-17 15:41:38');
-INSERT INTO `sys_register_code` VALUES (3, 'l5u6YdIxFYs3ZaCHoRBS', 3, 109, '2023-02-06 20:46:30', 1, '2023-01-17 15:41:38');
-INSERT INTO `sys_register_code` VALUES (4, 'BHGEoqf2rnvZPoUy1grO', 1, NULL, NULL, 1, '2023-01-17 15:41:51');
-INSERT INTO `sys_register_code` VALUES (5, 'k5Qh0x3WPAIbpZeswi5M', 3, 108, '2023-02-06 20:45:19', 1, '2023-01-17 15:41:51');
-INSERT INTO `sys_register_code` VALUES (6, 'ybpkW1IQh8JZHWbDWYsg', 3, 114, '2023-03-03 15:23:15', 1, '2023-01-17 15:41:51');
-INSERT INTO `sys_register_code` VALUES (7, 'FmcaAgQ2JQUdGxsNwUMd', 1, 112, '2023-02-06 20:49:37', 1, '2023-01-17 15:41:51');
+INSERT INTO `sys_register_code` VALUES (1, 'Ndy6dNwdgwdh7s0UzZmO', 2, NULL, 99, '2023-01-17 19:19:24', 1, '2023-01-17 15:41:30');
+INSERT INTO `sys_register_code` VALUES (2, 'v8v1ifVmyk0uRqMTBky9', 3, NULL, NULL, NULL, 1, '2023-01-17 15:41:38');
+INSERT INTO `sys_register_code` VALUES (3, 'l5u6YdIxFYs3ZaCHoRBS', 3, NULL, 109, '2023-02-06 20:46:30', 1, '2023-01-17 15:41:38');
+INSERT INTO `sys_register_code` VALUES (4, 'BHGEoqf2rnvZPoUy1grO', 1, NULL, NULL, NULL, 1, '2023-01-17 15:41:51');
+INSERT INTO `sys_register_code` VALUES (5, 'k5Qh0x3WPAIbpZeswi5M', 3, NULL, 108, '2023-02-06 20:45:19', 1, '2023-01-17 15:41:51');
+INSERT INTO `sys_register_code` VALUES (6, 'ybpkW1IQh8JZHWbDWYsg', 3, NULL, 114, '2023-03-03 15:23:15', 1, '2023-01-17 15:41:51');
+INSERT INTO `sys_register_code` VALUES (7, 'FmcaAgQ2JQUdGxsNwUMd', 1, NULL, 112, '2023-02-06 20:49:37', 1, '2023-01-17 15:41:51');
+INSERT INTO `sys_register_code` VALUES (8, 'amnQ65fhsopctbKPvpcN', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (9, 'Q0CWneFd0LSNPWmIXIKn', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (10, 'nk1zYE4SMlVLUPoXFZsL', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (11, 'dy6KoqiwK4dfrAZori4F', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (12, 'PV9q7ZlUfhbAwcE6os8t', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (13, 'n1XoaW5aRVvpBisyoDjo', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (14, '6bXc63eiCrOcl3WWzylB', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (15, '1qgmgdyYIiBouB5bUN3k', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (16, 'vvFgWDv41Y1XSLNJyaog', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (17, 'Jm1zHiQcEy2QGozXnu6B', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (18, '6BK4YRpav4QfD4U8e00y', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (19, 'dLjgggxIsvgh84pAiBrE', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (20, '8xNtbToUf0BbJPS4Rg8J', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (21, '85xP1DRkLmVdRFdd1IxT', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (22, '9gWTY7ha0uZb2GuWr09R', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (23, 'cB0frVHXg40yt0zc524z', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (24, 'Oxpg2IfJ2lh1cx0czv69', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (25, 'KLXXUj1Pp7wQXJSc5a9v', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (26, 'AAPwdQu9y5U5vyjllBoK', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (27, 'OpvMInLVOCp5SIpX4F44', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (28, 'KPQMnBHNPmZY2D8iQ18q', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (29, 'VNH9jm2K9QYjGeDPhjNU', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (30, 'WLyUfvuOvBdZZ5IqJvB8', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (31, 'qkaTmn0dryqrDsCyfACz', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (32, '4LKbKvleKNeBUjQyHLw5', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (33, 'Auky1zdlYzW5W1i8w2C7', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (34, 'KRYJsMET0zzHNhJGXlCT', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (35, 'k8JKtgVR47G6zWWA1T3n', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (36, '9TDaUqRpWm2wYZYhqi0x', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (37, 'ri80N8sxepXwktjzal6w', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (38, 'D0fBt5LRsKnOo3rKmusG', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (39, 'qDX5zsdYp9SHx1Vrvc9E', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (40, 'BrU1qfomg6nAQVFFWzcC', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (41, '0VTEC1UqzglXcaf2I7EA', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (42, 'mfZ6JzqN9v40W5W1eLAj', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (43, 'hooaXZ2sBBcFy6BHQ6RN', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (44, 'oRYXijqkMzhAYHZjD5yW', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (45, 'sDGyCcYwJGcJvc2hdJob', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (46, 'T8IGzqCJVsezSlHBQTHe', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (47, 'Hos60lzQV1EhNU32FGGt', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (48, 'B1cl2iusmZkXDKspJYey', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (49, 'ZGgx63PSyraka5SqqXPb', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (50, 'SDuV4epWmjWmTMeQ5KhK', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (51, 'jiI5M3VgkwVLRFOQdQlk', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (52, 'gyRKPRXGBMl6oq8EAgPI', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (53, 'mBYQ2ywBDb6saJBaT2Ph', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (54, 'Att36nN9bIXgJM5UelX5', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (55, 'kpGVPCuxssch44RvRc6s', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (56, 'Jcchw77Lytz6ml7siDBT', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (57, 'hgIq0AjZ6NPMGTyUdLaU', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (58, 'fqhe3e4nt3TO7zsrYLEc', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (59, 'l2ZQSB7ZpeyJaCMnzZfA', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (60, 'sgyBx3l4MIcOsqrzimGB', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (61, 'hHg9nyEvpNspdBWwuhfI', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (62, 'wilOw2hACmtA4bktubWX', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (63, 'NWBTnrJ06y7TxkzArq5L', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (64, 'wnx8oiZqXAcjv6HYq6CR', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (65, 'VtgyyyHXBFEOcFWtjaNj', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (66, 'DDflBdFtf5FnFa8LRuiF', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (67, 'T0CBdFn3r0xnm7Z2keUF', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (68, 'k738FmcumNJ5N8DqcoXo', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (69, 'xXXhg543hgAl7e2buxoh', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (70, 'JpZIrl04JOeqTlaXKdop', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (71, 'U3xeHWKRq5EYCa1m2PPN', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (72, 'D2ILgBGw5arpaLVFmDPN', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (73, 'QBxaUXio9K5PZJGodhXn', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (74, 'EzzDcIvj0M3l7K9pG4x3', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (75, 'Z8SoVfaP3gTsnvqlATbV', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (76, 'WWHud4qmnagnOicHtu65', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (77, 'Da4MSUgMBOS3Q1Elq6MV', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (78, 'z8Vc4aZGNNzMhBGI6hxr', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (79, 'J8SjVNS19bZbLSpkHgS6', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (80, 'g0Cl8a0A2QZMsEwFRXSV', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (81, 'PqZbrIPEbO4pt9Nm6BcY', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (82, 'ylwVpheJX4q5KMciLZzp', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (83, '9QQM7rWZJ1OtGjpCp5At', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (84, 'NlCvOkSpzv9VfvZeERFk', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (85, '8Byal7mxRDXD7DLmguJN', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (86, 'Rd7XX4hbISE9nJrDmISd', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (87, 'XD7cShnw764Y3Jya1VTM', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (88, '4hTlokchAV2LA2Tzvtn9', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (89, 'HyZ3bKSndkWWzPpWRfoH', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (90, 'Np6sY553Qtd7LZOZ8iHy', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (91, '9j2cEDEj7ktjN5MbyQ8p', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (92, 'p9Wrdr9xwcmvvskF2U0y', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (93, 'ENKSboeM2U4MkgsLfS5c', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (94, 'HZllK0Pl6RPSDUizTOyR', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (95, 'cvxylBmqejSGfV73l7Yf', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (96, 'yvWiHG1XXrhHAUo6WDNG', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (97, 'GeTXSBv7KJu8yNawZ9lq', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (98, 'looBq0mWjZiayDFlIZMw', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (99, 'aPMBYeZFlDzw8oxO6d5A', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (100, 'ZRrYLMqnkOrLpQCKPAVX', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (101, '5b62vUlAdEZfujMm0tnl', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (102, 'Y8DmlVoCeIqnXkH3Pwyu', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (103, 'bq4g2x9hASSE8rENZHdo', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (104, 'EkMXM6SZL7WmCE8MjQSR', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (105, 'i9kvsrSs2H4hZWgTaZYd', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (106, 'K6BhOhZ6QBifos9TOjJP', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (107, 'SoIRKc9ldo8ICD591HLi', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (108, 'Vr0Qzdpg2Gxf0cPNLL56', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (109, 'A3yAadUuzkSWEYiSyicm', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (110, 'mc22xfVCVjc6dnX7OkAS', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (111, '7Jm2scwyTA1FPOck75Bg', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (112, '65TThWHFKrf2iOEqrVpR', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (113, 'teYIZJxqTKSPn3QAOlWY', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (114, 'Eymz0FPevf7pVavtzl0c', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (115, 'nqklQQL5ZnHoE0bqK9nf', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (116, 'Uw8QHKK24k7MUYLoeulD', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (117, 'hQUlngy0TkdnuOHIz5v1', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (118, 'KiDEPjw5wpjLhtvBDCZA', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (119, '9fpth8k7VureR54UZ8qX', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (120, 'SzPQMSbtmllNh25FxP4Z', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (121, 'lktxyBWdZuK2hSHOhvM9', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (122, 'UCSG4CtOrdsq2jSt1Vyg', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (123, 'dg5Qf00fCKUmidEyCE2D', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (124, 'edCCapnuZOawb3IY6O57', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (125, 'lkuFkVYLEnrwZmq3IgNc', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (126, 'zs9umQ9d51OyhUDD8MXS', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (127, 'mAopQjAl5Z2ed48q8LGO', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (128, 'yR3w3LICsMbMyAfxNwql', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (129, 'k1Dq281s1FgynxRQkBcF', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (130, 'vFb6zRPRflfosfXIpw1c', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:26');
+INSERT INTO `sys_register_code` VALUES (131, 'm9ZjBnZnwMmxJEyjCSYk', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:36');
+INSERT INTO `sys_register_code` VALUES (132, 'qyl5wKf7msesMmAyOLMY', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:36');
+INSERT INTO `sys_register_code` VALUES (133, 'abxb4YcBW5IrDfFWU77V', 1, NULL, NULL, NULL, 1, '2023-03-14 17:19:36');
+INSERT INTO `sys_register_code` VALUES (134, 'iYNfj57JrCH9b2ziurld', 1, NULL, NULL, NULL, 1, '2023-03-14 17:21:15');
+INSERT INTO `sys_register_code` VALUES (135, 'YquS4UCEo2JE4PjPlC4P', 1, NULL, NULL, NULL, 1, '2023-03-14 17:21:32');
+INSERT INTO `sys_register_code` VALUES (136, '6fkrz4Czs5BHEyTDvQdf', 1, NULL, NULL, NULL, 1, '2023-03-14 17:22:10');
+INSERT INTO `sys_register_code` VALUES (137, 'oTkbYKArLFjkO71TNSGg', 1, NULL, NULL, NULL, 1, '2023-03-14 17:22:18');
+INSERT INTO `sys_register_code` VALUES (138, 'VoJMLZGB1Fo8mw9v15YW', 1, NULL, NULL, NULL, 1, '2023-03-14 17:22:18');
+INSERT INTO `sys_register_code` VALUES (139, '9OTBYUWyrCqc6M42cMq9', 1, 259200000, NULL, NULL, 1, '2023-03-15 15:12:43');
+INSERT INTO `sys_register_code` VALUES (140, 'QmSapnKR7b2jQD4zNtMZ', 1, 259200000, 117, '2023-03-15 16:16:29', 1, '2023-03-15 15:12:43');
+INSERT INTO `sys_register_code` VALUES (141, '2fJ58NzSjWLkZWeeDhOs', 1, 259200000, NULL, NULL, 1, '2023-03-15 15:12:43');
+INSERT INTO `sys_register_code` VALUES (142, 'ONmpCCDMMJElJ73pqWe6', 2, NULL, NULL, NULL, 1, '2023-03-15 15:13:57');
+INSERT INTO `sys_register_code` VALUES (143, 'BDL6H3UjT451NnImawrA', 2, NULL, NULL, NULL, 1, '2023-03-15 15:13:57');
+INSERT INTO `sys_register_code` VALUES (144, 'QH261jPt9RAEkyCrOfll', 2, NULL, NULL, NULL, 1, '2023-03-15 15:13:57');
+INSERT INTO `sys_register_code` VALUES (145, 'UnaZpugAt2emLdGf27U3', 1, 60000, NULL, NULL, 1, '2023-03-15 15:57:46');
+INSERT INTO `sys_register_code` VALUES (146, 'MNRtCMxOOJqgPA12gyqu', 1, 60000, NULL, NULL, 1, '2023-03-15 15:57:46');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -742,6 +891,9 @@ INSERT INTO `sys_role_auth` VALUES (1, 98);
 INSERT INTO `sys_role_auth` VALUES (1, 100);
 INSERT INTO `sys_role_auth` VALUES (1, 102);
 INSERT INTO `sys_role_auth` VALUES (1, 103);
+INSERT INTO `sys_role_auth` VALUES (1, 104);
+INSERT INTO `sys_role_auth` VALUES (1, 105);
+INSERT INTO `sys_role_auth` VALUES (1, 106);
 INSERT INTO `sys_role_auth` VALUES (2, 92);
 
 -- ----------------------------
@@ -842,7 +994,7 @@ INSERT INTO `sys_router` VALUES (51, '系统文件', 'file', NULL, 3, 7, 'Folder
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_tool_code`;
 CREATE TABLE `sys_tool_code`  (
-  `code_id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code_id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `columns` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表格字段信息',
   `module` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '包路径',
   `table_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表格名',
@@ -911,7 +1063,7 @@ CREATE TABLE `sys_user`  (
   CONSTRAINT `sys_user-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-head_img` FOREIGN KEY (`head_img`) REFERENCES `sys_file` (`file_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_user-role_id` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 115 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
@@ -942,5 +1094,6 @@ INSERT INTO `sys_user` VALUES (111, 'asdssssss1', '$2a$10$fmfyML.BgGCGN3PdVGv7we
 INSERT INTO `sys_user` VALUES (112, 'kkkkkkkk', '$2a$10$3//.8roSB1Uw5mRo6KGv0O6U0gHp/fB0JZBNpyrG0zSMVjQFBbqhC', 'kkk', 1, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-06 20:49:37', NULL);
 INSERT INTO `sys_user` VALUES (113, 'aaaaaaaaaaaaaa', '$2a$10$VxfstUG36n7/aMf7NaRhQuXX91at3iTlWOozw.3lFW6yluOfbqg0O', '啊啊啊啊啊啊啊啊啊啊', 3, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-07 23:45:10', NULL);
 INSERT INTO `sys_user` VALUES (114, 'liweiqiang', '$2a$10$o4EAeEVJf3BJmQmH//mu9uiWACKhSTK9fgHCeveFK6k4JheU7Edn2', '李伟强', 3, NULL, NULL, NULL, NULL, '0', '0', NULL, '2023-03-03 15:23:15', NULL);
+INSERT INTO `sys_user` VALUES (117, '11111111111', '$2a$10$mNmnxjLqLgoJLSTyTY3ItugeiYJSRGrbzygYMCsdoAOTI/3l9Hjxq', '11111111111', 1, NULL, NULL, NULL, NULL, '0', '0', NULL, '2023-03-15 16:16:29', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
