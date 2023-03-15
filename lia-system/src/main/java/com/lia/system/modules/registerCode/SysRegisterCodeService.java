@@ -61,7 +61,7 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
     /**
      * 批量生成注册码
      */
-    public List<SysRegisterCode> create(Integer roleId, Integer count) {
+    public List<SysRegisterCode> create(Integer roleId, Integer count, Long expireTime) {
         if (roleId == null) {
             throw new HttpException("缺少参数roleId");
         }
@@ -87,6 +87,7 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
                 registerCode.setCreater(LoginUser.getLoginUserId())
                         .setRoleId(roleId)
                         .setCode(StrUtils.ramdomCode(20))
+                        .setExpireTime(expireTime)
                         .setCreateTime(datetime);
                 registerCodes.add(registerCode);
             }

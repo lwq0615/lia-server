@@ -51,8 +51,15 @@ public class SysRegisterCode {
      */
     @ExcelProperty("角色")
     @ColumnWidth(15)
+    @Pass
     private String roleName;
 
+    /**
+     * 有效期
+     */
+    @ExcelIgnore
+    @TableField("`expire_time`")
+    private Long expireTime;
 
     /**
      * 使用该注册码的用户ID
@@ -67,6 +74,13 @@ public class SysRegisterCode {
     @Pass
     @ExcelIgnore
     private Boolean used;
+
+    /**
+     * 是否已过期
+     */
+    @Pass
+    @ExcelIgnore
+    private Boolean expired;
 
     /**
      * 注册码被使用的时间

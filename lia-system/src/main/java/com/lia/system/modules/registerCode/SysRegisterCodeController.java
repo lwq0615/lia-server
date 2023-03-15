@@ -43,8 +43,8 @@ public class SysRegisterCodeController {
      */
     @GetMapping("/create")
     @PreAuthorize("hasAuthority('system:register:code:create')")
-    public List<SysRegisterCode> create(Integer roleId, Integer count){
-        return sysRegisterCodeService.create(roleId, count);
+    public List<SysRegisterCode> create(Integer roleId, Integer count, Long expireTime){
+        return sysRegisterCodeService.create(roleId, count, expireTime);
     }
 
 

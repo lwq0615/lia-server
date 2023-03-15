@@ -1,5 +1,6 @@
 package com.lia.system.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,6 +26,18 @@ public class DateUtils {
         return sdf.format(date);
     }
 
+    /**
+     * 转换为时间戳
+     */
+    public static Long format(String date, String pattern){
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        try {
+            return sdf.parse(date).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * 日期转换为mysql的datetime格式

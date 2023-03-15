@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -222,7 +223,6 @@ public class SysUserService {
         }
     }
 
-
     /**
      * 用户注册
      */
@@ -243,6 +243,12 @@ public class SysUserService {
             }
             if (sysRegisterCode.getUseBy() != null) {
                 throw new HttpException(SysResult.REGISTER_USED);
+            }
+            if(sysRegisterCode.getExpireTime() != null){
+                Long time = DateUtils.format(sysRegisterCode.getCreateTime(), DateUtils.MYSQL_DATETIME_PATTERN)+sysRegisterCode.getExpireTime();
+                if(time < new Date().getTime()){
+                    throw new HttpException(SysResult.REGISTER_CODE_EXPIRE);
+                }
             }
             user.setRoleId(sysRegisterCode.getRoleId());
         } else {

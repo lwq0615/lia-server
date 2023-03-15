@@ -8,6 +8,7 @@
         <id     property="code"      column="code"      />
         <id     property="used"      column="used"      />
         <id     property="roleId"      column="role_id"      />
+        <id     property="expireTime"      column="expire_time"      />
         <id     property="useBy"      column="use_by"      />
         <id     property="useTime"      column="use_time"      />
         <id     property="creater"      column="creater"      />
@@ -17,11 +18,11 @@
 
     <insert id="createRegisterCode" parameterType="List" useGeneratedKeys="true"  keyProperty="id" keyColumn="id">
         insert into sys_register_code
-        (code, role_id, creater, create_time)
+        (code, role_id, creater, create_time, expire_time)
         values
         <trim suffixOverrides="," >
             <foreach collection="codes" item="item">
-                (#{item.code},#{item.roleId},#{item.creater},#{item.createTime}),
+                (#{item.code},#{item.roleId},#{item.creater},#{item.createTime},#{item.expireTime}),
             </foreach>
         </trim>
     </insert>
@@ -44,6 +45,15 @@
                 </if>
                 <if test="used == false">
                     AND `use_by` is null
+                </if>
+            </if>
+            <if test="expired != null">
+                <if test="expired == true">
+                    and expire_time is not null
+                    and unix_timestamp(create_time)*1000 + expire_time &lt; unix_timestamp(current_timestamp())*1000
+                </if>
+                <if test="expired == false">
+                    and (expire_time is null or unix_timestamp(create_time)*1000 + expire_time &gt; unix_timestamp(current_timestamp())*1000)
                 </if>
             </if>
             <if test="(used == null or used == true) and useBy != null">
