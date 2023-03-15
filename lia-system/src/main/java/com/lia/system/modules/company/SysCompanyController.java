@@ -4,11 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lia.system.entity.SysCompany;
 import com.lia.system.entity.SysDictData;
+import com.lia.system.entity.SysRegisterCode;
 import com.lia.system.result.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -69,6 +71,16 @@ public class SysCompanyController {
     @PreAuthorize("hasAuthority('system:company:sysCompanyDict')")
     public List<SysDictData> sysCompanyDict(){
         return sysCompanyService.getSysCompanyDict();
+    }
+
+
+    /**
+     * 导出excel
+     */
+    @PostMapping("/excel")
+    @PreAuthorize("hasAuthority('system:company:excel')")
+    public void excel(HttpServletResponse response, @RequestBody SysCompany company){
+        sysCompanyService.excel(response, company);
     }
 
 

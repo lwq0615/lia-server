@@ -4,6 +4,7 @@ package com.lia.system.modules.user;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson2.JSON;
 import com.lia.system.entity.*;
+import com.lia.system.modules.company.SysCompanyService;
 import com.lia.system.modules.file.UploadDir;
 import com.lia.system.modules.role.SysRoleService;
 import com.lia.system.result.SysResult;
@@ -34,6 +35,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -54,6 +56,8 @@ public class SysUserService {
     private SysRegisterCodeService sysRegisterCodeService;
     @Autowired
     private SysRoleService sysRoleService;
+    @Autowired
+    private SysCompanyService sysCompanyService;
 
 
     /**
@@ -329,8 +333,16 @@ public class SysUserService {
      * 导出excel
      * @param response
      */
-    public void excel(HttpServletResponse response) {
-        List<SysUser> users = sysUserMapper.excelData();
+    public void excel(HttpServletResponse response, SysUser user) {
+        List<SysUser> users = sysUserMapper.getSysUserPage(user);
+        List<SysRole> roles = sysRoleService.findSysRole(new SysRole());
+        Map<Integer, String> roleMap = roles.stream().collect(Collectors.toMap(SysRole::getRoleId, SysRole::getName));
+        List<SysCompany> comps = sysCompanyService.findSysCompany(new SysCompany());
+        Map<Integer, String> compMap = comps.stream().collect(Collectors.toMap(SysCompany::getCompanyId, SysCompany::getName));
+        for (SysUser uItem : users) {
+            uItem.setRoleName(roleMap.get(uItem.getRoleId()));
+            uItem.setCompanyName(compMap.get(uItem.getCompanyId()));
+        }
         ExcelUtils.write(response, "系统用户", users, SysUser.class);
     }
 }

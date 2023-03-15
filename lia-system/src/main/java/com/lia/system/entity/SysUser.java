@@ -86,8 +86,14 @@ public class SysUser {
     /**
      * 性别（0男，1女，2其他）
      */
-    @ExcelProperty("性别")
+    @ExcelIgnore
     private Character sex;
+
+    /**
+     * 性别名称
+     */
+    @ExcelProperty("性别")
+    private String sexName;
 
     /**
      * 手机号
@@ -112,9 +118,15 @@ public class SysUser {
     /**
      * 帐号状态（0：正常，1：停用）
      */
+    @ExcelIgnore
+    private Character status;
+
+    /**
+     * 状态名称
+     */
     @ExcelProperty("帐号状态")
     @ColumnWidth(15)
-    private Character status;
+    private String statusName;
 
     /**
      * 删除标志（0：存在，1：已删除）
@@ -125,7 +137,7 @@ public class SysUser {
     /**
      * 创建人
      */
-    @ExcelProperty("创建人")
+    @ExcelIgnore
     private Long creater;
 
     /**
@@ -175,4 +187,27 @@ public class SysUser {
     }
 
 
+    public String getSexName() {
+        if(sex == null){
+            return null;
+        }
+        if(sex.equals('0')){
+            return "男";
+        } else if (sex.equals('1')) {
+            return "女";
+        }else{
+            return "其他";
+        }
+    }
+
+    public String getStatusName() {
+        if(status == null){
+            return null;
+        }
+        if(status.equals('0')){
+            return "正常";
+        }else{
+            return "停用";
+        }
+    }
 }

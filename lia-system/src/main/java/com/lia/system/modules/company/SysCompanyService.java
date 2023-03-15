@@ -1,18 +1,24 @@
 package com.lia.system.modules.company;
 
 import com.lia.system.entity.SysCompany;
+import com.lia.system.entity.SysRegisterCode;
+import com.lia.system.entity.SysRole;
 import com.lia.system.result.SysResult;
 import com.lia.system.result.exception.HttpException;
 import com.lia.system.entity.SysDictData;
 import com.lia.system.security.LoginUser;
+import com.lia.system.utils.ExcelUtils;
 import com.lia.system.utils.StrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -93,6 +99,16 @@ public class SysCompanyService {
      */
     public List<SysDictData> getSysCompanyDict(){
         return sysCompanyMapper.getSysCompanyDict();
+    }
+
+
+    /**
+     * 导出excel
+     * @param response
+     */
+    public void excel(HttpServletResponse response, SysCompany company) {
+        List<SysCompany> companys = sysCompanyMapper.findSysCompany(company);
+        ExcelUtils.write(response, "企业信息", companys, SysCompany.class);
     }
 
 }

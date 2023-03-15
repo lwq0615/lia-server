@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -69,6 +70,16 @@ public class SysRegisterCodeController {
     @PreAuthorize("hasAuthority('system:register:code:delete')")
     public int delete(@RequestBody List<Integer> sysRegisterCodeIds){
         return sysRegisterCodeService.deleteByIds(sysRegisterCodeIds);
+    }
+
+
+    /**
+     * 导出excel
+     */
+    @PostMapping("/excel")
+    @PreAuthorize("hasAuthority('system:register:code:excel')")
+    public void excel(HttpServletResponse response, @RequestBody SysRegisterCode code){
+        sysRegisterCodeService.excel(response, code);
     }
 
 

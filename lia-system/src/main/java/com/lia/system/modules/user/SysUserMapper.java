@@ -61,10 +61,4 @@ public interface SysUserMapper {
      */
     List<SysUser> personList(Integer companyId, Long userId);
 
-
-    /**
-     * excel数据
-     */
-    List<SysUser> excelData();
-
 }

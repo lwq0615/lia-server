@@ -13,12 +13,13 @@ import java.util.List;
 public class ExcelUtils {
 
     public static void write(HttpServletResponse response, String fileName, Collection data, Class cls){
+        response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setCharacterEncoding("utf-8");
         // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
         try {
             fileName = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
-            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
             EasyExcel
                     .write(response.getOutputStream(), cls)
                     .registerConverter(new CharConverter())
