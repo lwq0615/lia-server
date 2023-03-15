@@ -1,6 +1,10 @@
 package com.lia.system.utils;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.converters.Converter;
+import com.alibaba.excel.metadata.GlobalConfiguration;
+import com.alibaba.excel.metadata.data.WriteCellData;
+import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.lia.system.entity.SysUser;
 
 import javax.servlet.http.HttpServletResponse;
@@ -32,5 +36,29 @@ public class ExcelUtils {
         }
     }
 
+}
 
+
+/**
+ * 处理char类型数据
+ */
+class CharConverter implements Converter<Character> {
+
+    /**
+     * 开启对 Character 类型的支持
+     */
+    @Override
+    public Class<?> supportJavaTypeKey() {
+        return Character.class;
+    }
+
+
+    /**
+     * 自定义对 Character 类型数据的处理
+     * 我这里就拿 String 去包装了下
+     */
+    @Override
+    public WriteCellData<?> convertToExcelData(Character value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        return new WriteCellData<Character>(String.valueOf(value));
+    }
 }
