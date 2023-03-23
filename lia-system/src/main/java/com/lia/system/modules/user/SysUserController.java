@@ -36,9 +36,7 @@ public class SysUserController {
      */
     @GetMapping("/getInfo")
     public SysUser getInfo() {
-        SysUser user = new SysUser();
-        user.setUserId(LoginUser.getLoginUserId());
-        return sysUserService.findSysUser(user).get(0);
+        return sysUserService.getUserDetail(LoginUser.getLoginUserId());
     }
 
 
