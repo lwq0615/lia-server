@@ -34,6 +34,7 @@ public enum SysResult implements ResultCode {
     USER_LOGIN_OTHER(205, "账号在其他设备登录"),
     USER_DEACTIVATE(206, "账号已停用"),
     REGISTER_CODE_EXPIRE(219, "注册码已过期"),
+    NAME_PWD_ERROR(219, "用户名或密码错误"),
 
     /**
      * 系统参数

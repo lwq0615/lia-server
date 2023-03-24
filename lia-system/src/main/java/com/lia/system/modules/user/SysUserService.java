@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -76,7 +77,12 @@ public class SysUserService {
         }
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(checkUser.getUsername(), checkUser.getPassword());
-        Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        Authentication authenticate = null;
+        try{
+            authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        }catch (InternalAuthenticationServiceException e){
+            throw new HttpException(SysResult.NAME_PWD_ERROR);
+        }
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         // 账号停用
         if (loginUser.getUser().getStatus() == '1') {
