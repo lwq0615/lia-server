@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.lia.system.utils.SpringUtils;
 import com.lia.system.utils.StrUtils;
 import lombok.ToString;
+import org.springframework.beans.factory.support.ScopeNotActiveException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,13 +52,15 @@ public class HttpResult {
             this.message = resultCode.getMessage();
         }
         this.data = data;
-        HttpServletRequest request = SpringUtils.getBean(RequestTemp.class).getReq();
-        if (request != null) {
-            this.url = request.getRequestURL().toString();
-            if (!StrUtils.isEmpty(request.getQueryString())) {
-                this.url += "?" + request.getQueryString();
+        try{
+            HttpServletRequest request = SpringUtils.getBean(RequestTemp.class).getReq();
+            if (request != null) {
+                this.url = request.getRequestURL().toString();
+                if (!StrUtils.isEmpty(request.getQueryString())) {
+                    this.url += "?" + request.getQueryString();
+                }
             }
-        }
+        }catch (ScopeNotActiveException e){}
     }
 
 
