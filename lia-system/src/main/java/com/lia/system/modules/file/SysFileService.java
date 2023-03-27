@@ -44,6 +44,9 @@ public class SysFileService {
         if (file == null) {
             return null;
         }
+        if(uuid == null){
+            throw new RuntimeException("uuid can't be null");
+        }
         String oldName = file.getOriginalFilename();
         String fileType = oldName.split("\\.")[oldName.split("\\.").length - 1];
         String date = DateUtils.format(new Date(), "yyyyMMdd");
