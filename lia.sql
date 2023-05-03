@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80031
+ Source Server Version : 80021 (8.0.21)
  Source Host           : localhost:3306
  Source Schema         : lia
 
  Target Server Type    : MySQL
- Target Server Version : 80031
+ Target Server Version : 80021 (8.0.21)
  File Encoding         : 65001
 
- Date: 15/03/2023 16:58:13
+ Date: 03/05/2023 12:42:23
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `sys_auth`  (
   INDEX `sys_auth-router_id`(`router_id` ASC) USING BTREE,
   CONSTRAINT `sys_auth-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_auth-router_id` FOREIGN KEY (`router_id`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 107 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_auth
@@ -94,6 +94,7 @@ INSERT INTO `sys_auth` VALUES (103, '删除公告', '/system/notice/delete', 'sy
 INSERT INTO `sys_auth` VALUES (104, '导出excel', '/system/user/excel', 'system:user:excel', 4, '0', 1, '2023-03-14 17:10:38', NULL);
 INSERT INTO `sys_auth` VALUES (105, '导出excel', '/system/register/code/excel', 'system:register:code:excel', 47, '0', 1, '2023-03-15 09:25:38', NULL);
 INSERT INTO `sys_auth` VALUES (106, '导出excel', '/system/company/excel', 'system:company:excel', 41, '0', 1, '2023-03-15 11:06:25', NULL);
+INSERT INTO `sys_auth` VALUES (107, '获取系统CPU内存信息', '/system/info', 'system:info', 2, '0', 1, '2023-03-21 21:21:04', NULL);
 
 -- ----------------------------
 -- Table structure for sys_company
@@ -193,14 +194,13 @@ CREATE TABLE `sys_file`  (
   PRIMARY KEY (`file_id`) USING BTREE,
   INDEX `sys_file-upload_user`(`upload_user` ASC) USING BTREE,
   CONSTRAINT `sys_file-upload_user` FOREIGN KEY (`upload_user`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 210 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 212 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_file
 -- ----------------------------
 INSERT INTO `sys_file` VALUES (41, '微信图片_20220312191446.jpg', 'public/image/20221003/19afa398-9430-46c5-ac3a-997259d48f16.jpg', 1781778, '2022-10-03 21:27:02', NULL);
 INSERT INTO `sys_file` VALUES (84, 'O1CN01xQBnfA1jFkcVnJ3Ku_!!0-item_pic.jpg_300x300q90.jpg', 'public/image/20230224/9adf6db1-f120-4008-8753-f384dc3b8d9f.jpg', 40553, '2023-02-24 10:55:53', 2);
-INSERT INTO `sys_file` VALUES (101, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/image/20230227/16e1d329-2d7e-413c-8143-e46fdf37cfbd.jpg', 25572, '2023-02-27 09:51:48', 1);
 INSERT INTO `sys_file` VALUES (102, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/null.jpg', 36247, '2023-02-27 10:45:03', 1);
 INSERT INTO `sys_file` VALUES (103, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230227/null.jpg', 25572, '2023-02-27 10:45:03', 1);
 INSERT INTO `sys_file` VALUES (104, 'O1CN01bQLyCg221WqJc3tbA_!!903257060.jpg_300x300q90.jpg', 'public/file/20230227/rc-upload-1677465952690-3.jpg', 36247, '2023-02-27 10:46:00', 1);
@@ -305,6 +305,8 @@ INSERT INTO `sys_file` VALUES (206, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_30
 INSERT INTO `sys_file` VALUES (207, 'v2-7b6e80aa32d49d34c3e7820a385412ff_720w.webp', 'public/file/20230301/rc-upload-1677664688794-8.webp', 31313, '2023-03-01 17:58:18', 1);
 INSERT INTO `sys_file` VALUES (208, 'v2-15205d704598089b1048f153a5f8dbde_r.jpg', 'public/file/20230301/rc-upload-1677664688794-9.jpg', 40725, '2023-03-01 17:58:18', 1);
 INSERT INTO `sys_file` VALUES (209, 'O1CN01Kb9rJW1M5SMGgOU7Z_!!0-item_pic.jpg_300x300q90.jpg', 'public/file/20230313/rc-upload-1678673742895-3.jpg', 25572, '2023-03-13 10:18:01', 1);
+INSERT INTO `sys_file` VALUES (210, '屏幕截图_20230101_190847.png', 'public/image/20230323/ae67d141-bfdc-4d30-b836-cd5372c0b4e8.png', 2094083, '2023-03-23 20:35:57', 1);
+INSERT INTO `sys_file` VALUES (211, '屏幕截图_20230101_190859.png', 'public/file/20230323/rc-upload-1679578842374-3.png', 2094168, '2023-03-23 21:40:56', 1);
 
 -- ----------------------------
 -- Table structure for sys_msg
@@ -323,7 +325,7 @@ CREATE TABLE `sys_msg`  (
   INDEX `sys_msg-send_to`(`send_to` ASC) USING BTREE,
   CONSTRAINT `sys_msg-send_by` FOREIGN KEY (`send_by`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_msg-send_to` FOREIGN KEY (`send_to`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 181 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '消息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 182 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '消息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_msg
@@ -363,6 +365,7 @@ INSERT INTO `sys_msg` VALUES (177, '1', '0', '0', 1, 2, '2023-02-17 00:05:12');
 INSERT INTO `sys_msg` VALUES (178, '321', '0', '0', 1, 2, '2023-02-19 14:51:59');
 INSERT INTO `sys_msg` VALUES (179, '11', '0', '0', 1, 2, '2023-02-21 22:18:11');
 INSERT INTO `sys_msg` VALUES (180, '321', '0', '0', 1, 2, '2023-02-27 09:51:36');
+INSERT INTO `sys_msg` VALUES (181, '123', '0', '0', 1, 117, '2023-03-26 08:22:03');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -379,7 +382,7 @@ CREATE TABLE `sys_notice`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_notice
@@ -415,15 +418,15 @@ INSERT INTO `sys_notice` VALUES (32, '123', '123', '0', '0', '1', 1, '2023-02-26
 INSERT INTO `sys_notice` VALUES (33, 'asd ', 'asds', '0', '0', '0', 1, '2023-02-26 21:10:13', '2023-02-26 21:10:13');
 INSERT INTO `sys_notice` VALUES (34, '6', NULL, '0', '0', '0', 1, '2023-02-27 09:20:50', '2023-02-27 09:20:50');
 INSERT INTO `sys_notice` VALUES (36, '123', NULL, '0', '0', '0', 1, '2023-02-27 14:51:33', '2023-02-27 14:51:33');
-INSERT INTO `sys_notice` VALUES (37, '123', NULL, '1', '2', '0', 1, '2023-02-27 14:53:34', '2023-02-27 14:53:34');
+INSERT INTO `sys_notice` VALUES (37, '123', NULL, '0', '2', '0', 1, '2023-02-27 14:53:34', '2023-03-23 20:32:33');
 INSERT INTO `sys_notice` VALUES (40, '12', NULL, '1', '2', '0', 1, '2023-02-27 15:22:58', '2023-02-27 15:22:58');
 INSERT INTO `sys_notice` VALUES (41, '测试', '# 测试标题\n\n|t1|t2|t3|t4|\n|--|--|--|--|\n|a|b|c|f|g|\n\n\n```javascript\nconst a = 10;\nconst b= 20;\nconsole.log(a+b)\n```', '0', '2', '0', 1, '2023-02-28 14:58:45', '2023-03-15 14:36:50');
 INSERT INTO `sys_notice` VALUES (42, '123', '123', '1', '2', '0', 1, '2023-02-28 15:06:32', '2023-02-28 15:06:32');
 INSERT INTO `sys_notice` VALUES (43, '123a', NULL, '0', '0', '0', 1, '2023-02-28 15:09:13', '2023-02-28 15:09:13');
 INSERT INTO `sys_notice` VALUES (44, 'ceshi1', '123', '1', '1', '0', 1, '2023-02-28 17:40:34', '2023-03-01 15:11:46');
 INSERT INTO `sys_notice` VALUES (45, '123', NULL, '0', '0', '0', 1, '2023-03-01 09:01:19', '2023-03-01 09:01:19');
-INSERT INTO `sys_notice` VALUES (46, '123', NULL, '1', '0', '0', 1, '2023-03-01 09:51:37', '2023-03-01 17:53:48');
-INSERT INTO `sys_notice` VALUES (47, '12', NULL, '1', '2', '0', 1, '2023-03-01 10:29:30', '2023-03-01 10:29:30');
+INSERT INTO `sys_notice` VALUES (46, '123', NULL, '0', '0', '0', 1, '2023-03-01 09:51:37', '2023-03-23 20:32:37');
+INSERT INTO `sys_notice` VALUES (47, '12', NULL, '0', '2', '0', 1, '2023-03-01 10:29:30', '2023-03-23 20:32:40');
 INSERT INTO `sys_notice` VALUES (48, '123', '123123', '0', '2', '0', 1, '2023-03-01 10:35:00', '2023-03-01 17:53:24');
 INSERT INTO `sys_notice` VALUES (49, '21132', NULL, '1', '0', '0', 1, '2023-03-01 10:59:31', '2023-03-01 17:53:57');
 INSERT INTO `sys_notice` VALUES (50, 'iiiiiiiiiii2', 'asd1', '1', '2', '0', 1, '2023-03-01 11:19:51', '2023-03-01 11:55:13');
@@ -435,7 +438,8 @@ INSERT INTO `sys_notice` VALUES (55, 'a', NULL, '0', '0', '0', 1, '2023-03-01 17
 INSERT INTO `sys_notice` VALUES (56, '123', NULL, '0', '0', '0', 1, '2023-03-01 17:54:28', '2023-03-15 14:36:45');
 INSERT INTO `sys_notice` VALUES (57, '333', NULL, '0', '1', '0', 1, '2023-03-01 17:54:36', '2023-03-01 17:54:36');
 INSERT INTO `sys_notice` VALUES (58, 'bbb', '1111', '1', '2', '0', 2, '2023-03-03 10:53:42', '2023-03-03 10:53:42');
-INSERT INTO `sys_notice` VALUES (59, 'java', '```java\n/**\n * 启动程序\n * @author liweiqiang\n */\n@SpringBootApplication\npublic class Application\n{\n    public static void main(String[] args)\n    {\n        SpringUtils.initApplicationContext(SpringApplication.run(Application.class, args));\n        System.out.println(\"(♥◠‿◠)ﾉﾞ  启动成功   ლ(´ڡ`ლ)ﾞ\");\n    }\n}\n```\n# asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd', '0', '0', '0', 1, '2023-03-13 10:18:01', '2023-03-13 10:18:01');
+INSERT INTO `sys_notice` VALUES (59, 'java', '# 这是一段java程序\n\n```java\n/**\n * 启动程序\n * @author liweiqiang\n */\n@SpringBootApplication\npublic class Application\n{\n    public static void main(String[] args)\n    {\n        SpringUtils.initApplicationContext(SpringApplication.run(Application.class, args));\n        System.out.println(\"(♥◠‿◠)ﾉﾞ  启动成功   ლ(´ڡ`ლ)ﾞ\");\n    }\n}\n```', '0', '0', '0', 1, '2023-03-13 10:18:01', '2023-04-18 22:15:58');
+INSERT INTO `sys_notice` VALUES (60, '123', NULL, '1', '0', '0', 1, '2023-03-23 21:40:56', '2023-03-23 21:40:56');
 
 -- ----------------------------
 -- Table structure for sys_notice_file
@@ -501,6 +505,7 @@ INSERT INTO `sys_notice_file` VALUES (44, 206);
 INSERT INTO `sys_notice_file` VALUES (44, 207);
 INSERT INTO `sys_notice_file` VALUES (44, 208);
 INSERT INTO `sys_notice_file` VALUES (59, 209);
+INSERT INTO `sys_notice_file` VALUES (60, 211);
 
 -- ----------------------------
 -- Table structure for sys_notice_role
@@ -594,6 +599,9 @@ INSERT INTO `sys_notice_role` VALUES (3, 58);
 INSERT INTO `sys_notice_role` VALUES (1, 59);
 INSERT INTO `sys_notice_role` VALUES (2, 59);
 INSERT INTO `sys_notice_role` VALUES (3, 59);
+INSERT INTO `sys_notice_role` VALUES (1, 60);
+INSERT INTO `sys_notice_role` VALUES (2, 60);
+INSERT INTO `sys_notice_role` VALUES (3, 60);
 
 -- ----------------------------
 -- Table structure for sys_param
@@ -894,6 +902,7 @@ INSERT INTO `sys_role_auth` VALUES (1, 103);
 INSERT INTO `sys_role_auth` VALUES (1, 104);
 INSERT INTO `sys_role_auth` VALUES (1, 105);
 INSERT INTO `sys_role_auth` VALUES (1, 106);
+INSERT INTO `sys_role_auth` VALUES (1, 107);
 INSERT INTO `sys_role_auth` VALUES (2, 92);
 
 -- ----------------------------
@@ -970,7 +979,7 @@ CREATE TABLE `sys_router`  (
   INDEX `sys_router-parent`(`parent` ASC) USING BTREE,
   CONSTRAINT `sys_router-creater` FOREIGN KEY (`creater`) REFERENCES `sys_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `sys_router-parent` FOREIGN KEY (`parent`) REFERENCES `sys_router` (`router_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '路由' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '路由' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_router
@@ -982,12 +991,12 @@ INSERT INTO `sys_router` VALUES (4, '用户管理', 'user', '/system/user/User',
 INSERT INTO `sys_router` VALUES (5, '权限管理', 'auth', '/system/auth/Auth', 3, 2, 'KeyOutlined', 1, '2022-05-09 11:01:00', NULL);
 INSERT INTO `sys_router` VALUES (6, '路由管理', 'router', '/system/router/Router', 3, 3, 'GoldOutlined', 1, '2022-05-30 21:14:00', NULL);
 INSERT INTO `sys_router` VALUES (7, '字典配置', 'dict', '/system/dict/Dict', 3, 5, 'PicRightOutlined', 1, '2022-06-11 11:25:44', NULL);
-INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 3, 8, 'CodeSandboxOutlined', 1, '2022-06-19 16:57:58', NULL);
+INSERT INTO `sys_router` VALUES (38, '系统工具', 'utils', NULL, 1, 8, 'CodeSandboxOutlined', 1, '2022-06-19 16:57:58', NULL);
 INSERT INTO `sys_router` VALUES (40, '代码生成', 'codeGenerator', '/system/tool/codeGenerator/CodeGenerator', 38, 0, 'CopyrightOutlined', 1, '2022-06-19 17:00:51', NULL);
 INSERT INTO `sys_router` VALUES (41, '企业管理', 'company', '/system/company/Company', 3, 1, 'VerifiedOutlined', 1, '2022-09-20 15:27:00', NULL);
 INSERT INTO `sys_router` VALUES (44, '系统参数', 'param', '/system/param/Param', 3, 6, 'ProfileOutlined', 1, '2022-11-30 16:54:04', NULL);
 INSERT INTO `sys_router` VALUES (47, '注册码', 'registerCode', '/system/registerCode/registerCode', 3, 4, 'FieldStringOutlined', 1, '2023-01-10 21:29:01', NULL);
-INSERT INTO `sys_router` VALUES (51, '系统文件', 'file', NULL, 3, 7, 'FolderOutlined', 1, '2023-02-27 10:06:13', NULL);
+INSERT INTO `sys_router` VALUES (51, '系统文件', 'file', '', 3, 7, 'FolderOutlined', 1, '2023-02-27 10:06:13', NULL);
 
 -- ----------------------------
 -- Table structure for sys_tool_code
@@ -1029,7 +1038,7 @@ INSERT INTO `sys_tool_code` VALUES (91, '[{\"name\":\"code\",\"type\":\"String\"
 INSERT INTO `sys_tool_code` VALUES (92, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:44:49');
 INSERT INTO `sys_tool_code` VALUES (93, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:45:48');
 INSERT INTO `sys_tool_code` VALUES (94, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', '', 'sys_register_code', '{\"name\":\"sysRegisterCodeId\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '0', 1, '2023-01-10 20:47:25');
-INSERT INTO `sys_tool_code` VALUES (95, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'asd', 'sys_register_code', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/register/code', '1', '1', '0', '1', 1, '2023-01-10 20:47:39');
+INSERT INTO `sys_tool_code` VALUES (95, '[{\"name\":\"code\",\"type\":\"String\",\"len\":50,\"notNull\":true,\"unique\":true,\"like\":false,\"remark\":\"注册码\"},{\"name\":\"used\",\"type\":\"Character\",\"len\":1,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"是否已使用（0：否，1：是）\"},{\"name\":\"roleId\",\"type\":\"Integer\",\"len\":0,\"notNull\":true,\"unique\":false,\"like\":false,\"remark\":\"该注册码可激活的角色\"},{\"name\":\"useBy\",\"type\":\"Long\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"使用该注册码的用户ID\"},{\"name\":\"useTime\",\"type\":\"datetime\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"注册码被使用的时间\"}]', 'com.lia.module', 'sys_register_code', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/register/code', NULL, '1', '0', '1', 1, '2023-01-10 20:47:39');
 INSERT INTO `sys_tool_code` VALUES (97, '[{\"name\":\"asdasd\",\"type\":\"String\",\"len\":0,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"\"}]', 'com.as', 'asd', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', NULL, '1', '1', '1', '1', 1, '2023-02-07 20:57:21');
 INSERT INTO `sys_tool_code` VALUES (98, '[{\"name\":\"title\",\"type\":\"String\",\"len\":100,\"notNull\":true,\"unique\":false,\"like\":true,\"remark\":\"标题\"},{\"name\":\"content\",\"type\":\"String\",\"len\":2000,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"公告正文\"},{\"name\":\"topFlag\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"是否置顶\"},{\"name\":\"level\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"重要程度\"}]', 'com.lia.system', 'sys_notice', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/notice', '1', '1', '1', '0', 1, '2023-02-23 15:40:19');
 INSERT INTO `sys_tool_code` VALUES (99, '[{\"name\":\"title\",\"type\":\"String\",\"len\":100,\"notNull\":true,\"unique\":false,\"like\":true,\"remark\":\"标题\"},{\"name\":\"content\",\"type\":\"String\",\"len\":2000,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"公告正文\"},{\"name\":\"topFlag\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"是否置顶\"},{\"name\":\"level\",\"type\":\"Character\",\"len\":1,\"notNull\":false,\"unique\":false,\"like\":false,\"remark\":\"重要程度\"}]', 'com.lia.system', 'sys_notice', '{\"name\":\"id\",\"type\":\"autoIncrement\"}', '/system/notice', '1', '1', '1', '0', 1, '2023-02-23 15:43:33');
@@ -1068,7 +1077,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', 'lwq', 1, '0', '18150027197', '1072864729@qq.com', 101, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', 'lwq', 1, '0', '18150027197', '1072864729@qq.com', 210, '0', '0', 1, '2022-05-05 13:10:05', '最高权限，不可删除');
 INSERT INTO `sys_user` VALUES (2, 'test', '$2a$10$kf7PjaPF69ynXBXI3DMaWeKJB2a74Nw.coLbCAb4.JsUrUR5.2yd.', 'ceshi', 2, '0', '18150027197', '1072864729@qq.com', 84, '0', '0', 1, '2022-05-17 02:12:00', '测试账号，不可删除');
 INSERT INTO `sys_user` VALUES (89, '1', '$2a$10$30cfIcdCW/iM.mSEI5FQpejfBPjLsltvOXMGtxWgg3B2NL4f2wSBq', '2', NULL, '0', NULL, NULL, NULL, '0', '1', 2, '2023-01-05 11:12:37', NULL);
 INSERT INTO `sys_user` VALUES (90, '1', '$2a$10$a5ubpT8n2sGATK3jtBSc5.PxegJx4lDqvtlGNWkFk.dVUCJJOoaZy', '1', 1, NULL, NULL, NULL, NULL, '0', '1', 1, '2023-01-10 20:21:33', NULL);
@@ -1094,6 +1103,6 @@ INSERT INTO `sys_user` VALUES (111, 'asdssssss1', '$2a$10$fmfyML.BgGCGN3PdVGv7we
 INSERT INTO `sys_user` VALUES (112, 'kkkkkkkk', '$2a$10$3//.8roSB1Uw5mRo6KGv0O6U0gHp/fB0JZBNpyrG0zSMVjQFBbqhC', 'kkk', 1, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-06 20:49:37', NULL);
 INSERT INTO `sys_user` VALUES (113, 'aaaaaaaaaaaaaa', '$2a$10$VxfstUG36n7/aMf7NaRhQuXX91at3iTlWOozw.3lFW6yluOfbqg0O', '啊啊啊啊啊啊啊啊啊啊', 3, NULL, NULL, NULL, NULL, '0', '1', NULL, '2023-02-07 23:45:10', NULL);
 INSERT INTO `sys_user` VALUES (114, 'liweiqiang', '$2a$10$o4EAeEVJf3BJmQmH//mu9uiWACKhSTK9fgHCeveFK6k4JheU7Edn2', '李伟强', 3, NULL, NULL, NULL, NULL, '0', '0', NULL, '2023-03-03 15:23:15', NULL);
-INSERT INTO `sys_user` VALUES (117, '11111111111', '$2a$10$mNmnxjLqLgoJLSTyTY3ItugeiYJSRGrbzygYMCsdoAOTI/3l9Hjxq', '11111111111', 1, NULL, NULL, NULL, NULL, '0', '0', NULL, '2023-03-15 16:16:29', NULL);
+INSERT INTO `sys_user` VALUES (117, '11111111111', '$2a$10$mNmnxjLqLgoJLSTyTY3ItugeiYJSRGrbzygYMCsdoAOTI/3l9Hjxq', '11111111111', 1, '0', NULL, NULL, NULL, '0', '0', NULL, '2023-03-15 16:16:29', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
