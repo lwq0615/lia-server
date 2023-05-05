@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80021 (8.0.21)
+ Source Server Version : 80031
  Source Host           : localhost:3306
  Source Schema         : lia
 
  Target Server Type    : MySQL
- Target Server Version : 80021 (8.0.21)
+ Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 03/05/2023 12:42:23
+ Date: 05/05/2023 13:55:30
 */
 
 SET NAMES utf8mb4;
@@ -1009,7 +1009,7 @@ CREATE TABLE `sys_tool_code`  (
   `table_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表格名',
   `primary_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主键信息',
   `http_url` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '接口基本地址',
-  `create_by_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加创建人字段(0:是，1:否)',
+  `creater_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加创建人字段(0:是，1:否)',
   `create_time_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加创建时间字段(0:是，1:否)',
   `update_time_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加更新时间字段(0:是，1:否)',
   `remark_flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '1' COMMENT '添加备注字段(0:是，1:否)',

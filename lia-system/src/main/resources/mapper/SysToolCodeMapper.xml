@@ -11,7 +11,7 @@
         <id     property="module"      column="module"      />
         <id     property="primaryKey"      column="primary_key"      />
         <id     property="httpUrl"      column="http_url"      />
-        <id     property="createrFlag"      column="create_by_flag"      />
+        <id     property="createrFlag"      column="creater_flag"      />
         <id     property="createTimeFlag"      column="create_time_flag"      />
         <id     property="updateTimeFlag"      column="update_time_flag"      />
         <id     property="remarkFlag"      column="remark_flag"      />
@@ -45,7 +45,7 @@
                 AND `create_time_flag` = #{createTimeFlag}
             </if>
             <if test="createrFlag != null">
-                AND `create_by_flag` = #{createrFlag}
+                AND `creater_flag` = #{createrFlag}
             </if>
             <if test="updateTimeFlag != null">
                 AND `update_time_flag` = #{updateTimeFlag}
@@ -73,7 +73,7 @@
             `http_url`,
             `create_time_flag`,
             `update_time_flag`,
-            `create_by_flag`,
+            `creater_flag`,
             `remark_flag`,
             `creater`
         )
@@ -101,7 +101,7 @@
         `http_url` = #{httpUrl},
         `create_time_flag` = #{createTimeFlag},
         `update_time_flag` = #{updateTimeFlag},
-        `create_by_flag` = #{createrFlag},
+        `creater_flag` = #{createrFlag},
         `remark_flag` = #{remarkFlag}
         where `code_id` = #{codeId}
     </update>
