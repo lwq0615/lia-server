@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80031
+ Source Server Version : 80021 (8.0.21)
  Source Host           : localhost:3306
  Source Schema         : lia
 
  Target Server Type    : MySQL
- Target Server Version : 80031
+ Target Server Version : 80021 (8.0.21)
  File Encoding         : 65001
 
- Date: 05/05/2023 13:55:30
+ Date: 03/05/2023 12:42:23
 */
 
 SET NAMES utf8mb4;
