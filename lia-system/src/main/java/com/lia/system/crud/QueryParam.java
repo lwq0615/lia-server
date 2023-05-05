@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class QueryParam {
 
@@ -75,9 +76,7 @@ public class QueryParam {
             Object value = getColumnValue(field);
             // 如果该字段添加了Between，则做范围查询
             if (AnnotationUtils.findAnnotation(field, Between.class) != null) {
-                List<String> btw = new ArrayList<>();
-                Collections.addAll(btw, ((String) value).split(","));
-                value = btw;
+                value = Arrays.stream(((String) value).split(",")).map(str -> str.trim()).collect(Collectors.toList());
             }
             columns.add(new Column(columnName, value, field.getAnnotation(Like.class) != null));
         }
