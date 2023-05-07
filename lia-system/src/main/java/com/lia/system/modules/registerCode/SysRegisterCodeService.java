@@ -1,6 +1,7 @@
 
 package com.lia.system.modules.registerCode;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.lia.system.crud.BaseService;
 import com.lia.system.entity.SysRegisterCode;
 import com.lia.system.entity.SysRole;
@@ -53,8 +54,10 @@ public class SysRegisterCodeService extends BaseService<SysRegisterCode> {
         if(code.getUseBy() != null){
             throw new HttpException(SysResult.REGISTER_USED);
         }
-        SysRegisterCode newCode = new SysRegisterCode().setRoleId(roleId).setId(id);
-        return sysRegisterCodeMapper.updateById(newCode);
+        UpdateWrapper updateWrapper = new UpdateWrapper();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("role_id",  roleId);
+        return sysRegisterCodeMapper.update(null, updateWrapper);
     }
 
 

@@ -4,15 +4,12 @@ package com.lia.system.entity;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.baomidou.mybatisplus.annotation.*;
 import com.lia.system.crud.anno.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 
 @Data
 @AllArgsConstructor
@@ -52,6 +49,7 @@ public class SysRegisterCode {
     @ExcelProperty("角色")
     @ColumnWidth(15)
     @Pass
+    @TableField(select = false)
     private String roleName;
 
     /**
@@ -73,6 +71,7 @@ public class SysRegisterCode {
      */
     @Pass
     @ExcelIgnore
+    @TableField(select = false)
     private Boolean used;
 
     /**
@@ -80,6 +79,7 @@ public class SysRegisterCode {
      */
     @Pass
     @ExcelIgnore
+    @TableField(select = false)
     private Boolean expired;
 
     /**
